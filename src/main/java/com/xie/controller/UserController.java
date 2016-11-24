@@ -1,14 +1,10 @@
 package com.xie.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.User;
-import com.xie.mapper.UserMapper;
 import com.xie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by xie on 16/11/24.

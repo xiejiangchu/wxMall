@@ -1,6 +1,5 @@
 package com.xie;
 
-import com.alibaba.fastjson.JSON;
 import com.xie.config.MyBatisConfig;
 import com.xie.dao.UserDao;
 import com.xie.mapper.UserMapper;

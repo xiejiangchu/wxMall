@@ -1,94 +1,52 @@
 package com.xie.bean;
 
-/**
- * Created by xie on 16/11/24.
- */
-public class Goods {
+import java.io.Serializable;
+import java.sql.Timestamp;
 
-    /**
-     * id : 23935
-     * no : NO69632204
-     * name : 圆生菜/球生菜
-     * category_id1 : 617
-     * category_id2 : 662
-     * is_remain : 0
-     * is_online : 1
-     * is_active : 0
-     * is_rough : 0
-     * is_promote : 0
-     * is_delete : 0
-     * status : 1
-     * promote_end : null
-     * order : 12
-     * weight : 0.0
-     * order_quantity : 0.0
-     * max_quantity : 0.0
-     * market_price : 2.4
-     * shop_price : 1.25
-     * promote_price : 1.25
-     * remain : 0.0
-     * sale_num : 715.0
-     * quanlity : 10
-     * unit : 斤
-     * unit_sell : 0
-     * unitDesc : Ad molestiae tempora est qui ut voluptatem excepturi.
-     * src : http://zhanggui.b0.upaiyun.com/upload_pic/thumbnail_1459995409.jpg
-     * thumb : http://zhanggui.b0.upaiyun.com/upload_pic/thumbnail_1459995409.jpg
-     * place : 宜春
-     * summary : 鲜绿,饱满,无烂叶
-     * notice :
-     * description : null
-     * created_at : 2016-10-15 19:50:37
-     * updated_at : 2016-10-15 19:50:37
-     * deleted_at : null
-     */
-
-    private int id;
+public class Goods implements Serializable {
+    private Integer id;
     private String no;
     private String name;
-    private int category_id1;
-    private int category_id2;
-    private int is_remain;
-    private int is_online;
-    private int is_active;
-    private int is_rough;
-    private int is_promote;
-    private int is_delete;
-    private int status;
-    private Object promote_end;
-    private int order;
-    private double weight;
-    private double order_quantity;
-    private double max_quantity;
-    private double market_price;
-    private double shop_price;
-    private double promote_price;
-    private double remain;
-    private double sale_num;
-    private int quanlity;
+    private Integer category_id1;
+    private Integer category_id2;
+    private Byte is_remain;
+    private Byte is_online;
+    private Byte is_active;
+    private Byte is_rough;
+    private Byte is_promote;
+    private Byte is_delete;
+    private Byte status;
+    private Timestamp promote_end;
+    private Integer order;
+    private Double weight;
+    private Double order_quantity;
+    private Double max_quantity;
+    private Double market_price;
+    private Double shop_price;
+    private Double promote_price;
+    private Double remain;
+    private Double sale_num;
+    private Integer quanlity;
     private String unit;
     private String unit_sell;
-    private String unitDesc;
+    private String unitdesc;
     private String src;
     private String thumb;
     private String place;
-    private String summary;
-    private String notice;
-    private Object description;
-    private String created_at;
-    private String updated_at;
-    private String deleted_at;
+    private Timestamp created_at;
+    private Timestamp updated_at;
+    private Timestamp deleted_at;
 
-    public int getId() {
-        return id;
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public String getNo() {
-        return no;
+        return this.no;
     }
 
     public void setNo(String no) {
@@ -96,175 +54,175 @@ public class Goods {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public int getCategory_id1() {
-        return category_id1;
+    public Integer getCategory_id1() {
+        return this.category_id1;
     }
 
-    public void setCategory_id1(int category_id1) {
+    public void setCategory_id1(Integer category_id1) {
         this.category_id1 = category_id1;
     }
 
-    public int getCategory_id2() {
-        return category_id2;
+    public Integer getCategory_id2() {
+        return this.category_id2;
     }
 
-    public void setCategory_id2(int category_id2) {
+    public void setCategory_id2(Integer category_id2) {
         this.category_id2 = category_id2;
     }
 
-    public int getIs_remain() {
-        return is_remain;
+    public Byte getIs_remain() {
+        return this.is_remain;
     }
 
-    public void setIs_remain(int is_remain) {
+    public void setIs_remain(Byte is_remain) {
         this.is_remain = is_remain;
     }
 
-    public int getIs_online() {
-        return is_online;
+    public Byte getIs_online() {
+        return this.is_online;
     }
 
-    public void setIs_online(int is_online) {
+    public void setIs_online(Byte is_online) {
         this.is_online = is_online;
     }
 
-    public int getIs_active() {
-        return is_active;
+    public Byte getIs_active() {
+        return this.is_active;
     }
 
-    public void setIs_active(int is_active) {
+    public void setIs_active(Byte is_active) {
         this.is_active = is_active;
     }
 
-    public int getIs_rough() {
-        return is_rough;
+    public Byte getIs_rough() {
+        return this.is_rough;
     }
 
-    public void setIs_rough(int is_rough) {
+    public void setIs_rough(Byte is_rough) {
         this.is_rough = is_rough;
     }
 
-    public int getIs_promote() {
-        return is_promote;
+    public Byte getIs_promote() {
+        return this.is_promote;
     }
 
-    public void setIs_promote(int is_promote) {
+    public void setIs_promote(Byte is_promote) {
         this.is_promote = is_promote;
     }
 
-    public int getIs_delete() {
-        return is_delete;
+    public Byte getIs_delete() {
+        return this.is_delete;
     }
 
-    public void setIs_delete(int is_delete) {
+    public void setIs_delete(Byte is_delete) {
         this.is_delete = is_delete;
     }
 
-    public int getStatus() {
-        return status;
+    public Byte getStatus() {
+        return this.status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
-    public Object getPromote_end() {
-        return promote_end;
+    public Timestamp getPromote_end() {
+        return this.promote_end;
     }
 
-    public void setPromote_end(Object promote_end) {
+    public void setPromote_end(Timestamp promote_end) {
         this.promote_end = promote_end;
     }
 
-    public int getOrder() {
-        return order;
+    public Integer getOrder() {
+        return this.order;
     }
 
-    public void setOrder(int order) {
+    public void setOrder(Integer order) {
         this.order = order;
     }
 
-    public double getWeight() {
-        return weight;
+    public Double getWeight() {
+        return this.weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public double getOrder_quantity() {
-        return order_quantity;
+    public Double getOrder_quantity() {
+        return this.order_quantity;
     }
 
-    public void setOrder_quantity(double order_quantity) {
+    public void setOrder_quantity(Double order_quantity) {
         this.order_quantity = order_quantity;
     }
 
-    public double getMax_quantity() {
-        return max_quantity;
+    public Double getMax_quantity() {
+        return this.max_quantity;
     }
 
-    public void setMax_quantity(double max_quantity) {
+    public void setMax_quantity(Double max_quantity) {
         this.max_quantity = max_quantity;
     }
 
-    public double getMarket_price() {
-        return market_price;
+    public Double getMarket_price() {
+        return this.market_price;
     }
 
-    public void setMarket_price(double market_price) {
+    public void setMarket_price(Double market_price) {
         this.market_price = market_price;
     }
 
-    public double getShop_price() {
-        return shop_price;
+    public Double getShop_price() {
+        return this.shop_price;
     }
 
-    public void setShop_price(double shop_price) {
+    public void setShop_price(Double shop_price) {
         this.shop_price = shop_price;
     }
 
-    public double getPromote_price() {
-        return promote_price;
+    public Double getPromote_price() {
+        return this.promote_price;
     }
 
-    public void setPromote_price(double promote_price) {
+    public void setPromote_price(Double promote_price) {
         this.promote_price = promote_price;
     }
 
-    public double getRemain() {
-        return remain;
+    public Double getRemain() {
+        return this.remain;
     }
 
-    public void setRemain(double remain) {
+    public void setRemain(Double remain) {
         this.remain = remain;
     }
 
-    public double getSale_num() {
-        return sale_num;
+    public Double getSale_num() {
+        return this.sale_num;
     }
 
-    public void setSale_num(double sale_num) {
+    public void setSale_num(Double sale_num) {
         this.sale_num = sale_num;
     }
 
-    public int getQuanlity() {
-        return quanlity;
+    public Integer getQuanlity() {
+        return this.quanlity;
     }
 
-    public void setQuanlity(int quanlity) {
+    public void setQuanlity(Integer quanlity) {
         this.quanlity = quanlity;
     }
 
     public String getUnit() {
-        return unit;
+        return this.unit;
     }
 
     public void setUnit(String unit) {
@@ -272,23 +230,23 @@ public class Goods {
     }
 
     public String getUnit_sell() {
-        return unit_sell;
+        return this.unit_sell;
     }
 
     public void setUnit_sell(String unit_sell) {
         this.unit_sell = unit_sell;
     }
 
-    public String getUnitDesc() {
-        return unitDesc;
+    public String getUnitdesc() {
+        return this.unitdesc;
     }
 
-    public void setUnitDesc(String unitDesc) {
-        this.unitDesc = unitDesc;
+    public void setUnitdesc(String unitdesc) {
+        this.unitdesc = unitdesc;
     }
 
     public String getSrc() {
-        return src;
+        return this.src;
     }
 
     public void setSrc(String src) {
@@ -296,7 +254,7 @@ public class Goods {
     }
 
     public String getThumb() {
-        return thumb;
+        return this.thumb;
     }
 
     public void setThumb(String thumb) {
@@ -304,58 +262,35 @@ public class Goods {
     }
 
     public String getPlace() {
-        return place;
+        return this.place;
     }
 
     public void setPlace(String place) {
         this.place = place;
     }
 
-    public String getSummary() {
-        return summary;
+    public Timestamp getCreated_at() {
+        return this.created_at;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getNotice() {
-        return notice;
-    }
-
-    public void setNotice(String notice) {
-        this.notice = notice;
-    }
-
-    public Object getDescription() {
-        return description;
-    }
-
-    public void setDescription(Object description) {
-        this.description = description;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public Timestamp getUpdated_at() {
+        return this.updated_at;
     }
 
-    public void setUpdated_at(String updated_at) {
+    public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
 
-    public String getDeleted_at() {
-        return deleted_at;
+    public Timestamp getDeleted_at() {
+        return this.deleted_at;
     }
 
-    public void setDeleted_at(String deleted_at) {
+    public void setDeleted_at(Timestamp deleted_at) {
         this.deleted_at = deleted_at;
     }
-}
+} 
+

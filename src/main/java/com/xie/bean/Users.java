@@ -1,31 +1,22 @@
 package com.xie.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class User implements Serializable {
+public class Users implements Serializable {
     private Integer id;
     private String name;
     private String mobile;
     private String email;
     private String wx;
+    private Byte lock;
+    private Byte verified;
     private String description;
+    private String password;
+    private String remember_token;
     private Timestamp created_at;
     private Timestamp updated_at;
     private Timestamp deleted_at;
-
-    @JsonIgnore
-    private Byte lock;
-    @JsonIgnore
-    private Byte verified;
-
-    @JsonIgnore
-    private String password;
-    @JsonIgnore
-    private String remember_token;
-
 
     public Integer getId() {
         return this.id;
@@ -130,5 +121,5 @@ public class User implements Serializable {
     public void setDeleted_at(Timestamp deleted_at) {
         this.deleted_at = deleted_at;
     }
-}
+} 
 

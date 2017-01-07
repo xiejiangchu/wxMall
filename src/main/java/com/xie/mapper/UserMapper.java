@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("SELECT * FROM users WHERE id = #{id}")
-    User findById(@Param("id") String id);
+    User getById(@Param("id") String id);
 
     @Select("SELECT * FROM users ")
     List<User> getAllUsers();

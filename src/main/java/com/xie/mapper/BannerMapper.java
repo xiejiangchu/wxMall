@@ -39,6 +39,9 @@ public interface BannerMapper {
 
 
 //    @Insert("INSERT into village(name,district) VALUES(#{villageName}, #{district})")
+//    @Options(useGeneratedKeys = true, keyProperty = "studId")
+//    @SelectKey(statement="SELECT STUD_ID_SEQ.CURRVAL FROM DUAL",
+//            keyProperty="studId", resultType=int.class, before=false)
 //    void insertVillage(Village village);
 //
 //    @Update("UPDATE village SET name=#{villageName}, district =#{district} WHERE id =#{vid}")

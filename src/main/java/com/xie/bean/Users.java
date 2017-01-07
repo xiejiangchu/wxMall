@@ -3,6 +3,7 @@ package com.xie.bean;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Deprecated
 public class Users implements Serializable {
     private Integer id;
     private String name;

@@ -54,7 +54,7 @@ repositories {
 
 bootRun {
     addResources = true
-//    args '--debug'
+    args '--debug'
 }
 
 bootRepackage {
@@ -73,7 +73,7 @@ dependencies {
 //    compile "org.springframework.security.oauth:spring-security-oauth2:2.0.12.RELEASE"
     compile 'mysql:mysql-connector-java:5.1.39'
     /** 配置mybatis 数据源  */
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0")
     /** mybatis分页插件 */
     compile 'com.github.pagehelper:pagehelper:4.1.6'
     /** -Swagger */
@@ -89,4 +89,5 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-core:2.6.2'
     compile 'org.apache.logging.log4j:log4j-api:2.6.2'
     compile 'org.apache.logging.log4j:log4j-web:2.6.2'
+    compile 'net.sourceforge.nekohtml:nekohtml:1.9.21'
 }

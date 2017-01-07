@@ -1,20 +1,20 @@
 package com.xie.bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Banner implements Serializable {
     private Integer id;
     private String tip;
     private String url;
-    private Byte is_show;
+    private int is_show;
     private Integer order;
-    private Timestamp created_at;
-    private Timestamp updated_at;
-    private Timestamp deleted_at;
+    private Date created_at;
+    private Date updated_at;
+    private Date deleted_at;
 
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
@@ -22,7 +22,7 @@ public class Banner implements Serializable {
     }
 
     public String getTip() {
-        return this.tip;
+        return tip;
     }
 
     public void setTip(String tip) {
@@ -30,51 +30,51 @@ public class Banner implements Serializable {
     }
 
     public String getUrl() {
-        return this.url;
+        return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public Byte getIs_show() {
-        return this.is_show;
+    public int getIs_show() {
+        return is_show;
     }
 
-    public void setIs_show(Byte is_show) {
+    public void setIs_show(int is_show) {
         this.is_show = is_show;
     }
 
     public Integer getOrder() {
-        return this.order;
+        return order;
     }
 
     public void setOrder(Integer order) {
         this.order = order;
     }
 
-    public Timestamp getCreated_at() {
-        return this.created_at;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdated_at() {
-        return this.updated_at;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
+    public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
 
-    public Timestamp getDeleted_at() {
-        return this.deleted_at;
+    public Date getDeleted_at() {
+        return deleted_at;
     }
 
-    public void setDeleted_at(Timestamp deleted_at) {
+    public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
     }
-} 
+}
 

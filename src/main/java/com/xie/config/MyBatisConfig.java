@@ -8,9 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -21,6 +22,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@EnableConfigurationProperties
 @Configuration
 @MapperScan("com.xie.dao")
 public class MyBatisConfig {
@@ -46,9 +48,9 @@ public class MyBatisConfig {
     @Bean
     public DataSource dataSource() throws SQLException {
         return DataSourceBuilder.create(Thread.currentThread().getContextClassLoader())
-                .driverClassName(jdbcConfig.getDriverClass())
+                .driverClassName(jdbcConfig.getDriver())
                 .url(jdbcConfig.getUrl())
-                .username(jdbcConfig.getUserName())
+                .username(jdbcConfig.getUsername())
                 .password(jdbcConfig.getPassword()).build();
     }
 
@@ -73,45 +75,40 @@ public class MyBatisConfig {
         return sqlSessionFactoryBean;
     }
 
-    @PropertySource(value = "application-dev.properties")
-//    @ConfigurationProperties(prefix="spring.datasource", ignoreNestedProperties = false)
+    @ConfigurationProperties(locations = "classpath:/application-dev.yml",prefix = "spring.datasource")
     @Component
     static class JdbcConfig {
         /**
          * 数据库用户名
          */
-        @Value("${spring.datasource.username}")
-        private String userName;
+        private String username;
         /**
          * 驱动名称
          */
-        @Value("${spring.datasource.driverClassName}")
-        private String driverClass;
+        private String driver;
         /**
          * 数据库连接url
          */
-        @Value("${spring.datasource.url}")
         private String url;
         /**
          * 数据库密码
          */
-        @Value("${spring.datasource.password}")
         private String password;
 
-        public String getUserName() {
-            return userName;
+        public String getUsername() {
+            return username;
         }
 
-        public void setUserName(String userName) {
-            this.userName = userName;
+        public void setUsername(String username) {
+            this.username = username;
         }
 
-        public String getDriverClass() {
-            return driverClass;
+        public String getDriver() {
+            return driver;
         }
 
-        public void setDriverClass(String driverClass) {
-            this.driverClass = driverClass;
+        public void setDriver(String driver) {
+            this.driver = driver;
         }
 
         public String getUrl() {

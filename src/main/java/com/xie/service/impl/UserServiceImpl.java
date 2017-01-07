@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(String id) {
-        return userMapper.findById(id);
+        return userDao.selectUserById(id);
     }
 
     @Override
     public PageInfo<User> getAllUsers(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        PageInfo<User> page = new PageInfo<User>(userMapper.getAllUsers());
+        PageInfo<User> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> userMapper.getAllUsers());
+
         return page;
     }
 }

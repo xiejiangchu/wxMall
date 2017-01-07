@@ -29,7 +29,7 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
+                .title("Spring Boot中使用 Swagger2 构建RESTful APIs")
                 .description("API文档")
                 .contact("谢江初")
                 .version("1.0")

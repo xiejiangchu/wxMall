@@ -2,8 +2,9 @@ package com.xie.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
-public class Goods implements Serializable {
+public class Item implements Serializable {
     private Integer id;
     private String no;
     private String name;
@@ -33,9 +34,9 @@ public class Goods implements Serializable {
     private String src;
     private String thumb;
     private String place;
-    private Timestamp created_at;
-    private Timestamp updated_at;
-    private Timestamp deleted_at;
+    private Date created_at;
+    private Date updated_at;
+    private Date deleted_at;
 
     public Integer getId() {
         return this.id;
@@ -269,28 +270,28 @@ public class Goods implements Serializable {
         this.place = place;
     }
 
-    public Timestamp getCreated_at() {
-        return this.created_at;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdated_at() {
-        return this.updated_at;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
+    public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
 
-    public Timestamp getDeleted_at() {
-        return this.deleted_at;
+    public Date getDeleted_at() {
+        return deleted_at;
     }
 
-    public void setDeleted_at(Timestamp deleted_at) {
+    public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
     }
-} 
+}
 

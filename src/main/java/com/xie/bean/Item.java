@@ -5,29 +5,29 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Item implements Serializable {
-    private Integer id;
+    private int id;
     private String no;
     private String name;
-    private Integer category_id1;
-    private Integer category_id2;
-    private Byte is_remain;
-    private Byte is_online;
-    private Byte is_active;
-    private Byte is_rough;
-    private Byte is_promote;
-    private Byte is_delete;
-    private Byte status;
-    private Timestamp promote_end;
-    private Integer order;
-    private Double weight;
-    private Double order_quantity;
-    private Double max_quantity;
-    private Double market_price;
-    private Double shop_price;
-    private Double promote_price;
-    private Double remain;
-    private Double sale_num;
-    private Integer quanlity;
+    private int category_id1;
+    private int category_id2;
+    private int is_remain;
+    private int is_online;
+    private int is_active;
+    private int is_rough;
+    private int is_promote;
+    private int is_delete;
+    private int status;
+    private Date promote_end;
+    private int order;
+    private double weight;
+    private double order_quantity;
+    private double max_quantity;
+    private double market_price;
+    private double shop_price;
+    private double promote_price;
+    private double remain;
+    private double sale_num;
+    private int quanlity;
     private String unit;
     private String unit_sell;
     private String unitdesc;
@@ -38,16 +38,16 @@ public class Item implements Serializable {
     private Date updated_at;
     private Date deleted_at;
 
-    public Integer getId() {
-        return this.id;
+    public int getId() {
+        return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getNo() {
-        return this.no;
+        return no;
     }
 
     public void setNo(String no) {
@@ -55,175 +55,175 @@ public class Item implements Serializable {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getCategory_id1() {
-        return this.category_id1;
+    public int getCategory_id1() {
+        return category_id1;
     }
 
-    public void setCategory_id1(Integer category_id1) {
+    public void setCategory_id1(int category_id1) {
         this.category_id1 = category_id1;
     }
 
-    public Integer getCategory_id2() {
-        return this.category_id2;
+    public int getCategory_id2() {
+        return category_id2;
     }
 
-    public void setCategory_id2(Integer category_id2) {
+    public void setCategory_id2(int category_id2) {
         this.category_id2 = category_id2;
     }
 
-    public Byte getIs_remain() {
-        return this.is_remain;
+    public int getIs_remain() {
+        return is_remain;
     }
 
-    public void setIs_remain(Byte is_remain) {
+    public void setIs_remain(int is_remain) {
         this.is_remain = is_remain;
     }
 
-    public Byte getIs_online() {
-        return this.is_online;
+    public int getIs_online() {
+        return is_online;
     }
 
-    public void setIs_online(Byte is_online) {
+    public void setIs_online(int is_online) {
         this.is_online = is_online;
     }
 
-    public Byte getIs_active() {
-        return this.is_active;
+    public int getIs_active() {
+        return is_active;
     }
 
-    public void setIs_active(Byte is_active) {
+    public void setIs_active(int is_active) {
         this.is_active = is_active;
     }
 
-    public Byte getIs_rough() {
-        return this.is_rough;
+    public int getIs_rough() {
+        return is_rough;
     }
 
-    public void setIs_rough(Byte is_rough) {
+    public void setIs_rough(int is_rough) {
         this.is_rough = is_rough;
     }
 
-    public Byte getIs_promote() {
-        return this.is_promote;
+    public int getIs_promote() {
+        return is_promote;
     }
 
-    public void setIs_promote(Byte is_promote) {
+    public void setIs_promote(int is_promote) {
         this.is_promote = is_promote;
     }
 
-    public Byte getIs_delete() {
-        return this.is_delete;
+    public int getIs_delete() {
+        return is_delete;
     }
 
-    public void setIs_delete(Byte is_delete) {
+    public void setIs_delete(int is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Byte getStatus() {
-        return this.status;
+    public int getStatus() {
+        return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Timestamp getPromote_end() {
-        return this.promote_end;
+    public Date getPromote_end() {
+        return promote_end;
     }
 
-    public void setPromote_end(Timestamp promote_end) {
+    public void setPromote_end(Date promote_end) {
         this.promote_end = promote_end;
     }
 
-    public Integer getOrder() {
-        return this.order;
+    public int getOrder() {
+        return order;
     }
 
-    public void setOrder(Integer order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
-    public Double getWeight() {
-        return this.weight;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public Double getOrder_quantity() {
-        return this.order_quantity;
+    public double getOrder_quantity() {
+        return order_quantity;
     }
 
-    public void setOrder_quantity(Double order_quantity) {
+    public void setOrder_quantity(double order_quantity) {
         this.order_quantity = order_quantity;
     }
 
-    public Double getMax_quantity() {
-        return this.max_quantity;
+    public double getMax_quantity() {
+        return max_quantity;
     }
 
-    public void setMax_quantity(Double max_quantity) {
+    public void setMax_quantity(double max_quantity) {
         this.max_quantity = max_quantity;
     }
 
-    public Double getMarket_price() {
-        return this.market_price;
+    public double getMarket_price() {
+        return market_price;
     }
 
-    public void setMarket_price(Double market_price) {
+    public void setMarket_price(double market_price) {
         this.market_price = market_price;
     }
 
-    public Double getShop_price() {
-        return this.shop_price;
+    public double getShop_price() {
+        return shop_price;
     }
 
-    public void setShop_price(Double shop_price) {
+    public void setShop_price(double shop_price) {
         this.shop_price = shop_price;
     }
 
-    public Double getPromote_price() {
-        return this.promote_price;
+    public double getPromote_price() {
+        return promote_price;
     }
 
-    public void setPromote_price(Double promote_price) {
+    public void setPromote_price(double promote_price) {
         this.promote_price = promote_price;
     }
 
-    public Double getRemain() {
-        return this.remain;
+    public double getRemain() {
+        return remain;
     }
 
-    public void setRemain(Double remain) {
+    public void setRemain(double remain) {
         this.remain = remain;
     }
 
-    public Double getSale_num() {
-        return this.sale_num;
+    public double getSale_num() {
+        return sale_num;
     }
 
-    public void setSale_num(Double sale_num) {
+    public void setSale_num(double sale_num) {
         this.sale_num = sale_num;
     }
 
-    public Integer getQuanlity() {
-        return this.quanlity;
+    public int getQuanlity() {
+        return quanlity;
     }
 
-    public void setQuanlity(Integer quanlity) {
+    public void setQuanlity(int quanlity) {
         this.quanlity = quanlity;
     }
 
     public String getUnit() {
-        return this.unit;
+        return unit;
     }
 
     public void setUnit(String unit) {
@@ -231,7 +231,7 @@ public class Item implements Serializable {
     }
 
     public String getUnit_sell() {
-        return this.unit_sell;
+        return unit_sell;
     }
 
     public void setUnit_sell(String unit_sell) {
@@ -239,7 +239,7 @@ public class Item implements Serializable {
     }
 
     public String getUnitdesc() {
-        return this.unitdesc;
+        return unitdesc;
     }
 
     public void setUnitdesc(String unitdesc) {
@@ -247,7 +247,7 @@ public class Item implements Serializable {
     }
 
     public String getSrc() {
-        return this.src;
+        return src;
     }
 
     public void setSrc(String src) {
@@ -255,7 +255,7 @@ public class Item implements Serializable {
     }
 
     public String getThumb() {
-        return this.thumb;
+        return thumb;
     }
 
     public void setThumb(String thumb) {
@@ -263,7 +263,7 @@ public class Item implements Serializable {
     }
 
     public String getPlace() {
-        return this.place;
+        return place;
     }
 
     public void setPlace(String place) {

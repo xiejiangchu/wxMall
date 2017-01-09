@@ -16,7 +16,7 @@ import java.util.List;
 public interface CartMapper {
 
     @Results({
-            @Result(property = "user", column = "uid", one = @One(select = "com.xie.mapper.UserMapper.getById")),
+//            @Result(property = "user", column = "uid", one = @One(select = "com.xie.mapper.UserMapper.getById")),
             @Result(property = "item", column = "gid", one = @One(select = "com.xie.mapper.ItemMapper.getById")),
             @Result(property = "created_at", column = "created_at", javaType = Date.class, jdbcType = JdbcType.TIMESTAMP),
             @Result(property = "updated_at", column = "updated_at", javaType = Date.class, jdbcType = JdbcType.TIMESTAMP)

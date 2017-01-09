@@ -3,6 +3,7 @@ package com.xie.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Item;
+import com.xie.dao.ItemDao;
 import com.xie.mapper.ItemMapper;
 import com.xie.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemMapper itemMapper;
+    @Autowired
+    private ItemDao itemDao;
 
     @Override
     public Item getById(int id) {
-        return itemMapper.getById(id);
+        return itemDao.getById(id);
     }
 
     @Override

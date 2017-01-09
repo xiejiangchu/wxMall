@@ -54,7 +54,7 @@ repositories {
 
 bootRun {
     addResources = true
-    args '--debug'
+//    args '--debug'
 }
 
 bootRepackage {

@@ -10,6 +10,8 @@ import java.util.List;
 @JsonIgnoreProperties(value = { "handler" })
 public class Cart implements Serializable {
     private Integer id;
+    private Integer uid;
+    private Integer gid;
     private Integer amount;
     private Date created_at;
     private Date updated_at;
@@ -63,6 +65,22 @@ public class Cart implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public Integer getGid() {
+        return gid;
+    }
+
+    public void setGid(Integer gid) {
+        this.gid = gid;
     }
 }
 

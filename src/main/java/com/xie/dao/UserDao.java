@@ -10,13 +10,17 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class UserDao {
+public class UserDao extends BaseDao{
 
-    @Autowired
-    private SqlSession sqlSession;
-
-    public User selectUserById(String id) {
+    public User selectUserById(int id) {
         return this.sqlSession.selectOne("userDao.selectUserById", id);
     }
 
+    public User selectUserByName(String name) {
+        return this.sqlSession.selectOne("userDao.selectUserByName", name);
+    }
+
+    public int insert(User user){
+        return this.sqlSession.insert("userDao.insert", user);
+    }
 }

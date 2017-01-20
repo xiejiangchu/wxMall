@@ -2,7 +2,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itemDao">
-    <select id="getById" resultType="com.xie.bean.Item">
+
+    <resultMap id="ItemResult" type="Item" autoMapping="true">
+        <id column="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="category_id1" column="category_id1" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="category_id2" column="category_id2" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_remain" column="is_remain" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_online" column="is_online" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_active" column="is_active" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_rough" column="is_rough" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_promote" column="is_promote" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_delete" column="is_delete" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="order_quantity" column="order_quantity" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="max_quantity" column="max_quantity" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="remain" column="remain" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="sale_num" column="sale_num" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="promote_end" column="promote_end" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="ItemResult">
         SELECT * FROM goods
         where id=#{id}
     </select>

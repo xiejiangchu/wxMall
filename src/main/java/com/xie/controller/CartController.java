@@ -3,6 +3,7 @@ package com.xie.controller;
 import com.xie.bean.Cart;
 import com.xie.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class CartController {
 
     @RequestMapping(value = "cart/{uid}", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("authenticated and hasPermission('manager_orders', 'manager_orders')")
     public List<Cart> cart(@PathVariable("uid") int uid) {
         return cartService.getByUid(uid);
     }

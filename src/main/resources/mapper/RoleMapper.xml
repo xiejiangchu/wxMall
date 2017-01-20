@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RoleMapper">
+
+    <select id="selectByUid" resultType="Role">
+        SELECT r.*
+        FROM role_user ru
+        LEFT JOIN roles r
+        ON ru.role_id=r.id
+        WHERE ru.user_id = #{uid}
+    </select>
+
+    <select id="checkPermission" parameterType="map" resultType="Role">
+        SELECT r.*
+        FROM role_user ru
+        LEFT JOIN roles r
+        ON ru.role_id=r.id
+        WHERE ru.user_id = #{uid}
+        AND r.name = #{permission}
+    </select>
+
+</mapper>

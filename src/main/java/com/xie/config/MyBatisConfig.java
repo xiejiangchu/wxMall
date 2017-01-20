@@ -75,7 +75,7 @@ public class MyBatisConfig {
         return sqlSessionFactoryBean;
     }
 
-    @ConfigurationProperties(locations = "classpath:/application-dev.yml",prefix = "spring.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     @Component
     static class JdbcConfig {
         /**

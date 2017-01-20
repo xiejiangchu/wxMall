@@ -11,10 +11,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ItemDao {
-
-    @Autowired
-    private SqlSession sqlSession;
+public class ItemDao extends BaseDao{
 
     public Item getById(int id) {
         return this.sqlSession.selectOne("itemDao.getById", id);

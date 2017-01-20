@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,10 @@
 
 <p>欢迎使用微信商城服务</p>
 <a href="/swagger-ui.html">swagger 2  接口文档</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log out" />
+</form>
+
 </body>
 
 </html>

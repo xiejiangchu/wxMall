@@ -1,10 +1,11 @@
 package com.xie.service.impl;
 
 import com.xie.bean.Banner;
-import com.xie.mapper.BannerMapper;
+import com.xie.dao.BannerDao;
 import com.xie.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -15,20 +16,54 @@ import java.util.List;
 public class BannerServiceImpl implements BannerService {
 
     @Autowired
-    BannerMapper bannerMapper;
+    private BannerDao bannerDao;
 
     @Override
     public List<Banner> getAllCanShow() {
-        return bannerMapper.getAllBannersCanShow();
+        return bannerDao.getAllCanShow();
     }
 
     @Override
     public List<Banner> getAll() {
-        return bannerMapper.getAllBanners();
+        return bannerDao.getAll();
     }
 
     @Override
     public Banner getById(int id) {
-        return bannerMapper.getBannerById(id);
+        return bannerDao.getById(id);
+    }
+
+    @Override
+    public int count(boolean all) {
+        return bannerDao.count(all);
+    }
+
+    @Override
+    public int insert(Banner banner) {
+        return bannerDao.insert(banner);
+    }
+
+    @Override
+    public int update(Banner banner) {
+        return bannerDao.update(banner);
+    }
+
+    @Override
+    public int delete(Banner banner) {
+        Assert.notNull(banner);
+        Assert.isTrue(banner.getId() > 0);
+        return bannerDao.delete(banner.getId());
+    }
+
+    @Override
+    public int delete(int id) {
+        Assert.isTrue(id > 0);
+        return bannerDao.delete(id);
+    }
+
+    @Override
+    public int softDelete(int id) {
+        Assert.isTrue(id > 0);
+        return bannerDao.softDelete(id);
     }
 }

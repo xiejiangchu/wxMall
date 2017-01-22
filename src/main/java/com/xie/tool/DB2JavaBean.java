@@ -24,7 +24,7 @@ public class DB2JavaBean {
 //        DB2JavaBean d2j = new DB2JavaBean();
 //        d2j.init(StaticVar.OBJECTTYPE);
 //        //d2j.init(StaticVar.COMMONLYTYPE);
-//        System.out.println("OK");
+//        System.out.println("ok");
 //    }
 
 

@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2 {
 
     @Bean
-    public Docket createRestApi() {
+    public Docket createApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -27,9 +27,10 @@ public class Swagger2 {
                 .build();
     }
 
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用 Swagger2 构建RESTful APIs")
+                .title("wxMall  API")
                 .description("API文档")
                 .contact("谢江初")
                 .version("1.0")

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Banner implements Serializable {
-    private Integer id;
+    private int id;
     private String tip;
     private String url;
     private int is_show;
-    private Integer order;
+    private int order;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;

@@ -14,4 +14,16 @@ public interface BannerService {
     List<Banner> getAllCanShow();
 
     Banner getById(int id);
+
+    int count(boolean all);
+
+    int insert(Banner address);
+
+    int update(Banner address);
+
+    int delete(Banner address);
+
+    int delete(int id);
+
+    int softDelete(int id);
 }

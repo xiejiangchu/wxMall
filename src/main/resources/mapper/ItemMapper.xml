@@ -4,7 +4,7 @@
 <mapper namespace="itemDao">
 
     <resultMap id="ItemResult" type="Item" autoMapping="true">
-        <id column="id" javaType="Integer" jdbcType="INTEGER"/>
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="category_id1" column="category_id1" javaType="Integer" jdbcType="INTEGER"/>
         <result property="category_id2" column="category_id2" javaType="Integer" jdbcType="INTEGER"/>
         <result property="is_remain" column="is_remain" javaType="Integer" jdbcType="INTEGER"/>

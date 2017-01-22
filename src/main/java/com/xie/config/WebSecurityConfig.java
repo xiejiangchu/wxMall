@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and().logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccess").invalidateHttpSession(true)
 //                .and().addFilterAfter(new MyCsrfHeaderFilter(), CsrfFilter.class);
 //        http.csrf().requireCsrfProtectionMatcher(myCsrfSecurityRequestMatcher).csrfTokenRepository(csrfTokenRepository());
+        http.csrf().disable();
     }
 
     @Override

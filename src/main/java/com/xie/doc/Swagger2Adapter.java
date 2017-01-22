@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @Date 17/1/20 上午10:18.
  */
 @EnableWebMvc
-public class SwaggerWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
+public class Swagger2Adapter extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

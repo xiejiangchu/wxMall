@@ -2,38 +2,48 @@ package com.xie.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Address implements Serializable {
-    private Integer id;
-    private Integer uid;
+    private int id;
+    private int uid;
+    private int is_def;
     private String mobile;
     private String receiver;
     private String city;
     private String district;
     private String road;
     private String address;
-    private Timestamp created_at;
-    private Timestamp updated_at;
-    private Timestamp deleted_at;
+    private Date created_at;
+    private Date updated_at;
+    private Date deleted_at;
 
-    public Integer getId() {
-        return this.id;
+    public int getId() {
+        return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return this.uid;
+    public int getUid() {
+        return uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(int uid) {
         this.uid = uid;
     }
 
+    public int getIs_def() {
+        return is_def;
+    }
+
+    public void setIs_def(int is_def) {
+        this.is_def = is_def;
+    }
+
     public String getMobile() {
-        return this.mobile;
+        return mobile;
     }
 
     public void setMobile(String mobile) {
@@ -41,7 +51,7 @@ public class Address implements Serializable {
     }
 
     public String getReceiver() {
-        return this.receiver;
+        return receiver;
     }
 
     public void setReceiver(String receiver) {
@@ -49,7 +59,7 @@ public class Address implements Serializable {
     }
 
     public String getCity() {
-        return this.city;
+        return city;
     }
 
     public void setCity(String city) {
@@ -57,7 +67,7 @@ public class Address implements Serializable {
     }
 
     public String getDistrict() {
-        return this.district;
+        return district;
     }
 
     public void setDistrict(String district) {
@@ -65,7 +75,7 @@ public class Address implements Serializable {
     }
 
     public String getRoad() {
-        return this.road;
+        return road;
     }
 
     public void setRoad(String road) {
@@ -73,35 +83,35 @@ public class Address implements Serializable {
     }
 
     public String getAddress() {
-        return this.address;
+        return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public Timestamp getCreated_at() {
-        return this.created_at;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdated_at() {
-        return this.updated_at;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
+    public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
 
-    public Timestamp getDeleted_at() {
-        return this.deleted_at;
+    public Date getDeleted_at() {
+        return deleted_at;
     }
 
-    public void setDeleted_at(Timestamp deleted_at) {
+    public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
     }
-} 
+}
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDao extends BaseDao{
 
-    public User selectUserById(int id) {
+    public User selectUserById(Integer id) {
         return this.sqlSession.selectOne("userDao.selectUserById", id);
     }
 

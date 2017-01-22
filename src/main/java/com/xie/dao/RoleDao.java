@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 public class RoleDao extends BaseDao {
 
-    public List<Role> selectByUid(int uid) {
+    public List<Role> selectByUid(Integer uid) {
         return this.sqlSession.selectList("RoleMapper.selectByUid", uid);
     }
 

@@ -12,15 +12,15 @@ import java.util.List;
 @Component
 public class AddressDao extends BaseDao {
 
-    public List<Address> getByUid(int uid) {
+    public List<Address> getByUid(Integer uid) {
         return this.sqlSession.selectList("AddressDao.getByUid", uid);
     }
 
-    public Address getDefaultByUid(int uid) {
+    public Address getDefaultByUid(Integer uid) {
         return this.sqlSession.selectOne("AddressDao.getDefaultByUid", uid);
     }
 
-    public Address getById(int id) {
+    public Address getById(Integer id) {
         return this.sqlSession.selectOne("AddressDao.getById", id);
     }
 
@@ -28,7 +28,7 @@ public class AddressDao extends BaseDao {
         return this.sqlSession.selectOne("AddressDao.getByMobile", mobile);
     }
 
-    public int countByUid(int uid) {
+    public int countByUid(Integer uid) {
         return this.sqlSession.selectOne("AddressDao.countByUid", uid);
     }
 
@@ -40,11 +40,11 @@ public class AddressDao extends BaseDao {
         return this.sqlSession.update("AddressDao.update", address);
     }
 
-    public int delete(int id) {
+    public int delete(Integer id) {
         return this.sqlSession.delete("AddressDao.delete", id);
     }
 
-    public int softDelete(int id) {
+    public int softDelete(Integer id) {
         return this.sqlSession.update("AddressDao.softDelete", id);
     }
 

@@ -20,7 +20,7 @@ public class BannerDao extends BaseDao {
         return this.sqlSession.selectList("BannerDao.getAllCanShow");
     }
 
-    public Banner getById(int id) {
+    public Banner getById(Integer id) {
         return this.sqlSession.selectOne("BannerDao.getById", id);
     }
 
@@ -36,11 +36,11 @@ public class BannerDao extends BaseDao {
         return this.sqlSession.selectOne("BannerDao.update", banner);
     }
 
-    public int delete(int id) {
+    public int delete(Integer id) {
         return this.sqlSession.selectOne("BannerDao.delete", id);
     }
 
-    public int softDelete(int id) {
+    public int softDelete(Integer id) {
         return this.sqlSession.selectOne("BannerDao.softDelete", id);
     }
 

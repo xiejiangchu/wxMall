@@ -6,6 +6,15 @@
     </properties>
 
     <Appenders>
+
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <!-- encoder 默认配置为PatternLayoutEncoder -->
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
@@ -23,10 +32,27 @@
         </RollingRandomAccessFile>
     </Appenders>
 
+    <!--输出sql-->
+    <logger name="dao" level="INFO">
+        <!--daoFILE为实际定义的appender-->
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="net.sf.json.xml.XMLSerializer" level="ERROR"/>
+
+    <springProfile name="!production">
+        <logger name="dao" level="INFO"/>
+    </springProfile>
+
     <Loggers>
+        <springProfile name="!production">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+
         <Logger name="com.xie" level="INFO" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>
+
         <Root level="INFO">
             <AppenderRef ref="Console"/>
         </Root>

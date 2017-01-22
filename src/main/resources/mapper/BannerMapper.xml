@@ -17,8 +17,6 @@
     <select id="getAllCanShow" resultMap="BannerResult">
         SELECT * FROM banner WHERE is_show = 1 and deleted_at is null order BY <![CDATA[
         `order` desc
-
-
         ]]>
     </select>
 
@@ -28,13 +26,14 @@
         `order` desc
 
 
+
         ]]>
     </select>
 
     <select id="count" resultMap="BannerResult">
         SELECT count(1) FROM banner
         WHERE deleted_at is NULL
-        <if test="all">
+        <if test="all==true">
             and is_show = 1
         </if>
     </select>

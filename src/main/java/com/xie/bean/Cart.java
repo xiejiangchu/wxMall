@@ -12,12 +12,14 @@ public class Cart implements Serializable {
     private Integer id;
     private Integer uid;
     private Integer gid;
+    private Integer spec;
     private Integer amount;
     private Date created_at;
     private Date updated_at;
 
     private User user;
     private Item item;
+    private ItemSpec itemSpec;
 
     public Integer getId() {
         return this.id;
@@ -81,6 +83,22 @@ public class Cart implements Serializable {
 
     public void setGid(Integer gid) {
         this.gid = gid;
+    }
+
+    public Integer getSpec() {
+        return spec;
+    }
+
+    public void setSpec(Integer spec) {
+        this.spec = spec;
+    }
+
+    public ItemSpec getItemSpec() {
+        return itemSpec;
+    }
+
+    public void setItemSpec(ItemSpec itemSpec) {
+        this.itemSpec = itemSpec;
     }
 }
 

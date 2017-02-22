@@ -14,7 +14,7 @@ public class Bonus implements Serializable {
     private Integer category_id2;
     private Integer goods_id;
     private Double min_amount;
-    private Byte is_enable;
+    private Integer is_enable;
     private Timestamp begin;
     private Timestamp end;
     private Timestamp created_at;
@@ -100,11 +100,11 @@ public class Bonus implements Serializable {
         this.min_amount = min_amount;
     }
 
-    public Byte getIs_enable() {
-        return this.is_enable;
+    public Integer getIs_enable() {
+        return is_enable;
     }
 
-    public void setIs_enable(Byte is_enable) {
+    public void setIs_enable(Integer is_enable) {
         this.is_enable = is_enable;
     }
 

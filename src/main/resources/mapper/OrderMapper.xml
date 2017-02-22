@@ -12,8 +12,8 @@
         <result property="bonus" column="bonus" javaType="Double" jdbcType="DECIMAL"/>
         <result property="point" column="point" javaType="Double" jdbcType="DECIMAL"/>
         <result property="send_date" column="send_date" javaType="java.sql.Date" jdbcType="DATE"/>
-        <result property="time_start" column="time_start" javaType="java.sql.Time" jdbcType="TIME"/>
-        <result property="time_end" column="time_end" javaType="java.sql.Time" jdbcType="TIME"/>
+        <result property="time_start" column="time_start" javaType="Date" jdbcType="TIME"/>
+        <result property="time_end" column="time_end" javaType="Date" jdbcType="TIME"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -37,6 +37,7 @@
     </select>
 
     <insert id="insert" parameterType="Item">
+
         INSERT INTO `order` (
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="NO!=null">
@@ -75,8 +76,8 @@
             <if test="order_money_real!=null">
                 ,order_money_real
             </if>
-            <if test="bonus_id!=null">
-                ,bonus_id
+            <if test="bid!=null">
+                ,bid
             </if>
             <if test="bonus!=null">
                 ,bonus
@@ -161,8 +162,8 @@
             <if test="order_money_real!=null">
                 ,#{order_money_real}
             </if>
-            <if test="bonus_id!=null">
-                ,#{bonus_id}
+            <if test="bid!=null">
+                ,#{bid}
             </if>
             <if test="bonus!=null">
                 ,#{bonus}
@@ -251,8 +252,8 @@
             <if test="order_money_real!=null">
                 ,order_money_real=#{order_money_real}
             </if>
-            <if test="bonus_id!=null">
-                ,bonus_id=#{bonus_id}
+            <if test="bid!=null">
+                ,bid=#{bid}
             </if>
             <if test="bonus!=null">
                 ,bonus=#{bonus}

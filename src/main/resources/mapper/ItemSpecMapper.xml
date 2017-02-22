@@ -1,0 +1,263 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ItemSpecMapper">
+
+    <resultMap id="ItemSpecResult" type="ItemSpec" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="gid" column="gid" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_remain" column="is_remain" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_online" column="is_online" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_active" column="is_active" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_rough" column="is_rough" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_promote" column="is_promote" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_delete" column="is_delete" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="order_quantity" column="order_quantity" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="max_quantity" column="max_quantity" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="remain" column="remain" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="unit_sell" column="unit_sell" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="sale_num" column="sale_num" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="ItemSpecResult">
+        SELECT * FROM item_spec
+        WHERE id=#{id}
+    </select>
+
+    <select id="getAllByGid" resultMap="ItemSpecResult">
+        SELECT * FROM item_spec where gid=#{gid}
+    </select>
+
+
+    <insert id="insert" parameterType="ItemSpec">
+
+        INSERT INTO item_spec (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="gid!=null">
+                ,gid
+            </if>
+            <if test="is_remain!=null">
+                ,is_remain
+            </if>
+            <if test="is_online!=null">
+                ,is_online
+            </if>
+            <if test="is_active!=null">
+                ,is_active
+            </if>
+            <if test="is_rough!=null">
+                ,is_rough
+            </if>
+            <if test="is_promote!=null">
+                ,is_promote
+            </if>
+            <if test="is_delete!=null">
+                ,is_delete
+            </if>
+            <if test="status!=null">
+                ,status
+            </if>
+
+            <if test="sort!=null">
+                ,sort
+            </if>
+            <if test="weight!=null">
+                ,weight
+            </if>
+            <if test="order_quantity!=null">
+                ,order_quantity
+            </if>
+            <if test="max_quantity!=null">
+                ,max_quantity
+            </if>
+            <if test="market_price!=null">
+                ,market_price
+            </if>
+            <if test="shop_price!=null">
+                ,shop_price
+            </if>
+            <if test="promote_price!=null">
+                ,promote_price
+            </if>
+            <if test="remain!=null">
+                ,remain
+            </if>
+            <if test="sale_num!=null">
+                ,sale_num
+            </if>
+            <if test="quanlity!=null">
+                ,quanlity
+            </if>
+            <if test="unit!=null">
+                ,unit
+            </if>
+            <if test="unit_sell!=null">
+                ,unit_sell
+            </if>
+            <if test="unit_desc!=null">
+                ,unit_desc
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
+            <if test="gid!=null">
+                ,#{gid}
+            </if>
+            <if test="is_remain!=null">
+                ,#{is_remain}
+            </if>
+            <if test="is_online!=null">
+                ,#{is_online}
+            </if>
+            <if test="is_active!=null">
+                ,#{is_active}
+            </if>
+            <if test="is_rough!=null">
+                ,#{is_rough}
+            </if>
+            <if test="is_promote!=null">
+                ,#{is_promote}
+            </if>
+            <if test="is_delete!=null">
+                ,#{is_delete}
+            </if>
+            <if test="status!=null">
+                ,#{status}
+            </if>
+
+            <if test="sort!=null">
+                ,#{sort}
+            </if>
+            <if test="weight!=null">
+                ,#{weight}
+            </if>
+            <if test="order_quantity!=null">
+                ,#{order_quantity}
+            </if>
+            <if test="max_quantity!=null">
+                ,#{max_quantity}
+            </if>
+            <if test="market_price!=null">
+                ,#{market_price}
+            </if>
+            <if test="shop_price!=null">
+                ,#{shop_price}
+            </if>
+            <if test="promote_price!=null">
+                ,#{promote_price}
+            </if>
+            <if test="remain!=null">
+                ,#{remain}
+            </if>
+            <if test="sale_num!=null">
+                ,#{sale_num}
+            </if>
+            <if test="quanlity!=null">
+                ,#{quanlity}
+            </if>
+            <if test="unit!=null">
+                ,#{unit}
+            </if>
+            <if test="unit_sell!=null">
+                ,#{unit_sell}
+            </if>
+            <if test="unit_desc!=null">
+                ,#{unit_desc}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE item_spec set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="gid!=null">
+                gid=#{gid},
+            </if>
+            <if test="is_remain!=null">
+                is_remain=#{is_remain},
+            </if>
+            <if test="is_online!=null">
+                is_online=#{is_online},
+            </if>
+            <if test="is_active!=null">
+                is_active=#{is_active},
+            </if>
+            <if test="is_rough!=null">
+                is_rough=#{is_rough},
+            </if>
+            <if test="is_promote!=null">
+                is_promote=#{is_promote},
+            </if>
+            <if test="is_delete!=null">
+                is_delete=#{is_delete},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+
+            <if test="sort!=null">
+                sort=#{sort},
+            </if>
+            <if test="weight!=null">
+                weight=#{weight,jdbcType=DECIMAL},
+            </if>
+            <if test="order_quantity!=null">
+                order_quantity=#{order_quantity,jdbcType=DECIMAL},
+            </if>
+            <if test="max_quantity!=null">
+                max_quantity=#{max_quantity,jdbcType=DECIMAL},
+            </if>
+            <if test="market_price!=null">
+                market_price=#{market_price,jdbcType=DECIMAL},
+            </if>
+            <if test="shop_price!=null">
+                shop_price=#{shop_price,jdbcType=DECIMAL},
+            </if>
+            <if test="promote_price!=null">
+                promote_price=#{promote_price,jdbcType=DECIMAL},
+            </if>
+            <if test="remain!=null">
+                remain=#{remain,jdbcType=INTEGER},
+            </if>
+            <if test="sale_num!=null">
+                sale_num=#{sale_num},
+            </if>
+            <if test="quanlity!=null">
+                quanlity=#{quanlity},
+            </if>
+            <if test="unit!=null">
+                unit=#{unit},
+            </if>
+            <if test="unit_sell!=null">
+                unit_sell=#{unit_sell},
+            </if>
+            <if test="unit_desc!=null">
+                unit_desc=#{unit_desc},
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM item_spec WHERE id=#{id}
+    </delete>
+
+    <update id="softDelete">
+        UPDATE item_spec set deleted_at=now() WHERE id=#{id}
+    </update>
+
+
+</mapper>

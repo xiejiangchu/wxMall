@@ -21,6 +21,8 @@ public interface OrderService {
 
     int update(Order order);
 
+    int submit(int uid, int aid, int bid, int pid, String message);
+
     int delete(Order order);
 
     int delete(int id);

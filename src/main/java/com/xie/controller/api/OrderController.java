@@ -64,6 +64,22 @@ public class OrderController {
         }
     }
 
+
+    @RequestMapping(value = "/{uid}", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse submit(@PathVariable("uid") int uid,
+                               @RequestParam("aid") int aid,
+                               @RequestParam("bid") int bid,
+                               @RequestParam("pid") int pid,
+                               @RequestParam("message") String message) {
+        int result = orderService.submit(uid, aid, bid, pid, message);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public BaseResponse delete(@PathVariable int id) {

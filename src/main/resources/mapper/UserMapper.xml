@@ -25,6 +25,7 @@
     </select>
 
     <insert id="insert" parameterType="User">
+
         INSERT INTO users(
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="name!=null">

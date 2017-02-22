@@ -19,7 +19,7 @@ public class Order implements Serializable {
     private double order_money;
     private double order_amount_real;
     private double order_money_real;
-    private int bonus_id;
+    private int bid;
     private double bonus;
     private double point;
     private int payment;
@@ -145,12 +145,12 @@ public class Order implements Serializable {
         this.order_money_real = order_money_real;
     }
 
-    public int getBonus_id() {
-        return bonus_id;
+    public int getBid() {
+        return bid;
     }
 
-    public void setBonus_id(int bonus_id) {
-        this.bonus_id = bonus_id;
+    public void setBid(int bid) {
+        this.bid = bid;
     }
 
     public double getBonus() {

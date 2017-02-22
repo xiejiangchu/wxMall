@@ -1,7 +1,6 @@
 package com.xie.service;
 
 import com.xie.bean.Cart;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,4 +9,16 @@ import java.util.List;
  */
 public interface CartService {
     List<Cart> getByUid(int uid);
+
+    List<Cart> getByUidWithItem(int uid);
+
+    int insert(Cart cart);
+
+    int saveOrUpdate(int uid, int gid, int spec, int amount);
+
+    int update(Cart cart);
+
+    int delete(Cart cart);
+
+    int delete(int id);
 }

@@ -1,11 +1,16 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Item;
+import com.xie.bean.ItemSpec;
 import com.xie.response.BaseResponse;
 import com.xie.service.ItemService;
+import com.xie.service.ItemSpecService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by xie on 16/11/24.
@@ -16,6 +21,9 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private ItemSpecService itemSpecService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
@@ -86,5 +94,19 @@ public class ItemController {
     @ResponseBody
     public BaseResponse count(@RequestParam(value = "all", defaultValue = "false") boolean all) {
         return BaseResponse.ok(itemService.count(all));
+    }
+
+    @RequestMapping(value = "/build", method = RequestMethod.GET)
+    @ResponseBody
+    public String build() {
+        List<Item> items = itemService.getAll();
+        for (int i = 0; i < items.size(); i++) {
+            ItemSpec itemSpec = new ItemSpec();
+            BeanUtils.copyProperties(items.get(i), itemSpec);
+            itemSpec.setSort(items.get(i).getOrder());
+            itemSpec.setGid(items.get(i).getId());
+            itemSpecService.insert(itemSpec);
+        }
+        return "fail";
     }
 }

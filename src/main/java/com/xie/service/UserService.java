@@ -2,16 +2,23 @@ package com.xie.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by xie on 16/11/24.
  */
 public interface UserService {
 
-    User getUserById(int id);
+    User getById(int id);
 
-    PageInfo<User> getAllUsers(int pageNum,int pageSize);
+    PageInfo<User> getAllUsers(int pageNum, int pageSize);
 
-    User insert(User user);
+    int insert(User user);
+
+    int update(User user);
+
+    int delete(User user);
+
+    int delete(int id);
+
+    int softDelete(int id);
 }

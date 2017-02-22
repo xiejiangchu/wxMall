@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 /**
  * Created by xie on 16/11/24.
  */
@@ -25,9 +27,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public PageInfo<Item> getAll(int pageNum, int pageSize) {
+    public PageInfo<Item> getAllAvailable(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        PageInfo<Item> page = new PageInfo<Item>(itemDao.getAll());
+        PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllAvailable());
         return page;
     }
 
@@ -35,6 +37,13 @@ public class ItemServiceImpl implements ItemService {
     public PageInfo<Item> getAllCanShow(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllCanShow());
+        return page;
+    }
+
+    @Override
+    public PageInfo<Item> top(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<Item> page = new PageInfo<Item>(itemDao.top());
         return page;
     }
 
@@ -48,6 +57,11 @@ public class ItemServiceImpl implements ItemService {
     public PageInfo<Item> getByCategory(Integer level1, int pageNum, int pageSize) {
         PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getByCategory(level1, null));
         return page;
+    }
+
+    @Override
+    public List<Item> getAll() {
+        return itemDao.getAll();
     }
 
     @Override
@@ -83,4 +97,5 @@ public class ItemServiceImpl implements ItemService {
         Assert.isTrue(id > 0);
         return itemDao.softDelete(id);
     }
+
 }

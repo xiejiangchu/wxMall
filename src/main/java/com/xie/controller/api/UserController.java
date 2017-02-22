@@ -20,7 +20,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getUser(@PathVariable("id") int id) {
-        return BaseResponse.ok(userService.getUserById(id));
+        return BaseResponse.ok(userService.getById(id));
     }
 
 
@@ -39,11 +39,21 @@ public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public BaseResponse putUser(@PathVariable int id, @ModelAttribute User user) {
-        return BaseResponse.ok();
+        int result = userService.update(user);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public BaseResponse deleteUser(@PathVariable int id) {
-        return BaseResponse.ok();
+        int result = userService.softDelete(id);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 }

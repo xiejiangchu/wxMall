@@ -20,7 +20,7 @@ public class ItemController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAll(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        return BaseResponse.ok(itemService.getAll(pageNum, pageSize));
+        return BaseResponse.ok(itemService.getAllAvailable(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getByCategory", method = RequestMethod.GET)
@@ -39,6 +39,12 @@ public class ItemController {
     @ResponseBody
     BaseResponse list(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         return BaseResponse.ok(itemService.getAllCanShow(pageNum, pageNum));
+    }
+
+    @RequestMapping(value = "/top", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse top() {
+        return BaseResponse.ok(itemService.top(1, 10));
     }
 
 

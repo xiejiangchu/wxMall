@@ -1,7 +1,6 @@
 package com.xie.bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Item implements Serializable {
@@ -30,10 +29,13 @@ public class Item implements Serializable {
     private int quanlity;
     private String unit;
     private String unit_sell;
-    private String unitdesc;
+    private String unitDesc;
     private String src;
     private String thumb;
     private String place;
+    private String summary;
+    private String notice;
+    private String description;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
@@ -238,12 +240,12 @@ public class Item implements Serializable {
         this.unit_sell = unit_sell;
     }
 
-    public String getUnitdesc() {
-        return unitdesc;
+    public String getUnitDesc() {
+        return unitDesc;
     }
 
-    public void setUnitdesc(String unitdesc) {
-        this.unitdesc = unitdesc;
+    public void setUnitDesc(String unitDesc) {
+        this.unitDesc = unitDesc;
     }
 
     public String getSrc() {
@@ -268,6 +270,30 @@ public class Item implements Serializable {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreated_at() {

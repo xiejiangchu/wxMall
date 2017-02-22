@@ -3,6 +3,8 @@ package com.xie.service;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Item;
 
+import java.util.List;
+
 /**
  * Created by xie on 16/11/24.
  */
@@ -10,9 +12,13 @@ public interface ItemService {
 
     Item getById(int id);
 
-    PageInfo<Item> getAll(int pageNum, int pageSize);
+    List<Item> getAll();
+
+    PageInfo<Item> getAllAvailable(int pageNum, int pageSize);
 
     PageInfo<Item> getAllCanShow(int pageNum, int pageSize);
+
+    PageInfo<Item> top(int pageNum, int pageSize);
 
     PageInfo<Item> getByCategory(Integer level1, Integer level2, int pageNum, int pageSize);
 

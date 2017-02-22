@@ -30,7 +30,7 @@ public class MyPermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
         String username = authentication.getName();
-        User user = userDao.selectUserByName(username);
+        User user = userDao.getByName(username);
         return roleDao.authorized(user.getId(), permission.toString());
     }
 

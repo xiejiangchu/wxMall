@@ -16,57 +16,65 @@ import java.util.Map;
 public class ItemDao extends BaseDao {
 
     public Item getById(int id) {
-        return this.sqlSession.selectOne("itemDao.getById", id);
+        return this.sqlSession.selectOne("ItemMapper.getById", id);
     }
 
 
     public List<Item> getAll() {
-        return this.sqlSession.selectList("itemDao.getAll");
+        return this.sqlSession.selectList("ItemMapper.getAll");
+    }
+
+    public List<Item> getAllAvailable() {
+        return this.sqlSession.selectList("ItemMapper.getAllAvailable");
     }
 
     public List<Item> getAllCanShow() {
-        return this.sqlSession.selectList("itemDao.getAllCanShow");
+        return this.sqlSession.selectList("ItemMapper.getAllCanShow");
     }
 
     public List<Item> getByCategory(Integer level1, Integer level2) {
         Map map = new HashMap<String, Object>();
         map.put("level1", level1);
         map.put("level2", level2);
-        return this.sqlSession.selectList("itemDao.getByCategory", map);
+        return this.sqlSession.selectList("ItemMapper.getByCategory", map);
     }
 
     public List<Item> getByCategory(Integer level1) {
         Map map = new HashMap<String, Object>();
         map.put("level1", level1);
-        return this.sqlSession.selectList("itemDao.getByCategory", map);
+        return this.sqlSession.selectList("ItemMapper.getByCategory", map);
+    }
+
+    public List<Item> top() {
+        return this.sqlSession.selectList("ItemMapper.top");
     }
 
     public int count(boolean all) {
-        return this.sqlSession.selectOne("itemDao.count", all);
+        return this.sqlSession.selectOne("ItemMapper.count", all);
     }
 
     public int insert(Item item) {
-        return this.sqlSession.insert("itemDao.insert", item);
+        return this.sqlSession.insert("ItemMapper.insert", item);
     }
 
     public int update(Item item) {
-        return this.sqlSession.update("itemDao.update", item);
+        return this.sqlSession.update("ItemMapper.update", item);
     }
 
     public int delete(Item item) {
         Assert.notNull(item);
         Assert.isTrue(item.getId() > 0);
-        return this.sqlSession.delete("itemDao.delete", item.getId());
+        return this.sqlSession.delete("ItemMapper.delete", item.getId());
     }
 
     public int delete(int id) {
         Assert.isTrue(id > 0);
-        return this.sqlSession.delete("itemDao.delete", id);
+        return this.sqlSession.delete("ItemMapper.delete", id);
     }
 
     public int softDelete(int id) {
         Assert.isTrue(id > 0);
-        return this.sqlSession.update("itemDao.softDelete", id);
+        return this.sqlSession.update("ItemMapper.softDelete", id);
     }
 
 }

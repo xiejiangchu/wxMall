@@ -40,7 +40,7 @@ public class BonusTypeServiceImpl implements BonusTypeService {
 
     @Override
     public BonusType getById(Integer id) {
-        return getById(id);
+        return bonusTypeDao.getById(id);
     }
 
     @Override

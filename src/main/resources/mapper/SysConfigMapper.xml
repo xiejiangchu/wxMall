@@ -16,6 +16,10 @@
         SELECT * FROM sys_config where id=#{id}
     </select>
 
+    <select id="getAll" resultMap="SysConfigResult">
+         SELECT * FROM sys_config
+    </select>
+
     <insert id="insert">
         <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
             SELECT LAST_INSERT_ID() as id

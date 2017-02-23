@@ -24,14 +24,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
         registry.addInterceptor(csrfHandlerInterceptor).addPathPatterns("/**");
         registry.addInterceptor(loginInteceptor).addPathPatterns("/**")
-                .excludePathPatterns("/login")
-                .excludePathPatterns("/index")
-                .excludePathPatterns("/v2/**")
-                .excludePathPatterns("/banners/**")
-                .excludePathPatterns("/css/**")
-                .excludePathPatterns("/js/**")
-                .excludePathPatterns("/images/**")
-                .excludePathPatterns("/**/*.html");
+                .excludePathPatterns("/index","/login","/upload","webjars/**","/v2/**","/banners/**","/css/**","/js/**","/images/**","/**/*.html");
         super.addInterceptors(registry);
     }
 }

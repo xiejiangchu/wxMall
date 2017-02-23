@@ -2,6 +2,7 @@ package com.xie.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Bonus implements Serializable {
     private Integer id;
@@ -11,12 +12,12 @@ public class Bonus implements Serializable {
     private String name;
     private String desc;
     private Integer cid1;
-    private Integer cd2;
+    private Integer cid2;
     private Integer gid;
     private Double min_amount;
     private Integer is_enable;
-    private Timestamp begin;
-    private Timestamp end;
+    private Date begin;
+    private Date end;
     private Timestamp created_at;
     private Timestamp updated_at;
 
@@ -76,12 +77,12 @@ public class Bonus implements Serializable {
         this.cid1 = cid1;
     }
 
-    public Integer getCd2() {
-        return cd2;
+    public Integer getCid2() {
+        return cid2;
     }
 
-    public void setCd2(Integer cd2) {
-        this.cd2 = cd2;
+    public void setCid2(Integer cid2) {
+        this.cid2 = cid2;
     }
 
     public Integer getGid() {
@@ -108,19 +109,19 @@ public class Bonus implements Serializable {
         this.is_enable = is_enable;
     }
 
-    public Timestamp getBegin() {
-        return this.begin;
+    public Date getBegin() {
+        return begin;
     }
 
-    public void setBegin(Timestamp begin) {
+    public void setBegin(Date begin) {
         this.begin = begin;
     }
 
-    public Timestamp getEnd() {
-        return this.end;
+    public Date getEnd() {
+        return end;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 

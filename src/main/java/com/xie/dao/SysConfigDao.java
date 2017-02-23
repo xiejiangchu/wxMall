@@ -1,16 +1,24 @@
 package com.xie.dao;
 
 import com.xie.bean.SysConfig;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @Author xie
  * @Date 17/2/22 下午7:40.
  */
+@Component
 public class SysConfigDao extends BaseDao {
 
     public SysConfig getById(int id) {
         return this.sqlSession.selectOne("SysConfigMapper.getById", id);
+    }
+
+    public List<SysConfig> getAll() {
+        return this.sqlSession.selectList("SysConfigMapper.getAll");
     }
 
     public int insert(SysConfig sysConfig) {

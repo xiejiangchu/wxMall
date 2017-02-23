@@ -6,7 +6,7 @@
     <resultMap id="BonusTypeResult" type="BonusType" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="desc" column="desc" javaType="String" jdbcType="VARCHAR"/>
+        <result property="description" column="description" javaType="String" jdbcType="VARCHAR"/>
         <result property="money" column="money" javaType="Double" jdbcType="DECIMAL"/>
         <result property="cid1" column="cid1" javaType="Integer" jdbcType="INTEGER"/>
         <result property="cid2" column="cid2" javaType="Integer" jdbcType="INTEGER"/>
@@ -66,8 +66,8 @@
             <if test="name!=null">
                 ,name
             </if>
-            <if test="desc!=null">
-                ,desc
+            <if test="description!=null">
+                ,description
             </if>
             <if test="cid1!=null">
                 ,cid1
@@ -102,8 +102,8 @@
             <if test="name!=null">
                 ,#{name}
             </if>
-            <if test="desc!=null">
-                ,#{desc}
+            <if test="description!=null">
+                ,#{description}
             </if>
             <if test="cid1!=null">
                 ,#{cid1}
@@ -132,7 +132,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="Bonus">
+    <update id="update" parameterType="BonusType">
         UPDATE bonus_type SET
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
 
@@ -142,8 +142,8 @@
             <if test="name!=null">
                 ,name=#{name}
             </if>
-            <if test="desc!=null">
-                ,desc=#{desc}
+            <if test="description!=null">
+                ,description=#{description}
             </if>
             <if test="cid1!=null">
                 ,cid1=#{cid1}
@@ -172,7 +172,7 @@
     </update>
 
 
-    <insert id="saveOrUpdate" parameterType="Bonus">
+    <insert id="saveOrUpdate" parameterType="BonusType">
         <selectKey keyProperty="id" resultType="Integer" keyColumn="id" order="BEFORE">
             select sum(id) AS id from bonus_type where id = #{id} limit 0,1
         </selectKey>
@@ -186,8 +186,8 @@
                 <if test="name!=null">
                     ,name=#{name}
                 </if>
-                <if test="desc!=null">
-                    ,desc=#{desc}
+                <if test="description!=null">
+                    ,description=#{description}
                 </if>
                 <if test="cid1!=null">
                     ,cid1=#{cid1}
@@ -223,8 +223,8 @@
                 <if test="name!=null">
                     ,name
                 </if>
-                <if test="desc!=null">
-                    ,desc
+                <if test="description!=null">
+                    ,description
                 </if>
                 <if test="cid1!=null">
                     ,cid1
@@ -258,8 +258,8 @@
                 <if test="name!=null">
                     ,#{name}
                 </if>
-                <if test="desc!=null">
-                    ,#{desc}
+                <if test="description!=null">
+                    ,#{description}
                 </if>
                 <if test="cid1!=null">
                     ,#{cid1}

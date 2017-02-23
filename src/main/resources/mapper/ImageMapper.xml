@@ -1,0 +1,138 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ImageMapper">
+
+    <resultMap id="ImageResult" type="Image" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <id column="fileSize" property="fileSize" javaType="Long" jdbcType="INTEGER"/>
+        <result property="fileModified" column="fileModified" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="BannerResult">
+        SELECT * FROM images
+    </select>
+
+    <select id="getById" resultMap="BannerResult">
+        SELECT * FROM images
+        where id=#{id}
+    </select>
+
+    <select id="count" resultMap="BannerResult">
+        SELECT count(1) FROM images
+    </select>
+
+    <insert id="insert" parameterType="Banner">
+        INSERT INTO images(
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="dir!=null">
+                ,dir
+            </if>
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="eTag!=null">
+                ,eTag
+            </if>
+            <if test="fileId!=null">
+                ,fileId
+            </if>
+            <if test="fileModified!=null">
+                ,fileModified
+            </if>
+            <if test="mimeType!=null">
+                ,mimeType
+            </if>
+            <if test="fileSize!=null">
+                ,fileSize
+            </if>
+            <if test="uri!=null">
+                ,uri
+            </if>
+            <if test="url!=null">
+                ,url
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="dir!=null">
+                ,#{dir}
+            </if>
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="eTag!=null">
+                ,#{eTag}
+            </if>
+            <if test="fileId!=null">
+                ,#{fileId}
+            </if>
+            <if test="fileModified!=null">
+                ,#{fileModified}
+            </if>
+            <if test="mimeType!=null">
+                ,#{mimeType}
+            </if>
+            <if test="fileSize!=null">
+                ,#{fileSize}
+            </if>
+            <if test="uri!=null">
+                ,#{uri}
+            </if>
+            <if test="url!=null">
+                ,#{url}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="Banner">
+        UPDATE images set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="dir!=null">
+                ,dir=#{dir}
+            </if>
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="eTag!=null">
+                ,eTag=#{eTag}
+            </if>
+            <if test="fileId!=null">
+                ,fileId=#{fileId}
+            </if>
+            <if test="fileModified!=null">
+                ,fileModified=#{fileModified}
+            </if>
+            <if test="mimeType!=null">
+                ,mimeType=#{mimeType}
+            </if>
+            <if test="fileSize!=null">
+                ,fileSize=#{fileSize}
+            </if>
+            <if test="uri!=null">
+                ,uri=#{uri}
+            </if>
+            <if test="url!=null">
+                ,url=#{url}
+            </if>
+            ,updated_at=now()
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM images WHERE id=#{id}
+    </delete>
+
+    <update id="softDelete">
+        UPDATE images set deleted_at=now() WHERE id=#{id}
+    </update>
+</mapper>

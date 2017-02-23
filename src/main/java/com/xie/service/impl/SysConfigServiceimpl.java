@@ -4,11 +4,15 @@ import com.xie.bean.SysConfig;
 import com.xie.dao.SysConfigDao;
 import com.xie.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author xie
  * @Date 17/2/22 下午7:40.
  */
+@Service
 public class SysConfigServiceImpl implements SysConfigService {
 
     @Autowired
@@ -17,6 +21,11 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     public SysConfig getById(int id) {
         return sysConfigDao.getById(id);
+    }
+
+    @Override
+    public List<SysConfig> getAll() {
+        return sysConfigDao.getAll();
     }
 
     @Override

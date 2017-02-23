@@ -127,13 +127,10 @@
     <orderEntry type="library" name="Gradle: net.minidev:accessors-smart:1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.0.3" level="project" />
     <orderEntry type="library" name="Gradle: joda-time:joda-time:2.9.7" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-redis:1.4.2.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-redis:1.7.5.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: redis.clients:jedis:2.8.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.5.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-oxm:4.3.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-context-support:4.3.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.commons:commons-pool2:2.4.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:1.12.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: com.alibaba.media:sdk:1.2.7" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.webjars:bootstrap:3.3.7" level="project" />
+    <orderEntry type="library" name="Gradle: org.webjars:jquery:3.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.webjars:font-awesome:4.7.0" level="project" />
   </component>
 </module>

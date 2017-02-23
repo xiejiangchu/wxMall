@@ -2,6 +2,7 @@ package com.xie.service;
 
 import com.xie.bean.Bonus;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,10 @@ public interface BonusService {
     public int countByUid(Integer uid);
 
     public int insert(Bonus bonus);
+
+    public int insert(Integer uid, Integer tid, Integer is_enable, Date begin, Date end);
+
+    public int insert(Integer uid, Integer tid);
 
     public int update(Bonus bonus);
 

@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 /**
  * Created by xie on 17/1/7.
  */
 @Controller
 @RequestMapping(value = "/bonus")
-public class BonusController extends BaseController{
+public class BonusController extends BaseController {
 
     @Autowired
     BonusService bonusService;
@@ -34,6 +36,21 @@ public class BonusController extends BaseController{
     @ResponseBody
     public BaseResponse post(@ModelAttribute Bonus bonus) {
         int result = bonusService.insert(bonus);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    @RequestMapping(value = "/{uid}", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse post(@PathVariable(value = "uid") int uid,
+                             @RequestParam(value = "tid") int aid,
+                             @RequestParam(value = "is_enable", defaultValue = "0") int is_enable,
+                             @RequestParam(value = "begin", defaultValue = "2017-01-01") Date begin,
+                             @RequestParam(value = "end", defaultValue = "2017-01-01") Date end) {
+        int result = bonusService.insert(uid, aid, is_enable, begin, end);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

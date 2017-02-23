@@ -24,20 +24,21 @@ public class LoginInteceptor implements HandlerInterceptor {
         String requestUri = request.getRequestURI(); //请求完整路径，可用于登陆后跳转
         String contextPath = request.getContextPath();  //项目下完整路径
         String url = requestUri.substring(contextPath.length()); //请求页面
-
-        if (request.getHeader("Referer") != null && request.getHeader("Referer").contains("swagger-ui.html"))
-            return true;
-
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            if (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").equalsIgnoreCase("XMLHttpRequest")) {
-                return true;
-            } else {
-                request.getRequestDispatcher("/login").forward(request, response);//转发到登录界面
-            }
-            return false;
-        } else
-            return true;
+        return true;
+//        if (request.getHeader("Referer") != null && request.getHeader("Referer").contains("swagger-ui.html"))
+//            return true;
+//
+//        User user = (User) request.getSession().getAttribute("user");
+//        if (user == null) {
+//            if (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").equalsIgnoreCase("XMLHttpRequest")) {
+//                return true;
+//            } else {
+//                request.getRequestDispatcher("/login").forward(request, response);//转发到登录界面
+//            }
+//            return false;
+//        } else {
+//            return true;
+//        }
     }
 
     @Override

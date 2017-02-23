@@ -41,12 +41,12 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() {
         return "register";
     }
 
-    @RequestMapping(value = "/logoutSuccess")
+    @RequestMapping(value = "/logoutSuccess", method = RequestMethod.GET)
     public String logoutSuccess() {
         return "logoutSuccess";
     }

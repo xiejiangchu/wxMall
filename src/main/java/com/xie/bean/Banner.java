@@ -8,13 +8,17 @@ public class Banner implements Serializable {
     private String tip;
     private String url;
     private int is_show;
-    private int order;
+    private int sort;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setId(Integer id) {
@@ -45,12 +49,12 @@ public class Banner implements Serializable {
         this.is_show = is_show;
     }
 
-    public Integer getOrder() {
-        return order;
+    public int getSort() {
+        return sort;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
     public Date getCreated_at() {

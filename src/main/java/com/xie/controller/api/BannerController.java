@@ -1,6 +1,5 @@
 package com.xie.controller.api;
 
-import com.xie.bean.Address;
 import com.xie.bean.Banner;
 import com.xie.response.BaseResponse;
 import com.xie.service.BannerService;
@@ -44,7 +43,7 @@ public class BannerController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse put(@PathVariable int id, @ModelAttribute Banner banner) {
+    public BaseResponse put(@PathVariable("id") int id, @ModelAttribute Banner banner) {
         int result = bannerService.update(banner);
         if (result > 0) {
             return BaseResponse.ok();
@@ -55,7 +54,7 @@ public class BannerController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public BaseResponse delete(@PathVariable int id) {
+    public BaseResponse delete(@PathVariable("id") int id) {
         int result = bannerService.softDelete(id);
         if (result > 0) {
             return BaseResponse.ok();

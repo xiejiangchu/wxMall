@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="BannerDao">
+<mapper namespace="BannerMapper">
 
     <resultMap id="BannerResult" type="Banner" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
@@ -15,19 +15,12 @@
     </select>
 
     <select id="getAllCanShow" resultMap="BannerResult">
-        SELECT * FROM banner WHERE is_show = 1 and deleted_at is null order BY <![CDATA[
-        `order` desc
-        ]]>
+        SELECT * FROM banner WHERE is_show = 1 and deleted_at is null order BY sort desc
     </select>
 
     <select id="getById" resultMap="BannerResult">
         SELECT * FROM banner
-        where id=#{id} AND deleted_at is NULL order BY <![CDATA[
-        `order` desc
-
-
-
-        ]]>
+        where id=#{id} AND deleted_at is NULL order BY sort desc
     </select>
 
     <select id="count" resultMap="BannerResult">
@@ -50,8 +43,8 @@
             <if test="is_show!=null">
                 ,is_show
             </if>
-            <if test="order!=null">
-                ,order
+            <if test="sort!=null">
+                ,sort
             </if>
             ,created_at
             ,updated_at
@@ -67,8 +60,8 @@
             <if test="is_show!=null">
                 ,#{is_show}
             </if>
-            <if test="order!=null">
-                ,#{order}
+            <if test="sort!=null">
+                ,#{sort}
             </if>
             ,now()
             ,now()
@@ -88,8 +81,8 @@
             <if test="is_show!=null">
                 ,is_show=#{is_show}
             </if>
-            <if test="order!=null">
-                ,order=#{order}
+            <if test="sort!=null">
+                ,sort=#{sort}
             </if>
             ,updated_at=now()
         </trim>

@@ -24,6 +24,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByName(String username) {
+        return userDao.getByName(username);
+    }
+
+    @Override
+    public User getByWx(String wx) {
+        return userDao.getByWx(wx);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return userDao.getByEmail(email);
+    }
+
+    @Override
     public PageInfo<User> getAllUsers(int pageNum, int pageSize) {
         PageInfo<User> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> userDao.getAll());
         return page;
@@ -33,6 +48,13 @@ public class UserServiceImpl implements UserService {
     public int insert(User user) {
         Assert.notNull(user);
         return userDao.insert(user);
+    }
+
+    @Override
+    public int check(String username, String password) {
+        Assert.notNull(username);
+        Assert.notNull(password);
+        return userDao.check(username, password);
     }
 
     @Override

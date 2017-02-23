@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="userDao">
+<mapper namespace="UserMapper">
     <resultMap id="UserResult" type="User" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result column="created_at" property="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -19,9 +19,28 @@
         WHERE name = #{name}
     </select>
 
+    <select id="getByWx" resultMap="UserResult">
+        SELECT *
+        FROM users
+        WHERE wx = #{wx}
+    </select>
+
+    <select id="getByEmail" resultMap="UserResult">
+        SELECT *
+        FROM users
+        WHERE email = #{email}
+    </select>
+
     <select id="getAll" resultMap="UserResult">
         SELECT *
         FROM users
+    </select>
+
+    <select id="check" resultType="Integer">
+        SELECT count(*)
+        FROM users
+        WHERE name = #{name}
+        AND password=#{password}
     </select>
 
     <insert id="insert" parameterType="User">

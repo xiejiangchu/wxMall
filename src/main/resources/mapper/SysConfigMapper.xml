@@ -5,8 +5,8 @@
 
     <resultMap id="SysConfigResult" type="SysConfig" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
-        <result property="name" column="name" javaType="String" jdbcType="STRING"/>
-        <result property="value" column="value" javaType="String" jdbcType="STRING"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="value" column="value" javaType="String" jdbcType="VARCHAR"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>

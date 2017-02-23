@@ -10,6 +10,12 @@ public interface UserService {
 
     User getById(int id);
 
+    User getByName(String username);
+
+    User getByWx(String wx);
+
+    User getByEmail(String email);
+
     PageInfo<User> getAllUsers(int pageNum, int pageSize);
 
     int insert(User user);
@@ -19,6 +25,8 @@ public interface UserService {
     int delete(User user);
 
     int delete(int id);
+
+    int check(String username, String password);
 
     int softDelete(int id);
 }

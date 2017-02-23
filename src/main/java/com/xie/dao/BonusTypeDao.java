@@ -16,22 +16,22 @@ import java.util.Map;
 public class BonusTypeDao extends BaseDao {
 
     public List<BonusType> getAll() {
-        return this.sqlSession.selectList("BonusMapper.getAll");
+        return this.sqlSession.selectList("BonusTypeMapper.getAll");
     }
 
     public List<BonusType> getAllEnabled() {
-        return this.sqlSession.selectList("BonusMapper.getAllEnabled");
+        return this.sqlSession.selectList("BonusTypeMapper.getAllEnabled");
     }
 
     public List<BonusType> getAllByGid(Integer gid) {
-        return this.sqlSession.selectList("BonusMapper.getAllByGid", gid);
+        return this.sqlSession.selectList("BonusTypeMapper.getAllByGid", gid);
     }
 
     public List<BonusType> getAllByCid(Integer cid1, Integer cid2) {
         Map map = new HashMap<String, Object>();
         map.put("cid1", cid1);
         map.put("cid2", cid2);
-        return this.sqlSession.selectList("BonusMapper.getAllByCid", map);
+        return this.sqlSession.selectList("BonusTypeMapper.getAllByCid", map);
     }
 
     public BonusType getById(Integer id) {

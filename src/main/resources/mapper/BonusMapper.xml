@@ -30,7 +30,7 @@
          SELECT * FROM bonus where uid=#{uid}
     </select>
 
-    <select id="countByUid" resultMap="Integer">
+    <select id="countByUid" resultType="Integer">
         SELECT count(*) FROM bonus where uid=#{uid}
     </select>
 

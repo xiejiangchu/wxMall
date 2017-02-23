@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by xie on 16/11/24.
  */
-@Controller()
+@Controller
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;

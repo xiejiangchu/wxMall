@@ -72,8 +72,8 @@
             <if test="cid1!=null">
                 ,cid1
             </if>
-            <if test="cd2!=null">
-                ,cd2
+            <if test="cid2!=null">
+                ,cid2
             </if>
             <if test="gid!=null">
                 ,gid
@@ -108,8 +108,8 @@
             <if test="cid1!=null">
                 ,#{cid1}
             </if>
-            <if test="cd2!=null">
-                ,#{cd2}
+            <if test="cid2!=null">
+                ,#{cid2}
             </if>
             <if test="gid!=null">
                 ,#{gid}
@@ -148,8 +148,8 @@
             <if test="cid1!=null">
                 ,cid1=#{cid1}
             </if>
-            <if test="cd2!=null">
-                ,cd2=#{cd2}
+            <if test="cid2!=null">
+                ,cid2=#{cid2}
             </if>
             <if test="gid!=null">
                 ,gid=#{gid}
@@ -192,8 +192,8 @@
                 <if test="cid1!=null">
                     ,cid1=#{cid1}
                 </if>
-                <if test="cd2!=null">
-                    ,cd2=#{cd2}
+                <if test="cid2!=null">
+                    ,cid2=#{cid2}
                 </if>
                 <if test="gid!=null">
                     ,gid=#{gid}
@@ -229,8 +229,8 @@
                 <if test="cid1!=null">
                     ,cid1
                 </if>
-                <if test="cd2!=null">
-                    ,cd2
+                <if test="cid2!=null">
+                    ,cid2
                 </if>
                 <if test="gid!=null">
                     ,gid
@@ -264,8 +264,8 @@
                 <if test="cid1!=null">
                     ,#{cid1}
                 </if>
-                <if test="cd2!=null">
-                    ,#{cd2}
+                <if test="cid2!=null">
+                    ,#{cid2}
                 </if>
                 <if test="gid!=null">
                     ,#{gid}

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/banner")
-public class BannerController {
+public class BannerController extends BaseController{
 
     @Autowired
     BannerService bannerService;

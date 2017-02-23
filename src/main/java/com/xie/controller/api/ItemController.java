@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/item")
-public class ItemController {
+public class ItemController extends BaseController{
 
     @Autowired
     private ItemService itemService;

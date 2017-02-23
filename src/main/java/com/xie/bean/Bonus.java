@@ -6,13 +6,13 @@ import java.sql.Timestamp;
 public class Bonus implements Serializable {
     private Integer id;
     private Integer uid;
-    private Integer type_id;
+    private Integer tid;
     private Double money;
     private String name;
     private String desc;
-    private Integer category_id1;
-    private Integer category_id2;
-    private Integer goods_id;
+    private Integer cid1;
+    private Integer cd2;
+    private Integer gid;
     private Double min_amount;
     private Integer is_enable;
     private Timestamp begin;
@@ -36,12 +36,12 @@ public class Bonus implements Serializable {
         this.uid = uid;
     }
 
-    public Integer getType_id() {
-        return this.type_id;
+    public Integer getTid() {
+        return tid;
     }
 
-    public void setType_id(Integer type_id) {
-        this.type_id = type_id;
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     public Double getMoney() {
@@ -68,28 +68,28 @@ public class Bonus implements Serializable {
         this.desc = desc;
     }
 
-    public Integer getCategory_id1() {
-        return this.category_id1;
+    public Integer getCid1() {
+        return cid1;
     }
 
-    public void setCategory_id1(Integer category_id1) {
-        this.category_id1 = category_id1;
+    public void setCid1(Integer cid1) {
+        this.cid1 = cid1;
     }
 
-    public Integer getCategory_id2() {
-        return this.category_id2;
+    public Integer getCd2() {
+        return cd2;
     }
 
-    public void setCategory_id2(Integer category_id2) {
-        this.category_id2 = category_id2;
+    public void setCd2(Integer cd2) {
+        this.cd2 = cd2;
     }
 
-    public Integer getGoods_id() {
-        return this.goods_id;
+    public Integer getGid() {
+        return gid;
     }
 
-    public void setGoods_id(Integer goods_id) {
-        this.goods_id = goods_id;
+    public void setGid(Integer gid) {
+        this.gid = gid;
     }
 
     public Double getMin_amount() {

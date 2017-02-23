@@ -12,7 +12,7 @@
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="selectById">
+    <select id="selectById" resultMap="SysConfigResult">
         SELECT * FROM sys_config where id=#{id}
     </select>
 

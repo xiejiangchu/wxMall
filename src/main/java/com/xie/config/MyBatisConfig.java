@@ -6,6 +6,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -45,7 +46,11 @@ public class MyBatisConfig {
 
     private String typeAliasPackage = "com.xie.bean";
 
-    @Bean
+    /**
+     * 配置数据源
+     *
+     */
+    @Bean(name = "dataSource")
     public DataSource dataSource() throws SQLException {
         return DataSourceBuilder.create(Thread.currentThread().getContextClassLoader())
                 .driverClassName(jdbcConfig.getDriver())
@@ -54,12 +59,18 @@ public class MyBatisConfig {
                 .password(jdbcConfig.getPassword()).build();
     }
 
-    @Bean
-    public DataSourceTransactionManager transactionManager() throws Exception {
-        return new DataSourceTransactionManager(dataSource());
+    /**
+     * 配置事务
+     *
+     * @param dataSource 数据源
+     * @return DataSourceTransactionManager
+     */
+    @Bean(name = "transactionManager")
+    public DataSourceTransactionManager transactionManager(@Qualifier(value = "dataSource") DataSource dataSource) throws Exception {
+        return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean
+    @Bean(name = "sqlSessionFactory")
     public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         /** 设置mybatis configuration 扫描路径 */

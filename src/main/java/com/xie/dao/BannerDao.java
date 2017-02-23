@@ -29,19 +29,19 @@ public class BannerDao extends BaseDao {
     }
 
     public int insert(Banner banner) {
-        return this.sqlSession.selectOne("BannerMapper.insert");
+        return this.sqlSession.insert("BannerMapper.insert");
     }
 
     public int update(Banner banner) {
-        return this.sqlSession.selectOne("BannerMapper.update", banner);
+        return this.sqlSession.update("BannerMapper.update", banner);
     }
 
     public int delete(Integer id) {
-        return this.sqlSession.selectOne("BannerMapper.delete", id);
+        return this.sqlSession.delete("BannerMapper.delete", id);
     }
 
     public int softDelete(Integer id) {
-        return this.sqlSession.selectOne("BannerMapper.softDelete", id);
+        return this.sqlSession.update("BannerMapper.softDelete", id);
     }
 
 }

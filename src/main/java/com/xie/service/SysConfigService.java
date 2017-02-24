@@ -14,11 +14,11 @@ public interface SysConfigService {
 
     List<SysConfig> getAll();
 
-    int insert(SysConfig user);
+    int insert(SysConfig sysConfig);
 
-    int update(SysConfig user);
+    int update(SysConfig sysConfig);
 
-    int delete(SysConfig user);
+    int delete(SysConfig sysConfig);
 
     int delete(int id);
 }

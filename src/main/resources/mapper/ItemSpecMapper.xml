@@ -15,12 +15,14 @@
         <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_quantity" column="order_quantity" javaType="Double" jdbcType="DECIMAL"/>
         <result property="max_quantity" column="max_quantity" javaType="Double" jdbcType="DECIMAL"/>
+
         <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="remain" column="remain" javaType="Double" jdbcType="DECIMAL"/>
         <result property="unit_sell" column="unit_sell" javaType="Double" jdbcType="DECIMAL"/>
         <result property="sale_num" column="sale_num" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="quanlity" column="quanlity" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>

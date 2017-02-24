@@ -10,7 +10,7 @@ public class Bonus implements Serializable {
     private Integer tid;
     private Double money;
     private String name;
-    private String desc;
+    private String description;
     private Integer cid1;
     private Integer cid2;
     private Integer gid;
@@ -61,12 +61,12 @@ public class Bonus implements Serializable {
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getCid1() {

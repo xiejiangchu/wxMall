@@ -1,0 +1,263 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderItemMapper">
+
+    <resultMap id="OrderItemResult" type="OrderItem" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="cid1" column="cid1" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="cid2" column="cid2" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="amount" column="amount" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="quanlity" column="quanlity" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="unit_sell" column="unit_sell" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="OrderItemResult">
+        SELECT * FROM order_items
+        where id=#{id}
+    </select>
+
+    <select id="getByOid" resultMap="OrderItemResult">
+        SELECT * FROM order_items
+        <if test="oid!=null">
+            and oid=#{oid}
+        </if>
+    </select>
+
+    <select id="count" parameterType="Boolean">
+        SELECT count(1) FROM order_items
+    </select>
+
+    <select id="countByOid" parameterType="Boolean">
+        SELECT count(1) FROM order_items
+        <if test="oid!=null">
+            and oid=#{oid}
+        </if>
+    </select>
+
+    <select id="sumAmountByOid" parameterType="Boolean">
+        SELECT sum(amount) FROM order_items
+        <if test="oid!=null">
+            and oid=#{oid}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="Item">
+
+        INSERT INTO order_items (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="id!=null">
+                ,id
+            </if>
+            <if test="no!=null">
+                ,no
+            </if>
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="cid1!=null">
+                ,cid1
+            </if>
+            <if test="cid2!=null">
+                ,cid2
+            </if>
+            <if test="amount!=null">
+                ,amount
+            </if>
+            <if test="weight!=null">
+                ,weight
+            </if>
+            <if test="market_price!=null">
+                ,market_price
+            </if>
+            <if test="shop_price!=null">
+                ,shop_price
+            </if>
+            <if test="promote_price!=null">
+                ,promote_price
+            </if>
+            <if test="quanlity!=null">
+                ,quanlity
+            </if>
+            <if test="unit!=null">
+                ,unit
+            </if>
+            <if test="unit_sell!=null">
+                ,unit_sell
+            </if>
+            <if test="unit_desc!=null">
+                ,unit_desc
+            </if>
+            <if test="src!=null">
+                ,src
+            </if>
+            <if test="thumb!=null">
+                ,thumb
+            </if>
+            <if test="place!=null">
+                ,place
+            </if>
+            <if test="summary!=null">
+                ,summary
+            </if>
+            <if test="notice!=null">
+                ,notice
+            </if>
+            <if test="description!=null">
+                ,description
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
+            <if test="id!=null">
+                ,#{id}
+            </if>
+            <if test="no!=null">
+                ,#{no}
+            </if>
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="cid1!=null">
+                ,#{cid1}
+            </if>
+            <if test="cid2!=null">
+                ,#{cid2}
+            </if>
+            <if test="amount!=null">
+                ,#{amount}
+            </if>
+            <if test="weight!=null">
+                ,#{weight}
+            </if>
+            <if test="market_price!=null">
+                ,#{market_price}
+            </if>
+            <if test="shop_price!=null">
+                ,#{shop_price}
+            </if>
+            <if test="promote_price!=null">
+                ,#{promote_price}
+            </if>
+            <if test="quanlity!=null">
+                ,#{quanlity}
+            </if>
+            <if test="unit!=null">
+                ,#{unit}
+            </if>
+            <if test="unit_sell!=null">
+                ,#{unit_sell}
+            </if>
+            <if test="unit_desc!=null">
+                ,#{unit_desc}
+            </if>
+            <if test="src!=null">
+                ,#{src}
+            </if>
+            <if test="thumb!=null">
+                ,#{thumb}
+            </if>
+            <if test="place!=null">
+                ,#{place}
+            </if>
+            <if test="summary!=null">
+                ,#{summary}
+            </if>
+            <if test="notice!=null">
+                ,#{notice}
+            </if>
+            <if test="description!=null">
+                ,#{description}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE order_items set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="id!=null">
+                ,id=#{id}
+            </if>
+            <if test="no!=null">
+                ,no=#{no}
+            </if>
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="cid1!=null">
+                ,cid1=#{cid1}
+            </if>
+            <if test="cid2!=null">
+                ,cid2=#{cid2}
+            </if>
+            <if test="amount!=null">
+                ,amount=#{amount}
+            </if>
+            <if test="weight!=null">
+                ,weight=#{weight}
+            </if>
+            <if test="market_price!=null">
+                ,market_price=#{market_price}
+            </if>
+            <if test="shop_price!=null">
+                ,shop_price=#{shop_price}
+            </if>
+            <if test="promote_price!=null">
+                ,promote_price=#{promote_price}
+            </if>
+            <if test="quanlity!=null">
+                ,quanlity=#{quanlity}
+            </if>
+            <if test="unit!=null">
+                ,unit=#{unit}
+            </if>
+            <if test="unit_sell!=null">
+                ,unit_sell=#{unit_sell}
+            </if>
+            <if test="unit_desc!=null">
+                ,unit_desc=#{unit_desc}
+            </if>
+            <if test="src!=null">
+                ,src=#{src}
+            </if>
+            <if test="thumb!=null">
+                ,thumb=#{thumb}
+            </if>
+            <if test="place!=null">
+                ,place=#{place}
+            </if>
+            <if test="summary!=null">
+                ,summary=#{summary}
+            </if>
+            <if test="notice!=null">
+                ,notice=#{notice}
+            </if>
+            <if test="description!=null">
+                ,description=#{description}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM order_items WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteByOid">
+        DELETE FROM order_items WHERE oid=#{oid}
+    </delete>
+
+</mapper>

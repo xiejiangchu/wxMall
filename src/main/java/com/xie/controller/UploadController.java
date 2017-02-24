@@ -2,16 +2,20 @@ package com.xie.controller;
 
 import com.alibaba.media.upload.UploadPolicy;
 import com.alibaba.media.upload.UploadTokenClient;
+import com.xie.bean.Image;
+import com.xie.response.BaseResponse;
 import com.xie.service.ImageFileService;
+import com.xie.utils.DateEditor;
+import com.xie.utils.LongEditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @Author xie
@@ -19,6 +23,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class UploadController {
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new DateEditor());
+    }
 
     @Autowired
     private ImageFileService imageFileService;
@@ -37,7 +46,13 @@ public class UploadController {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String index(HttpServletRequest request, @RequestParam("upload_image") MultipartFile[] files) {
+    @ResponseBody
+    public BaseResponse upload(HttpServletRequest request, @ModelAttribute Image image) {
+        return BaseResponse.ok(imageFileService.insert(image));
+    }
+
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public String uploadFile(HttpServletRequest request, @RequestParam("upload_image") MultipartFile[] files) {
 //        //可以从页面传参数过来
 //        System.out.println("name=====" + request.getParameter("name"));
 //        //这里可以支持多文件上传

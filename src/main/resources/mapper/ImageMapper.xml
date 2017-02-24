@@ -12,20 +12,23 @@
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="getAll" resultMap="BannerResult">
+    <select id="getAll" resultMap="ImageResult">
         SELECT * FROM images
     </select>
 
-    <select id="getById" resultMap="BannerResult">
+    <select id="getById" resultMap="ImageResult">
         SELECT * FROM images
         where id=#{id}
     </select>
 
-    <select id="count" resultMap="BannerResult">
+    <select id="count" resultMap="ImageResult">
         SELECT count(1) FROM images
     </select>
 
-    <insert id="insert" parameterType="Banner">
+    <insert id="insert" parameterType="Image">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
         INSERT INTO images(
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="dir!=null">
@@ -93,7 +96,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="Banner">
+    <update id="update" parameterType="Image">
         UPDATE images set
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="dir!=null">

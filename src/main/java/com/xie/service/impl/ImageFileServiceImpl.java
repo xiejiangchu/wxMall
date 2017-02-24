@@ -6,6 +6,8 @@ import com.alibaba.media.Result;
 import com.alibaba.media.client.MediaClient;
 import com.alibaba.media.common.PagedList;
 import com.alibaba.media.upload.UploadPolicy;
+import com.xie.bean.Image;
+import com.xie.dao.ImageDao;
 import com.xie.service.ImageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ import java.util.List;
 public class ImageFileServiceImpl implements ImageFileService {
     @Autowired
     private MediaClient client;
+
+    @Autowired
+    private ImageDao imageDao;
 
     /**
      * 分页获取指定文件夹下的目录
@@ -69,5 +74,30 @@ public class ImageFileServiceImpl implements ImageFileService {
             return result.getData().getUrl();
         } else
             return null;
+    }
+
+    @Override
+    public List<Image> getById(int id) {
+        return imageDao.getById(id);
+    }
+
+    @Override
+    public int insert(Image image) {
+        return imageDao.insert(image);
+    }
+
+    @Override
+    public int update(Image image) {
+        return imageDao.update(image);
+    }
+
+    @Override
+    public int delete(Image image) {
+        return imageDao.delete(image);
+    }
+
+    @Override
+    public int delete(int id) {
+        return imageDao.delete(id);
     }
 }

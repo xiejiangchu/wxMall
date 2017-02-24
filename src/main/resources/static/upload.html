@@ -17,9 +17,10 @@
     <script src="js/dist/fileinput.min.js"></script>
     <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/dist/zh.js"></script>
+    <script src="js/dist/theme.js"></script>
     <script src="js/dist/upfile.js"></script>
     <script type="text/javascript">
-        //初始化fileinput
+        var result = [];
         var FileInput = function () {
             var oFile = new Object();
 
@@ -33,7 +34,7 @@
                     uploadUrl: uploadUrl, //上传的地址
                     allowedFileExtensions: ['jpeg', 'jpg', 'gif', 'png'],//接收的文件后缀
                     showUpload: true, //是否显示上传按钮
-                    showCaption: false,//是否显示标题
+                    showCaption: true,//是否显示标题
                     browseClass: "btn btn-primary", //按钮样式
                     //dropZoneEnabled: false,//是否显示拖拽区域
                     //minImageWidth: 50, //图片的最小宽度
@@ -46,32 +47,29 @@
                     enctype: 'multipart/form-data',
                     validateInitialCount: true,
                     previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-                    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
-                    handler: function ($el, event, callback, skipNS) {
-                        console.log($el);
-                    }
+                    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
                 });
 
                 $("#upload_image").on("fileuploaded", function (event, data, previewId, index) {
-                    console.log(data);
+                    $.post('/upload',data.response,function(){
+                        console.log("上传成功")
+                    },"json")
                 });
-
 
                 $('#upload_image').on('filebatchuploadsuccess', function (event, data, previewId, index) {
                     var form = data.form, files = data.files, extra = data.extra,
                             response = data.response, reader = data.reader;
-                    console.log('File batch upload success');
+                    console.log(data);
                 });
 
                 $('#upload_image').on('filepreupload', function (event, data, previewId, index) {
                     var formData = data.form;
-                    var files = data.files;
                     formData.delete("upload_image");
                     formData.delete("file_id");
                     formData.append('dir', "");
-                    formData.append('name', data.files[0].name);
-                    formData.append('size', data.files[0].size);
-                    formData.append('content', data.files[0]);
+                    formData.append('name', data.files[index].name);
+                    formData.append('size', data.files[index].size);
+                    formData.append('content', data.files[index]);
                 });
             }
             return oFile;
@@ -87,11 +85,17 @@
 <body>
 
 <div class="container">
-    <input id='token' name='token' type="hidden" th:value="${token}">
+    <div class="row text-center h1">图片上传</div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12 tl th">
+                <input id='token' name='token' type="hidden" th:value="${token}">
+                <input type="file" name="upload_image" id="upload_image" multiple class="file-loading"/>
+                <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p>
+            </div>
+        </div>
+    </div>
 
-    <form>
-        <input type="file" name="upload_image" id="upload_image" multiple class="file-loading"/>
-    </form>
 </div>
 
 

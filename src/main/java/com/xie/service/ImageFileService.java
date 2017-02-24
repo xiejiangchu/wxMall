@@ -1,15 +1,25 @@
 package com.xie.service;
 
 import com.alibaba.media.MediaDir;
+import com.alibaba.media.MediaFile;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Image;
 
 import java.util.List;
 
 public interface ImageFileService
 {
-	List<MediaDir> getDirs(String soursDir, int pageNum, int pageSize);
+	List<MediaDir> getDirsServer(String soursDir, int pageNum, int pageSize);
+
+	List<MediaFile> getFileServer(String soursDir, int pageNum, int pageSize);
 
 	List<Image> getById(int uid);
+
+	List<Image> getByName(String name);
+
+	List<Image> getAll();
+
+	PageInfo<Image> getAll(int pageNum, int pageSize);
 
 	int insert(Image image);
 

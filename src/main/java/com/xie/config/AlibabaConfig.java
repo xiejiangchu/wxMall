@@ -4,6 +4,8 @@ import com.alibaba.media.MediaConfiguration;
 import com.alibaba.media.client.MediaClient;
 import com.alibaba.media.client.impl.DefaultMediaClient;
 import com.alibaba.media.manage.ManageClient;
+import com.alibaba.media.upload.UploadPolicy;
+import com.alibaba.media.upload.UploadRequest;
 import com.alibaba.media.upload.UploadTokenClient;
 import com.alibaba.media.upload.impl.DefaultUploadTokenClient;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,6 +39,14 @@ public class AlibabaConfig {
     @Bean(name = "uploadTokenClient")
     public UploadTokenClient uploadTokenClient(@Qualifier("mediaConfiguration") MediaConfiguration configuration) {
         return new DefaultUploadTokenClient(configuration);
+    }
+
+    @Bean(name = "uploadPolicy")
+    public UploadPolicy uploadPolicy(@Qualifier("mediaConfiguration") MediaConfiguration configuration) {
+        UploadPolicy uploadPolicy = new UploadPolicy();
+        uploadPolicy.setInsertOnly(UploadPolicy.INSERT_ONLY_NONE);
+        uploadPolicy.setExpiration(System.currentTimeMillis() + 3600 * 1000);
+        return uploadPolicy;
     }
 
     @Bean(name = "mediaConfiguration")

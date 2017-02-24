@@ -1,34 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false">
-    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
-    <!--<property name="LOG_HOME" value="/home" />-->
-    <!-- 控制台输出 -->
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <springProperty scope="local" name="applicationName" source="spring.application.name"/>
+
+    <springProfile name="!production">
+        <property name="logDir" value="./logs" />
+    </springProfile>
+
+    <springProfile name="integration">
+        <property name="logDir" value="/home/log/${applicationName}" />
+    </springProfile>
+
+    <springProfile name="production">
+        <property name="logDir" value="/home/log/${applicationName}" />
+    </springProfile>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出,%d:日期;%thread:线程名;%-5level：级别,从左显示5个字符宽度;%msg:日志消息;%n:换行符 -->
-            <pattern>%d{MM-dd HH:mm:ss.SS} [%thread] %-5level %logger{50} - %msg%n
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
             </pattern>
         </encoder>
     </appender>
 
-    <!--&lt;!&ndash;日志异步到数据库 &ndash;&gt;-->
-    <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
-    <!--&lt;!&ndash;日志异步到数据库 &ndash;&gt;-->
-    <!--<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">-->
-    <!--&lt;!&ndash;连接池 &ndash;&gt;-->
-    <!--<dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-    <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
-    <!--<url>jdbc:mysql://localhost:3306/test2</url>-->
-    <!--<user>root</user>-->
-    <!--<password>root</password>-->
-    <!--</dataSource>-->
-    <!--</connectionSource>-->
-    <!--</appender>-->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDir}/infoLog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+    </appender>
 
-    <!-- 日志输出级别 -->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDir}/errLog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <!-- Enable FILE and STDOUT appenders for all log messages. By default,
+        only log at level INFO and above. -->
     <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-        <!--<appender-ref ref="DB" />-->
+        <springProfile name="!production">
+            <appender-ref ref="STDOUT" />
+        </springProfile>
+        <appender-ref ref="INFO" />
+        <appender-ref ref="ERROR" />
     </root>
 
+    <logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="WARN"/>
+
+    <springProfile name="!production">
+        <logger name="dao" level="DEBUG" />
+    </springProfile>
 </configuration>

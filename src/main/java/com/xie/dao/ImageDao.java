@@ -21,14 +21,18 @@ public class ImageDao extends BaseDao {
         return this.sqlSession.selectList("ImageMapper.getAll");
     }
 
+    public List<Image> getByName(String name) {
+        return this.sqlSession.selectList("ImageMapper.getByName", name);
+    }
+
 
     public int insert(Image image) {
         this.sqlSession.insert("ImageMapper.insert", image);
         return image.getId();
     }
 
-    public int count(){
-       return this.sqlSession.selectOne("ImageMapper.count");
+    public int count() {
+        return this.sqlSession.selectOne("ImageMapper.count");
     }
 
     public int update(Image image) {

@@ -11,7 +11,7 @@ public class Image {
     private Integer id;
     private String dir;
     private String name;
-    private String eTag;        // 文件md5
+    private String eTag;
 
     private String fileId;
     private Date fileModified;

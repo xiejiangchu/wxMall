@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Item implements Serializable {
-    private int id;
+    private Integer id;
     private String no;
     private String name;
     private int category_id1;

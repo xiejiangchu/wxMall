@@ -5,7 +5,8 @@ import com.alibaba.media.MediaFile;
 import com.alibaba.media.Result;
 import com.alibaba.media.client.MediaClient;
 import com.alibaba.media.common.PagedList;
-import com.alibaba.media.upload.UploadPolicy;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Image;
 import com.xie.dao.ImageDao;
 import com.xie.service.ImageFileService;
@@ -23,12 +24,20 @@ public class ImageFileServiceImpl implements ImageFileService {
     @Autowired
     private ImageDao imageDao;
 
-    /**
-     * 分页获取指定文件夹下的目录
-     */
+
     @Override
-    public List<MediaDir> getDirs(String soursDir, int pageNum, int pageSize) {
+    public List<MediaDir> getDirsServer(String soursDir, int pageNum, int pageSize) {
         Result<PagedList<MediaDir>> mediaDirsResult = client.listDirs(soursDir,
+                pageNum, pageSize);
+        if (mediaDirsResult.isSuccess()) {
+            return mediaDirsResult.getData();
+        }
+        return null;
+    }
+
+    @Override
+    public List<MediaFile> getFileServer(String soursDir, int pageNum, int pageSize) {
+        Result<PagedList<MediaFile>> mediaDirsResult = client.listFiles(soursDir,
                 pageNum, pageSize);
         if (mediaDirsResult.isSuccess()) {
             return mediaDirsResult.getData();
@@ -55,9 +64,6 @@ public class ImageFileServiceImpl implements ImageFileService {
     public String fieUpload(File file, String dir, String name) {
 
         // 0.4 自定义上传策略
-        UploadPolicy uploadPolicy = new UploadPolicy();
-        uploadPolicy.setInsertOnly(UploadPolicy.INSERT_ONLY_NONE);
-        uploadPolicy.setExpiration(System.currentTimeMillis() + 3600 * 1000);
 
 
         // 1. 简单上传接口，直接上传文件
@@ -79,6 +85,22 @@ public class ImageFileServiceImpl implements ImageFileService {
     @Override
     public List<Image> getById(int id) {
         return imageDao.getById(id);
+    }
+
+    @Override
+    public List<Image> getByName(String name) {
+        return imageDao.getByName(name);
+    }
+
+    @Override
+    public List<Image> getAll() {
+        return imageDao.getAll();
+    }
+
+    @Override
+    public PageInfo<Image> getAll(int pageNum, int pageSize) {
+        PageInfo<Image> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> imageDao.getAll());
+        return page;
     }
 
     @Override

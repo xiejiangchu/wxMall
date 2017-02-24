@@ -1,0 +1,67 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ItemImageMapper">
+
+    <resultMap id="ItemImageResult" type="ItemImage" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="iid" property="iid" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="imgid" property="imgid" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="ItemImageResult">
+        SELECT * FROM item_image
+    </select>
+
+    <select id="getById" resultMap="ItemImageResult">
+        SELECT * FROM item_image
+        where id=#{id}
+    </select>
+
+    <select id="count" resultMap="ItemImageResult">
+        SELECT count(1) FROM item_image
+    </select>
+
+    <insert id="insert" parameterType="Image">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO item_image(
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="iid!=null">
+                ,iid
+            </if>
+            <if test="imgid!=null">
+                ,imgid
+            </if>
+        </trim>
+        ) VALUES (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="iid!=null">
+                ,#{iid}
+            </if>
+            <if test="imgid!=null">
+                ,#{imgid}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="Image">
+        UPDATE item_image set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="imgid!=null">
+                ,imgid=#{imgid}
+            </if>
+            <if test="imgid!=null">
+                ,imgid=#{imgid}
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM item_image WHERE id=#{id}
+    </delete>
+
+</mapper>

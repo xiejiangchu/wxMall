@@ -35,11 +35,11 @@ public class UploadController {
     @Autowired
     private UploadTokenClient uploadTokenClient;
 
+    @Autowired
+    private UploadPolicy uploadPolicy;
+
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String index(Model model) {
-        UploadPolicy uploadPolicy = new UploadPolicy();
-        uploadPolicy.setInsertOnly(UploadPolicy.INSERT_ONLY_NONE);
-        uploadPolicy.setExpiration(System.currentTimeMillis() + 3600 * 1000);
         String token = uploadTokenClient.getUploadToken(uploadPolicy);
         model.addAttribute("token", token);
         return "upload";

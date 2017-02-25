@@ -12,9 +12,13 @@ public interface ItemService {
 
     Item getById(int id);
 
+    Item getDetailById(int id);
+
     List<Item> getAll();
 
     PageInfo<Item> getAllAvailable(int pageNum, int pageSize);
+
+    PageInfo<Item> search(String keywors, int pageNum, int pageSize);
 
     PageInfo<Item> getAllCanShow(int pageNum, int pageSize);
 

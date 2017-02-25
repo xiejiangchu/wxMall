@@ -68,9 +68,5 @@
         <appender-ref ref="ERROR" />
     </root>
 
-    <logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="WARN"/>
-
-    <springProfile name="!production">
-        <logger name="dao" level="DEBUG" />
-    </springProfile>
+    <logger name="dao" level="DEBUG" />
 </configuration>

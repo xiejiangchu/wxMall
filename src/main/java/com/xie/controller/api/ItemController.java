@@ -46,13 +46,19 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get(@PathVariable("id") int id) {
-        return BaseResponse.ok(itemService.getById(id));
+        return BaseResponse.ok(itemService.getDetailById(id));
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse search(@RequestParam("keyword") String keyword, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        return BaseResponse.ok(itemService.search(keyword, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse list(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        return BaseResponse.ok(itemService.getAllCanShow(pageNum, pageNum));
+        return BaseResponse.ok(itemService.getAllCanShow(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/top", method = RequestMethod.GET)

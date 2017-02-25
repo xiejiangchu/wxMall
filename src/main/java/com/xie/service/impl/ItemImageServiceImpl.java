@@ -1,11 +1,14 @@
 package com.xie.service.impl;
 
+import com.xie.bean.Image;
 import com.xie.bean.ItemImage;
 import com.xie.dao.ItemImageDao;
 import com.xie.service.ItemImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @Author xie
@@ -20,6 +23,11 @@ public class ItemImageServiceImpl implements ItemImageService {
     @Override
     public ItemImage getById(int id) {
         return itemImageDao.getById(id);
+    }
+
+    @Override
+    public List<Image> getByIid(int iid) {
+        return itemImageDao.getByIid(iid);
     }
 
     @Override

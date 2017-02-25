@@ -30,6 +30,11 @@ public class AddressController extends BaseController {
         return BaseResponse.ok(addressService.getByUid(uid));
     }
 
+    @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getByUid(@RequestParam("uid") int uid, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        return BaseResponse.ok(addressService.getByUid(uid, pageNum, pageSize));
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody

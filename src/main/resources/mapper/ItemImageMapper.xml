@@ -18,6 +18,11 @@
         where id=#{id}
     </select>
 
+    <select id="getByIid" resultMap="ImageMapper.ImageResult">
+        SELECT * FROM item_image LEFT JOIN images ON item_image.imgid=images.id
+        where iid=#{iid}
+    </select>
+
     <select id="count" resultMap="ItemImageResult">
         SELECT count(1) FROM item_image
     </select>

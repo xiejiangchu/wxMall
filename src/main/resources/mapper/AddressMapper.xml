@@ -5,6 +5,7 @@
 
     <resultMap id="AddressResult" type="Address" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_def" column="is_def" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -22,12 +23,7 @@
 
     <select id="getDefaultByUid" resultMap="AddressResult">
         SELECT * FROM address
-        where id=#{id} and <![CDATA[
-        is_def=1
-
-
-
-        ]]> AND deleted_at is NULL
+        where id=#{id} and is_def=1 AND deleted_at is NULL
     </select>
 
     <select id="getByMobile" resultMap="AddressResult">

@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Address implements Serializable {
-    private int id;
-    private int uid;
-    private int is_def;
+    private Integer id;
+    private Integer uid;
+    private Integer is_def;
     private String mobile;
     private String receiver;
     private String city;
@@ -18,27 +18,27 @@ public class Address implements Serializable {
     private Date updated_at;
     private Date deleted_at;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 
-    public int getIs_def() {
+    public Integer getIs_def() {
         return is_def;
     }
 
-    public void setIs_def(int is_def) {
+    public void setIs_def(Integer is_def) {
         this.is_def = is_def;
     }
 

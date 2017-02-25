@@ -1,5 +1,7 @@
 package com.xie.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Address;
 import com.xie.dao.AddressDao;
 import com.xie.service.AddressService;
@@ -22,6 +24,13 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<Address> getByUid(int uid) {
         return addressDao.getByUid(uid);
+    }
+
+    @Override
+    public PageInfo<Address> getByUid(int uid, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<Address> page = new PageInfo<Address>(addressDao.getByUid(uid));
+        return page;
     }
 
     @Override

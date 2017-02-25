@@ -45,6 +45,12 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.selectList("ItemMapper.getByCategory", map);
     }
 
+    public List<Item> search(String keywords) {
+        Map map = new HashMap<String, Object>();
+        map.put("keywords", keywords);
+        return this.sqlSession.selectList("ItemMapper.search", map);
+    }
+
     public List<Item> top() {
         return this.sqlSession.selectList("ItemMapper.top");
     }

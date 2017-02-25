@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Item;
 import com.xie.dao.ItemDao;
+import com.xie.service.ItemImageService;
 import com.xie.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,22 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemDao itemDao;
 
+    @Autowired
+    private ItemImageService itemImageService;
+
     @Override
     public Item getById(int id) {
         return itemDao.getById(id);
+    }
+
+    @Override
+    public Item getDetailById(int id) {
+        Item item = itemDao.getById(id);
+        if (null != item) {
+            item.setImageList(itemImageService.getByIid(id));
+        }
+
+        return item;
     }
 
     @Override
@@ -37,6 +51,13 @@ public class ItemServiceImpl implements ItemService {
     public PageInfo<Item> getAllCanShow(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllCanShow());
+        return page;
+    }
+
+    @Override
+    public PageInfo<Item> search(String keywors, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<Item> page = new PageInfo<Item>(itemDao.search(keywors));
         return page;
     }
 

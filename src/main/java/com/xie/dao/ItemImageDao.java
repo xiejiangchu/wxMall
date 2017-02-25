@@ -1,5 +1,6 @@
 package com.xie.dao;
 
+import com.xie.bean.Image;
 import com.xie.bean.ItemImage;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -21,6 +22,10 @@ public class ItemImageDao extends BaseDao {
         return this.sqlSession.selectList("ItemImageMapper.getAll");
     }
 
+    public List<Image> getByIid(int iid) {
+
+        return this.sqlSession.selectList("ItemImageMapper.getByIid", iid);
+    }
 
     public int insert(ItemImage image) {
         this.sqlSession.insert("ItemImageMapper.insert", image);

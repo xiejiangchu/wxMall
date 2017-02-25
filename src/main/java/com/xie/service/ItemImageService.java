@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.xie.bean.Image;
 import com.xie.bean.ItemImage;
 import com.xie.bean.ItemSpec;
 
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public interface ItemImageService {
     ItemImage getById(int id);
+
+    List<Image> getByIid(int iid);
 
     int insert(ItemImage itemImage);
 

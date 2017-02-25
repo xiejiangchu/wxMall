@@ -97,9 +97,6 @@
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.7" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat:tomcat-juli:8.5.6" level="project" />
     <orderEntry type="library" name="Gradle: com.alibaba:fastjson:1.2.21" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-core:2.6.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.6.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-web:2.6.2" level="project" />
     <orderEntry type="library" name="Gradle: net.sourceforge.nekohtml:nekohtml:1.9.21" level="project" />
     <orderEntry type="library" name="Gradle: xerces:xercesImpl:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0" level="project" />

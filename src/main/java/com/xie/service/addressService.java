@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Address;
 import com.xie.bean.Cart;
 
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public interface AddressService {
     List<Address> getByUid(int uid);
+
+    PageInfo<Address> getByUid(int uid, int pageNum, int pageSize);
 
     Address getDefaultByUid(int uid);
 

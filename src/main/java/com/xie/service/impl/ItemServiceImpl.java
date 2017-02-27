@@ -6,6 +6,7 @@ import com.xie.bean.Item;
 import com.xie.dao.ItemDao;
 import com.xie.service.ItemImageService;
 import com.xie.service.ItemService;
+import com.xie.service.ItemSpecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -25,6 +26,9 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemImageService itemImageService;
 
+    @Autowired
+    private ItemSpecService itemSpecService;
+
     @Override
     public Item getById(int id) {
         return itemDao.getById(id);
@@ -35,6 +39,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemDao.getById(id);
         if (null != item) {
             item.setImageList(itemImageService.getByIid(id));
+            item.setItemSpecList(itemSpecService.getAllByGid(item.getId()));
         }
 
         return item;
@@ -51,6 +56,10 @@ public class ItemServiceImpl implements ItemService {
     public PageInfo<Item> getAllCanShow(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllCanShow());
+        List<Item> list = page.getList();
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setItemSpecList(itemSpecService.getAllByGid(list.get(i).getId()));
+        }
         return page;
     }
 

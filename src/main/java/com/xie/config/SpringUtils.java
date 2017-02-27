@@ -3,6 +3,7 @@ package com.xie.config;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * Simple to Introduction
@@ -12,6 +13,7 @@ import org.springframework.context.ApplicationContextAware;
  * @Since V1.0
  * @Description: 一句话描述该类的功能
  */
+@Component
 public class SpringUtils implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;

@@ -47,5 +47,4 @@ public class AddressDao extends BaseDao {
     public int softDelete(Integer id) {
         return this.sqlSession.update("AddressDao.softDelete", id);
     }
-
 }

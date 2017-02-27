@@ -4,9 +4,7 @@ import com.xie.bean.ItemSpec;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by xie on 16/11/24.
@@ -20,8 +18,8 @@ public class ItemSpecDao extends BaseDao {
     }
 
 
-    public List<ItemSpec> getAllByGid() {
-        return this.sqlSession.selectList("ItemSpecMapper.getAllByGid");
+    public List<ItemSpec> getAllByGid(int gid) {
+        return this.sqlSession.selectList("ItemSpecMapper.getAllByGid", gid);
     }
 
 

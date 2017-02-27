@@ -2,6 +2,7 @@ package com.xie.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xie on 17/1/7.
@@ -16,15 +17,15 @@ public class Category implements Serializable {
     private int order;
     private int is_delete;
     private int is_recommend;
-
     private String pic_category;
     private String pic_path_big;
     private String pic_path_little;
-
-
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
+
+
+    private List<Category> cid2List;
 
     public int getId() {
         return id;
@@ -128,5 +129,13 @@ public class Category implements Serializable {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public List<Category> getCid2List() {
+        return cid2List;
+    }
+
+    public void setCid2List(List<Category> cid2List) {
+        this.cid2List = cid2List;
     }
 }

@@ -36,6 +36,13 @@ public class AddressController extends BaseController {
         return BaseResponse.ok(addressService.getByUid(uid, pageNum, pageSize));
     }
 
+    @RequestMapping(value = "/getDefaultByUid", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getDefaultByUid() {
+        Integer uid = 2;
+        return BaseResponse.ok(addressService.getDefaultByUid(uid));
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse post(@ModelAttribute Address address) {

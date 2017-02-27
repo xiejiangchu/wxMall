@@ -25,7 +25,7 @@ public class ItemSpecServiceImpl implements ItemSpecService {
 
     @Override
     public List<ItemSpec> getAllByGid(int gid) {
-        return itemSpecDao.getAllByGid();
+        return itemSpecDao.getAllByGid(gid);
     }
 
     @Override

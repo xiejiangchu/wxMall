@@ -1,6 +1,7 @@
 package com.xie.service;
 
 import com.xie.bean.Category;
+import com.xie.bean.Image;
 
 import java.util.List;
 
@@ -18,4 +19,12 @@ public interface CategoryService {
     List<Category> getCategoryLevel2(int pid);
 
     Category getById(int id);
+
+    int insert(Category category);
+
+    int update(Category category);
+
+    int delete(Category category);
+
+    int delete(int id);
 }

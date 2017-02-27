@@ -21,6 +21,7 @@ public class Item implements Serializable {
     private Date deleted_at;
 
     private List<Image> imageList;
+    private List<ItemSpec> itemSpecList;
 
     public String getNo() {
         return no;
@@ -140,6 +141,14 @@ public class Item implements Serializable {
 
     public void setImageList(List<Image> imageList) {
         this.imageList = imageList;
+    }
+
+    public List<ItemSpec> getItemSpecList() {
+        return itemSpecList;
+    }
+
+    public void setItemSpecList(List<ItemSpec> itemSpecList) {
+        this.itemSpecList = itemSpecList;
     }
 }
 

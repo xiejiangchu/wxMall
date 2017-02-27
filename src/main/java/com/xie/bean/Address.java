@@ -7,6 +7,7 @@ import java.util.Date;
 public class Address implements Serializable {
     private Integer id;
     private Integer uid;
+    private Integer gender;
     private Integer is_def;
     private String mobile;
     private String receiver;
@@ -112,6 +113,14 @@ public class Address implements Serializable {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 }
 

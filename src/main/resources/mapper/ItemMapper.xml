@@ -13,29 +13,29 @@
     </resultMap>
 
     <select id="getById" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT * FROM items
         where items.id=#{id}
     </select>
 
     <select id="getAllAvailable" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT * FROM items
         WHERE items.is_online = 1
     </select>
 
     <select id="getAll" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT * FROM items
     </select>
 
     <select id="top" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT * FROM items
     </select>
 
     <select id="getAllCanShow" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid WHERE items.is_online = 1
+        SELECT * FROM items WHERE items.is_online = 1
     </select>
 
     <select id="getByCategory" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT * FROM items
         WHERE items.is_online = 1
         <if test="level1!=null">
             and cid1=#{level1}
@@ -46,7 +46,7 @@
     </select>
 
     <select id="search" resultMap="ItemResult">
-        SELECT * FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT * FROM items
         WHERE items.is_online = 1
         <if test="keywords!=null">
             and name like CONCAT('%',#{keywords},'%')
@@ -54,7 +54,7 @@
     </select>
 
     <select id="count" parameterType="Boolean">
-        SELECT count(1) FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        SELECT count(1) FROM items
         WHERE
         <if test="all">
             and is_online = 1

@@ -29,7 +29,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getCategoryLevel1() {
-        return categoryMapper.getCategoryLevel1();
+        List<Category> list = categoryMapper.getCategoryLevel1();
+        if (null != list) {
+            list.get(0).setCid2List(getCategoryLevel2(list.get(0).getId()));
+        }
+        return list;
     }
 
     @Override
@@ -40,5 +44,29 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getById(int id) {
         return categoryMapper.getById(id);
+    }
+
+    @Override
+    public int insert(Category category) {
+        // TODO: 17/2/26
+        return 0;
+    }
+
+    @Override
+    public int update(Category category) {
+        // TODO: 17/2/26
+        return 0;
+    }
+
+    @Override
+    public int delete(Category category) {
+        // TODO: 17/2/26
+        return 0;
+    }
+
+    @Override
+    public int delete(int id) {
+        // TODO: 17/2/26
+        return 0;
     }
 }

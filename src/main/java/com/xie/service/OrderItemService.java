@@ -22,6 +22,8 @@ public interface OrderItemService {
 
     int insert(OrderItem orderItem);
 
+    int insert(List<OrderItem> orderItem);
+
     int update(OrderItem orderItem);
 
     int delete(OrderItem orderItem);

@@ -33,13 +33,17 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getAll(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                        @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(itemService.getAllAvailable(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getByCategory", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByCategory(@RequestParam("level1") Integer level1, @RequestParam("level2") Integer level2, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse getByCategory(@RequestParam("level1") Integer level1,
+                               @RequestParam("level2") Integer level2,
+                               @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(itemService.getByCategory(level1, level2, pageNum, pageSize));
     }
 
@@ -51,13 +55,16 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse search(@RequestParam("keyword") String keyword, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    public BaseResponse search(@RequestParam("keyword") String keyword,
+                               @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(itemService.search(keyword, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse list(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(itemService.getAllCanShow(pageNum, pageSize));
     }
 

@@ -12,33 +12,53 @@
         <result property="bonus" column="bonus" javaType="Double" jdbcType="DECIMAL"/>
         <result property="point" column="point" javaType="Double" jdbcType="DECIMAL"/>
         <result property="send_date" column="send_date" javaType="java.sql.Date" jdbcType="DATE"/>
-        <result property="time_start" column="time_start" javaType="Date" jdbcType="TIME"/>
-        <result property="time_end" column="time_end" javaType="Date" jdbcType="TIME"/>
+        <result property="time_start" column="time_start" javaType="java.sql.Time" jdbcType="TIME"/>
+        <result property="time_end" column="time_end" javaType="java.sql.Time" jdbcType="TIME"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="getById" resultMap="OrderResult">
-        SELECT * FROM `order`
+        SELECT * FROM orders
         where id=#{id}
     </select>
 
+    <select id="getByStatus" resultMap="OrderResult" parameterType="map">
+        SELECT * FROM orders
+        where uid=#{uid}
+        <if test="order_status!=null">
+            and order_status=#{order_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="ship_status!=null">
+            and ship_status=#{ship_status}
+        </if>
+
+    </select>
+
     <select id="getAll" resultMap="OrderResult">
-        SELECT * FROM `order`
+        SELECT * FROM orders
     </select>
 
     <select id="getAllByUid" resultMap="OrderResult">
-        SELECT * FROM `order` WHERE uid=#{uid}
+        SELECT * FROM orders WHERE uid=#{uid}
     </select>
 
     <select id="countByUid" resultType="Integer">
-        SELECT count(1) FROM `order` WHERE uid=#{uid}
+        SELECT count(1) FROM orders WHERE uid=#{uid}
     </select>
 
     <insert id="insert" parameterType="Item">
-
-        INSERT INTO `order` (
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO orders (
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="NO!=null">
                 ,NO
@@ -214,7 +234,7 @@
     </insert>
 
     <update id="update">
-        UPDATE `order` set
+        UPDATE orders set
         <trim prefixOverrides="," prefix="" suffixOverrides="," suffix="">
             <if test="NO!=null">
                 NO=#{NO},
@@ -304,11 +324,11 @@
     </update>
 
     <delete id="delete">
-        DELETE FROM `order` WHERE id=#{id}
+        DELETE FROM orders WHERE id=#{id}
     </delete>
 
     <update id="softDelete">
-        UPDATE `order` set deleted_at=now() WHERE id=#{id}
+        UPDATE orders set deleted_at=now() WHERE id=#{id}
     </update>
 
 

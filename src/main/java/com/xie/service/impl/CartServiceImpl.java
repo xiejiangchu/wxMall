@@ -23,6 +23,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public int clear(int uid) {
+        return cartDao.clear(uid);
+    }
+
+    @Override
     public int insert(Cart cart) {
         return cartDao.insert(cart);
     }

@@ -20,6 +20,10 @@
         where id=#{id}
     </select>
 
+    <delete id="clear">
+        DELETE FROM cart WHERE  uid=#{uid}
+    </delete>
+
     <select id="getByUid" resultMap="CartResult">
         SELECT * FROM cart
         where uid=#{uid}

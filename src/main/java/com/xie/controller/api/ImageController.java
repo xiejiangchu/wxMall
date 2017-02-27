@@ -31,13 +31,17 @@ public class ImageController extends BaseController {
 
     @RequestMapping(value = "/listDirServer", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse listDirServer(@RequestParam(value = "dir", defaultValue = "", required = false) String dir, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse listDirServer(@RequestParam(value = "dir", defaultValue = "", required = false) String dir,
+                               @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(imageFileService.getDirsServer(dir, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/listFileServer", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse listFileServer(@RequestParam(value = "dir", defaultValue = "", required = false) String dir, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse listFileServer(@RequestParam(value = "dir", defaultValue = "", required = false) String dir,
+                                @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                                @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(imageFileService.getFileServer(dir, pageNum, pageSize));
     }
 

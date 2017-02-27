@@ -49,12 +49,71 @@
         </if>
     </select>
 
-    <insert id="insert" parameterType="Item">
-
+    <insert id="insertBatch" parameterType="map">
         INSERT INTO order_items (
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
-            <if test="id!=null">
-                ,id
+            ,oid
+            ,no
+            ,name
+            ,cid1
+            ,cid2
+            ,amount
+            ,weight
+            ,market_price
+            ,shop_price
+            ,promote_price
+            ,quanlity
+            ,unit
+            ,unit_sell
+            ,unit_desc
+            ,src
+            ,thumb
+            ,place
+            ,summary
+            ,notice
+            ,description
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES
+        <foreach collection="orderItems" item="orderItem" separator=",">
+            (
+            <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
+                ,#{orderItem.oid}
+                ,#{orderItem.no}
+                ,#{orderItem.name}
+                ,#{orderItem.cid1}
+                ,#{orderItem.cid2}
+                ,#{orderItem.amount}
+                ,#{orderItem.weight}
+                ,#{orderItem.market_price}
+                ,#{orderItem.shop_price}
+                ,#{orderItem.promote_price}
+                ,#{orderItem.quanlity}
+                ,#{orderItem.unit}
+                ,#{orderItem.unit_sell}
+                ,#{orderItem.unit_desc}
+                ,#{orderItem.src}
+                ,#{orderItem.thumb}
+                ,#{orderItem.place}
+                ,#{orderItem.summary}
+                ,#{orderItem.notice}
+                ,#{orderItem.description}
+                ,now()
+                ,now()
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insert" parameterType="Item">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO order_items (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="oid!=null">
+                ,oid
             </if>
             <if test="no!=null">
                 ,no
@@ -118,8 +177,8 @@
         </trim>
         ) VALUES (
         <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
-            <if test="id!=null">
-                ,#{id}
+            <if test="oid!=null">
+                ,#{oid}
             </if>
             <if test="no!=null">
                 ,#{no}

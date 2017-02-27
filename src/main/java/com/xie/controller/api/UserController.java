@@ -33,7 +33,8 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "users", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getAllUser(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse getAllUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(userService.getAllUsers(pageNum, pageSize));
     }
 

@@ -4,7 +4,9 @@ import com.xie.bean.OrderItem;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -36,6 +38,13 @@ public class OrderItemDao extends BaseDao {
     public int insert(OrderItem orderItem) {
         return sqlSession.insert("OrderItemMapper.insert", orderItem);
     }
+
+    public int insert(List<OrderItem> orderItems) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderItems", orderItems);
+        return sqlSession.insert("OrderItemMapper.insertBatch", map);
+    }
+
 
     public int update(OrderItem orderItem) {
         return sqlSession.update("OrderItemMapper.update", orderItem);

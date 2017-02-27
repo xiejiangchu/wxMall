@@ -19,6 +19,9 @@
     </select>
 
     <insert id="insert" parameterType="Payment">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
         INSERT INTO payment (
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
             <if test="code!=null">

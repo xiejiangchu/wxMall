@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class OrderItem {
     private Integer id;
+    private Integer oid;
     private String no;
     private String name;
     private Integer cid1;
@@ -36,6 +37,14 @@ public class OrderItem {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOid() {
+        return oid;
+    }
+
+    public void setOid(Integer oid) {
+        this.oid = oid;
     }
 
     public String getNo() {

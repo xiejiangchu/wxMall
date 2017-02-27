@@ -24,6 +24,13 @@ public class CartController extends BaseController{
         return BaseResponse.ok(cartService.getByUid(uid));
     }
 
+    @RequestMapping(value = "/clear", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse clear(@RequestParam("uid") int uid) {
+
+        return BaseResponse.ok(cartService.clear(uid));
+    }
+
     @RequestMapping(value = "item/{uid}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse getByUidWithItem(@PathVariable("uid") int uid) {

@@ -49,6 +49,11 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public int insert(List<OrderItem> orderItems) {
+        return orderItemDao.insert(orderItems);
+    }
+
+    @Override
     public int update(OrderItem orderItem) {
         return orderItemDao.update(orderItem);
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/order")
-public class OrderController extends BaseController{
+public class OrderController extends BaseController {
 
     @Autowired
     private OrderService orderService;
@@ -25,7 +25,9 @@ public class OrderController extends BaseController{
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByCategory(@RequestParam("uid") Integer uid, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+    BaseResponse getByUid(@RequestParam("uid") Integer uid,
+                          @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(orderService.getAllByUid(uid, pageNum, pageSize));
     }
 
@@ -37,21 +39,12 @@ public class OrderController extends BaseController{
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        return BaseResponse.ok(orderService.getAll(pageNum, pageNum));
+    BaseResponse list(@RequestParam(value = "type") int type,
+                      @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(orderService.getByType(type, pageNum, pageSize));
     }
 
-
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResponse post(@ModelAttribute Order item) {
-        int result = orderService.insert(item);
-        if (result > 0) {
-            return BaseResponse.ok();
-        } else {
-            return BaseResponse.fail();
-        }
-    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
@@ -64,10 +57,25 @@ public class OrderController extends BaseController{
         }
     }
 
-
-    @RequestMapping(value = "/{uid}", method = RequestMethod.POST)
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse submit(@PathVariable("uid") int uid,
+    public BaseResponse check(@RequestParam("uid") int uid,
+                              @RequestParam("aid") int aid,
+                              @RequestParam("bid") int bid,
+                              @RequestParam("pid") int pid,
+                              @RequestParam("message") String message) {
+        int result = orderService.submit(uid, aid, bid, pid, message);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse submit(@RequestParam("uid") int uid,
                                @RequestParam("aid") int aid,
                                @RequestParam("bid") int bid,
                                @RequestParam("pid") int pid,

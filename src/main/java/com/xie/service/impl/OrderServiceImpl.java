@@ -5,19 +5,22 @@ import com.github.pagehelper.PageInfo;
 import com.xie.bean.Address;
 import com.xie.bean.Cart;
 import com.xie.bean.Order;
+import com.xie.bean.OrderItem;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
 import com.xie.service.AddressService;
 import com.xie.service.CartService;
+import com.xie.service.OrderItemService;
 import com.xie.service.OrderService;
 import com.xie.utils.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +38,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private OrderItemService orderItemService;
 
     @Override
     public Order getById(int id) {
@@ -54,6 +60,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public PageInfo<Order> getByType(int type, int pageNum, int pageSize) {
+        PageInfo<Order> page = null;
+        int uid = 2;
+        if (OrderType.待支付.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
+        } else if (OrderType.待发货.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
+        } else if (OrderType.待收货.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
+        } else if (OrderType.已完成.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+            ;
+        }
+        return page;
+    }
+
+    @Override
     public int insert(Order order) {
         order.setNO(StringUtils.generateOrderNo());
 
@@ -63,6 +90,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int submit(int uid, int aid, int bid, int pid, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
+        List<OrderItem> orderItems = new ArrayList<>();
         Address address = addressService.getById(aid);
         Order order = new Order();
 
@@ -74,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrder_status(OrderState.进行中.value());
         order.setPay_status(PayState.未支付.value());
         order.setShip_status(ShipState.待配送.value());
-        order.setPay_status(PackageState.未打包.value());
+        order.setPackage_status(PackageState.未打包.value());
 
         double order_amount = 0;
         double order_weight = 0;
@@ -107,8 +135,19 @@ public class OrderServiceImpl implements OrderService {
         order.setSend_date(new java.sql.Date(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(9).toDate().getTime()));
         order.setTime_start(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(9).toDate().getTime()));
         order.setTime_end(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(10).toDate().getTime()));
-        return orderDao.insert(order);
+        int oid = orderDao.insert(order);
 
+        for (int i = 0; i < cartList.size(); i++) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOid(oid);
+            BeanUtils.copyProperties(cartList.get(i), orderItem, "created_at", "updated_at", "deleted_at");
+            BeanUtils.copyProperties(cartList.get(i).getItem(), orderItem, "created_at", "updated_at", "deleted_at");
+            BeanUtils.copyProperties(cartList.get(i).getItemSpec(), orderItem, "created_at", "updated_at", "deleted_at");
+
+            orderItems.add(orderItem);
+        }
+        orderItemService.insert(orderItems);
+        return oid;
     }
 
     @Override

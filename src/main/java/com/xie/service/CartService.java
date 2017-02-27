@@ -14,6 +14,8 @@ public interface CartService {
 
     int insert(Cart cart);
 
+    int clear(int uid);
+
     int saveOrUpdate(int uid, int gid, int spec, int amount);
 
     int update(Cart cart);

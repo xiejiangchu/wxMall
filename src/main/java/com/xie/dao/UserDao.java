@@ -51,7 +51,7 @@ public class UserDao extends BaseDao {
         map.put("username", username);
         map.put("password", password);
 
-        return this.sqlSession.delete("UserMapper.check", map);
+        return this.sqlSession.selectOne("UserMapper.check", map);
     }
 
     public int softDelete(int id) {

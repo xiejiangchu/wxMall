@@ -39,7 +39,7 @@
     <select id="check" resultType="Integer">
         SELECT count(*)
         FROM users
-        WHERE name = #{name}
+        WHERE name = #{username}
         AND password=#{password}
     </select>
 

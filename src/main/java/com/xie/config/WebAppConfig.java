@@ -1,5 +1,6 @@
 package com.xie.config;
 
+import com.xie.auth.AdminInteceptor;
 import com.xie.auth.LoginInteceptor;
 import com.xie.csrf.CSRFHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,19 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     private CSRFHandlerInterceptor csrfHandlerInterceptor;
     @Autowired
     private LoginInteceptor loginInteceptor;
+    @Autowired
+    private AdminInteceptor adminInteceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(csrfHandlerInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(adminInteceptor).addPathPatterns("/admin/**")
+                .excludePathPatterns("/index", "/login", "/upload", "webjars/**", "/v2/**", "/banners/**", "/css/**", "/js/**", "/images/**", "/**/*.html")
+                .excludePathPatterns("/admin/login", "/admin/register","/admin/document");
         registry.addInterceptor(loginInteceptor).addPathPatterns("/**")
-                .excludePathPatterns("/index","/login","/upload","webjars/**","/v2/**","/banners/**","/css/**","/js/**","/images/**","/**/*.html");
+                .excludePathPatterns("/admin/**", "/index", "/login", "/upload", "webjars/**", "/v2/**", "/banners/**", "/css/**", "/js/**", "/images/**", "/**/*.html")
+                .excludePathPatterns("/admin/login", "/admin/register");
         super.addInterceptors(registry);
     }
 }

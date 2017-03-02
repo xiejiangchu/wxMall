@@ -29,6 +29,10 @@
         where uid=#{uid}
     </select>
 
+    <delete id="clearByUid">
+        DELETE FROM cart where uid=#{uid}
+    </delete>
+
     <select id="getByUidWithItem" resultMap="CartResult">
         SELECT * FROM cart LEFT JOIN items i on cart.gid = i.id LEFT JOIN item_spec on cart.spec = item_spec.id
         where uid=#{uid}

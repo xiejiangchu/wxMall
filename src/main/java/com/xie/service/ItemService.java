@@ -24,11 +24,13 @@ public interface ItemService {
 
     PageInfo<Item> top(int pageNum, int pageSize);
 
-    PageInfo<Item> getByCategory(Integer level1, Integer level2, int pageNum, int pageSize);
+    PageInfo<Item> getByCategory(Integer cid1, Integer cid2, int pageNum, int pageSize);
 
-    PageInfo<Item> getByCategory(Integer level1, int pageNum, int pageSize);
+    PageInfo<Item> getByCategory(Integer cid1, int pageNum, int pageSize);
 
     int count(boolean all);
+
+    int countByCid1Cid2(int cid1,int cid2);
 
     int insert(Item item);
 

@@ -12,7 +12,17 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-
         return "index";
     }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "admin/index";
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error() {
+        return "admin/404";
+    }
+
 }

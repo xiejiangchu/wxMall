@@ -137,6 +137,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTime_end(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(10).toDate().getTime()));
         int oid = orderDao.insert(order);
 
+        //插入order详情
         for (int i = 0; i < cartList.size(); i++) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOid(oid);
@@ -147,6 +148,10 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
         }
         orderItemService.insert(orderItems);
+
+        //删除购物车
+        cartService.clear(uid);
+
         return oid;
     }
 

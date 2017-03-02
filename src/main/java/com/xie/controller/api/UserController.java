@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by xie on 16/11/24.
@@ -67,23 +68,20 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/web/wechatapp/jscode2session", method = RequestMethod.POST)
     @ResponseBody
-    public String getSessionByCode(@RequestBody String jsonStr, HttpServletRequest request) {
-        JSONObject jsonObj = JSONObject.parseObject(jsonStr);
-        String code = (String) jsonObj.get("code");
-        JSONObject wechatAppUserInfo = jsonObj.getJSONObject("wechatAppUserInfo");
-        String encryptedData = (String) wechatAppUserInfo.get("encryptedData");
-        String iv = (String) wechatAppUserInfo.get("iv");
+    public BaseResponse submit(@RequestParam("uid") String code,
+                               @RequestParam("aid") String userInfo,
+                               @RequestParam("bid") String encryptedData,
+                               @RequestParam("pid") String iv,HttpSession session)  {
 
 //        WechatUserInfo wechatUserInfo = wechatAppManager.doOAuth(code, encryptedData, iv);
 //        if (wechatUserInfo == null) {
 //            return "微信小程序授权失败！！！";
 //        }
-//        HttpSession session = request.getSession(true);
 //        User user = wechatUserInfo.getUser();
 //        logger.debug("微信小程序用户 union id: {}, 对应车车用户{}", wechatUserInfo.getUnionid(), user.getId());
 //        session.setAttribute(WebConstants.SESSION_KEY_USER, CacheUtil.doJacksonSerialize(user));
 //        ClientTypeUtil.cacheClientType(request, ClientType.WE_CHAT_APP);
 //        return session.getId();
-        return "success";
+        return BaseResponse.ok();
     }
 }

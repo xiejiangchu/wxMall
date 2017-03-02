@@ -40,11 +40,11 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = "/getByCategory", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByCategory(@RequestParam("level1") Integer level1,
-                               @RequestParam("level2") Integer level2,
+    BaseResponse getByCategory(@RequestParam("cid1") Integer cid1,
+                               @RequestParam("cid2") Integer cid2,
                                @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                                @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(itemService.getByCategory(level1, level2, pageNum, pageSize));
+        return BaseResponse.ok(itemService.getByCategory(cid1, cid2, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -32,16 +32,16 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.selectList("ItemMapper.getAllCanShow");
     }
 
-    public List<Item> getByCategory(Integer level1, Integer level2) {
+    public List<Item> getByCategory(Integer cid1, Integer cid2) {
         Map map = new HashMap<String, Object>();
-        map.put("level1", level1);
-        map.put("level2", level2);
+        map.put("cid1", cid1);
+        map.put("cid2", cid2);
         return this.sqlSession.selectList("ItemMapper.getByCategory", map);
     }
 
-    public List<Item> getByCategory(Integer level1) {
+    public List<Item> getByCategory(Integer cid1) {
         Map map = new HashMap<String, Object>();
-        map.put("level1", level1);
+        map.put("cid1", cid1);
         return this.sqlSession.selectList("ItemMapper.getByCategory", map);
     }
 
@@ -81,6 +81,13 @@ public class ItemDao extends BaseDao {
     public int softDelete(int id) {
         Assert.isTrue(id > 0);
         return this.sqlSession.update("ItemMapper.softDelete", id);
+    }
+
+    public int countByCid1Cid2(int cid1, int cid2) {
+        Map map = new HashMap<String, Object>();
+        map.put("cid1", cid1);
+        map.put("cid2", cid2);
+        return this.sqlSession.selectOne("ItemMapper.countByCid1Cid2", map);
     }
 
 }

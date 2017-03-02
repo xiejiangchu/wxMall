@@ -44,6 +44,10 @@ public class CartDao extends BaseDao {
         return this.sqlSession.delete("CartMapper.delete", cart.getId());
     }
 
+    public int clearByUid(int uid) {
+        return this.sqlSession.delete("CartMapper.clearByUid", uid);
+    }
+
 
     public int delete(int id) {
         return this.sqlSession.delete("CartMapper.delete", id);

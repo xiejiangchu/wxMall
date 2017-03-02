@@ -5,6 +5,7 @@ import com.xie.mapper.CategoryMapper;
 import com.xie.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -47,6 +48,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public int countCid2ByCid1(int cid1) {
+        return categoryMapper.countCid2ByCid1(cid1);
+    }
+
+
+    @Override
     public int insert(Category category) {
         // TODO: 17/2/26
         return 0;
@@ -60,13 +67,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int delete(Category category) {
-        // TODO: 17/2/26
-        return 0;
+        Assert.notNull(category);
+        return categoryMapper.delete(category.getId());
     }
 
     @Override
     public int delete(int id) {
-        // TODO: 17/2/26
-        return 0;
+        return categoryMapper.delete(id);
     }
 }

@@ -22,5 +22,7 @@ public interface CartService {
 
     int delete(Cart cart);
 
+    int clearByUid(int uid);
+
     int delete(int id);
 }

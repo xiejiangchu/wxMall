@@ -53,6 +53,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public int clearByUid(int uid) {
+        return cartDao.clearByUid(uid);
+    }
+
+    @Override
     public List<Cart> getByUidWithItem(int uid) {
         return cartDao.getByUidWithItem(uid);
     }

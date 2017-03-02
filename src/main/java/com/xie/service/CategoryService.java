@@ -20,6 +20,9 @@ public interface CategoryService {
 
     Category getById(int id);
 
+    int countCid2ByCid1(int cid1);
+
+
     int insert(Category category);
 
     int update(Category category);

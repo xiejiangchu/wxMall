@@ -42,7 +42,8 @@ public class OrderDao extends BaseDao {
     }
 
     public int insert(Order item) {
-        return this.sqlSession.insert("OrderDao.insert", item);
+        this.sqlSession.insert("OrderDao.insert", item);
+        return item.getId();
     }
 
     public int update(Order item) {

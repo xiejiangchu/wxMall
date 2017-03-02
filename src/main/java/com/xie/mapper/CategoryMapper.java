@@ -54,5 +54,10 @@ public interface CategoryMapper {
     @Select("SELECT b.* FROM category b WHERE pid = #{pid} and is_delete = 0 and level = 2 order by b.order desc")
     public List<Category> getCategoryLevel2(@Param("pid") int pid);
 
+    @Select("SELECT count(*) FROM category WHERE pid = #{cid1}")
+    public int countCid2ByCid1(int cid1);
+
+    @Delete("Delete FROM category WHERE id = #{id}")
+    public int delete(int id);
 
 }

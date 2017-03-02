@@ -78,20 +78,25 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public PageInfo<Item> getByCategory(Integer level1, Integer level2, int pageNum, int pageSize) {
-        PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getByCategory(level1, level2));
+    public PageInfo<Item> getByCategory(Integer cid1, Integer cid2, int pageNum, int pageSize) {
+        PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getByCategory(cid1, cid2));
         return page;
     }
 
     @Override
-    public PageInfo<Item> getByCategory(Integer level1, int pageNum, int pageSize) {
-        PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getByCategory(level1, null));
+    public PageInfo<Item> getByCategory(Integer cid1, int pageNum, int pageSize) {
+        PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getByCategory(cid1, null));
         return page;
     }
 
     @Override
     public List<Item> getAll() {
         return itemDao.getAll();
+    }
+
+    @Override
+    public int countByCid1Cid2(int cid1, int cid2) {
+        return itemDao.countByCid1Cid2(cid1, cid2);
     }
 
     @Override

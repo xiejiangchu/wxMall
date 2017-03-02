@@ -1,8 +1,6 @@
 package com.xie.service;
 
 import com.xie.bean.Payment;
-import com.xie.dao.PaymentDao;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @Author xie

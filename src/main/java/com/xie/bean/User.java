@@ -3,7 +3,6 @@ package com.xie.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class User implements Serializable {

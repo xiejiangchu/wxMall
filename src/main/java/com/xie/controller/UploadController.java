@@ -6,7 +6,6 @@ import com.xie.bean.Image;
 import com.xie.response.BaseResponse;
 import com.xie.service.ImageFileService;
 import com.xie.utils.DateEditor;
-import com.xie.utils.LongEditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

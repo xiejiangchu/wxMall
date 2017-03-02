@@ -1,6 +1,5 @@
 package com.xie.controller.api;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xie.bean.User;
 import com.xie.response.BaseResponse;
 import com.xie.service.UserService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**

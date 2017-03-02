@@ -2,7 +2,6 @@ package com.xie.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Address;
-import com.xie.bean.Cart;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.xie.service;
 
 import com.xie.bean.Category;
-import com.xie.bean.Image;
 
 import java.util.List;
 

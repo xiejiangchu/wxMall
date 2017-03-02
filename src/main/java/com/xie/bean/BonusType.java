@@ -1,7 +1,5 @@
 package com.xie.bean;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 import java.util.Date;
 
 /**

@@ -3,7 +3,6 @@ package com.xie.auth;
 import com.xie.bean.User;
 import com.xie.dao.RoleDao;
 import com.xie.dao.UserDao;
-import com.xie.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,9 +22,6 @@ import java.util.Set;
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private RoleDao roleDao;

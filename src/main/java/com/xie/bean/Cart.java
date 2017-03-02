@@ -3,9 +3,7 @@ package com.xie.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 @JsonIgnoreProperties(value = { "handler" })
 public class Cart implements Serializable {

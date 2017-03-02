@@ -3,9 +3,7 @@ package com.xie.config;
 import com.alibaba.media.MediaConfiguration;
 import com.alibaba.media.client.MediaClient;
 import com.alibaba.media.client.impl.DefaultMediaClient;
-import com.alibaba.media.manage.ManageClient;
 import com.alibaba.media.upload.UploadPolicy;
-import com.alibaba.media.upload.UploadRequest;
 import com.alibaba.media.upload.UploadTokenClient;
 import com.alibaba.media.upload.impl.DefaultUploadTokenClient;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.HttpPutFormContentFilter;
 
 /**
  * @Author xie

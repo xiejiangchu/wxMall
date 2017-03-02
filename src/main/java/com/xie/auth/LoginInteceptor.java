@@ -1,6 +1,5 @@
 package com.xie.auth;
 
-import com.xie.bean.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

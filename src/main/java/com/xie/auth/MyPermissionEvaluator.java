@@ -3,7 +3,6 @@ package com.xie.auth;
 import com.xie.bean.User;
 import com.xie.dao.RoleDao;
 import com.xie.dao.UserDao;
-import com.xie.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -20,9 +19,6 @@ public class MyPermissionEvaluator implements PermissionEvaluator {
 
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private RoleDao roleDao;

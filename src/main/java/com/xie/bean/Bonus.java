@@ -16,10 +16,10 @@ public class Bonus implements Serializable {
     private Integer gid;
     private Double min_amount;
     private Integer is_enable;
-    private Date begin;
-    private Date end;
-    private Timestamp created_at;
-    private Timestamp updated_at;
+    private Date start_at;
+    private Date end_at;
+    private Date created_at;
+    private Date updated_at;
 
     public Integer getId() {
         return this.id;
@@ -109,36 +109,36 @@ public class Bonus implements Serializable {
         this.is_enable = is_enable;
     }
 
-    public Date getBegin() {
-        return begin;
+    public Date getStart_at() {
+        return start_at;
     }
 
-    public void setBegin(Date begin) {
-        this.begin = begin;
+    public void setStart_at(Date start_at) {
+        this.start_at = start_at;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getEnd_at() {
+        return end_at;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setEnd_at(Date end_at) {
+        this.end_at = end_at;
     }
 
-    public Timestamp getCreated_at() {
-        return this.created_at;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdated_at() {
-        return this.updated_at;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
+    public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
-} 
+}
 

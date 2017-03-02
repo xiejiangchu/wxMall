@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Bonus;
 
 import java.util.Date;
@@ -11,25 +12,27 @@ import java.util.List;
  */
 public interface BonusService {
 
-    public List<Bonus> getAllByUid(Integer uid);
+    List<Bonus> getAllByUid(int uid);
 
-    public Bonus getById(Integer id);
+    PageInfo<Bonus> getListByType(int uid, int type, int pageNum, int pageSize);
 
-    public int countByUid(Integer uid);
+    Bonus getById(int id);
 
-    public int insert(Bonus bonus);
+    int countByUid(int uid);
 
-    public int insert(Integer uid, Integer tid, Integer is_enable, Date begin, Date end);
+    int insert(Bonus bonus);
 
-    public int insert(Integer uid, Integer tid);
+    int insert(int uid, int tid, Integer is_enable, Date begin, Date end);
 
-    public int update(Bonus bonus);
+    int insert(int uid, int tid);
 
-    public int delete(Integer id);
+    int update(Bonus bonus);
 
-    public int delete(Bonus bonus);
+    int delete(int id);
 
-    public int softDelete(Integer id);
+    int delete(Bonus bonus);
 
-    public int saveOrUpdate(Bonus bonus);
+    int softDelete(int id);
+
+    int saveOrUpdate(Bonus bonus);
 }

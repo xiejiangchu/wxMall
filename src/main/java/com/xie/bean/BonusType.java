@@ -16,8 +16,8 @@ public class BonusType {
     private Integer gid;
     private Integer is_enable;
     private double min_amount;
-    private Date begin;
-    private Date end;
+    private Date start_at;
+    private Date end_at;
     private Date created_at;
     private Date updated_at;
 
@@ -93,20 +93,20 @@ public class BonusType {
         this.min_amount = min_amount;
     }
 
-    public Date getBegin() {
-        return begin;
+    public Date getStart_at() {
+        return start_at;
     }
 
-    public void setBegin(Date begin) {
-        this.begin = begin;
+    public void setStart_at(Date start_at) {
+        this.start_at = start_at;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getEnd_at() {
+        return end_at;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setEnd_at(Date end_at) {
+        this.end_at = end_at;
     }
 
     public Date getCreated_at() {

@@ -1,8 +1,11 @@
 package com.xie.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Bonus;
 import com.xie.bean.BonusType;
 import com.xie.dao.BonusDao;
+import com.xie.enums.BonusQueryType;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
 import org.joda.time.DateTimeComparator;
@@ -28,17 +31,17 @@ public class BonusServiceImpl implements BonusService {
     BonusTypeService bonusTypeService;
 
     @Override
-    public List<Bonus> getAllByUid(Integer uid) {
+    public List<Bonus> getAllByUid(int uid) {
         return bonusDao.getAllByUid(uid);
     }
 
     @Override
-    public Bonus getById(Integer id) {
+    public Bonus getById(int id) {
         return bonusDao.getById(id);
     }
 
     @Override
-    public int countByUid(Integer uid) {
+    public int countByUid(int uid) {
         return bonusDao.countByUid(uid);
     }
 
@@ -48,7 +51,19 @@ public class BonusServiceImpl implements BonusService {
     }
 
     @Override
-    public int insert(Integer uid, Integer tid, Integer is_enable, Date begin, Date end) {
+    public PageInfo<Bonus> getListByType(int uid, int type, int pageNum, int pageSize) {
+        if (BonusQueryType.未使用.value().equals(type)) {
+            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListInvalidate(uid));
+            return page;
+        } else if (BonusQueryType.已过期.value().equals(type)) {
+            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListValidate(uid));
+            return page;
+        }
+        return null;
+    }
+
+    @Override
+    public int insert(int uid, int tid, Integer is_enable, Date begin, Date end) {
         Assert.notNull(uid);
         Assert.notNull(tid);
         BonusType bonusType = bonusTypeService.getById(tid);
@@ -59,23 +74,23 @@ public class BonusServiceImpl implements BonusService {
         insert.setUid(uid);
         insert.setTid(tid);
         insert.setIs_enable(is_enable);
-        BeanUtils.copyProperties(bonusType, insert, "id", "uid", "tid", "begin", "end", "created_at", "updated_at");
-        if (DateTimeComparator.getInstance().compare(begin, bonusType.getBegin()) > 0) {
-            insert.setBegin(begin);
+        BeanUtils.copyProperties(bonusType, insert, "id", "uid", "tid", "start_at", "end_at", "created_at", "updated_at");
+        if (DateTimeComparator.getInstance().compare(begin, bonusType.getStart_at()) > 0) {
+            insert.setStart_at(begin);
         } else {
-            insert.setBegin(bonusType.getBegin());
+            insert.setStart_at(bonusType.getStart_at());
         }
-        if (DateTimeComparator.getInstance().compare(end, bonusType.getEnd()) < 0) {
-            insert.setEnd(end);
+        if (DateTimeComparator.getInstance().compare(end, bonusType.getEnd_at()) < 0) {
+            insert.setEnd_at(end);
         } else {
-            insert.setEnd(bonusType.getEnd());
+            insert.setEnd_at(bonusType.getEnd_at());
         }
 
         return bonusDao.insert(insert);
     }
 
     @Override
-    public int insert(Integer uid, Integer tid) {
+    public int insert(int uid, int tid) {
         Assert.notNull(uid);
         Assert.notNull(tid);
         BonusType bonusType = bonusTypeService.getById(tid);
@@ -96,7 +111,7 @@ public class BonusServiceImpl implements BonusService {
     }
 
     @Override
-    public int delete(Integer id) {
+    public int delete(int id) {
         return bonusDao.delete(id);
     }
 
@@ -106,7 +121,7 @@ public class BonusServiceImpl implements BonusService {
     }
 
     @Override
-    public int softDelete(Integer id) {
+    public int softDelete(int id) {
         return bonusDao.softDelete(id);
     }
 

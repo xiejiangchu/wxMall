@@ -15,14 +15,14 @@
         <result property="gid" column="gid" javaType="Integer" jdbcType="INTEGER"/>
         <result property="is_enable" column="is_enable" javaType="Integer" jdbcType="INTEGER"/>
         <result property="min_amount" column="min_amount" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="bengin" column="bengin" javaType="Date" jdbcType="TIMESTAMP"/>
-        <result property="end" column="end" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="start_at" column="start_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="end_at" column="end_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="selectById" resultMap="BonusResult">
+    <select id="getById" resultMap="BonusResult">
         SELECT * FROM bonus where id=#{id}
     </select>
 
@@ -32,6 +32,19 @@
 
     <select id="countByUid" resultType="Integer">
         SELECT count(*) FROM bonus where uid=#{uid}
+    </select>
+
+    <select id="getListInvalidate" resultMap="BonusResult">
+        SELECT * FROM bonus where uid=#{uid}
+         AND <![CDATA[ end_at< now()
+        ]]>
+    </select>
+
+    <select id="getListValidate" resultMap="BonusResult">
+        SELECT * FROM bonus where uid=#{uid}
+        AND <![CDATA[ start_at <= now() ]]>
+        AND <![CDATA[ end_at >= now()
+        ]]>
     </select>
 
     <insert id="insert">
@@ -70,11 +83,11 @@
             <if test="is_enable!=null">
                 ,is_enable
             </if>
-            <if test="begin!=null">
-                ,begin
+            <if test="start_at!=null">
+                ,start_at
             </if>
-            <if test="end!=null">
-                ,end
+            <if test="end_at!=null">
+                ,end_at
             </if>
             ,created_at
             ,updated_at
@@ -111,11 +124,11 @@
             <if test="is_enable!=null">
                 ,#{is_enable}
             </if>
-            <if test="begin!=null">
-                ,#{begin,javaType=Date}
+            <if test="start_at!=null">
+                ,#{start_at,javaType=Date}
             </if>
-            <if test="end!=null">
-                ,#{end,javaType=Date}
+            <if test="end_at!=null">
+                ,#{end_at,javaType=Date}
             </if>
             ,now()
             ,now()
@@ -156,11 +169,11 @@
             <if test="is_enable!=null">
                 ,is_enable=#{is_enable}
             </if>
-            <if test="begin!=null">
-                ,begin=#{begin,javaType=Date}
+            <if test="start_at!=null">
+                ,start_at=#{start_at,javaType=Date}
             </if>
-            <if test="end!=null">
-                ,end=#{end,javaType=Date}
+            <if test="end_at!=null">
+                ,end_at=#{end_at,javaType=Date}
             </if>
         </trim>
         ,updated_at=now()
@@ -205,11 +218,11 @@
                 <if test="is_enable!=null">
                     ,is_enable=#{is_enable}
                 </if>
-                <if test="begin!=null">
-                    ,begin=#{begin,javaType=Date}
+                <if test="start_at!=null">
+                    ,start_at=#{start_at,javaType=Date}
                 </if>
-                <if test="end!=null">
-                    ,end=#{end,javaType=Date}
+                <if test="end_at!=null">
+                    ,end_at=#{end_at,javaType=Date}
                 </if>
             </trim>
             ,updated_at=now()
@@ -248,11 +261,11 @@
                 <if test="is_enable!=null">
                     ,is_enable
                 </if>
-                <if test="begin!=null">
-                    ,begin
+                <if test="start_at!=null">
+                    ,start_at
                 </if>
-                <if test="end!=null">
-                    ,end
+                <if test="end_at!=null">
+                    ,end_at
                 </if>
                 ,created_at
                 ,updated_at
@@ -289,11 +302,11 @@
                 <if test="is_enable!=null">
                     ,#{is_enable}
                 </if>
-                <if test="begin!=null">
-                    ,#{begin,javaType=Date}
+                <if test="start_at!=null">
+                    ,#{start_at,javaType=Date}
                 </if>
-                <if test="end!=null">
-                    ,#{end,javaType=Date}
+                <if test="end_at!=null">
+                    ,#{end_at,javaType=Date}
                 </if>
                 ,now()
                 ,now()

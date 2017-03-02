@@ -4,7 +4,9 @@ import com.xie.bean.Bonus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xie on 16/11/24.
@@ -49,6 +51,18 @@ public class BonusDao extends BaseDao {
 
     public int saveOrUpdate(Bonus bonus) {
         return this.sqlSession.insert("BonusMapper.saveOrUpdate", bonus);
+    }
+
+    public List<Bonus> getListInvalidate(int uid) {
+        Map map = new HashMap<String, Object>();
+        map.put("uid", uid);
+        return this.sqlSession.selectList("BonusMapper.getListInvalidate", map);
+    }
+
+    public List<Bonus> getListValidate(int uid) {
+        Map map = new HashMap<String, Object>();
+        map.put("uid", uid);
+        return this.sqlSession.selectList("BonusMapper.getListValidate", map);
     }
 
 }

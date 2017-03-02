@@ -6,6 +6,8 @@
     <title>后台管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="icon" href="/favicon.ico">
     <!-- Bootstrap 3.3.6 -->
     <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -19,6 +21,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/dist/css/skins/_all-skins.min.css">
+
+    <link rel="stylesheet" href="/css/app.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -159,7 +163,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/webjars/AdminLTE/2.3.8/dist/img/user2-160x160.jpg" class="user-image"
                                  alt="User Image">
-                            <span class="hidden-xs" th:text="${{session.user.name}}"></span>
+                            <span class="hidden-xs">asdfasdfas</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -168,9 +172,8 @@
                                      alt="User Image">
 
                                 <p>
-                                    <span th:text="${{session.user.name}}"></span>
-                                    <small>加入时间:<span
-                                            th:text="${#calendars.format(session.user.created_at,'yyyy-MM-dd')}">13 february 2011</span>
+
+                                    <small>加入时间:13 february 2011
                                     </small>
                                 </p>
                             </li>
@@ -219,7 +222,7 @@
                     <img src="/webjars/AdminLTE/2.3.8/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><span th:text="${{session.user.name}}"></span></p>
+                    <p></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -245,17 +248,32 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="index.html"><i class="fa fa-circle-o"></i> 商品分类</a></li>
-                        <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> 商品信息</a></li>
+                        <li><a ui-sref="item"><i class="fa fa-circle-o"></i> 商品分类</a></li>
+                        <li>
+                            <a ui-sref="category"><i class="fa fa-circle-o"></i> 商品信息</a></li>
+                    </ul>
+                </li>
+
+                <li class="active treeview">
+                    <a href="/">
+                        <i class="fa fa-dashboard"></i> <span>订单信息</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a ui-sref="order"><i class="fa fa-circle-o"></i> 所有订单</a></li>
+                        <li>
+                            <a ui-sref="search"><i class="fa fa-circle-o"></i> 订单搜索</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
                         <span>Layout Options</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
+                            <span class="pull-right-container">
+                              <span class="label label-primary pull-right">4</span>
+                            </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
@@ -268,9 +286,9 @@
                 <li>
                     <a href="pages/widgets.html">
                         <i class="fa fa-th"></i> <span>Widgets</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
+                            <span class="pull-right-container">
+                              <small class="label pull-right bg-green">new</small>
+                            </span>
                     </a>
                 </li>
                 <li class="treeview">
@@ -412,7 +430,8 @@
         <!-- /.sidebar -->
     </aside>
 
-    <div ui-view=""/>
+    <div ui-view="">
+    </div>
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
@@ -640,15 +659,16 @@
 <script src="/webjars/AdminLTE/2.3.8/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS 1.0.1 -->
 <script src="/webjars/AdminLTE/2.3.8/plugins/chartjs/Chart.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/webjars/AdminLTE/2.3.8/dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/webjars/AdminLTE/2.3.8/dist/js/demo.js"></script>
 
 <script type="text/javascript" src="/admin/js/initModule.js"></script>
 <script type="text/javascript" src="/admin/js/mallRouter.js"></script>
 <script type="text/javascript" src="/admin/js/services.js"></script>
 <script type="text/javascript" src="/admin/js/directive.js"></script>
 <script type="text/javascript" src="/admin/js/controller/mallController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/dashBoardController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/categoryController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/itemController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/orderController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/searchController.js"></script>
 </body>
 </html>

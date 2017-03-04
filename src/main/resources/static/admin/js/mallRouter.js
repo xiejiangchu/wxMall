@@ -11,6 +11,10 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/item',
         templateUrl: 'html/item.html',
         controller: 'itemController'
+    }).state('image', {
+        url: '/image',
+        templateUrl: 'html/image.html',
+        controller: 'imageController'
     }).state('itemDetail', {
         url: '/itemDetail/:id',
         templateUrl: 'html/itemDetail.html',

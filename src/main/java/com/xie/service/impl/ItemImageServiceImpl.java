@@ -41,12 +41,13 @@ public class ItemImageServiceImpl implements ItemImageService {
     }
 
     @Override
-    public int insert(Integer iid, Integer imgid) {
+    public int insert(int iid, int imgid, int type) {
         Assert.notNull(iid);
         Assert.notNull(imgid);
         ItemImage itemImage = new ItemImage();
         itemImage.setIid(iid);
         itemImage.setImgid(imgid);
+        itemImage.setType(type);
         return itemImageDao.insert(itemImage);
     }
 

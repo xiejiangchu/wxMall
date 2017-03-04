@@ -11,7 +11,8 @@ import java.util.List;
 public class ItemDto {
 
     private Item item;
-    private List<Integer> images;
+    private List<Integer> masterImageSelected;
+    private List<Integer> slaveImageSelected;
 
     public Item getItem() {
         return item;
@@ -21,11 +22,19 @@ public class ItemDto {
         this.item = item;
     }
 
-    public List<Integer> getImages() {
-        return images;
+    public List<Integer> getMasterImageSelected() {
+        return masterImageSelected;
     }
 
-    public void setImages(List<Integer> images) {
-        this.images = images;
+    public void setMasterImageSelected(List<Integer> masterImageSelected) {
+        this.masterImageSelected = masterImageSelected;
+    }
+
+    public List<Integer> getSlaveImageSelected() {
+        return slaveImageSelected;
+    }
+
+    public void setSlaveImageSelected(List<Integer> slaveImageSelected) {
+        this.slaveImageSelected = slaveImageSelected;
     }
 }

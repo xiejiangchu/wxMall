@@ -13,8 +13,8 @@ import java.util.List;
 @Component
 public class ImageDao extends BaseDao {
 
-    public List<Image> getById(int id) {
-        return this.sqlSession.selectList("ImageMapper.getById", id);
+    public Image getById(int id) {
+        return this.sqlSession.selectOne("ImageMapper.getById", id);
     }
 
     public List<Image> getAll() {

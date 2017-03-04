@@ -45,6 +45,9 @@
             <if test="imgid!=null">
                 ,imgid
             </if>
+            <if test="type!=null">
+                ,type
+            </if>
         </trim>
         ) VALUES (
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
@@ -53,6 +56,9 @@
             </if>
             <if test="imgid!=null">
                 ,#{imgid}
+            </if>
+            <if test="type!=null">
+                ,#{type}
             </if>
         </trim>
         )
@@ -66,6 +72,9 @@
             </if>
             <if test="imgid!=null">
                 ,imgid=#{imgid}
+            </if>
+            <if test="type!=null">
+                ,type=#{type}
             </if>
         </trim>
         where id=#{id}

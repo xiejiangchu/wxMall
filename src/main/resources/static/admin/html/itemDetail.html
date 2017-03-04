@@ -63,10 +63,16 @@
                         <span class="help-block">Help block with error</span>
                     </div>
 
+                    <div class="form-group">
+                        <label>首页图像</label>
+                        <imageselector paginate="images" single="true"
+                                       image-selected="masterImageSelected"></imageselector>
+                    </div>
                     <!-- textarea -->
                     <div class="form-group">
-                        <label>图像</label>
-                        <imageselector paginate="images" image-selected="imageSelected"></imageselector>
+                        <label>详情图像</label>
+                        <imageselector paginate="images" single="false"
+                                       image-selected="slaveImageSelected"></imageselector>
                     </div>
                     <div class="form-group">
                         <button ng-click="cancel()"type="button" class="btn btn-primary ">取消</button>

@@ -75,6 +75,7 @@ dependencies {
     compile("org.webjars:bootstrap:3.3.7")
     compile("org.webjars:jquery:3.1.0")
     compile("org.webjars:AdminLTE:2.3.8")
+    compile("org.webjars:momentjs:2.17.1")
     compile group: 'org.webjars', name: 'angularjs', version: '1.6.1'
     compile group: 'org.webjars', name: 'angular-ui-router', version: '1.0.0-beta.3'
     compile group: 'org.webjars', name: 'font-awesome', version: '4.7.0'

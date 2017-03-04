@@ -1,6 +1,7 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Item;
+import com.xie.enums.ImageType;
 import com.xie.request.ItemDto;
 import com.xie.response.BaseResponse;
 import com.xie.service.ImageFileService;
@@ -90,12 +91,17 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse put(@PathVariable int id, @RequestBody ItemDto itemDto) {
-        int result = itemService.update(itemDto.getItem());
-        List<Integer> images = itemDto.getImages();
-        if (null != images) {
-            for (int i = 0; i < images.size(); i++) {
-                if (itemImageService.check(id, images.get(i)) <= 0) {
-                    itemImageService.insert(id, images.get(i));
+        List<Integer> masterImageSelected = itemDto.getMasterImageSelected();
+        Item item = itemDto.getItem();
+        if (null != masterImageSelected && masterImageSelected.size() > 0) {
+            item.setSrc(imageFileService.getById(masterImageSelected.get(0)).getUrl());
+        }
+        int result = itemService.update(item);
+        List<Integer> slaveImageSelected = itemDto.getSlaveImageSelected();
+        if (null != slaveImageSelected) {
+            for (int i = 0; i < slaveImageSelected.size(); i++) {
+                if (itemImageService.check(id, slaveImageSelected.get(i)) <= 0) {
+                    itemImageService.insert(id, slaveImageSelected.get(i), ImageType.详情图片.value());
                 }
             }
         }

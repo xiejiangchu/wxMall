@@ -83,7 +83,7 @@ public class ImageFileServiceImpl implements ImageFileService {
     }
 
     @Override
-    public List<Image> getById(int id) {
+    public Image getById(int id) {
         return imageDao.getById(id);
     }
 

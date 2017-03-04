@@ -8,6 +8,7 @@ public class ItemImage {
     private Integer id;
     private Integer iid;
     private Integer imgid;
+    private Integer type;
 
     public Integer getId() {
         return id;
@@ -31,5 +32,13 @@ public class ItemImage {
 
     public void setImgid(Integer imgid) {
         this.imgid = imgid;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

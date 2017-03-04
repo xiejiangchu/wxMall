@@ -41,6 +41,28 @@ mall.directive('datatablecategory', function () {
             }
         }
     };
+}).directive('datatableimage', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: "=",
+            pageChanged: "&",
+            itemClick: "&"
+        },
+        templateUrl: 'template/dataTableImage.html',
+        link: function (scope, element, attrs) {
+            scope.$watch('options.paginate', handleModelUpdates, true);
+            scope.$watch('options.title', titleChanged, true);
+
+            function titleChanged(newData) {
+                scope.options.title = newData || "";
+            }
+
+            function handleModelUpdates(newData) {
+                scope.options.paginate = newData || {};
+            }
+        }
+    };
 }).directive('select2', function () {
     return {
         restrict: 'EA',
@@ -70,7 +92,8 @@ mall.directive('datatablecategory', function () {
         restrict: 'EA',
         scope: {
             paginate: "=",
-            imageSelected: "="
+            imageSelected: "=",
+            single: '='
         },
         templateUrl: 'template/imageSelector.html',
         link: function (scope, element, attrs) {
@@ -83,6 +106,9 @@ mall.directive('datatablecategory', function () {
             scope.itemSelected = function (id) {
                 if (!scope.images) {
                     return;
+                }
+                if (scope.single) {
+                    init();
                 }
                 angular.forEach(scope.images, function (value, key) {
                     if (value.image.id == id) {

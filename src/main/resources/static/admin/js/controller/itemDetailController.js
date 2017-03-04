@@ -3,7 +3,8 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
     $scope.cid1 = [];
     $scope.cid2 = [];
     $scope.images = {};
-    $scope.imageSelected = [];
+    $scope.masterImageSelected = [];
+    $scope.slaveImageSelected = [];
 
     $scope.iid = $stateParams.id;
     $scope.item = {};
@@ -43,7 +44,11 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
 
     $scope.submit = function () {
         $http.put('/item/' + $scope.item.id,
-            {item: $scope.item, images: $scope.imageSelected}
+            {
+                item: $scope.item,
+                masterImageSelected: $scope.masterImageSelected,
+                slaveImageSelected: $scope.slaveImageSelected
+            }
         ).then(function (response) {
             console.log(response);
         }, function (error) {

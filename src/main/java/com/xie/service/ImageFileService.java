@@ -13,7 +13,7 @@ public interface ImageFileService
 
 	List<MediaFile> getFileServer(String soursDir, int pageNum, int pageSize);
 
-	List<Image> getById(int uid);
+	Image getById(int id);
 
 	List<Image> getByName(String name);
 

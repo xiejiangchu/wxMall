@@ -1,8 +1,13 @@
 package com.xie.controller;
 
+import com.xie.bean.User;
+import com.xie.response.BaseResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by xie on 17/1/7.
@@ -23,6 +28,13 @@ public class IndexController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error() {
         return "admin/404";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse user(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        return BaseResponse.ok(user);
     }
 
 }

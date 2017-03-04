@@ -16,6 +16,8 @@ public interface ItemImageService {
 
     int insert(ItemImage itemImage);
 
+    int check(int iid,int imgid);
+
     int insert(Integer iid,Integer imgid);
 
     int update(ItemImage itemImage);

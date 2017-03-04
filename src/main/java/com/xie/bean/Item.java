@@ -10,6 +10,7 @@ public class Item implements Serializable {
     private String name;
     private int cid1;
     private int cid2;
+    private int is_online;
     private String src;
     private String thumb;
     private String place;
@@ -149,6 +150,14 @@ public class Item implements Serializable {
 
     public void setItemSpecList(List<ItemSpec> itemSpecList) {
         this.itemSpecList = itemSpecList;
+    }
+
+    public int getIs_online() {
+        return is_online;
+    }
+
+    public void setIs_online(int is_online) {
+        this.is_online = is_online;
     }
 }
 

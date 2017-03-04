@@ -5,7 +5,9 @@ import com.xie.bean.ItemImage;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -46,6 +48,13 @@ public class ItemImageDao extends BaseDao {
         Assert.notNull(image);
         Assert.isTrue(image.getId() > 0);
         return this.sqlSession.delete("ItemImageMapper.delete", image.getId());
+    }
+
+    public int check(int iid, int imgid) {
+        Map map = new HashMap<String, Object>();
+        map.put("iid", iid);
+        map.put("imgid", imgid);
+        return this.sqlSession.selectOne("ItemImageMapper.check", map);
     }
 
 

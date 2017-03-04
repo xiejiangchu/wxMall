@@ -6,10 +6,7 @@ import com.xie.service.CategoryService;
 import com.xie.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +33,13 @@ public class CategoryController extends BaseController {
     @ResponseBody
     public BaseResponse getCategoryLevel1() {
         return BaseResponse.ok(categoryService.getCategoryLevel1());
+    }
+
+    @RequestMapping(value = "/getCid1", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse getCid1(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                                @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(categoryService.getCid1(pageNum,pageSize));
     }
 
 

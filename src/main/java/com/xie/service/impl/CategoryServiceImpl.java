@@ -1,7 +1,9 @@
 package com.xie.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Category;
-import com.xie.mapper.CategoryMapper;
+import com.xie.dao.CategoryDao;
 import com.xie.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +18,21 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    CategoryMapper categoryMapper;
+    CategoryDao categoryDao;
 
     @Override
     public List<Category> getAll() {
-        return categoryMapper.getAllCategory();
+        return categoryDao.getAllCategory();
     }
 
     @Override
     public List<Category> getAllCanShow() {
-        return categoryMapper.getAllCategoryCanShow();
+        return categoryDao.getAllCategoryCanShow();
     }
 
     @Override
     public List<Category> getCategoryLevel1() {
-        List<Category> list = categoryMapper.getCategoryLevel1();
+        List<Category> list = categoryDao.getCategoryLevel1();
         if (null != list) {
             list.get(0).setCid2List(getCategoryLevel2(list.get(0).getId()));
         }
@@ -39,40 +41,44 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getCategoryLevel2(int pid) {
-        return categoryMapper.getCategoryLevel2(pid);
+        return categoryDao.getCategoryLevel2(pid);
+    }
+
+    @Override
+    public PageInfo<Category> getCid1(int pageNum, int pageSize) {
+        PageInfo<Category> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> categoryDao.getCategoryLevel1());
+        return page;
     }
 
     @Override
     public Category getById(int id) {
-        return categoryMapper.getById(id);
+        return categoryDao.getById(id);
     }
 
     @Override
     public int countCid2ByCid1(int cid1) {
-        return categoryMapper.countCid2ByCid1(cid1);
+        return categoryDao.countCid2ByCid1(cid1);
     }
 
 
     @Override
     public int insert(Category category) {
-        // TODO: 17/2/26
-        return 0;
+        return categoryDao.insert(category);
     }
 
     @Override
     public int update(Category category) {
-        // TODO: 17/2/26
-        return 0;
+        return categoryDao.update(category);
     }
 
     @Override
     public int delete(Category category) {
         Assert.notNull(category);
-        return categoryMapper.delete(category.getId());
+        return categoryDao.delete(category.getId());
     }
 
     @Override
     public int delete(int id) {
-        return categoryMapper.delete(id);
+        return categoryDao.delete(id);
     }
 }

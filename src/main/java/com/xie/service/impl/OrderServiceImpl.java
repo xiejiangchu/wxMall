@@ -21,6 +21,7 @@ import org.springframework.util.Assert;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -179,5 +180,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int countByUid(int uid) {
         return orderDao.countByUid(uid);
+    }
+
+    @Override
+    public int count(Date start, Date end) {
+        return orderDao.count(start,end);
     }
 }

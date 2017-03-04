@@ -1,0 +1,176 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CategoryMapper">
+
+    <resultMap id="CategoryResult" type="Category" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="level" column="level" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_delete" column="is_delete" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="CategoryResult">
+        SELECT * FROM category
+        where id=#{id}
+    </select>
+
+    <select id="getAllCategoryCanShow" resultMap="CategoryResult">
+        SELECT * FROM category
+        WHERE is_delete = 0 order by sort desc
+    </select>
+
+    <select id="getAllCategory" resultMap="CategoryResult">
+        SELECT * FROM category order by sort desc"
+    </select>
+
+    <select id="top" resultMap="CategoryResult">
+        SELECT * FROM category
+    </select>
+
+    <select id="last" resultMap="CategoryResult">
+        SELECT * FROM category ORDER BY created_at
+    </select>
+
+    <select id="lastUpdated" resultMap="CategoryResult">
+        SELECT * FROM category ORDER BY updated_at
+    </select>
+
+    <select id="getCategoryLevel1" resultMap="CategoryResult">
+        SELECT * FROM category WHERE is_delete = 0 and level = 1 order by sort desc
+    </select>
+
+    <select id="getCategoryLevel2" resultMap="CategoryResult">
+        SELECT * FROM category WHERE pid = #{pid} and is_delete = 0 and level = 2 order by sort desc
+    </select>
+
+    <select id="countCid2ByCid1" resultType="Integer">
+        SELECT count(*) FROM category WHERE pid = #{cid1}
+    </select>
+
+
+    <select id="count" resultType="Integer">
+        SELECT count(1) FROM category
+        WHERE 1=1
+        <if test="all">
+            AND is_online = 1
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="Category">
+
+        INSERT INTO category (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="pid!=null">
+                ,pid
+            </if>
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="level!=null">
+                ,level
+            </if>
+            <if test="sort!=null">
+                ,sort
+            </if>
+            <if test="is_delete!=null">
+                ,is_delete
+            </if>
+            <if test="is_recommend!=null">
+                ,is_recommend
+            </if>
+            <if test="pic_category!=null">
+                ,pic_category
+            </if>
+            <if test="pic_path_big!=null">
+                ,pic_path_big
+            </if>
+            <if test="pic_path_little!=null">
+                ,pic_path_little
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
+            <if test="pid!=null">
+                ,#{pid}
+            </if>
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="level!=null">
+                ,#{level}
+            </if>
+            <if test="sort!=null">
+                ,#{sort}
+            </if>
+            <if test="is_delete!=null">
+                ,#{is_delete}
+            </if>
+            <if test="is_recommend!=null">
+                ,#{is_recommend}
+            </if>
+            <if test="pic_category!=null">
+                ,#{pic_category}
+            </if>
+            <if test="pic_path_big!=null">
+                ,#{pic_path_big}
+            </if>
+            <if test="pic_path_little!=null">
+                ,#{pic_path_little}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE category set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="pid!=null">
+                ,pid=#{pid}
+            </if>
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="level!=null">
+                ,level=#{level}
+            </if>
+            <if test="sort!=null">
+                ,sort=#{sort}
+            </if>
+            <if test="is_delete!=null">
+                ,is_delete=#{is_delete}
+            </if>
+            <if test="is_recommend!=null">
+                ,is_recommend=#{is_recommend}
+            </if>
+            <if test="pic_category!=null">
+                ,pic_category=#{pic_category}
+            </if>
+            <if test="pic_path_big!=null">
+                ,pic_path_big=#{pic_path_big}
+            </if>
+            <if test="pic_path_little!=null">
+                ,pic_path_little=#{pic_path_little}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM category WHERE id=#{id}
+    </delete>
+
+    <update id="softDelete">
+        UPDATE category set deleted_at=now() WHERE id=#{id}
+    </update>
+
+</mapper>

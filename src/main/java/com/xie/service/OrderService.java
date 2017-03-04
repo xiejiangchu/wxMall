@@ -3,6 +3,8 @@ package com.xie.service;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Order;
 
+import java.util.Date;
+
 /**
  * @Author xie
  * @Date 17/1/23 上午10:32.
@@ -30,5 +32,7 @@ public interface OrderService {
     int delete(int id);
 
     int softDelete(int id);
+
+    int count(Date start, Date end);
 
 }

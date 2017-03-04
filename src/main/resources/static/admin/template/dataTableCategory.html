@@ -1,0 +1,53 @@
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">{{options.title}}</h3>
+
+        <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+            <tr>
+                <th>自增id</th>
+                <th>名称</th>
+                <th>级别</th>
+                <th>排序</th>
+                <th>原图</th>
+                <th>小图</th>
+                <th>创建时间</th>
+                <th>修改时间</th>
+            </tr>
+            <tr ng-repeat="item in options.paginate.list">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.level}}</td>
+                <td><div class="progress progress-xs">
+                    <div class="progress-bar {{item.sort<4? 'progress-bar-primary':item.sort<6? 'progress-bar-yellow':'progress-bar-danger'}}" style="width: {{item.sort*10}}%"></div>
+                </div></td>
+                <td>{{item.src}}</td>
+                <td>{{item.thumb}}</td>
+                <td>{{item.created_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>{{item.updated_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+            </tr>
+        </table>
+
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a data-ng-click="pageChanged({page:options.paginate.firstPage})">&laquo;</a></li>
+                <li><a data-ng-click="pageChanged({page:options.paginate.prePage})" ng-if="options.paginate.prePage>0">{{options.paginate.prePage}}</a></li>
+                <li><a href="javascript:void(0);">{{options.paginate.pageNum}}</a></li>
+                <li><a data-ng-click="pageChanged({page:options.paginate.nextPage})" ng-if="options.paginate.nextPage>0">{{options.paginate.nextPage}}</a></li>
+                <li><a data-ng-click="pageChanged({page:options.paginate.lastPage})">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>

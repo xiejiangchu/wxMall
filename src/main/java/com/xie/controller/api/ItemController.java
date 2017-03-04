@@ -1,6 +1,7 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Item;
+import com.xie.request.ItemDto;
 import com.xie.response.BaseResponse;
 import com.xie.service.ImageFileService;
 import com.xie.service.ItemImageService;
@@ -88,14 +89,23 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse put(@PathVariable int id, @ModelAttribute Item item) {
-        int result = itemService.update(item);
+    public BaseResponse put(@PathVariable int id, @RequestBody ItemDto itemDto) {
+        int result = itemService.update(itemDto.getItem());
+        List<Integer> images = itemDto.getImages();
+        if (null != images) {
+            for (int i = 0; i < images.size(); i++) {
+                if (itemImageService.check(id, images.get(i)) <= 0) {
+                    itemImageService.insert(id, images.get(i));
+                }
+            }
+        }
         if (result > 0) {
             return BaseResponse.ok();
         } else {
             return BaseResponse.fail();
         }
     }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody

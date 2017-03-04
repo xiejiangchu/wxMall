@@ -78,6 +78,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public PageInfo<Item> last(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<Item> page = new PageInfo<Item>(itemDao.last());
+        return page;
+    }
+
+    @Override
+    public PageInfo<Item> lastUpdated(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<Item> page = new PageInfo<Item>(itemDao.lastUpdated());
+        return page;
+    }
+
+    @Override
     public PageInfo<Item> getByCategory(Integer cid1, Integer cid2, int pageNum, int pageSize) {
         PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getByCategory(cid1, cid2));
         return page;

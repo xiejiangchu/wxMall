@@ -1,7 +1,6 @@
 package com.xie.bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Bonus implements Serializable {

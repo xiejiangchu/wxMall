@@ -1,0 +1,7 @@
+<div class="row">
+    <div class="col-sm-1" ng-repeat="item in images">
+        <div ng-click="itemSelected(item.image.id)" class="{{item.selected? 'image-selected':''}}">
+            <img class="img-responsive" src="http://wxmall.image.alimmdn.com/{{item.image.uri}}" alt="Photo">
+        </div>
+    </div>
+</div>

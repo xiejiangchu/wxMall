@@ -36,6 +36,11 @@ public class ItemImageServiceImpl implements ItemImageService {
     }
 
     @Override
+    public int check(int iid, int imgid) {
+        return itemImageDao.check(iid,imgid);
+    }
+
+    @Override
     public int insert(Integer iid, Integer imgid) {
         Assert.notNull(iid);
         Assert.notNull(imgid);

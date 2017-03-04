@@ -29,4 +29,6 @@ public interface UserService {
     int check(String username, String password);
 
     int softDelete(int id);
+
+    int count();
 }

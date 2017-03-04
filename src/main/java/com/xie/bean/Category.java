@@ -12,19 +12,13 @@ public class Category implements Serializable {
     private int id;
     private int pid;
     private String name;
-
     private int level;
-    private int order;
+    private int sort;
     private int is_delete;
-    private int is_recommend;
-    private String pic_category;
-    private String pic_path_big;
-    private String pic_path_little;
+    private String src;
+    private String thumb;
     private Date created_at;
     private Date updated_at;
-    private Date deleted_at;
-
-
     private List<Category> cid2List;
 
     public int getId() {
@@ -59,12 +53,12 @@ public class Category implements Serializable {
         this.level = level;
     }
 
-    public int getOrder() {
-        return order;
+    public int getSort() {
+        return sort;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
     public int getIs_delete() {
@@ -75,36 +69,20 @@ public class Category implements Serializable {
         this.is_delete = is_delete;
     }
 
-    public int getIs_recommend() {
-        return is_recommend;
+    public String getSrc() {
+        return src;
     }
 
-    public void setIs_recommend(int is_recommend) {
-        this.is_recommend = is_recommend;
+    public void setSrc(String src) {
+        this.src = src;
     }
 
-    public String getPic_category() {
-        return pic_category;
+    public String getThumb() {
+        return thumb;
     }
 
-    public void setPic_category(String pic_category) {
-        this.pic_category = pic_category;
-    }
-
-    public String getPic_path_big() {
-        return pic_path_big;
-    }
-
-    public void setPic_path_big(String pic_path_big) {
-        this.pic_path_big = pic_path_big;
-    }
-
-    public String getPic_path_little() {
-        return pic_path_little;
-    }
-
-    public void setPic_path_little(String pic_path_little) {
-        this.pic_path_little = pic_path_little;
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public Date getCreated_at() {
@@ -121,14 +99,6 @@ public class Category implements Serializable {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public Date getDeleted_at() {
-        return deleted_at;
-    }
-
-    public void setDeleted_at(Date deleted_at) {
-        this.deleted_at = deleted_at;
     }
 
     public List<Category> getCid2List() {

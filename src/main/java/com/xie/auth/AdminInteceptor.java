@@ -1,12 +1,17 @@
 package com.xie.auth;
 
 import com.xie.bean.User;
+import com.xie.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -14,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class AdminInteceptor implements HandlerInterceptor {
+
+    @Autowired
+    private UserService userService;
 
     public AdminInteceptor() {
         super();
@@ -24,8 +32,19 @@ public class AdminInteceptor implements HandlerInterceptor {
         String requestUri = request.getRequestURI(); //请求完整路径，可用于登陆后跳转
         String contextPath = request.getContextPath();  //项目下完整路径
         String url = requestUri.substring(contextPath.length()); //请求页面
+
         User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
+        if (user != null) {
+            return true;
+        }
+
+        Cookie cookie = getCookieByName(request, "uid");
+        if (cookie == null) {
+            response.sendRedirect("/admin/login");
+            return false;
+        }
+        User user_query = userService.getById(Integer.parseInt(cookie.getValue()));
+        if (user_query == null) {
             if (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").equalsIgnoreCase("XMLHttpRequest")) {
                 return true;
             } else {
@@ -36,6 +55,34 @@ public class AdminInteceptor implements HandlerInterceptor {
             return true;
         }
     }
+
+    public static Cookie getCookieByName(HttpServletRequest request, String name) {
+        Map<String, Cookie> cookieMap = ReadCookieMap(request);
+        if (cookieMap.containsKey(name)) {
+            Cookie cookie = (Cookie) cookieMap.get(name);
+            return cookie;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 将cookie封装到Map里面
+     *
+     * @param request
+     * @return
+     */
+    private static Map<String, Cookie> ReadCookieMap(HttpServletRequest request) {
+        Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+        Cookie[] cookies = request.getCookies();
+        if (null != cookies) {
+            for (Cookie cookie : cookies) {
+                cookieMap.put(cookie.getName(), cookie);
+            }
+        }
+        return cookieMap;
+    }
+
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {

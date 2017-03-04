@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Category;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface CategoryService {
     List<Category> getCategoryLevel1();
 
     List<Category> getCategoryLevel2(int pid);
+
+    PageInfo<Category> getCid1(int pageNum, int pageSize);
 
     Category getById(int id);
 

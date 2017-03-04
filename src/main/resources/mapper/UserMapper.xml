@@ -25,6 +25,15 @@
         WHERE wx = #{wx}
     </select>
 
+    <select id="count" resultType="Integer">
+        SELECT count(*) FROM users
+        WHERE verified = 1
+        <if test="start!=null">
+            AND <![CDATA[ created_at >=#{start javaType=Date } ]]>
+            AND <![CDATA[ created_at <= #{end javaType=Date }]]>
+        </if>
+    </select>
+
     <select id="getByEmail" resultMap="UserResult">
         SELECT *
         FROM users

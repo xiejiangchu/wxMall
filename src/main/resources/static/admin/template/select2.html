@@ -1,0 +1,7 @@
+<div class="form-group">
+    <label>{{title}}</label>
+    <select class="form-control select2" ng-model="item_selected" data-ng-change="itemSelected({id:item_selected.id})"
+            data-ng-options="item.name for item in options track by item.id" data-placeholder="选择一种状态" style="width: 100%;">
+    </select>
+</div>
+

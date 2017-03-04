@@ -1,5 +1,21 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    item
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            商品信息
+            <small>Version 2.0</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">商品信息</li>
+        </ol>
+    </section>
+
+    <div class="box">
+        <div datatableitem options="options" page-changed="pageChanged(page)" item-click="itemClick(id)">
+
+        </div>
+    </div>
 </div>
 <!-- /.content-wrapper -->

@@ -25,8 +25,9 @@ public class ImageController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list() {
-        return BaseResponse.ok(imageFileService.getAll());
+    BaseResponse list(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
+        return BaseResponse.ok(imageFileService.getAll(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/listDirServer", method = RequestMethod.GET)

@@ -2,3 +2,15 @@ html,body{
     height: 100%;
     width: 100%;
 }
+.image-selected{
+    position: relative;
+}
+.image-selected:before{
+    content: '  ';
+    position: absolute;
+    left: 50%;
+    right: 0;
+    top: 0;
+    bottom:50%;
+    background: url('/img/selected.png')no-repeat;
+}

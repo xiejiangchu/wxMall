@@ -38,6 +38,10 @@ public class UserDao extends BaseDao {
         return this.sqlSession.selectList("UserMapper.getAll");
     }
 
+    public int count() {
+        return this.sqlSession.selectOne("UserMapper.count");
+    }
+
     public int update(User user) {
         return this.sqlSession.update("UserMapper.update", user);
     }

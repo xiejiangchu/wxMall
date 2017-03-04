@@ -24,6 +24,18 @@
 
     <link rel="stylesheet" href="/css/app.css">
 
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/plugins/daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/plugins/datepicker/datepicker3.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.3.8/plugins/select2/select2.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,7 +44,7 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="com.xie.mall" ng-cloak>
-<div class="wrapper" ng-controller="mallController" ng-cloak>
+<div class="wrapper" style="height:100%;" ng-controller="mallController" ng-cloak>
 
     <header class="main-header">
 
@@ -163,7 +175,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/webjars/AdminLTE/2.3.8/dist/img/user2-160x160.jpg" class="user-image"
                                  alt="User Image">
-                            <span class="hidden-xs">asdfasdfas</span>
+                            <span class="hidden-xs">{{user.name}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -173,7 +185,7 @@
 
                                 <p>
 
-                                    <small>加入时间:13 february 2011
+                                    <small>{{user.created_at | date : 'yyyy-MM-dd hh:mm:ss'}}
                                     </small>
                                 </p>
                             </li>
@@ -195,10 +207,10 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="#" class="btn btn-default btn-flat">个人中心</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="#" class="btn btn-default btn-flat">退出系统</a>
                                 </div>
                             </li>
                         </ul>
@@ -240,31 +252,36 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">控制面板</li>
+                <li><a ui-sref="dashboard"><i class="fa fa-book">
+                </i>
+                    <span>Dashboard</span></a></li>
                 <li class="active treeview">
                     <a href="/">
-                        <i class="fa fa-dashboard"></i> <span>商品信息</span>
+                        <i class="fa fa-list"></i> <span>商品信息</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a ui-sref="item"><i class="fa fa-circle-o"></i> 商品分类</a></li>
+                        <li><a ui-sref="category"><i class="fa fa-align-justify"></i> 商品分类</a></li>
                         <li>
-                            <a ui-sref="category"><i class="fa fa-circle-o"></i> 商品信息</a></li>
+                            <a ui-sref="item"><i class="fa fa-align-center"></i> 商品信息</a></li>
+                        <li>
+                            <a ui-sref="itemDetail"><i class="fa fa-align-center"></i> 商品详情</a></li>
                     </ul>
                 </li>
 
                 <li class="active treeview">
                     <a href="/">
-                        <i class="fa fa-dashboard"></i> <span>订单信息</span>
+                        <i class="fa fa-cny"></i> <span>订单信息</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a ui-sref="order"><i class="fa fa-circle-o"></i> 所有订单</a></li>
+                        <li><a ui-sref="order"><i class="fa fa-file-text-o"></i> 所有订单</a></li>
                         <li>
-                            <a ui-sref="search"><i class="fa fa-circle-o"></i> 订单搜索</a></li>
+                            <a ui-sref="search"><i class="fa fa-search"></i> 订单搜索</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -276,15 +293,19 @@
                             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                        <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>
+                            Top Navigation</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/layout/boxed.html"><i class="fa fa-circle-o"></i>
+                            Boxed</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/layout/fixed.html"><i class="fa fa-circle-o"></i>
+                            Fixed</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/layout/collapsed-sidebar.html"><i
+                                class="fa fa-circle-o"></i> Collapsed
                             Sidebar</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="pages/widgets.html">
+                    <a href="/webjars/AdminLTE/2.3.8/pages/widgets.html">
                         <i class="fa fa-th"></i> <span>Widgets</span>
                             <span class="pull-right-container">
                               <small class="label pull-right bg-green">new</small>
@@ -300,10 +321,14 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                        <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                        <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>
+                            ChartJS</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/charts/morris.html"><i class="fa fa-circle-o"></i>
+                            Morris</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a>
+                        </li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/charts/inline.html"><i class="fa fa-circle-o"></i>
+                            Inline charts</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -315,12 +340,18 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                        <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                        <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                        <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                        <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                        <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/UI/general.html"><i class="fa fa-circle-o"></i>
+                            General</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/UI/icons.html"><i class="fa fa-circle-o"></i>
+                            Icons</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/UI/buttons.html"><i class="fa fa-circle-o"></i>
+                            Buttons</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/UI/sliders.html"><i class="fa fa-circle-o"></i>
+                            Sliders</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/UI/timeline.html"><i class="fa fa-circle-o"></i>
+                            Timeline</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -331,10 +362,13 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                        <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/forms/general.html"><i class="fa fa-circle-o"></i>
+                            General Elements</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/forms/advanced.html"><i class="fa fa-circle-o"></i>
+                            Advanced Elements</a>
                         </li>
-                        <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/forms/editors.html"><i class="fa fa-circle-o"></i>
+                            Editors</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -345,12 +379,14 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                        <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/tables/simple.html"><i class="fa fa-circle-o"></i>
+                            Simple tables</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/tables/data.html"><i class="fa fa-circle-o"></i> Data
+                            tables</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="pages/calendar.html">
+                    <a href="/webjars/AdminLTE/2.3.8/pages/calendar.html">
                         <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
@@ -359,7 +395,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="pages/mailbox/mailbox.html">
+                    <a href="/webjars/AdminLTE/2.3.8/pages/mailbox/mailbox.html">
                         <i class="fa fa-envelope"></i> <span>Mailbox</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow">12</small>
@@ -376,15 +412,24 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                        <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                        <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                        <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                        <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                        <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                        <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                        <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                        <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/invoice.html"><i class="fa fa-circle-o"></i>
+                            Invoice</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/profile.html"><i class="fa fa-circle-o"></i>
+                            Profile</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/login.html"><i class="fa fa-circle-o"></i>
+                            Login</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/register.html"><i
+                                class="fa fa-circle-o"></i> Register</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/lockscreen.html"><i
+                                class="fa fa-circle-o"></i> Lockscreen</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/404.html"><i class="fa fa-circle-o"></i> 404
+                            Error</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/500.html"><i class="fa fa-circle-o"></i> 500
+                            Error</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/blank.html"><i class="fa fa-circle-o"></i>
+                            Blank Page</a></li>
+                        <li><a href="/webjars/AdminLTE/2.3.8/pages/examples/pace.html"><i class="fa fa-circle-o"></i>
+                            Pace Page</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -430,211 +475,11 @@
         <!-- /.sidebar -->
     </aside>
 
-    <div ui-view="">
+    <div class="content" style="height:100%;background: #ecf0f5;overflow: scroll;">
+        <div ui-view="">
+
+        </div>
     </div>
-
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.8
-        </div>
-        <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All
-        rights
-        reserved.
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <!-- Home tab content -->
-            <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                <p>New phone +1(800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                                <p>nora@example.com</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                                <p>Execution time 5 seconds</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="label label-danger pull-right">70%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Update Resume
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Laravel Integration
-                                <span class="label label-warning pull-right">50%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Back End Framework
-                                <span class="label label-primary pull-right">68%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-            </div>
-            <!-- /.tab-pane -->
-
-            <!-- Settings tab content -->
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information about this general settings option
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Allow mail redirect
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Other sets of options are available
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Expose author name in posts
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Allow the user to show his name in blog posts
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Show me as online
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Turn off notifications
-                            <input type="checkbox" class="pull-right">
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Delete chat history
-                            <a href="javascript:void(0)" class="text-red pull-right"><i
-                                    class="fa fa-trash-o"></i></a>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
-            </div>
-            <!-- /.tab-pane -->
-        </div>
-    </aside>
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
-
 </div>
 <!-- ./wrapper -->
 
@@ -642,6 +487,24 @@
 <script src="/webjars/jquery/3.1.0/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="/webjars/AdminLTE/2.3.8/plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="/webjars/AdminLTE/2.3.8/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="/webjars/AdminLTE/2.3.8/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/webjars/AdminLTE/2.3.8/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="/webjars/AdminLTE/2.3.8/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="/webjars/AdminLTE/2.3.8/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="/webjars/AdminLTE/2.3.8/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="/webjars/AdminLTE/2.3.8/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- DataTables -->
+<script src="/webjars/AdminLTE/2.3.8/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/webjars/AdminLTE/2.3.8/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="/webjars/AdminLTE/2.3.8/plugins/fastclick/fastclick.js"></script>
 <!--angularjs-->
@@ -670,5 +533,6 @@
 <script type="text/javascript" src="/admin/js/controller/itemController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/orderController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/searchController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/itemDetailController.js"></script>
 </body>
 </html>

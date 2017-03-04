@@ -7,6 +7,7 @@
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="cid1" column="cid1" javaType="Integer" jdbcType="INTEGER"/>
         <result property="cid2" column="cid2" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_online" column="is_online" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -30,6 +31,14 @@
         SELECT * FROM items
     </select>
 
+    <select id="last" resultMap="ItemResult">
+        SELECT * FROM items ORDER BY created_at
+    </select>
+
+    <select id="lastUpdated" resultMap="ItemResult">
+        SELECT * FROM items ORDER BY updated_at
+    </select>
+
     <select id="getAllCanShow" resultMap="ItemResult">
         SELECT * FROM items WHERE items.is_online = 1
     </select>
@@ -46,7 +55,7 @@
     </select>
 
     <select id="countByCid1Cid2" resultType="integer">
-        SELECT count(*) FROM items
+        SELECT count(1) FROM items
         WHERE 1=1
         <if test="cid1!=null">
             and cid1=#{cid1}
@@ -64,11 +73,11 @@
         </if>
     </select>
 
-    <select id="count" parameterType="Boolean">
+    <select id="count" resultType="Integer">
         SELECT count(1) FROM items
-        WHERE
+        WHERE 1=1
         <if test="all">
-            and is_online = 1
+            AND is_online = 1
         </if>
     </select>
 

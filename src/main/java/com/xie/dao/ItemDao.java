@@ -55,8 +55,17 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.selectList("ItemMapper.top");
     }
 
+    public List<Item> last() {
+        return this.sqlSession.selectList("ItemMapper.last");
+    }
+    public List<Item> lastUpdated() {
+        return this.sqlSession.selectList("ItemMapper.lastUpdated");
+    }
+
     public int count(boolean all) {
-        return this.sqlSession.selectOne("ItemMapper.count", all);
+        Map map = new HashMap<String, Object>();
+        map.put("all", all);
+        return this.sqlSession.selectOne("ItemMapper.count", map);
     }
 
     public int insert(Item item) {

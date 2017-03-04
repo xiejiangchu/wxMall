@@ -24,6 +24,10 @@ public interface ItemService {
 
     PageInfo<Item> top(int pageNum, int pageSize);
 
+    PageInfo<Item> last(int pageNum, int pageSize);
+
+    PageInfo<Item> lastUpdated(int pageNum, int pageSize);
+
     PageInfo<Item> getByCategory(Integer cid1, Integer cid2, int pageNum, int pageSize);
 
     PageInfo<Item> getByCategory(Integer cid1, int pageNum, int pageSize);

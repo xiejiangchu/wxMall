@@ -77,4 +77,9 @@ public class UserServiceImpl implements UserService {
     public int softDelete(int id) {
         return userDao.softDelete(id);
     }
+
+    @Override
+    public int count() {
+        return userDao.count();
+    }
 }

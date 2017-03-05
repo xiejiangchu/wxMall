@@ -94,7 +94,8 @@ public class ItemController extends BaseController {
         List<Integer> masterImageSelected = itemDto.getMasterImageSelected();
         Item item = itemDto.getItem();
         if (null != masterImageSelected && masterImageSelected.size() > 0) {
-            item.setSrc(imageFileService.getById(masterImageSelected.get(0)).getUrl());
+            item.setSrc(imageFileService.getById(masterImageSelected.get(0)).getUri());
+            item.setThumb(imageFileService.getById(masterImageSelected.get(0)).getUri());
         }
         int result = itemService.update(item);
         List<Integer> slaveImageSelected = itemDto.getSlaveImageSelected();

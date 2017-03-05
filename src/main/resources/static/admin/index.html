@@ -207,10 +207,10 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人中心</a>
+                                    <a href="javascript:void(0);" class="btn btn-default btn-flat">个人中心</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">退出系统</a>
+                                    <a href="javascript:void(0);" ng-click="logout()" class="btn btn-default btn-flat">退出系统</a>
                                 </div>
                             </li>
                         </ul>
@@ -265,7 +265,7 @@
                     <ul class="treeview-menu">
                         <li><a ui-sref="category"><i class="fa fa-align-justify"></i> 商品分类</a></li>
                         <li>
-                            <a ui-sref="item"><i class="fa fa-align-center"></i> 商品信息</a></li>
+                            <a ui-sref="item({page:1})"><i class="fa fa-align-center"></i> 商品信息</a></li>
                         <li>
                             <a ui-sref="itemDetail"><i class="fa fa-align-center"></i> 商品详情</a></li>
                     </ul>
@@ -505,7 +505,7 @@
 <script src="/webjars/AdminLTE/2.3.8/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="/webjars/AdminLTE/2.3.8/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- date-range-picker -->
-<script src="/webjars/moment.js/2.17.1/moment.min.js"></script>
+<script src="/webjars/momentjs/2.17.1/min/moment.min.js"></script>
 <script src="/webjars/AdminLTE/2.3.8/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap datepicker -->
 <script src="/webjars/AdminLTE/2.3.8/plugins/datepicker/bootstrap-datepicker.js"></script>

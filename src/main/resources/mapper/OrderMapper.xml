@@ -51,7 +51,23 @@
         <if test="ship_status!=null">
             and ship_status=#{ship_status}
         </if>
+    </select>
 
+    <select id="countByStatus" resultType="Integer" parameterType="map">
+        SELECT count(1) FROM orders
+        where uid=#{uid}
+        <if test="order_status!=null">
+            and order_status=#{order_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="ship_status!=null">
+            and ship_status=#{ship_status}
+        </if>
     </select>
 
     <select id="getAll" resultMap="OrderResult">

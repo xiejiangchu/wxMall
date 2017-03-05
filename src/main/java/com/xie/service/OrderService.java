@@ -2,6 +2,7 @@ package com.xie.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Order;
+import com.xie.response.OrderCountDto;
 
 import java.util.Date;
 
@@ -34,5 +35,7 @@ public interface OrderService {
     int softDelete(int id);
 
     int count(Date start, Date end);
+
+    OrderCountDto orderCount(int uid);
 
 }

@@ -2,6 +2,7 @@ package com.xie.auth;
 
 import com.xie.bean.User;
 import com.xie.service.UserService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -33,12 +34,12 @@ public class AdminInteceptor implements HandlerInterceptor {
         String contextPath = request.getContextPath();  //项目下完整路径
         String url = requestUri.substring(contextPath.length()); //请求页面
 
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute(MallConstants.SESSION_USER);
         if (user != null) {
             return true;
         }
 
-        Cookie cookie = getCookieByName(request, "uid");
+        Cookie cookie = getCookieByName(request, MallConstants.COOKIE_UID);
         if (cookie == null) {
             response.sendRedirect("/admin/login");
             return false;
@@ -52,6 +53,7 @@ public class AdminInteceptor implements HandlerInterceptor {
             }
             return false;
         } else {
+            request.getSession().setAttribute(MallConstants.SESSION_USER, user_query);
             return true;
         }
     }

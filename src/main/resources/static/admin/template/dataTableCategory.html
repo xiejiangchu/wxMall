@@ -42,9 +42,9 @@
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a data-ng-click="pageChanged({page:options.paginate.firstPage})">&laquo;</a></li>
-                <li><a data-ng-click="pageChanged({page:options.paginate.prePage})" ng-if="options.paginate.prePage>0">{{options.paginate.prePage}}</a></li>
-                <li><a href="javascript:void(0);">{{options.paginate.pageNum}}</a></li>
-                <li><a data-ng-click="pageChanged({page:options.paginate.nextPage})" ng-if="options.paginate.nextPage>0">{{options.paginate.nextPage}}</a></li>
+                <li ng-repeat="pageNum in options.paginate.navigatepageNums" class="{{pageNum==options.paginate.pageNum? 'active':''}}">
+                    <a data-ng-click="pageChanged({page:pageNum})">{{pageNum}}</a>
+                </li>
                 <li><a data-ng-click="pageChanged({page:options.paginate.lastPage})">&raquo;</a></li>
             </ul>
         </div>

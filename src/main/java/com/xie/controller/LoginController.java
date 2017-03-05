@@ -4,6 +4,7 @@ import com.xie.bean.Item;
 import com.xie.bean.User;
 import com.xie.service.ItemService;
 import com.xie.service.UserService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,8 +43,8 @@ public class LoginController {
                             HttpServletResponse response) {
         if (userService.check(username, password) > 0) {
             User user = userService.getByName(username);
-            session.setAttribute("user", user);
-            Cookie cookie = new Cookie("uid", String.valueOf(user.getId()));
+            session.setAttribute(MallConstants.SESSION_USER, user);
+            Cookie cookie = new Cookie(MallConstants.COOKIE_UID, String.valueOf(user.getId()));
             cookie.setMaxAge(60*60*24);
             cookie.setPath("/");
             response.addCookie(cookie);

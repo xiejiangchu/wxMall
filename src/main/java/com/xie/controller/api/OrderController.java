@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by xie on 16/11/24.
  */
@@ -102,7 +104,14 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse count(@RequestParam(value = "uid", required = true) Integer uid) {
-        return BaseResponse.ok(orderService.countByUid(uid));
+    public BaseResponse count(HttpSession session) {
+        return BaseResponse.ok(orderService.countByUid(getUid(session)));
+    }
+
+
+    @RequestMapping(value = "/orderCount", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse ordercount(HttpSession session)  {
+        return BaseResponse.ok(orderService.orderCount(getUid(session)));
     }
 }

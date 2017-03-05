@@ -8,7 +8,7 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         templateUrl: 'html/dashBoard.html',
         controller: 'dashBoardController'
     }).state('item', {
-        url: '/item',
+        url: '/item/:page',
         templateUrl: 'html/item.html',
         controller: 'itemController'
     }).state('image', {

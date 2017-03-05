@@ -8,6 +8,7 @@ import com.xie.bean.Order;
 import com.xie.bean.OrderItem;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
+import com.xie.response.OrderCountDto;
 import com.xie.service.AddressService;
 import com.xie.service.CartService;
 import com.xie.service.OrderItemService;
@@ -184,6 +185,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int count(Date start, Date end) {
-        return orderDao.count(start,end);
+        return orderDao.count(start, end);
+    }
+
+    @Override
+    public OrderCountDto orderCount(int uid) {
+        OrderCountDto orderCountDto = new OrderCountDto();
+        orderCountDto.setOrder_pay(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
+        orderCountDto.setOrder_receive(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
+        orderCountDto.setOrder_sending(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
+        orderCountDto.setOrder_finish(orderDao.countByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+        return orderCountDto;
     }
 }

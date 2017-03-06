@@ -8,6 +8,6 @@ mall.controller('dashBoardController', function ($rootScope, $scope, $http, $sta
     });
 
     $scope.checkAll= function () {
-        $state.go('item', {'page': 1});
+        $state.go('item.list', {'page': 1});
     }
 });

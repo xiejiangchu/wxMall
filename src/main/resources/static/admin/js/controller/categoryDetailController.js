@@ -53,7 +53,7 @@ mall.controller('categoryDetailController', function ($rootScope, $scope, $http,
             masterImageSelected: $scope.masterImageSelected
         }).then(function (response) {
             if (response.data.code == 0) {
-                alert('修改成功');
+                history.back();
             }
         }, function (error) {
         });
@@ -62,7 +62,7 @@ mall.controller('categoryDetailController', function ($rootScope, $scope, $http,
     $scope.delete = function () {
         $http.delete('/category/' + $scope.category.id).then(function (response) {
             if (response.data.code == 0) {
-                alert('删除成功');
+                history.back();
             }
         }, function (error) {
         });

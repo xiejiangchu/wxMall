@@ -20,6 +20,13 @@ mall.controller('categoryAddController', function ($rootScope, $scope, $http, $s
         console.log(response);
     });
 
+    $scope.pageChanged = function (id) {
+        $http.get('/image/list', {params: {pageNum: id, pageSize: $scope.pageSize}}).then(function (response) {
+            $scope.images = response.data.data;
+        }, function (error) {
+        });
+    };
+
     $scope.itemSelected1 = function (id) {
         $scope.category.pid = id;
     };

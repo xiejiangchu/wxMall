@@ -181,7 +181,7 @@
                 cid2=#{cid2},
             </if>
             <if test="is_online!=null">
-                ,is_online=#{is_online}
+                is_online=#{is_online},
             </if>
             <if test="src!=null">
                 src=#{src},

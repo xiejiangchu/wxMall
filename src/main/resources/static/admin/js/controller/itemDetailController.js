@@ -60,19 +60,19 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
     };
 
     $scope.submit = function () {
-        $http.put('/item/' + $scope.item.id,
-            {
-                item: $scope.item,
-                masterImageSelected: $scope.masterImageSelected,
-                slaveImageSelected: $scope.slaveImageSelected
+        $http.put('/item/' + $scope.item.id, {
+            item: $scope.item,
+            masterImageSelected: $scope.masterImageSelected,
+            slaveImageSelected: $scope.slaveImageSelected
+        }).then(function (response) {
+            if (response.data.code == 0) {
+                history.back();
             }
-        ).then(function (response) {
-            console.log(response);
         }, function (error) {
         });
     };
 
-    $scope.cancel = function () {
+    $scope.delete = function () {
 
     };
 

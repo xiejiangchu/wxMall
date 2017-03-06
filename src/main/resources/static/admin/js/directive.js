@@ -108,19 +108,21 @@ mall.directive('datatablecategory', function () {
             }, true);
 
             scope.itemSelected = function (id) {
+
                 if (scope.single) {
                     scope.imageSelected = [];
                     scope.imageSelected.push(id);
+                    return;
                 }
+                var exists = false;
                 angular.forEach(scope.imageSelected, function (value, key) {
-                    var exists = false;
                     if (value == id) {
                         exists = true;
                     }
-                    if (!exists) {
-                        scope.imageSelected.push(id);
-                    }
                 });
+                if (!exists) {
+                    scope.imageSelected.push(id);
+                }
             };
 
             scope.check = function (id) {

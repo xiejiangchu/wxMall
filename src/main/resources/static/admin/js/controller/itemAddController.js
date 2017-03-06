@@ -1,7 +1,7 @@
 mall.controller('itemAddController', function ($rootScope, $scope, $http, $state) {
     $scope.cid1 = [];
     $scope.cid2 = [];
-    $scope.images=[];
+    $scope.images = [];
     $scope.item = {};
 
     $http.get('/item/' + $scope.iid, {}).then(function (response) {
@@ -44,7 +44,10 @@ mall.controller('itemAddController', function ($rootScope, $scope, $http, $state
                 slaveImageSelected: $scope.slaveImageSelected
             }
         ).then(function (response) {
-            console.log(response);
+            if (response.data.code == 0) {
+                alert('添加成功');
+                history.back();
+            }
         }, function (error) {
         });
     };

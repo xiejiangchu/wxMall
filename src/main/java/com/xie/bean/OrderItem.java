@@ -13,7 +13,9 @@ public class OrderItem {
     private String name;
     private Integer cid1;
     private Integer cid2;
+    private Integer spec;
     private Integer amount;
+    private double total;
     private double weight;
     private double market_price;
     private double shop_price;
@@ -213,5 +215,21 @@ public class OrderItem {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Integer getSpec() {
+        return spec;
+    }
+
+    public void setSpec(Integer spec) {
+        this.spec = spec;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

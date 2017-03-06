@@ -6,4 +6,8 @@ mall.controller('dashBoardController', function ($rootScope, $scope, $http, $sta
     }, function (error) {
         console.log(response)
     });
+
+    $scope.checkAll= function () {
+        $state.go('item', {'page': 1});
+    }
 });

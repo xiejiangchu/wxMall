@@ -7,6 +7,7 @@
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="cid1" column="cid1" javaType="Integer" jdbcType="INTEGER"/>
         <result property="cid2" column="cid2" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="type" column="type" javaType="Integer" jdbcType="INTEGER"/>
         <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
         <result property="amount" column="amount" javaType="Integer" jdbcType="INTEGER"/>
         <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
@@ -24,11 +25,8 @@
         where id=#{id}
     </select>
 
-    <select id="getByOid" resultMap="OrderItemResult">
-        SELECT * FROM order_items
-        <if test="oid!=null">
-            and oid=#{oid}
-        </if>
+    <select id="getByOid" resultMap="OrderItemResult" >
+        SELECT * FROM order_items WHERE oid=#{oid}
     </select>
 
     <select id="count" parameterType="Boolean">
@@ -57,6 +55,8 @@
             ,name
             ,cid1
             ,cid2
+            ,spec
+            ,total
             ,amount
             ,weight
             ,market_price
@@ -84,6 +84,8 @@
                 ,#{orderItem.name}
                 ,#{orderItem.cid1}
                 ,#{orderItem.cid2}
+                ,#{orderItem.spec}
+                ,#{orderItem.total}
                 ,#{orderItem.amount}
                 ,#{orderItem.weight}
                 ,#{orderItem.market_price}
@@ -126,6 +128,12 @@
             </if>
             <if test="cid2!=null">
                 ,cid2
+            </if>
+            <if test="spec!=null">
+                ,spec
+            </if>
+            <if test="total!=null">
+                ,total
             </if>
             <if test="amount!=null">
                 ,amount
@@ -191,6 +199,12 @@
             </if>
             <if test="cid2!=null">
                 ,#{cid2}
+            </if>
+            <if test="spec!=null">
+                ,#{spec}
+            </if>
+            <if test="total!=null">
+                ,#{total}
             </if>
             <if test="amount!=null">
                 ,#{amount}
@@ -260,6 +274,12 @@
             </if>
             <if test="cid2!=null">
                 ,cid2=#{cid2}
+            </if>
+            <if test="spec!=null">
+                ,spec=#{spec}
+            </if>
+            <if test="total!=null">
+                ,total=#{total}
             </if>
             <if test="amount!=null">
                 ,amount=#{amount}

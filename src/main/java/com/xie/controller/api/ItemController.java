@@ -8,6 +8,7 @@ import com.xie.service.ImageFileService;
 import com.xie.service.ItemImageService;
 import com.xie.service.ItemService;
 import com.xie.service.ItemSpecService;
+import com.xie.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -77,17 +78,6 @@ public class ItemController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResponse post(@ModelAttribute Item item) {
-        int result = itemService.insert(item);
-        if (result > 0) {
-            return BaseResponse.ok();
-        } else {
-            return BaseResponse.fail();
-        }
-    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse put(@PathVariable int id, @RequestBody ItemDto itemDto) {
@@ -107,6 +97,32 @@ public class ItemController extends BaseController {
             }
         }
         if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse post(@RequestBody ItemDto itemDto) {
+        List<Integer> masterImageSelected = itemDto.getMasterImageSelected();
+        Item item = itemDto.getItem();
+        item.setNo(StringUtils.generateItemNo());
+        if (null != masterImageSelected && masterImageSelected.size() > 0) {
+            item.setSrc(imageFileService.getById(masterImageSelected.get(0)).getUri());
+            item.setThumb(imageFileService.getById(masterImageSelected.get(0)).getUri());
+        }
+        int id = itemService.insert(item);
+        List<Integer> slaveImageSelected = itemDto.getSlaveImageSelected();
+        if (null != slaveImageSelected) {
+            for (int i = 0; i < slaveImageSelected.size(); i++) {
+                if (itemImageService.check(id, slaveImageSelected.get(i)) <= 0) {
+                    itemImageService.insert(id, slaveImageSelected.get(i), ImageType.详情图片.value());
+                }
+            }
+        }
+        if (id > 0) {
             return BaseResponse.ok();
         } else {
             return BaseResponse.fail();

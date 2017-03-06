@@ -82,7 +82,9 @@
     </select>
 
     <insert id="insert" parameterType="Item">
-
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
         INSERT INTO items (
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
             <if test="no!=null">
@@ -96,6 +98,9 @@
             </if>
             <if test="cid2!=null">
                 ,cid2
+            </if>
+            <if test="is_online!=null">
+                ,is_online
             </if>
 
             <if test="src!=null">
@@ -133,7 +138,9 @@
             <if test="cid2!=null">
                 ,#{cid2}
             </if>
-
+            <if test="is_online!=null">
+                ,#{is_online}
+            </if>
             <if test="src!=null">
                 ,#{src}
             </if>
@@ -172,6 +179,9 @@
             </if>
             <if test="cid2!=null">
                 cid2=#{cid2},
+            </if>
+            <if test="is_online!=null">
+                ,is_online=#{is_online}
             </if>
             <if test="src!=null">
                 src=#{src},

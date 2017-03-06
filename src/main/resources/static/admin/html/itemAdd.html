@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-12" style="background: white;padding: 16px;">
+        <form role="form">
+            <!-- text input -->
+            <div class="form-group">
+                <label>商品名称</label>
+                <input ng-model="item.name" type="text" class="form-control" placeholder="商品名称">
+            </div>
+
+            <select2 options="cid1" title="一级分类" item-selected="itemSelected1(id)"></select2>
+
+            <select2 options="cid2" title="二级分类" item-selected="itemSelected2(id)"></select2>
+
+            <div class="form-group">
+                <label>商品是否上线</label>
+                <div class="radio">
+                    <label>
+                        <input ng-model="item.is_online" type="radio" name="online" value="0">
+                        不上线
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-model="item.is_online" type="radio" name="online" value="1">
+                        上线
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>产地</label>
+                <input ng-model="item.place" type="text" class="form-control" placeholder="产地">
+            </div>
+
+            <div class="form-group">
+                <label>简单描述</label>
+                <textarea ng-model="item.summary" name="summary" class="form-control" rows="3"
+                          placeholder="简单描述..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>详细描述</label>
+                <textarea ng-model="item.description" name="description" class="form-control" rows="3"
+                          placeholder="详细描述..."></textarea>
+            </div>
+
+            <div class="form-group has-error">
+                <label>通知信息</label>
+                <textarea ng-model="item.notice" name="notice" class="form-control" rows="3"
+                          placeholder="通知信息..."></textarea>
+                <span class="help-block">Help block with error</span>
+            </div>
+
+            <div class="form-group">
+                <label>首页图像</label>
+                <imageselector paginate="images" single="true"
+                               image-selected="masterImageSelected"></imageselector>
+            </div>
+            <!-- textarea -->
+            <div class="form-group">
+                <label>详情图像</label>
+                <imageselector paginate="images" single="false"
+                               image-selected="slaveImageSelected"></imageselector>
+            </div>
+            <div class="form-group">
+                <button ng-click="submit()" type="button" class="btn btn-danger btn-flat margin">添加</button>
+            </div>
+        </form>
+    </div>
+</div>

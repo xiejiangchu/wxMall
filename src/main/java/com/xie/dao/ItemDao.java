@@ -58,6 +58,7 @@ public class ItemDao extends BaseDao {
     public List<Item> last() {
         return this.sqlSession.selectList("ItemMapper.last");
     }
+
     public List<Item> lastUpdated() {
         return this.sqlSession.selectList("ItemMapper.lastUpdated");
     }
@@ -69,7 +70,8 @@ public class ItemDao extends BaseDao {
     }
 
     public int insert(Item item) {
-        return this.sqlSession.insert("ItemMapper.insert", item);
+        this.sqlSession.insert("ItemMapper.insert", item);
+        return item.getId();
     }
 
     public int update(Item item) {

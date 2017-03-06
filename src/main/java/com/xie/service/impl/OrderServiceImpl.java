@@ -18,6 +18,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.sql.Time;
@@ -79,6 +80,12 @@ public class OrderServiceImpl implements OrderService {
                     () -> orderDao.getByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
             ;
         }
+        if (null != page) {
+            List<Order> orders = page.getList();
+            for (int i = 0; i < orders.size(); i++) {
+                orders.get(i).setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+            }
+        }
         return page;
     }
 
@@ -89,6 +96,7 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.insert(order);
     }
 
+    @Transactional
     @Override
     public int submit(int uid, int aid, int bid, int pid, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
@@ -143,6 +151,7 @@ public class OrderServiceImpl implements OrderService {
         for (int i = 0; i < cartList.size(); i++) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOid(oid);
+            orderItem.setTotal(cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price());
             BeanUtils.copyProperties(cartList.get(i), orderItem, "created_at", "updated_at", "deleted_at");
             BeanUtils.copyProperties(cartList.get(i).getItem(), orderItem, "created_at", "updated_at", "deleted_at");
             BeanUtils.copyProperties(cartList.get(i).getItemSpec(), orderItem, "created_at", "updated_at", "deleted_at");
@@ -186,6 +195,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int count(Date start, Date end) {
         return orderDao.count(start, end);
+    }
+
+    @Override
+    public int cancel(int uid, int oid) {
+        Order order = orderDao.getById(oid);
+        if (order.getUid() == uid) {
+            if (order.getPackage_status() == PackageState.已打包.value()) {
+                return 0;
+            } else if (order.getShip_status() == ShipState.已配送.value() || order.getShip_status() == ShipState.配送中.value()) {
+                return 0;
+            }
+            order.setOrder_status(OrderState.已删除.value());
+            orderDao.update(order);
+        }
+        return 0;
     }
 
     @Override

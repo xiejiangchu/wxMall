@@ -38,7 +38,7 @@ public class Order implements Serializable {
     private Date updated_at;
     private Date deleted_at;
 
-    private List<Item> items;
+    private List<OrderItem> orderItems;
     private User user;
 
     public int getId() {
@@ -289,12 +289,12 @@ public class Order implements Serializable {
         this.deleted_at = deleted_at;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public User getUser() {

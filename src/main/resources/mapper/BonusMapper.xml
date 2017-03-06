@@ -36,7 +36,7 @@
 
     <select id="getListInvalidate" resultMap="BonusResult">
         SELECT * FROM bonus where uid=#{uid}
-         AND <![CDATA[ end_at< now()
+         AND <![CDATA[ end_at < now()
         ]]>
     </select>
 
@@ -44,6 +44,7 @@
         SELECT * FROM bonus where uid=#{uid}
         AND <![CDATA[ start_at <= now() ]]>
         AND <![CDATA[ end_at >= now()
+
         ]]>
     </select>
 

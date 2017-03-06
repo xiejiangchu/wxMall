@@ -53,10 +53,10 @@ public class BonusServiceImpl implements BonusService {
     @Override
     public PageInfo<Bonus> getListByType(int uid, int type, int pageNum, int pageSize) {
         if (BonusQueryType.未使用.value().equals(type)) {
-            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListInvalidate(uid));
+            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListValidate(uid));
             return page;
         } else if (BonusQueryType.已过期.value().equals(type)) {
-            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListValidate(uid));
+            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListInvalidate(uid));
             return page;
         }
         return null;

@@ -14,3 +14,8 @@ html,body{
     bottom:50%;
     background: url('/img/selected.png')no-repeat;
 }
+
+.content-wrapper{
+    background-color: white;
+    padding: 16px;
+}

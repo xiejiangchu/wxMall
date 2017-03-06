@@ -17,7 +17,6 @@
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
-        <association property="items" autoMapping="true" resultMap="OrderItemMapper.OrderItemResult"/>
     </resultMap>
 
     <select id="getById" resultMap="OrderResult">
@@ -37,7 +36,7 @@
     </select>
 
     <select id="getByStatus" resultMap="OrderResult" parameterType="map">
-        SELECT * FROM orders LEFT JOIN order_items ON orders.id=order_items.oid
+        SELECT * FROM orders
         where uid=#{uid}
         <if test="order_status!=null">
             and order_status=#{order_status}
@@ -51,6 +50,11 @@
         <if test="ship_status!=null">
             and ship_status=#{ship_status}
         </if>
+    </select>
+
+    <select id="check" resultType="Integer">
+        SELECT count(1) FROM orders
+        where uid=#{uid} AND oid=#{oid}
     </select>
 
     <select id="countByStatus" resultType="Integer" parameterType="map">

@@ -74,6 +74,15 @@ public class OrderDao extends BaseDao {
         return this.sqlSession.delete("OrderMapper.delete", item.getId());
     }
 
+    public int check(int uid, int oid) {
+        Assert.isTrue(uid > 0);
+        Assert.isTrue(oid > 0);
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", uid);
+        map.put("oid", oid);
+        return this.sqlSession.selectOne("OrderMapper.check", map);
+    }
+
     public int delete(int id) {
         Assert.isTrue(id > 0);
         return this.sqlSession.delete("OrderMapper.delete", id);

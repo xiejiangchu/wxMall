@@ -114,4 +114,10 @@ public class OrderController extends BaseController {
     public BaseResponse ordercount(HttpSession session)  {
         return BaseResponse.ok(orderService.orderCount(getUid(session)));
     }
+
+    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse cancel(@RequestParam("oid") int oid,HttpSession session)  {
+        return BaseResponse.ok(orderService.cancel(getUid(session),oid));
+    }
 }

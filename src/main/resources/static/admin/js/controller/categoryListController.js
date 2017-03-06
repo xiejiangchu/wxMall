@@ -1,4 +1,4 @@
-mall.controller('itemListController', function ($rootScope, $scope, $http, $state, $stateParams) {
+mall.controller('categoryListController', function ($rootScope, $scope, $http, $state, $stateParams) {
     $scope.options = {};
     $scope.options.paging = true;
     $scope.options.lengthChange = false;
@@ -8,27 +8,25 @@ mall.controller('itemListController', function ($rootScope, $scope, $http, $stat
     $scope.options.autoWidth = false;
     $scope.options.title = '商品一级分类';
     $scope.options.paginate = {};
-    $scope.options.pageSize = 30;
 
     $scope.page = $stateParams.page || 1;
 
     $scope.pageChanged = function (page) {
-        $state.go('item.list', {'page': page});
+        $scope.page = page;
+        $http.get('/category/getCid1', {params: {pageNum: page, pageSize: 20}}).then(function (response) {
+            $scope.options.paginate = response.data.data;
+        }, function (error) {
+            console.log(response);
+        });
     };
 
     $scope.itemClick = function (id) {
-        $state.go('itemDetail', {id: id});
+        $state.go('categoryDetail', {id: id});
     };
 
-    $http.get('/item/getAll', {
-        params: {
-            pageNum: $scope.page,
-            pageSize: $scope.options.pageSize
-        }
-    }).then(function (response) {
+    $http.get('/category/getCid1', {params: {pageNum: $scope.page, pageSize: 20}}).then(function (response) {
         $scope.options.paginate = response.data.data;
     }, function (error) {
         console.log(response);
     });
-
 });

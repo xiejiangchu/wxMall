@@ -33,9 +33,22 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         templateUrl: 'html/itemDetail.html',
         controller: 'itemDetailController'
     }).state('category', {
+        abstract: true,
         url: '/category',
         templateUrl: 'html/category.html',
         controller: 'categoryController'
+    }).state('category.list', {
+        url: '/categoryList/:page',
+        templateUrl: 'html/categoryList.html',
+        controller: 'categoryListController'
+    }).state('category.add', {
+        url: '/categoryAdd',
+        templateUrl: 'html/categoryAdd.html',
+        controller: 'categoryAddController'
+    }).state('categoryDetail', {
+        url: '/categoryDetail/:id',
+        templateUrl: 'html/categoryDetail.html',
+        controller: 'categoryDetailController'
     }).state('order', {
         url: '/order',
         templateUrl: 'html/order.html',

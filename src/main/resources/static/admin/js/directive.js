@@ -3,7 +3,8 @@ mall.directive('datatablecategory', function () {
         restrict: 'EA',
         scope: {
             options: "=",
-            pageChanged: "&"
+            pageChanged: "&",
+            itemClick: "&"
         },
         templateUrl: 'template/dataTableCategory.html',
         link: function (scope, element, attrs) {
@@ -93,55 +94,44 @@ mall.directive('datatablecategory', function () {
         scope: {
             paginate: "=",
             imageSelected: "=",
+            pageChanged: "&",
             single: '='
         },
         templateUrl: 'template/imageSelector.html',
         link: function (scope, element, attrs) {
-            scope.$watch('paginate', optionsChanged, true);
-            function optionsChanged(newData) {
+            scope.$watch('paginate', function (newData) {
                 scope.paginate = newData || "";
-                init();
-            }
+            }, true);
+
+            scope.$watch('imageSelected', function (newData) {
+                scope.imageSelected = newData || [];
+            }, true);
 
             scope.itemSelected = function (id) {
-                if (!scope.images) {
-                    return;
-                }
                 if (scope.single) {
-                    init();
+                    scope.imageSelected = [];
+                    scope.imageSelected.push(id);
                 }
-                angular.forEach(scope.images, function (value, key) {
-                    if (value.image.id == id) {
-                        value.selected = !value.selected;
+                angular.forEach(scope.imageSelected, function (value, key) {
+                    var exists = false;
+                    if (value == id) {
+                        exists = true;
+                    }
+                    if (!exists) {
+                        scope.imageSelected.push(id);
                     }
                 });
-                rebuild();
             };
 
-            function init() {
-                if (!scope.paginate) {
-                    return;
-                }
-                scope.images = [];
-                angular.forEach(scope.paginate.list, function (value, key) {
-                    this.push({
-                        image: value,
-                        selected: false
-                    });
-                }, scope.images);
-            }
-
-            function rebuild() {
-                if (!scope.images) {
-                    return;
-                }
-                scope.imageSelected = [];
-                angular.forEach(scope.images, function (value, key) {
-                    if (value.selected) {
-                        this.push(value.image.id);
+            scope.check = function (id) {
+                var exists = false;
+                angular.forEach(scope.imageSelected, function (value, key) {
+                    if (value == id) {
+                        exists = true;
                     }
-                }, scope.imageSelected)
-            }
+                });
+                return exists;
+            };
         }
     };
 });

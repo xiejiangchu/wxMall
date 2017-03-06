@@ -2,9 +2,11 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
 
     $scope.cid1 = [];
     $scope.cid2 = [];
-    $scope.images = {};
+    $scope.images1 = {};
+    $scope.images2 = {};
     $scope.masterImageSelected = [];
     $scope.slaveImageSelected = [];
+    $scope.pageSize = 60;
 
     $scope.iid = $stateParams.id;
     $scope.item = {};
@@ -25,8 +27,9 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
     });
 
 
-    $http.get('/image/list', {params: {pageNum: 1, pageSize: 50}}).then(function (response) {
-        $scope.images = response.data.data;
+    $http.get('/image/list', {params: {pageNum: 1, pageSize: $scope.pageSize}}).then(function (response) {
+        $scope.images1 = response.data.data;
+        $scope.images2 = response.data.data;
     }, function (error) {
     });
 
@@ -40,6 +43,20 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
 
     $scope.itemSelected2 = function (id) {
         $scope.item.cid2 = id;
+    };
+
+    $scope.pageChanged1 = function (id) {
+        $http.get('/image/list', {params: {pageNum: id, pageSize: $scope.pageSize}}).then(function (response) {
+            $scope.images1 = response.data.data;
+        }, function (error) {
+        });
+    };
+
+    $scope.pageChanged2 = function (id) {
+        $http.get('/image/list', {params: {pageNum: id, pageSize: $scope.pageSize}}).then(function (response) {
+            $scope.images2 = response.data.data;
+        }, function (error) {
+        });
     };
 
     $scope.submit = function () {

@@ -3,15 +3,7 @@
 
     <springProperty scope="local" name="applicationName" source="spring.application.name"/>
 
-    <springProfile name="!production">
-        <property name="logDir" value="./logs" />
-    </springProfile>
-
     <springProfile name="development">
-        <property name="logDir" value="./logs/${applicationName}" />
-    </springProfile>
-
-    <springProfile name="integration">
         <property name="logDir" value="./logs/${applicationName}" />
     </springProfile>
 

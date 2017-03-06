@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xie.bean.Category;
 import com.xie.dao.CategoryDao;
 import com.xie.service.CategoryService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -79,6 +80,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int delete(int id) {
-        return categoryDao.delete(id);
+        Category category = categoryDao.getById(id);
+        if (category != null) {
+            if (category.getLevel() == 1) {
+                List<Category> categories = categoryDao.getCategoryLevel2(category.getId());
+                if(categories!=null&&categories.size()>0){
+                    categoryDao.deleteBatch(categories);
+                }
+                return categoryDao.delete(id);
+            } else {
+                return categoryDao.delete(id);
+            }
+        }
+        return MallConstants.ERROR_CODE;
     }
 }

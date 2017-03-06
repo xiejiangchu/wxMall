@@ -62,7 +62,9 @@
     </select>
 
     <insert id="insert" parameterType="Category">
-
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
         INSERT INTO category (
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
             <if test="pid!=null">
@@ -80,17 +82,8 @@
             <if test="is_delete!=null">
                 ,is_delete
             </if>
-            <if test="is_recommend!=null">
-                ,is_recommend
-            </if>
-            <if test="pic_category!=null">
-                ,pic_category
-            </if>
-            <if test="pic_path_big!=null">
-                ,pic_path_big
-            </if>
-            <if test="pic_path_little!=null">
-                ,pic_path_little
+            <if test="thumb!=null">
+                ,thumb
             </if>
             ,created_at
             ,updated_at
@@ -112,17 +105,8 @@
             <if test="is_delete!=null">
                 ,#{is_delete}
             </if>
-            <if test="is_recommend!=null">
-                ,#{is_recommend}
-            </if>
-            <if test="pic_category!=null">
-                ,#{pic_category}
-            </if>
-            <if test="pic_path_big!=null">
-                ,#{pic_path_big}
-            </if>
-            <if test="pic_path_little!=null">
-                ,#{pic_path_little}
+            <if test="thumb!=null">
+                ,#{thumb}
             </if>
             ,now()
             ,now()
@@ -148,17 +132,8 @@
             <if test="is_delete!=null">
                 ,is_delete=#{is_delete}
             </if>
-            <if test="is_recommend!=null">
-                ,is_recommend=#{is_recommend}
-            </if>
-            <if test="pic_category!=null">
-                ,pic_category=#{pic_category}
-            </if>
-            <if test="pic_path_big!=null">
-                ,pic_path_big=#{pic_path_big}
-            </if>
-            <if test="pic_path_little!=null">
-                ,pic_path_little=#{pic_path_little}
+            <if test="thumb!=null">
+                ,thumb=#{thumb}
             </if>
         </trim>
         ,updated_at=now()
@@ -172,5 +147,12 @@
     <update id="softDelete">
         UPDATE category set deleted_at=now() WHERE id=#{id}
     </update>
+
+    <delete id="deleteBatch">
+        DELETE FROM category WHERE id IN
+        <foreach collection="categories" item="category" separator="," open="(" close=")">
+            #{category.id}
+        </foreach>
+    </delete>
 
 </mapper>

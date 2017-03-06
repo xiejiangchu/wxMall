@@ -1,8 +1,10 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Category;
+import com.xie.request.CategoryDto;
 import com.xie.response.BaseResponse;
 import com.xie.service.CategoryService;
+import com.xie.service.ImageFileService;
 import com.xie.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class CategoryController extends BaseController {
     @Autowired
     ItemService itemService;
 
+    @Autowired
+    private ImageFileService imageFileService;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse getAll() {
@@ -39,7 +44,39 @@ public class CategoryController extends BaseController {
     @ResponseBody
     public BaseResponse getCid1(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(categoryService.getCid1(pageNum,pageSize));
+        return BaseResponse.ok(categoryService.getCid1(pageNum, pageSize));
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse put(@PathVariable int id, @RequestBody CategoryDto categoryDto) {
+        List<Integer> masterImageSelected = categoryDto.getMasterImageSelected();
+        Category category = categoryDto.getCategory();
+        if (null != masterImageSelected && masterImageSelected.size() > 0) {
+            category.setThumb(imageFileService.getById(masterImageSelected.get(0)).getUri());
+        }
+        int result = categoryService.update(category);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse post(@RequestBody CategoryDto categoryDto) {
+        List<Integer> masterImageSelected = categoryDto.getMasterImageSelected();
+        Category category = categoryDto.getCategory();
+        if (null != masterImageSelected && masterImageSelected.size() > 0) {
+            category.setThumb(imageFileService.getById(masterImageSelected.get(0)).getUri());
+        }
+        int result = categoryService.insert(category);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 
 
@@ -53,6 +90,17 @@ public class CategoryController extends BaseController {
     @ResponseBody
     public BaseResponse getCategoryDetail(@PathVariable("id") int id) {
         return BaseResponse.ok(categoryService.getById(id));
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public BaseResponse delete(@PathVariable("id") int id) {
+        int result = categoryService.delete(id);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 
     @RequestMapping(value = "/clear", method = RequestMethod.GET)

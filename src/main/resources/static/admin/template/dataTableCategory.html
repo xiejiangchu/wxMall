@@ -20,21 +20,17 @@
                 <th>名称</th>
                 <th>级别</th>
                 <th>排序</th>
-                <th>原图</th>
                 <th>小图</th>
-                <th>创建时间</th>
                 <th>修改时间</th>
             </tr>
-            <tr ng-repeat="item in options.paginate.list">
+            <tr ng-repeat="item in options.paginate.list" data-ng-click="itemClick({id:item.id})">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.level}}</td>
                 <td><div class="progress progress-xs">
                     <div class="progress-bar {{item.sort<4? 'progress-bar-primary':item.sort<6? 'progress-bar-yellow':'progress-bar-danger'}}" style="width: {{item.sort*10}}%"></div>
                 </div></td>
-                <td>{{item.src}}</td>
                 <td>{{item.thumb}}</td>
-                <td>{{item.created_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
                 <td>{{item.updated_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
             </tr>
         </table>

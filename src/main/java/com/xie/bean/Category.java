@@ -15,7 +15,6 @@ public class Category implements Serializable {
     private int level;
     private int sort;
     private int is_delete;
-    private String src;
     private String thumb;
     private Date created_at;
     private Date updated_at;
@@ -67,14 +66,6 @@ public class Category implements Serializable {
 
     public void setIs_delete(int is_delete) {
         this.is_delete = is_delete;
-    }
-
-    public String getSrc() {
-        return src;
-    }
-
-    public void setSrc(String src) {
-        this.src = src;
     }
 
     public String getThumb() {

@@ -225,7 +225,7 @@
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" style="height: 100%;overflow: scroll;">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -263,11 +263,13 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a ui-sref="category"><i class="fa fa-align-justify"></i> 商品分类</a></li>
+                        <li><a ui-sref="category.list({page:1})"><i class="fa fa-align-justify"></i>商品分类</a></li>
+                        <li>
+                            <a ui-sref="category.add"><i class="fa fa-plus"></i>分类添加</a></li>
                         <li>
                             <a ui-sref="item.list({page:1})"><i class="fa fa-align-center"></i> 商品信息</a></li>
                         <li>
-                            <a ui-sref="itemDetail"><i class="fa fa-align-center"></i> 商品详情</a></li>
+                            <a ui-sref="item.add"><i class="fa fa-plus"></i>商品添加</a></li>
                     </ul>
                 </li>
 
@@ -541,6 +543,9 @@
 <script type="text/javascript" src="/admin/js/controller/mallController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/dashBoardController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/categoryController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/categoryListController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/categoryAddController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/categoryDetailController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/itemController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/orderController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/searchController.js"></script>

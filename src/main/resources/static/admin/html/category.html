@@ -12,10 +12,18 @@
         </ol>
     </section>
 
-    <div class="box">
-        <div datatablecategory options="options" page-changed="pageChanged(page)">
-
+    <div class="row">
+        <div class="pull-right">
+            <p>
+                <button ng-click="add()" type="button" class="btn bg-green btn-flat margin">
+                    <i class="fa fa-add">添加分类</i>
+                </button>
+            </p>
         </div>
+    </div>
+
+    <div ui-view="">
+
     </div>
 </div>
 <!-- /.content-wrapper -->

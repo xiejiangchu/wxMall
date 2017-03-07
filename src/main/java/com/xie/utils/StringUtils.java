@@ -2,7 +2,7 @@ package com.xie.utils;
 
 import org.joda.time.DateTime;
 
-import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * @Author xie
@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 public class StringUtils {
     private static final String ABC = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String AB = "0123456789";
-    private static SecureRandom rnd = new SecureRandom();
+    private static Random rnd = new Random();
 
     public static String randomNumber(int len) {
         StringBuilder sb = new StringBuilder(len);

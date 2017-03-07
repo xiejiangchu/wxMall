@@ -12,9 +12,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 
@@ -24,36 +26,17 @@ import java.sql.SQLException;
 
 @EnableConfigurationProperties
 @Configuration
-@MapperScan("com.xie.dao")
 public class MyBatisConfig {
     private static final Logger logger = LoggerFactory.getLogger(MyBatisConfig.class);
 
-    @Autowired
-    private JdbcConfig jdbcConfig;
-
-    /**
-     * mybatis 配置路径
-     */
     private static String MYBATIS_CONFIG = "/config/mybatis-config.xml";
-    /**
-     * mybatis mapper resource 路径
-     */
     private static String MAPPER_PATH = "/mapper/**.xml";
 
-    @Autowired
-    private DataSource dataSource;
-
-    /**
-     * 配置数据源
-     *
-     */
+    @Primary // 主数据源，必须配置
     @Bean(name = "dataSource")
-    public DataSource dataSource() throws SQLException {
-        return DataSourceBuilder.create(Thread.currentThread().getContextClassLoader())
-                .driverClassName(jdbcConfig.getDriver())
-                .url(jdbcConfig.getUrl())
-                .username(jdbcConfig.getUsername())
-                .password(jdbcConfig.getPassword()).build();
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
     }
 
     /**
@@ -67,8 +50,13 @@ public class MyBatisConfig {
         return new DataSourceTransactionManager(dataSource);
     }
 
+    @Bean(name = "jdbcTemplate")
+    public JdbcTemplate jdbcTemplate(@Qualifier(value = "dataSource") DataSource dataSource) throws Exception {
+        return new JdbcTemplate(dataSource);
+    }
+
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
+    public SqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier(value = "dataSource") DataSource dataSource) throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         /** 设置mybatis configuration 扫描路径 */
         sqlSessionFactoryBean.setConfigLocation(new ClassPathResource(MYBATIS_CONFIG));
@@ -81,58 +69,5 @@ public class MyBatisConfig {
 
 
         return sqlSessionFactoryBean;
-    }
-
-    @ConfigurationProperties(prefix = "spring.datasource")
-    @Component
-    static class JdbcConfig {
-        /**
-         * 数据库用户名
-         */
-        private String username;
-        /**
-         * 驱动名称
-         */
-        private String driver;
-        /**
-         * 数据库连接url
-         */
-        private String url;
-        /**
-         * 数据库密码
-         */
-        private String password;
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getDriver() {
-            return driver;
-        }
-
-        public void setDriver(String driver) {
-            this.driver = driver;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
     }
 }

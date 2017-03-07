@@ -94,6 +94,13 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.update("ItemMapper.softDelete", id);
     }
 
+    public int offline(int id, int is_online){
+        Map map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("is_online", is_online);
+        return this.sqlSession.update("ItemMapper.offline", map);
+    }
+
     public int countByCid1Cid2(int cid1, int cid2) {
         Map map = new HashMap<String, Object>();
         map.put("cid1", cid1);

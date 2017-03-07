@@ -34,11 +34,18 @@ public class ItemController extends BaseController {
     @Autowired
     private ImageFileService imageFileService;
 
+    @RequestMapping(value = "/getAllAvailable", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getAllAvailable(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(itemService.getAllAvailable(pageNum, pageSize));
+    }
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(itemService.getAllAvailable(pageNum, pageSize));
+        return BaseResponse.ok(itemService.getAll(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getByCategory", method = RequestMethod.GET)
@@ -129,6 +136,17 @@ public class ItemController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/offline", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse offline(@RequestBody Item item) {
+        int result = itemService.offline(item.getId(), item.getIs_online());
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -146,15 +164,5 @@ public class ItemController extends BaseController {
     @ResponseBody
     public BaseResponse count(@RequestParam(value = "all", defaultValue = "false") boolean all) {
         return BaseResponse.ok(itemService.count(all));
-    }
-
-    @RequestMapping(value = "/build", method = RequestMethod.GET)
-    @ResponseBody
-    public String build() {
-        List<Item> items = itemService.getAll();
-        for (int i = 0; i < items.size(); i++) {
-
-        }
-        return "fail";
     }
 }

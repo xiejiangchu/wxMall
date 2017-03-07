@@ -26,7 +26,10 @@ mall.directive('datatablecategory', function () {
         scope: {
             options: "=",
             pageChanged: "&",
-            itemClick: "&"
+            itemClick: "&",
+            itemDelete: "&",
+            itemOnline: "&",
+            itemOffline: "&"
         },
         templateUrl: 'template/dataTableItem.html',
         link: function (scope, element, attrs) {

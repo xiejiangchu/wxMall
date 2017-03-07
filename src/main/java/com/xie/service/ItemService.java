@@ -14,7 +14,7 @@ public interface ItemService {
 
     Item getDetailById(int id);
 
-    List<Item> getAll();
+    PageInfo<Item> getAll(int pageNum, int pageSize);
 
     PageInfo<Item> getAllAvailable(int pageNum, int pageSize);
 
@@ -39,6 +39,8 @@ public interface ItemService {
     int insert(Item item);
 
     int update(Item item);
+
+    int offline(int id,int is_online);
 
     int delete(Item item);
 

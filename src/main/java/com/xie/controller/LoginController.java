@@ -62,18 +62,4 @@ public class LoginController {
     public String logoutSuccess() {
         return "logoutSuccess";
     }
-
-    @RequestMapping(value = "/dowload")
-    @ResponseBody
-    public String dowload(HttpServletRequest request) throws Exception {
-
-        List<Item> items = itemService.getAll();
-        for (int i = 0; i < items.size(); i++) {
-            String src = items.get(i).getSrc();
-            String name = src.substring(src.lastIndexOf("/") + 1, src.length());
-            items.get(i).setThumb(name);
-            itemService.update(items.get(i));
-        }
-        return "fail";
-    }
 }

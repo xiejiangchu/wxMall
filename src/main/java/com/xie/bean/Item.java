@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Item implements Serializable {
-    private Integer id;
+    private int id;
     private String no;
     private String name;
     private int cid1;

@@ -21,11 +21,13 @@
                 <th>二级分类</th>
                 <th>小图</th>
                 <th>产地</th>
+                <th>是否上架</th>
                 <th>简单描述</th>
                 <th>详细描述</th>
                 <th>修改时间</th>
+                <th>操作</th>
             </tr>
-            <tr ng-repeat="item in options.paginate.list" data-ng-click="itemClick({id:item.id})">
+            <tr ng-repeat="item in options.paginate.list">
                 <td>{{item.id}}</td>
                 <td>
                     <a href="http://wxmall.image.alimmdn.com/{{item.thumb}}" target="_blank">
@@ -38,9 +40,24 @@
                 <td>{{item.cid2}}</td>
                 <td>{{item.thumb}}</td>
                 <td>{{item.place}}</td>
+                <td class="{{item.is_online==1? 'text-success':'text-danger'}}">{{item.is_online==1? '是':'否'}}</td>
                 <td>{{item.summary}}</td>
                 <td>{{item.description}}</td>
                 <td>{{item.updated_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>
+                    <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-edit text-blue"></i>
+                    </a>
+                    <a data-ng-click="itemDelete({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-remove text-red"></i>
+                    </a>
+                    <a  data-ng-click="itemOnline({id:item.id})" href="javascript:void(0);">
+                        <i class="fa  fa-arrow-circle-o-up text-success"></i>
+                    </a>
+                    <a  data-ng-click="itemOffline({id:item.id})" href="javascript:void(0);">
+                        <i class="fa  fa-arrow-circle-o-down text-danger"></i>
+                    </a>
+                </td>
             </tr>
         </table>
 

@@ -104,8 +104,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getAll() {
-        return itemDao.getAll();
+    public PageInfo<Item>  getAll(int pageNum, int pageSize) {
+        PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getAll());
+        return page;
     }
 
     @Override
@@ -126,6 +127,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public int update(Item item) {
         return itemDao.update(item);
+    }
+
+    @Override
+    public int offline(int id, int is_online) {
+        return itemDao.offline(id, is_online);
     }
 
     @Override

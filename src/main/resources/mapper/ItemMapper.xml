@@ -214,5 +214,9 @@
         UPDATE items set deleted_at=now() WHERE id=#{id}
     </update>
 
+    <update id="offline">
+        UPDATE items set is_online=#{is_online} WHERE id=#{id}
+    </update>
+
 
 </mapper>

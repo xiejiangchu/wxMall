@@ -5,57 +5,57 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     };
     $stateProvider.state('dashBoard', {
         url: '/dashBoard',
-        templateUrl: '/html/dashBoard.html',
+        templateUrl: '/admin/html/dashBoard.html',
         controller: 'dashBoardController'
     }).state('item', {
         abstract: true,
         url: '/item',
-        templateUrl: '/html/item.html',
+        templateUrl: '/admin/html/item.html',
         controller: 'itemController'
     }).state('item.list', {
         url: '/itemList/:page',
-        templateUrl: '/html/itemList.html',
+        templateUrl: '/admin/html/itemList.html',
         controller: 'itemListController'
     }).state('item.add', {
         url: '/itemAdd',
-        templateUrl: '/html/itemAdd.html',
+        templateUrl: '/admin/html/itemAdd.html',
         controller: 'itemAddController'
     }).state('item.addBatch', {
         url: '/itemAddBatch',
-        templateUrl: '/html/itemAddBatch.html',
+        templateUrl: '/admin/html/itemAddBatch.html',
         controller: 'itemAddBatchController'
     }).state('image', {
         url: '/image',
-        templateUrl: '/html/image.html',
+        templateUrl: '/admin/html/image.html',
         controller: 'imageController'
     }).state('itemDetail', {
         url: '/itemDetail/:id',
-        templateUrl: '/html/itemDetail.html',
+        templateUrl: '/admin/html/itemDetail.html',
         controller: 'itemDetailController'
     }).state('category', {
         abstract: true,
         url: '/category',
-        templateUrl: '/html/category.html',
+        templateUrl: '/admin/html/category.html',
         controller: 'categoryController'
     }).state('category.list', {
         url: '/categoryList/:page',
-        templateUrl: '/html/categoryList.html',
+        templateUrl: '/admin/html/categoryList.html',
         controller: 'categoryListController'
     }).state('category.add', {
         url: '/categoryAdd',
-        templateUrl: '/html/categoryAdd.html',
+        templateUrl: '/admin/html/categoryAdd.html',
         controller: 'categoryAddController'
     }).state('categoryDetail', {
         url: '/categoryDetail/:id',
-        templateUrl: '/html/categoryDetail.html',
+        templateUrl: '/admin/html/categoryDetail.html',
         controller: 'categoryDetailController'
     }).state('order', {
         url: '/order',
-        templateUrl: '/html/order.html',
+        templateUrl: '/admin/html/order.html',
         controller: 'orderController'
     }).state('search', {
         url: '/search',
-        templateUrl: '/html/search.html',
+        templateUrl: '/admin/html/search.html',
         controller: 'searchController'
     });
     $urlRouterProvider.otherwise("/dashBoard");

@@ -41,7 +41,7 @@ public class AdminInteceptor implements HandlerInterceptor {
 
         Cookie cookie = getCookieByName(request, MallConstants.COOKIE_UID);
         if (cookie == null) {
-            response.sendRedirect("admin/login");
+            response.sendRedirect("/admin/login");
             return false;
         }
         User user_query = userService.getById(Integer.parseInt(cookie.getValue()));
@@ -49,7 +49,7 @@ public class AdminInteceptor implements HandlerInterceptor {
             if (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").equalsIgnoreCase("XMLHttpRequest")) {
                 return true;
             } else {
-                response.sendRedirect("admin/login");
+                response.sendRedirect("/admin/login");
             }
             return false;
         } else {

@@ -80,7 +80,7 @@ public class AdminController {
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "redirect:admin/index";
+            return "redirect:/admin/index";
         }
         model.addAttribute("error", "用户名或者密码错误");
         return "/admin/login";

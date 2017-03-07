@@ -9,7 +9,7 @@ import com.xie.bean.OrderItem;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
 import com.xie.response.OrderCountDto;
-import com.xie.service.UserAddressService;
+import com.xie.service.AddressService;
 import com.xie.service.CartService;
 import com.xie.service.OrderItemService;
 import com.xie.service.OrderService;
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     private CartService cartService;
 
     @Autowired
-    private UserAddressService userAddressService;
+    private AddressService addressService;
 
     @Autowired
     private OrderItemService orderItemService;
@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
     public int submit(int uid, int aid, int bid, int pid, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
         List<OrderItem> orderItems = new ArrayList<>();
-        Address address = userAddressService.getById(aid);
+        Address address = addressService.getById(aid);
         Order order = new Order();
 
         order.setNO(StringUtils.generateOrderNo());

@@ -9,7 +9,7 @@ import java.util.List;
  * @Author xie
  * @Date 17/1/22 下午3:17.
  */
-public interface UserAddressService {
+public interface AddressService {
     List<Address> getByUid(int uid);
 
     PageInfo<Address> getByUid(int uid, int pageNum, int pageSize);

@@ -2,7 +2,7 @@ package com.xie.controller.api;
 
 import com.xie.bean.Address;
 import com.xie.response.BaseResponse;
-import com.xie.service.AddressService;
+import com.xie.service.AddreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AddressController extends BaseController {
 
     @Autowired
-    private AddressService addressService;
+    private AddreService addressService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody

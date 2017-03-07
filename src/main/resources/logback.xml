@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds">
 
-    <springProperty scope="local" name="applicationName" source="spring.application.name"/>
-
-    <springProfile name="development">
-        <property name="logDir" value="./logs/${applicationName}" />
-    </springProfile>
-
-    <springProfile name="production">
-        <property name="logDir" value="./logs/${applicationName}" />
-    </springProfile>
+    <property name="logDir" value="./logs" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoder 默认配置为PatternLayoutEncoder -->

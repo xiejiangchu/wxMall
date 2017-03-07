@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Address;
 import com.xie.dao.AddressDao;
-import com.xie.service.AddressService;
+import com.xie.service.AddreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 17/1/22 下午3:20.
  */
 @Service
-public class AddressServiceImpl implements AddressService {
+public class AddressServiceImpl implements AddreService {
 
     @Autowired
     private AddressDao addressDao;

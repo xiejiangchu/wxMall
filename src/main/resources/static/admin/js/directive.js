@@ -6,7 +6,7 @@ mall.directive('datatablecategory', function () {
             pageChanged: "&",
             itemClick: "&"
         },
-        templateUrl: '../template/dataTableCategory.html',
+        templateUrl: '/admin/template/dataTableCategory.html',
         link: function (scope, element, attrs) {
             scope.$watch('options.paginate', handleModelUpdates, true);
             scope.$watch('options.title', titleChanged, true);
@@ -31,7 +31,7 @@ mall.directive('datatablecategory', function () {
             itemOnline: "&",
             itemOffline: "&"
         },
-        templateUrl: '../template/dataTableItem.html',
+        templateUrl: '/admin/template/dataTableItem.html',
         link: function (scope, element, attrs) {
             scope.$watch('options.paginate', handleModelUpdates, true);
             scope.$watch('options.title', titleChanged, true);
@@ -53,7 +53,7 @@ mall.directive('datatablecategory', function () {
             pageChanged: "&",
             itemClick: "&"
         },
-        templateUrl: '../template/dataTableImage.html',
+        templateUrl: '/admin/template/dataTableImage.html',
         link: function (scope, element, attrs) {
             scope.$watch('options.paginate', handleModelUpdates, true);
             scope.$watch('options.title', titleChanged, true);
@@ -76,7 +76,7 @@ mall.directive('datatablecategory', function () {
             title: "@",
             initItem: "@"
         },
-        templateUrl: '../template/select2.html',
+        templateUrl: '/admin/template/select2.html',
         link: function (scope, element, attrs) {
             $(element).find('.select2').select2();
             scope.$watch('initItem', function (newData) {
@@ -100,7 +100,7 @@ mall.directive('datatablecategory', function () {
             pageChanged: "&",
             single: '='
         },
-        templateUrl: '../template/imageSelector.html',
+        templateUrl: '/admin/template/imageSelector.html',
         link: function (scope, element, attrs) {
             scope.$watch('paginate', function (newData) {
                 scope.paginate = newData || "";

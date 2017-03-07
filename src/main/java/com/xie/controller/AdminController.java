@@ -34,20 +34,20 @@ public class AdminController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
-        return "admin/index";
+        return "index";
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "admin/index";
+        return "index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpSession session) {
         if (session.getAttribute(MallConstants.SESSION_USER) != null) {
-            return "redirect:admin/index";
+            return "redirect:/admin/index";
         }
-        return "admin/login";
+        return "login";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -83,17 +83,17 @@ public class AdminController {
             return "redirect:admin/index";
         }
         model.addAttribute("error", "用户名或者密码错误");
-        return "admin/login";
+        return "login";
     }
 
     @RequestMapping(value = "/document", method = RequestMethod.GET)
     public String document() {
-        return "admin/document";
+        return "document";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() {
-        return "admin/register";
+        return "register";
     }
 
 }

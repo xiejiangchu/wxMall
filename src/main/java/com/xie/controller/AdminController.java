@@ -45,7 +45,7 @@ public class AdminController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpSession session) {
         if (session.getAttribute(MallConstants.SESSION_USER) != null) {
-            return "redirect:admin/index";
+            return "redirect:/admin/index";
         }
         return "admin/login";
     }
@@ -80,7 +80,7 @@ public class AdminController {
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "redirect:admin/index";
+            return "redirect:/admin/index";
         }
         model.addAttribute("error", "用户名或者密码错误");
         return "admin/login";

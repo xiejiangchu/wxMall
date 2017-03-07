@@ -43,8 +43,6 @@ public class MyBatisConfig {
     @Autowired
     private DataSource dataSource;
 
-    private String typeAliasPackage = "com.xie.bean";
-
     /**
      * 配置数据源
      *
@@ -80,8 +78,8 @@ public class MyBatisConfig {
         sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources(packageSearchPath));
         /** 设置datasource */
         sqlSessionFactoryBean.setDataSource(dataSource);
-        /** 设置typeAlias 包扫描路径 */
-        sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasPackage);
+
+
         return sqlSessionFactoryBean;
     }
 

@@ -31,9 +31,28 @@
 
     </settings>
 
-    <!--<typeHandlers>-->
-        <!--<typeHandler jdbcType="TIMESTAMP" handler="com.xie.config.CustomTimestampHandler"></typeHandler>-->
-    <!--</typeHandlers>-->
+    <typeAliases>
+        <typeAlias type="com.xie.bean.Address" alias="Address"/>
+        <typeAlias type="com.xie.bean.Banner" alias="Banner"/>
+        <typeAlias type="com.xie.bean.Bonus" alias="Bonus"/>
+        <typeAlias type="com.xie.bean.BonusType" alias="BonusType"/>
+        <typeAlias type="com.xie.bean.Cart" alias="Cart"/>
+        <typeAlias type="com.xie.bean.Category" alias="Category"/>
+        <typeAlias type="com.xie.bean.Image" alias="Image"/>
+        <typeAlias type="com.xie.bean.Item" alias="Item"/>
+        <typeAlias type="com.xie.bean.ItemImage" alias="ItemImage"/>
+        <typeAlias type="com.xie.bean.ItemSpec" alias="ItemSpec"/>
+        <typeAlias type="com.xie.bean.Order" alias="Order"/>
+        <typeAlias type="com.xie.bean.OrderItem" alias="OrderItem"/>
+        <typeAlias type="com.xie.bean.OrderLog" alias="OrderLog"/>
+        <typeAlias type="com.xie.bean.Payment" alias="Payment"/>
+        <typeAlias type="com.xie.bean.Permission" alias="Permission"/>
+        <typeAlias type="com.xie.bean.Region" alias="Region"/>
+        <typeAlias type="com.xie.bean.Role" alias="Role"/>
+        <typeAlias type="com.xie.bean.SysConfig" alias="SysConfig"/>
+        <typeAlias type="com.xie.bean.SysLog" alias="SysLog"/>
+        <typeAlias type="com.xie.bean.User" alias="User"/>
+    </typeAliases>
 
     <plugins>
         <!-- com.github.pagehelper为PageHelper类所在包名 -->

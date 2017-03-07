@@ -8,7 +8,7 @@ import java.util.List;
  * @Author xie
  * @Date 17/2/22 下午7:39.
  */
-public interface SysConfigService {
+public interface SystemConfigService {
 
     SysConfig getById(int id);
 

@@ -2,7 +2,7 @@ package com.xie.controller.api;
 
 import com.xie.bean.SysConfig;
 import com.xie.response.BaseResponse;
-import com.xie.service.SysConfigService;
+import com.xie.service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.*;
 public class SysConfigController extends BaseController {
 
     @Autowired
-    SysConfigService sysConfigService;
+    SystemConfigService systemConfigService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get(@PathVariable("id") int id) {
-        return BaseResponse.ok(sysConfigService.getById(id));
+        return BaseResponse.ok(systemConfigService.getById(id));
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse list() {
-        return BaseResponse.ok(sysConfigService.getAll());
+        return BaseResponse.ok(systemConfigService.getAll());
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse post(@ModelAttribute SysConfig sysConfig) {
-        int result = sysConfigService.insert(sysConfig);
+        int result = systemConfigService.insert(sysConfig);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -44,7 +44,7 @@ public class SysConfigController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse put(@PathVariable("id") int id, @ModelAttribute SysConfig sysConfig) {
-        int result = sysConfigService.update(sysConfig);
+        int result = systemConfigService.update(sysConfig);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -55,7 +55,7 @@ public class SysConfigController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public BaseResponse delete(@PathVariable("id") int id) {
-        int result = sysConfigService.delete(id);
+        int result = systemConfigService.delete(id);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

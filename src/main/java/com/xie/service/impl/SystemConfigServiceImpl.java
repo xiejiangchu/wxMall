@@ -2,7 +2,7 @@ package com.xie.service.impl;
 
 import com.xie.bean.SysConfig;
 import com.xie.dao.SysConfigDao;
-import com.xie.service.SysConfigService;
+import com.xie.service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @Date 17/2/22 下午7:40.
  */
 @Service
-public class SysConfigServiceImpl implements SysConfigService {
+public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Autowired
     private SysConfigDao sysConfigDao;

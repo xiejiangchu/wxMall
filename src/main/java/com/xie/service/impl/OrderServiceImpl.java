@@ -9,7 +9,7 @@ import com.xie.bean.OrderItem;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
 import com.xie.response.OrderCountDto;
-import com.xie.service.AddreService;
+import com.xie.service.AddressService;
 import com.xie.service.CartService;
 import com.xie.service.OrderItemService;
 import com.xie.service.OrderService;
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     private CartService cartService;
 
     @Autowired
-    private AddreService addressService;
+    private AddressService addressService;
 
     @Autowired
     private OrderItemService orderItemService;

@@ -21,8 +21,10 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getAll(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        return BaseResponse.ok(orderService.getAll(pageNum, pageSize));
+    BaseResponse getAll(@RequestParam("type") int type,
+                        @RequestParam("pageNum") int pageNum,
+                        @RequestParam("pageSize") int pageSize) {
+        return BaseResponse.ok(orderService.getAll(type, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
@@ -111,13 +113,13 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/orderCount", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse ordercount(HttpSession session)  {
+    public BaseResponse ordercount(HttpSession session) {
         return BaseResponse.ok(orderService.orderCount(getUid(session)));
     }
 
-    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
+    @RequestMapping(value = "/cancel", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse cancel(@RequestParam("oid") int oid,HttpSession session)  {
-        return BaseResponse.ok(orderService.cancel(getUid(session),oid));
+    public BaseResponse cancel(@RequestParam("oid") int oid, HttpSession session) {
+        return BaseResponse.ok(orderService.cancel(getUid(session), oid));
     }
 }

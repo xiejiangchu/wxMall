@@ -5,6 +5,11 @@
 
     <resultMap id="OrderResult" type="Order" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="confirmed" property="confirmed" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="order_status" property="order_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="pay_status" property="pay_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="ship_status" property="ship_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="package_status" property="package_status" javaType="Integer" jdbcType="INTEGER"/>
         <result property="order_amount" column="order_amount" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_weight" column="order_weight" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_amount_real" column="order_amount_real" javaType="Double" jdbcType="DECIMAL"/>
@@ -32,6 +37,23 @@
         </if>
         <if test="end!=null">
             AND <![CDATA[ created_at <=#{end javaType=Date } ]]>
+        </if>
+    </select>
+
+    <select id="getAllByStatus" resultMap="OrderResult" parameterType="map">
+        SELECT * FROM orders
+        where 1=1
+        <if test="order_status!=null">
+            and order_status=#{order_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="ship_status!=null">
+            and ship_status=#{ship_status}
         </if>
     </select>
 

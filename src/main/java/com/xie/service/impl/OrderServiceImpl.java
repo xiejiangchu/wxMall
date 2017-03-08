@@ -47,7 +47,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getById(int id) {
-        return orderDao.getById(id);
+        Order order = orderDao.getById(id);
+        if (null != order) {
+            order.setOrderItems(orderItemService.getByOid(order.getId()));
+        }
+        return order;
     }
 
     @Override
@@ -57,8 +61,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageInfo<Order> getAll(int pageNum, int pageSize) {
-        PageInfo<Order> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> orderDao.getAll());
+    public PageInfo<Order> getAll(int type, int pageNum, int pageSize) {
+        PageInfo<Order> page = null;
+        if (OrderType.待支付.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
+        } else if (OrderType.待发货.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
+        } else if (OrderType.待收货.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
+        } else if (OrderType.已完成.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAll(OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+        } else if (OrderType.所有.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAll());
+        }
+        if (null != page) {
+            List<Order> orders = page.getList();
+            for (int i = 0; i < orders.size(); i++) {
+                orders.get(i).setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+            }
+        }
         return page;
     }
 

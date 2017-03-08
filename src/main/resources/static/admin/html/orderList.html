@@ -1,0 +1,15 @@
+<div class="row">
+    <div style="height: 50px;margin-top: 20px;">
+        <div style="float: left;text-align: right;color: #999999;font-size: 14px;line-height: 36px;">订单状态 :</div>
+        <div style="float: left;">
+            <operate-filter result ="params.type" radio="true" list="dictionary.checkStatus"></operate-filter>
+        </div>
+        <span>
+             <span class="search_nav search_focus" ng-click="search()">搜索</span>
+         </span>
+    </div>
+</div>
+<div class="row">
+    <div datatableorder options="options" page-changed="pageChanged(page)">
+    </div>
+</div>

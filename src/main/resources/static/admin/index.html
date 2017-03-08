@@ -282,7 +282,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a ui-sref="order"><i class="fa fa-file-text-o"></i> 所有订单</a></li>
+                        <li><a ui-sref="order.list({page:1})"><i class="fa fa-file-text-o"></i> 所有订单</a></li>
                         <li>
                             <a ui-sref="search"><i class="fa fa-search"></i> 订单搜索</a></li>
                     </ul>
@@ -525,8 +525,6 @@
 <script src="/webjars/angularjs/1.6.1/angular.min.js"></script>
 <!--angularjs-ui-router-->
 <script src="/webjars/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/webjars/AdminLTE/2.3.8/dist/js/app.min.js"></script>
 <!-- Sparkline -->
 <script src="/webjars/AdminLTE/2.3.8/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
@@ -536,6 +534,8 @@
 <script src="/webjars/AdminLTE/2.3.8/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS 1.0.1 -->
 <script src="/webjars/AdminLTE/2.3.8/plugins/chartjs/Chart.min.js"></script>
+
+<script type="text/javascript" src="/js/dist/bootstrap-table-expandable.js"></script>
 
 <script type="text/javascript" src="/admin/js/initModule.js"></script>
 <script type="text/javascript" src="/admin/js/mallRouter.js"></script>
@@ -555,5 +555,6 @@
 <script type="text/javascript" src="/admin/js/controller/itemListController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/itemAddController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/itemAddBatchController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/orderListController.js"></script>
 </body>
 </html>

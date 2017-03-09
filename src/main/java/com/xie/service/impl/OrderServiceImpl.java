@@ -61,23 +61,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageInfo<Order> getAll(int type, int pageNum, int pageSize) {
+    public PageInfo<Order> getAll(int type, Date created_at_start, Date created_at_end, Date time_start, Date time_end, int pageNum, int pageSize) {
         PageInfo<Order> page = null;
         if (OrderType.待支付.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
+                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value(), created_at_start, created_at_end, time_start, time_end));
         } else if (OrderType.待发货.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
+                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null, created_at_start, created_at_end, time_start, time_end));
         } else if (OrderType.待收货.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
+                    () -> orderDao.getAll(OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value(), created_at_start, created_at_end, time_start, time_end));
         } else if (OrderType.已完成.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getAll(OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+                    () -> orderDao.getAll(OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value(), created_at_start, created_at_end, time_start, time_end));
         } else if (OrderType.所有.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getAll());
+                    () -> orderDao.getAll(null, null, null, null, created_at_start, created_at_end, time_start, time_end));
         }
         if (null != page) {
             List<Order> orders = page.getList();

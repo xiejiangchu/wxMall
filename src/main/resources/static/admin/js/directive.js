@@ -188,7 +188,7 @@ mall.directive('datatablecategory', function () {
         },
         template: '<span  ng-class="{search_nav:true,search_focus:item.value==0}"  ng-repeat="item in list" ng-click="select(item,$event)">' + '{{item.text}}' + '</span>',
         link: function (scope, el, attrs) {
-            var attList = [];
+            var attList = [0];
             scope.select = function (item, self) {
                 //什么都没选 默认不限
                 if (item.value == "0" || !$(self.target).siblings().hasClass("search_focus")) {
@@ -214,15 +214,44 @@ mall.directive('datatablecategory', function () {
                         }
                     }
                 }
-                scope.attList = attList.length == 0 ? 0 : attList;
+                scope.attList = attList.length == 0 ? [0] : attList;
 
             };
             scope.$watch('attList', function (value, oldValue, scope) {
-                eval("scope.$parent." + scope.result + "=scope.attList");
+                eval("scope.$parent." + scope.result + "='" + scope.attList.join(',') + "'");
             }, true);
         }
     }
 
+}).directive('datetimepicker', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            timeStart: '@',
+            timeEnd: '@'
+        },
+        templateUrl: '/admin/template/dateTimePicker.html',
+        link: function (scope, element, attrs) {
+            $(element).find('#picker').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 1,
+                timePicker24Hour: true,
+                locale: {
+                    format: 'YYYY/MM/DD hh:mm:ss',
+                    applyLabel: '确认',
+                    cancelLabel: '取消',
+                    fromLabel: '从',
+                    toLabel: '到',
+                    weekLabel: 'W',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+                    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                }
+            }, function (start, end, label) {
+                eval("scope.$parent." + scope.timeStart + "='" + start.format('YYYY/MM/DD hh:MM:ss') + "'");
+                eval("scope.$parent." + scope.timeEnd + "='" + end.format('YYYY/MM/DD hh:MM:ss') + "'");
+            });
+        }
+    };
 });
-;
 

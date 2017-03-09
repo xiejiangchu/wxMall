@@ -30,12 +30,16 @@ public class OrderDao extends BaseDao {
         return this.sqlSession.selectList("OrderMapper.getByStatus", map);
     }
 
-    public List<Order> getAll(Integer order_status, Integer pay_status, Integer ship_status, Integer package_status) {
+    public List<Order> getAll(Integer order_status, Integer pay_status, Integer ship_status, Integer package_status, Date created_at_start, Date created_at_end, Date time_start, Date time_end) {
         Map<String, Object> map = new HashMap<>();
         map.put("pay_status", pay_status);
         map.put("order_status", order_status);
         map.put("ship_status", ship_status);
         map.put("package_status", package_status);
+        map.put("created_at_start", created_at_start);
+        map.put("created_at_end", created_at_end);
+        map.put("time_start", time_start);
+        map.put("time_end", time_end);
         return this.sqlSession.selectList("OrderMapper.getAllByStatus", map);
     }
 

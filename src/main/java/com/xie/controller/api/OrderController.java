@@ -4,10 +4,15 @@ import com.xie.bean.Order;
 import com.xie.response.BaseResponse;
 import com.xie.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by xie on 16/11/24.
@@ -16,15 +21,26 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/order")
 public class OrderController extends BaseController {
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:MM:ss");
+        dateFormat.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
     @Autowired
     private OrderService orderService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAll(@RequestParam("type") int type,
+                        @RequestParam(value = "created_at_start",required = false) Date created_at_start,
+                        @RequestParam(value = "created_at_end",required = false) Date created_at_end,
+                        @RequestParam(value = "time_start",required = false) Date time_start,
+                        @RequestParam(value = "time_end",required = false) Date time_end,
                         @RequestParam("pageNum") int pageNum,
                         @RequestParam("pageSize") int pageSize) {
-        return BaseResponse.ok(orderService.getAll(type, pageNum, pageSize));
+        return BaseResponse.ok(orderService.getAll(type, created_at_start, created_at_end, time_start, time_end, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)

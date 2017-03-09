@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
     }
 }
 apply plugin: 'org.springframework.boot'
@@ -38,13 +38,13 @@ bootRepackage {
 
 dependencies {
     compile fileTree(dir: 'lib', includes: ['*.jar'])
-    compile "org.springframework.boot:spring-boot-starter-test:1.4.2.RELEASE"
-    compile "org.springframework.boot:spring-boot-starter-web:1.4.2.RELEASE"
-//    compile 'org.springframework.boot:spring-boot-devtools:1.4.2.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:1.4.2.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-security:1.4.2.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter-test:1.5.2.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE"
+//    compile 'org.springframework.boot:spring-boot-devtools:1.5.2.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:1.5.2.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.5.2.RELEASE'
 //    compile "org.springframework.security.oauth:spring-security-oauth2:2.0.12.RELEASE"
-//    compile 'org.springframework.boot:spring-boot-starter-redis:1.4.2.RELEASE'
+//    compile 'org.springframework.boot:spring-boot-starter-redis:1.5.2.RELEASE'
 //    compile 'org.springframework.session:spring-session:1.2.2.RELEASE'
     compile 'mysql:mysql-connector-java:5.1.39'
     /** 配置mybatis 数据源  */

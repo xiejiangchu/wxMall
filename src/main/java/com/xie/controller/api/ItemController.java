@@ -34,6 +34,12 @@ public class ItemController extends BaseController {
     @Autowired
     private ImageFileService imageFileService;
 
+    /**
+     * 获取能够显示的
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/getAllAvailable", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAllAvailable(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
@@ -41,6 +47,12 @@ public class ItemController extends BaseController {
         return BaseResponse.ok(itemService.getAllAvailable(pageNum, pageSize));
     }
 
+    /**
+     * 获取所有的
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
@@ -48,6 +60,14 @@ public class ItemController extends BaseController {
         return BaseResponse.ok(itemService.getAll(pageNum, pageSize));
     }
 
+    /**
+     * 由分类获取所有商品
+     * @param cid1
+     * @param cid2
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/getByCategory", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getByCategory(@RequestParam("cid1") Integer cid1,
@@ -57,12 +77,24 @@ public class ItemController extends BaseController {
         return BaseResponse.ok(itemService.getByCategory(cid1, cid2, pageNum, pageSize));
     }
 
+    /**
+     * 获取详情
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get(@PathVariable("id") int id) {
         return BaseResponse.ok(itemService.getDetailById(id));
     }
 
+    /**
+     * 查找
+     * @param keyword
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse search(@RequestParam("keyword") String keyword,
@@ -71,6 +103,12 @@ public class ItemController extends BaseController {
         return BaseResponse.ok(itemService.search(keyword, pageNum, pageSize));
     }
 
+    /**
+     * 列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse list(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
@@ -78,6 +116,10 @@ public class ItemController extends BaseController {
         return BaseResponse.ok(itemService.getAllCanShow(pageNum, pageSize));
     }
 
+    /**
+     * top 10个
+     * @return
+     */
     @RequestMapping(value = "/top", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse top() {
@@ -85,6 +127,12 @@ public class ItemController extends BaseController {
     }
 
 
+    /**
+     * 修改
+     * @param id
+     * @param itemDto
+     * @return
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse put(@PathVariable int id, @RequestBody ItemDto itemDto) {
@@ -110,6 +158,11 @@ public class ItemController extends BaseController {
         }
     }
 
+    /**
+     * 增加
+     * @param itemDto
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse post(@RequestBody ItemDto itemDto) {
@@ -136,6 +189,11 @@ public class ItemController extends BaseController {
         }
     }
 
+    /**
+     * 下架商品
+     * @param item
+     * @return
+     */
     @RequestMapping(value = "/offline", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse offline(@RequestBody Item item) {
@@ -148,6 +206,11 @@ public class ItemController extends BaseController {
     }
 
 
+    /**
+     * 删除商品
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public BaseResponse delete(@PathVariable int id) {

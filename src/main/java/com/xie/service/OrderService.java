@@ -16,7 +16,7 @@ public interface OrderService {
 
     PageInfo<Order> getAllByUid(int uid, int pageNum, int pageSize);
 
-    PageInfo<Order> getAll(int type,int pageNum, int pageSize);
+    PageInfo<Order> getAll(int type, Date created_at_start, Date created_at_end,Date time_start, Date time_end, int pageNum, int pageSize);
 
     PageInfo<Order> getByType(int type, int pageNum, int pageSize);
 

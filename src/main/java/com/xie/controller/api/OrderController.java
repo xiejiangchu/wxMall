@@ -34,10 +34,10 @@ public class OrderController extends BaseController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAll(@RequestParam("type") int type,
-                        @RequestParam(value = "created_at_start",required = false) Date created_at_start,
-                        @RequestParam(value = "created_at_end",required = false) Date created_at_end,
-                        @RequestParam(value = "time_start",required = false) Date time_start,
-                        @RequestParam(value = "time_end",required = false) Date time_end,
+                        @RequestParam(value = "created_at_start", required = false) Date created_at_start,
+                        @RequestParam(value = "created_at_end", required = false) Date created_at_end,
+                        @RequestParam(value = "time_start", required = false) Date time_start,
+                        @RequestParam(value = "time_end", required = false) Date time_end,
                         @RequestParam("pageNum") int pageNum,
                         @RequestParam("pageSize") int pageSize) {
         return BaseResponse.ok(orderService.getAll(type, created_at_start, created_at_end, time_start, time_end, pageNum, pageSize));
@@ -79,12 +79,14 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse check(@RequestParam("uid") int uid,
-                              @RequestParam("aid") int aid,
-                              @RequestParam("bid") int bid,
-                              @RequestParam("pid") int pid,
-                              @RequestParam("message") String message) {
-        int result = orderService.submit(uid, aid, bid, pid, message);
+    public BaseResponse check(HttpSession session) {
+        return BaseResponse.ok(orderService.check(getUid(session)));
+    }
+
+    @RequestMapping(value = "/orderMore", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse orderMore(@RequestParam("oid") int oid, HttpSession session) {
+        int result = orderService.orderMore(getUid(session), oid);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -95,12 +97,15 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse submit(@RequestParam("uid") int uid,
-                               @RequestParam("aid") int aid,
+    public BaseResponse submit(@RequestParam("aid") int aid,
                                @RequestParam("bid") int bid,
                                @RequestParam("pid") int pid,
-                               @RequestParam("message") String message) {
-        int result = orderService.submit(uid, aid, bid, pid, message);
+                               @RequestParam("date") Date date,
+                               @RequestParam("time_start") Date time_start,
+                               @RequestParam("time_end") Date time_end,
+                               @RequestParam("message") String message,
+                               HttpSession session) {
+        int result = orderService.submit(getUid(session), aid, bid, pid, date, time_start, time_end, message);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

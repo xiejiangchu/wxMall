@@ -2,6 +2,8 @@ package com.xie.service;
 
 import com.xie.bean.Payment;
 
+import java.util.List;
+
 /**
  * @Author xie
  * @Date 17/2/24 下午9:57.
@@ -9,6 +11,8 @@ import com.xie.bean.Payment;
 public interface PaymentService {
 
     Payment getById(int id);
+
+    List<Payment> getAll();
 
     int insert(Payment payment);
 

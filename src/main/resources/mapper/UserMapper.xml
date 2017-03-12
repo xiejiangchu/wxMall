@@ -19,6 +19,18 @@
         WHERE name = #{name}
     </select>
 
+    <select id="checkMobile" resultType="Integer">
+        SELECT count(*)
+        FROM users
+        WHERE mobile = #{mobile}
+    </select>
+
+    <select id="checkUsername" resultType="Integer">
+        SELECT count(*)
+        FROM users
+        WHERE name = #{username}
+    </select>
+
     <select id="getByWx" resultMap="UserResult">
         SELECT *
         FROM users

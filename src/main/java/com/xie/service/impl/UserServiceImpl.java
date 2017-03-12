@@ -58,6 +58,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int checkUsername(String username) {
+        return 0;
+    }
+
+    @Override
+    public int checkMobile(String mobile) {
+        return 0;
+    }
+
+    @Override
     public int update(User user) {
         return userDao.update(user);
     }

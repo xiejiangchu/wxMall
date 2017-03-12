@@ -3,6 +3,7 @@ package com.xie.config;
 import com.xie.auth.MyUserDetailsService;
 import com.xie.csrf.MyCsrfRequestMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -30,6 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MyCsrfRequestMatcher myCsrfSecurityRequestMatcher;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     private CsrfTokenRepository csrfTokenRepository() {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-XSRF-TOKEN");
@@ -52,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("admin").password("112233").roles("USER");
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
@@ -61,4 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");
         web.ignoring().antMatchers("/register");
     }
+
+    @Bean(name = "bCryptPasswordEncoder")
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

@@ -1,13 +1,17 @@
 package com.xie.controller;
 
 import com.xie.bean.User;
+import com.xie.request.UserRegisterDto;
 import com.xie.response.BaseResponse;
 import com.xie.service.ItemService;
 import com.xie.service.UserService;
 import com.xie.utils.MallConstants;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +21,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * @Author xie
@@ -31,6 +36,9 @@ public class AdminController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
@@ -94,6 +102,24 @@ public class AdminController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() {
         return "admin/register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String postRegister(@Valid UserRegisterDto userRegisterDto, Model model) {
+        if (userService.checkUsername(userRegisterDto.getName()) > 0 || userService.checkMobile(userRegisterDto.getMobile()) > 0) {
+            model.addAttribute("name.exists", "用户名或者手机号已经存在");
+            return "admin/register";
+        }
+        if(!userRegisterDto.getPassword().equals(userRegisterDto.getPassword_re())){
+            model.addAttribute("password.notmatch", "两次密码不一致");
+            return "admin/register";
+        }
+        User user = new User();
+        user.setPassword(bCryptPasswordEncoder.encode(userRegisterDto.getPassword()));
+
+        BeanUtils.copyProperties(userRegisterDto, user);
+        userService.insert(user);
+        return "redirect:/admin/index";
     }
 
 }

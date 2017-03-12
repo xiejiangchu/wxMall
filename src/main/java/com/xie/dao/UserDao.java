@@ -61,4 +61,12 @@ public class UserDao extends BaseDao {
     public int softDelete(int id) {
         return this.sqlSession.update("UserMapper.softDelete", id);
     }
+
+    public int checkUsername(String username) {
+        return this.sqlSession.selectOne("UserMapper.checkUsername", username);
+    }
+
+    public int checkMobile(String mobile) {
+        return this.sqlSession.selectOne("UserMapper.checkMobile", mobile);
+    }
 }

@@ -2,17 +2,12 @@ package com.xie.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xie.bean.Address;
-import com.xie.bean.Cart;
-import com.xie.bean.Order;
-import com.xie.bean.OrderItem;
+import com.xie.bean.*;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
+import com.xie.response.OrderCheckDto;
 import com.xie.response.OrderCountDto;
-import com.xie.service.AddressService;
-import com.xie.service.CartService;
-import com.xie.service.OrderItemService;
-import com.xie.service.OrderService;
+import com.xie.service.*;
 import com.xie.utils.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +41,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderItemService orderItemService;
+
+    @Autowired
+    private BonusService bonusService;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private ItemService itemService;
 
     @Override
     public Order getById(int id) {
@@ -89,6 +95,35 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderCheckDto check(int uid) {
+        List<Cart> cartList = cartService.getByUidWithItem(uid);
+        double totalAmount = 0.0;
+        for (int i = 0; i < cartList.size(); i++) {
+            Cart cart = cartList.get(i);
+            cart.setSubTotal(cart.getAmount() * cart.getItemSpec().getShop_price());
+            totalAmount += cart.getSubTotal();
+        }
+        Address address = addressService.getDefaultByUid(uid);
+        int bonus_count = bonusService.countByUid(uid);
+
+
+        OrderCheckDto orderCheckDto = new OrderCheckDto();
+        orderCheckDto.setAddress(address);
+        orderCheckDto.setBonusCount(bonus_count);
+        orderCheckDto.setTotalAmount(totalAmount);
+        orderCheckDto.setItems(cartList);
+
+        orderCheckDto.setDate_start(DateTime.now().plusDays(1).toDate());
+        orderCheckDto.setDate_end(DateTime.now().plusDays(3).toDate());
+        DateFormat dateFormat = new SimpleDateFormat("hh:MM");
+        orderCheckDto.setTime_start(dateFormat.format(DateTime.now().withTimeAtStartOfDay().plusHours(6).toDate()));
+        orderCheckDto.setTime_end(dateFormat.format(DateTime.now().withTimeAtStartOfDay().plusHours(9).toDate()));
+
+
+        return orderCheckDto;
+    }
+
+    @Override
     public PageInfo<Order> getByType(int type, int pageNum, int pageSize) {
         PageInfo<Order> page = null;
         int uid = 2;
@@ -122,9 +157,8 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.insert(order);
     }
 
-    @Transactional
     @Override
-    public int submit(int uid, int aid, int bid, int pid, String message) {
+    public int submit(int uid, int aid, int bid, int pid, Date date, Date time_start, Date time_end, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
         List<OrderItem> orderItems = new ArrayList<>();
         Address address = addressService.getById(aid);
@@ -168,9 +202,36 @@ public class OrderServiceImpl implements OrderService {
         order.setMessage(message);
 
         //sendDate
-        order.setSend_date(new java.sql.Date(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(9).toDate().getTime()));
-        order.setTime_start(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(9).toDate().getTime()));
-        order.setTime_end(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(10).toDate().getTime()));
+        if (date != null) {
+            order.setSend_date(new java.sql.Date(date.getTime()));
+            order.setTime_start(new Time(time_start.getTime()));
+            order.setTime_end(new Time(time_end.getTime()));
+        } else {
+            order.setSend_date(new java.sql.Date(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(9).toDate().getTime()));
+            order.setTime_start(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(9).toDate().getTime()));
+            order.setTime_end(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(10).toDate().getTime()));
+        }
+
+        //payment
+        if (bid > 0) {
+            Payment payment = paymentService.getById(bid);
+            if (null != payment) {
+                order.setPid(pid);
+                order.setPayment(payment.getName());
+            }
+        }
+
+        //bonus
+        if (pid > 0) {
+            Bonus bonus = bonusService.getById(bid);
+            if (null != bonus) {
+                order.setBid(bid);
+                order.setBonus(bonus.getMoney());
+                bonus.setEnd_at(new Date());
+                bonusService.update(bonus);
+            }
+        }
+
         int oid = orderDao.insert(order);
 
         //插入order详情
@@ -191,6 +252,9 @@ public class OrderServiceImpl implements OrderService {
 
         return oid;
     }
+
+    @Transactional
+
 
     @Override
     public int update(Order order) {
@@ -216,6 +280,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int countByUid(int uid) {
         return orderDao.countByUid(uid);
+    }
+
+    @Override
+    public int orderMore(int uid, int oid) {
+        Order order = orderDao.getById(oid);
+        if (null != order && order.getUid() == uid) {
+            List<OrderItem> orderItems = orderItemService.getByOid(order.getId());
+            for (int i = 0; i < orderItems.size(); i++) {
+                if (itemService.online(orderItems.get(i).getGid()) > 0) {
+                    cartService.saveOrUpdate(uid, orderItems.get(i).getGid(), orderItems.get(i).getSpec(), orderItems.get(i).getAmount());
+                }
+            }
+        }
+        return 0;
     }
 
     @Override

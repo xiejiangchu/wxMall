@@ -94,7 +94,7 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.update("ItemMapper.softDelete", id);
     }
 
-    public int offline(int id, int is_online){
+    public int offline(int id, int is_online) {
         Map map = new HashMap<String, Object>();
         map.put("id", id);
         map.put("is_online", is_online);
@@ -106,6 +106,12 @@ public class ItemDao extends BaseDao {
         map.put("cid1", cid1);
         map.put("cid2", cid2);
         return this.sqlSession.selectOne("ItemMapper.countByCid1Cid2", map);
+    }
+
+
+    public int online(int id) {
+        Assert.isTrue(id <= 0, "item lt 0");
+        return this.sqlSession.selectOne("ItemMapper.online", id);
     }
 
 }

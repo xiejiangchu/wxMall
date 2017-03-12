@@ -130,6 +130,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public int online(int gid) {
+        return itemDao.online(gid);
+    }
+
+    @Override
     public int offline(int id, int is_online) {
         return itemDao.offline(id, is_online);
     }

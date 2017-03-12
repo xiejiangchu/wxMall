@@ -22,7 +22,8 @@ public class Order implements Serializable {
     private int bid;
     private double bonus;
     private double point;
-    private int payment;
+    private int pid;
+    private String payment;
     private java.sql.Date send_date;
     private Time time_start;
     private Time time_end;
@@ -169,11 +170,19 @@ public class Order implements Serializable {
         this.point = point;
     }
 
-    public int getPayment() {
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getPayment() {
         return payment;
     }
 
-    public void setPayment(int payment) {
+    public void setPayment(String payment) {
         this.payment = payment;
     }
 

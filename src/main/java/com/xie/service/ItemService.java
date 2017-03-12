@@ -40,6 +40,8 @@ public interface ItemService {
 
     int update(Item item);
 
+    int online(int gid);
+
     int offline(int id,int is_online);
 
     int delete(Item item);

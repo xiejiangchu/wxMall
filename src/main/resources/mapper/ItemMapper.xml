@@ -18,6 +18,12 @@
         where items.id=#{id}
     </select>
 
+    <select id="online" resultType="Integer">
+        SELECT count(1) FROM items
+        WHERE id=#{id}
+        AND is_online = 1
+    </select>
+
     <select id="getAllAvailable" resultMap="ItemResult">
         SELECT * FROM items
         WHERE items.is_online = 1

@@ -177,6 +177,9 @@
             <if test="point!=null">
                 ,point
             </if>
+            <if test="pid!=null">
+                ,pid
+            </if>
             <if test="payment!=null">
                 ,payment
             </if>
@@ -262,6 +265,9 @@
             </if>
             <if test="point!=null">
                 ,#{point}
+            </if>
+            <if test="pid!=null">
+                ,#{pid}
             </if>
             <if test="payment!=null">
                 ,#{payment}
@@ -352,6 +358,9 @@
             </if>
             <if test="point!=null">
                 ,point=#{point}
+            </if>
+            <if test="pid!=null">
+                ,pid=#{pid}
             </if>
             <if test="payment!=null">
                 ,payment=#{payment}

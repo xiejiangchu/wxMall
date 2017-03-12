@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @Author xie
  * @Date 17/1/22 下午3:52.
@@ -32,10 +34,10 @@ public class AddressController extends BaseController {
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByUid(@RequestParam("uid") int uid,
-                          @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(addressService.getByUid(uid, pageNum, pageSize));
+    BaseResponse getByUid(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+                          HttpSession session) {
+        return BaseResponse.ok(addressService.getByUid(getUid(session), pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getDefaultByUid", method = RequestMethod.GET)

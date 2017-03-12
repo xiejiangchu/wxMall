@@ -19,6 +19,8 @@ public class Cart implements Serializable {
     private Item item;
     private ItemSpec itemSpec;
 
+    private double subTotal;
+
     public Integer getId() {
         return this.id;
     }
@@ -97,6 +99,14 @@ public class Cart implements Serializable {
 
     public void setItemSpec(ItemSpec itemSpec) {
         this.itemSpec = itemSpec;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
     }
 }
 

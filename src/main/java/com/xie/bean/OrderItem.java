@@ -13,6 +13,7 @@ public class OrderItem {
     private String name;
     private Integer cid1;
     private Integer cid2;
+    private Integer gid;
     private Integer spec;
     private Integer amount;
     private double total;
@@ -231,5 +232,13 @@ public class OrderItem {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public Integer getGid() {
+        return gid;
+    }
+
+    public void setGid(Integer gid) {
+        this.gid = gid;
     }
 }

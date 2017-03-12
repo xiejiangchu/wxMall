@@ -7,11 +7,13 @@
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="is_enabled" column="is_enabled" javaType="Integer" jdbcType="INTEGER"/>
         <result property="imgid" column="imgid" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="code" column="code" javaType="String" jdbcType="VARCHAR"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
-        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
-        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <select id="getAll" resultMap="PaymentResult">
+         SELECT * FROM payment
+    </select>
 
     <select id="getById" resultMap="PaymentResult">
         SELECT * FROM payment

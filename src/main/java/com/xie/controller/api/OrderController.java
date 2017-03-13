@@ -61,8 +61,9 @@ public class OrderController extends BaseController {
     @ResponseBody
     BaseResponse list(@RequestParam(value = "type") int type,
                       @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(orderService.getByType(type, pageNum, pageSize));
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+                      HttpSession session) {
+        return BaseResponse.ok(orderService.getByType(getUid(session), type, pageNum, pageSize));
     }
 
 

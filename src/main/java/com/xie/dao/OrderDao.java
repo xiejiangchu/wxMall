@@ -82,6 +82,10 @@ public class OrderDao extends BaseDao {
         return this.sqlSession.update("OrderMapper.update", item);
     }
 
+    public int cancel(Order item) {
+        return this.sqlSession.update("OrderMapper.cancel", item);
+    }
+
     public int delete(Order item) {
         Assert.notNull(item);
         Assert.isTrue(item.getId() > 0);

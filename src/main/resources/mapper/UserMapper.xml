@@ -3,6 +3,8 @@
 <mapper namespace="UserMapper">
     <resultMap id="UserResult" type="User" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="enabled" property="enabled" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="verified" property="verified" javaType="Integer" jdbcType="INTEGER"/>
         <result column="created_at" property="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result column="deleted_at" property="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -14,7 +16,7 @@
         mobile,
         email,
         wx,
-        lock,
+        enabled,
         verified,
         description,
         password,
@@ -33,7 +35,7 @@
         mobile,
         email,
         wx,
-        lock,
+        enabled,
         verified,
         description,
         password,
@@ -64,7 +66,7 @@
         mobile,
         email,
         wx,
-        lock,
+        enabled,
         verified,
         description,
         password,
@@ -92,7 +94,7 @@
         mobile,
         email,
         wx,
-        lock,
+        enabled,
         verified,
         description,
         password,
@@ -111,7 +113,7 @@
         mobile,
         email,
         wx,
-        lock,
+        enabled,
         verified,
         description,
         password,
@@ -147,8 +149,8 @@
             <if test="wx!=null">
                 ,wx
             </if>
-            <if test="lock!=null">
-                ,lock
+            <if test="enabled!=null">
+                ,enabled
             </if>
             <if test="verified!=null">
                 ,verified
@@ -179,8 +181,8 @@
             <if test="wx!=null">
                 ,#{wx}
             </if>
-            <if test="lock!=null">
-                ,#{lock}
+            <if test="enabled!=null">
+                ,#{enabled}
             </if>
             <if test="verified!=null">
                 ,#{verified}
@@ -215,8 +217,8 @@
             <if test="wx!=null">
                 ,wx=#{wx}
             </if>
-            <if test="lock!=null">
-                ,lock=#{lock}
+            <if test="enabled!=null">
+                ,enabled=#{enabled}
             </if>
             <if test="verified!=null">
                 ,verified=#{verified}

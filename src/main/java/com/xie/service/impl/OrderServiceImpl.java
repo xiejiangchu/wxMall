@@ -59,6 +59,26 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.getById(id);
         if (null != order) {
             order.setOrderItems(orderItemService.getByOid(order.getId()));
+            if (order.getOrder_status() == OrderState.已取消.value()) {
+                order.setStatus(OrderType.已取消.value());
+                order.setStatusName(OrderType.getTypeName(OrderType.已取消.value()));
+            } else if (order.getOrder_status() == OrderState.已完成.value()) {
+                order.setStatus(OrderType.已完成.value());
+                order.setStatusName(OrderType.getTypeName(OrderType.已完成.value()));
+            } else if (order.getOrder_status() == OrderState.进行中.value()) {
+                if (order.getPay_status() == PayState.未支付.value()) {
+                    order.setStatus(OrderType.待支付.value());
+                    order.setStatusName(OrderType.getTypeName(OrderType.待支付.value()));
+                } else if (order.getPay_status() == PayState.已支付.value()) {
+                    if (order.getShip_status() == ShipState.待配送.value()) {
+                        order.setStatus(OrderType.待发货.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                    } else if (order.getShip_status() == ShipState.配送中.value()) {
+                        order.setStatus(OrderType.待收货.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                    }
+                }
+            }
         }
         return order;
     }
@@ -127,9 +147,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageInfo<Order> getByType(int type, int pageNum, int pageSize) {
+    public PageInfo<Order> getByType(int uid, int type, int pageNum, int pageSize) {
         PageInfo<Order> page = null;
-        int uid = 2;
+
         if (OrderType.待支付.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
                     () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
@@ -142,12 +162,40 @@ public class OrderServiceImpl implements OrderService {
         } else if (OrderType.已完成.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
                     () -> orderDao.getByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
-            ;
+        } else if (OrderType.所有.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getByStatus(uid, null, null, null, null));
         }
         if (null != page) {
             List<Order> orders = page.getList();
             for (int i = 0; i < orders.size(); i++) {
-                orders.get(i).setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+                Order order = orders.get(i);
+                order.setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+                if (!OrderType.所有.value().equals(type)) {
+                    order.setStatus(type);
+                    order.setStatusName(OrderType.getTypeName(type));
+                } else {
+                    if (order.getOrder_status() == OrderState.已取消.value()) {
+                        order.setStatus(OrderType.已取消.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.已取消.value()));
+                    } else if (order.getOrder_status() == OrderState.已完成.value()) {
+                        order.setStatus(OrderType.已完成.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.已完成.value()));
+                    } else if (order.getOrder_status() == OrderState.进行中.value()) {
+                        if (order.getPay_status() == PayState.未支付.value()) {
+                            order.setStatus(OrderType.待支付.value());
+                            order.setStatusName(OrderType.getTypeName(OrderType.待支付.value()));
+                        } else if (order.getPay_status() == PayState.已支付.value()) {
+                            if (order.getShip_status() == ShipState.待配送.value()) {
+                                order.setStatus(OrderType.待发货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                            } else if (order.getShip_status() == ShipState.配送中.value()) {
+                                order.setStatus(OrderType.待收货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                            }
+                        }
+                    }
+                }
             }
         }
         return page;
@@ -159,6 +207,7 @@ public class OrderServiceImpl implements OrderService {
 
         return orderDao.insert(order);
     }
+
     @Transactional
     @Override
     public int submit(int uid, int aid, int bid, int pid, Date date, Date time_start, Date time_end, String message) {
@@ -227,8 +276,8 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //payment
-        if (bid > 0) {
-            Payment payment = paymentService.getById(bid);
+        if (pid > 0) {
+            Payment payment = paymentService.getById(pid);
             if (null != payment) {
                 order.setPid(pid);
                 order.setPayment(payment.getName());
@@ -236,7 +285,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //bonus
-        if (pid > 0) {
+        if (bid > 0) {
             Bonus bonus = bonusService.getById(bid);
             if (null != bonus) {
                 order.setBid(bid);
@@ -325,8 +374,8 @@ public class OrderServiceImpl implements OrderService {
             } else if (order.getShip_status() == ShipState.已配送.value() || order.getShip_status() == ShipState.配送中.value()) {
                 return 0;
             }
-            order.setOrder_status(OrderState.已删除.value());
-            orderDao.update(order);
+            order.setOrder_status(OrderState.已取消.value());
+            return orderDao.cancel(order);
         }
         return 0;
     }

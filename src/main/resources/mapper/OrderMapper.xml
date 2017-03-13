@@ -570,6 +570,12 @@
         where id=#{id}
     </update>
 
+    <update id="cancel" parameterType="Order">
+        UPDATE orders set
+        order_status=#{order_status},updated_at=now()
+        where id=#{id}
+    </update>
+
     <delete id="delete">
         DELETE FROM orders WHERE id=#{id}
     </delete>

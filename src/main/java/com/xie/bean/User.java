@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-    private Integer id;
+    private int id;
     private String name;
     private String mobile;
     private String email;
@@ -17,9 +17,9 @@ public class User implements Serializable {
     private Date deleted_at;
 
     @JsonIgnore
-    private Byte lock;
+    private int enabled;
     @JsonIgnore
-    private Byte verified;
+    private int verified;
 
     @JsonIgnore
     private String password;
@@ -27,16 +27,16 @@ public class User implements Serializable {
     private String remember_token;
 
 
-    public Integer getId() {
-        return this.id;
+    public int getId() {
+        return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -44,7 +44,7 @@ public class User implements Serializable {
     }
 
     public String getMobile() {
-        return this.mobile;
+        return mobile;
     }
 
     public void setMobile(String mobile) {
@@ -52,7 +52,7 @@ public class User implements Serializable {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
@@ -60,51 +60,19 @@ public class User implements Serializable {
     }
 
     public String getWx() {
-        return this.wx;
+        return wx;
     }
 
     public void setWx(String wx) {
         this.wx = wx;
     }
 
-    public Byte getLock() {
-        return this.lock;
-    }
-
-    public void setLock(Byte lock) {
-        this.lock = lock;
-    }
-
-    public Byte getVerified() {
-        return this.verified;
-    }
-
-    public void setVerified(Byte verified) {
-        this.verified = verified;
-    }
-
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRemember_token() {
-        return this.remember_token;
-    }
-
-    public void setRemember_token(String remember_token) {
-        this.remember_token = remember_token;
     }
 
     public Date getCreated_at() {
@@ -129,6 +97,38 @@ public class User implements Serializable {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getVerified() {
+        return verified;
+    }
+
+    public void setVerified(int verified) {
+        this.verified = verified;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRemember_token() {
+        return remember_token;
+    }
+
+    public void setRemember_token(String remember_token) {
+        this.remember_token = remember_token;
     }
 }
 

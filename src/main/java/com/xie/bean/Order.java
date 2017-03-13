@@ -39,8 +39,13 @@ public class Order implements Serializable {
     private Date updated_at;
     private Date deleted_at;
 
+    /**
+     * 额外字段
+     */
     private List<OrderItem> orderItems;
     private User user;
+    private String statusName;
+    private int status;
 
     public int getId() {
         return id;
@@ -312,6 +317,22 @@ public class Order implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
 

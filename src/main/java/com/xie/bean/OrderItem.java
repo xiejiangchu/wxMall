@@ -7,21 +7,21 @@ import java.util.Date;
  * @Date 17/2/24 下午6:22.
  */
 public class OrderItem {
-    private Integer id;
-    private Integer oid;
+    private int id;
+    private int oid;
     private String no;
     private String name;
-    private Integer cid1;
-    private Integer cid2;
-    private Integer gid;
-    private Integer spec;
-    private Integer amount;
+    private int cid1;
+    private int cid2;
+    private int gid;
+    private int spec;
+    private int amount;
     private double total;
     private double weight;
     private double market_price;
     private double shop_price;
     private double promote_price;
-    private Integer quanlity;
+    private int quanlity;
     private String unit;
     private String unit_sell;
     private String unit_desc;
@@ -34,19 +34,19 @@ public class OrderItem {
     private Date created_at;
     private Date updated_at;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getOid() {
+    public int getOid() {
         return oid;
     }
 
-    public void setOid(Integer oid) {
+    public void setOid(int oid) {
         this.oid = oid;
     }
 
@@ -66,28 +66,52 @@ public class OrderItem {
         this.name = name;
     }
 
-    public Integer getCid1() {
+    public int getCid1() {
         return cid1;
     }
 
-    public void setCid1(Integer cid1) {
+    public void setCid1(int cid1) {
         this.cid1 = cid1;
     }
 
-    public Integer getCid2() {
+    public int getCid2() {
         return cid2;
     }
 
-    public void setCid2(Integer cid2) {
+    public void setCid2(int cid2) {
         this.cid2 = cid2;
     }
 
-    public Integer getAmount() {
+    public int getGid() {
+        return gid;
+    }
+
+    public void setGid(int gid) {
+        this.gid = gid;
+    }
+
+    public int getSpec() {
+        return spec;
+    }
+
+    public void setSpec(int spec) {
+        this.spec = spec;
+    }
+
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public double getWeight() {
@@ -122,11 +146,11 @@ public class OrderItem {
         this.promote_price = promote_price;
     }
 
-    public Integer getQuanlity() {
+    public int getQuanlity() {
         return quanlity;
     }
 
-    public void setQuanlity(Integer quanlity) {
+    public void setQuanlity(int quanlity) {
         this.quanlity = quanlity;
     }
 
@@ -216,29 +240,5 @@ public class OrderItem {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public Integer getSpec() {
-        return spec;
-    }
-
-    public void setSpec(Integer spec) {
-        this.spec = spec;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    public Integer getGid() {
-        return gid;
-    }
-
-    public void setGid(Integer gid) {
-        this.gid = gid;
     }
 }

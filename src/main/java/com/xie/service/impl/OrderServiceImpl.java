@@ -239,9 +239,9 @@ public class OrderServiceImpl implements OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setOid(oid);
             orderItem.setTotal(cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price());
-            BeanUtils.copyProperties(cartList.get(i), orderItem, "created_at", "updated_at", "deleted_at");
             BeanUtils.copyProperties(cartList.get(i).getItem(), orderItem, "created_at", "updated_at", "deleted_at");
             BeanUtils.copyProperties(cartList.get(i).getItemSpec(), orderItem, "created_at", "updated_at", "deleted_at");
+            BeanUtils.copyProperties(cartList.get(i), orderItem, "created_at", "updated_at", "deleted_at");
 
             orderItems.add(orderItem);
         }
@@ -288,8 +288,9 @@ public class OrderServiceImpl implements OrderService {
         if (null != order && order.getUid() == uid) {
             List<OrderItem> orderItems = orderItemService.getByOid(order.getId());
             for (int i = 0; i < orderItems.size(); i++) {
-                if (itemService.online(orderItems.get(i).getGid()) > 0) {
-                    cartService.saveOrUpdate(uid, orderItems.get(i).getGid(), orderItems.get(i).getSpec(), orderItems.get(i).getAmount());
+                OrderItem orderItem=orderItems.get(i);
+                if (itemService.online(orderItem.getGid(),orderItem.getSpec()) > 0) {
+                    cartService.saveOrUpdate(uid, orderItem.getGid(), orderItem.getSpec(), orderItem.getAmount());
                 }
             }
         }

@@ -40,7 +40,7 @@ public interface ItemService {
 
     int update(Item item);
 
-    int online(int gid);
+    int online(int gid,int spec);
 
     int offline(int id,int is_online);
 

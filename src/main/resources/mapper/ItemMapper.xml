@@ -19,9 +19,11 @@
     </select>
 
     <select id="online" resultType="Integer">
-        SELECT count(1) FROM items
-        WHERE id=#{id}
-        AND is_online = 1
+        SELECT count(1) FROM items LEFT JOIN item_spec ON items.id=item_spec.gid
+        WHERE items.id=#{id}
+        AND item_spec.id=#{spec}
+        AND items.is_online = 1
+        AND item_spec.is_online = 1
     </select>
 
     <select id="getAllAvailable" resultMap="ItemResult">

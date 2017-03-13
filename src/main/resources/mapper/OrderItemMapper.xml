@@ -58,6 +58,7 @@
             ,spec
             ,total
             ,amount
+            ,gid
             ,weight
             ,market_price
             ,shop_price
@@ -87,6 +88,7 @@
                 ,#{orderItem.spec}
                 ,#{orderItem.total}
                 ,#{orderItem.amount}
+                ,#{orderItem.gid}
                 ,#{orderItem.weight}
                 ,#{orderItem.market_price}
                 ,#{orderItem.shop_price}
@@ -134,6 +136,9 @@
             </if>
             <if test="total!=null">
                 ,total
+            </if>
+            <if test="gid!=null">
+                ,gid
             </if>
             <if test="amount!=null">
                 ,amount
@@ -205,6 +210,9 @@
             </if>
             <if test="total!=null">
                 ,#{total}
+            </if>
+            <if test="gid!=null">
+                ,#{gid}
             </if>
             <if test="amount!=null">
                 ,#{amount}
@@ -280,6 +288,9 @@
             </if>
             <if test="total!=null">
                 ,total=#{total}
+            </if>
+            <if test="gid!=null">
+                ,gid=#{gid}
             </if>
             <if test="amount!=null">
                 ,amount=#{amount}

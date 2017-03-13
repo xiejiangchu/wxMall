@@ -130,8 +130,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public int online(int gid) {
-        return itemDao.online(gid);
+    public int online(int gid,int spec) {
+        return itemDao.online(gid,spec);
     }
 
     @Override

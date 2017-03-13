@@ -8,13 +8,39 @@
         <result column="deleted_at" property="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
     <select id="getById" resultMap="UserResult">
-        SELECT *
+        SELECT
+        id,
+        name,
+        mobile,
+        email,
+        wx,
+        lock,
+        verified,
+        description,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
         FROM users
         WHERE id = #{id}
     </select>
 
     <select id="getByName" resultMap="UserResult">
-        SELECT *
+        SELECT
+        id,
+        name,
+        mobile,
+        email,
+        wx,
+        lock,
+        verified,
+        description,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
         FROM users
         WHERE name = #{name}
     </select>
@@ -32,7 +58,20 @@
     </select>
 
     <select id="getByWx" resultMap="UserResult">
-        SELECT *
+        SELECT
+        id,
+        name,
+        mobile,
+        email,
+        wx,
+        lock,
+        verified,
+        description,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
         FROM users
         WHERE wx = #{wx}
     </select>
@@ -47,13 +86,39 @@
     </select>
 
     <select id="getByEmail" resultMap="UserResult">
-        SELECT *
+        SELECT
+        id,
+        name,
+        mobile,
+        email,
+        wx,
+        lock,
+        verified,
+        description,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
         FROM users
         WHERE email = #{email}
     </select>
 
     <select id="getAll" resultMap="UserResult">
-        SELECT *
+        SELECT
+        id,
+        name,
+        mobile,
+        email,
+        wx,
+        lock,
+        verified,
+        description,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
         FROM users
     </select>
 
@@ -65,7 +130,9 @@
     </select>
 
     <insert id="insert" parameterType="User">
-
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
         INSERT INTO users(
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="name!=null">

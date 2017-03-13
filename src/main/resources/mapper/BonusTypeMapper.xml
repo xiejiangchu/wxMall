@@ -21,24 +21,97 @@
     </resultMap>
 
     <select id="getById" resultMap="BonusTypeResult">
-        SELECT * FROM bonus_type where id=#{id}
+        SELECT
+        id,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus_type
+        WHERE id=#{id}
     </select>
 
     <select id="getAll" resultMap="BonusTypeResult">
-        SELECT * FROM bonus_type
+        SELECT
+        id,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus_type
     </select>
 
     <select id="getAllEnabled" resultMap="BonusTypeResult">
-        SELECT * FROM bonus_type WHERE is_enable = 1
+        SELECT
+        id,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus_type
+        WHERE is_enable = 1
     </select>
 
     <select id="getAllByGid" resultMap="BonusTypeResult">
-        SELECT * FROM bonus_type WHERE gid = #{gid}
+        SELECT
+        id,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus_type
+        WHERE gid = #{gid}
     </select>
 
     <select id="getAllByCid" resultMap="BonusTypeResult">
-        SELECT * FROM bonus_type
-        where
+        SELECT
+        id,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus_type
+        WHERE
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
             <if test="cid1!=null">
                 cid1=#{cid1}
@@ -50,7 +123,7 @@
     </select>
 
     <select id="countByByGid" resultType="Integer">
-        SELECT count(*) FROM bonus_type where gid = #{gid}
+        SELECT count(1) FROM bonus_type where gid = #{gid}
     </select>
 
     <insert id="insert">

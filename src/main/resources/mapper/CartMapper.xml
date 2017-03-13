@@ -11,12 +11,20 @@
         <result property="amount" column="amount" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
-        <association property="item" autoMapping="true" resultMap="ItemMapper.ItemResult"/>
-        <association property="itemSpec" autoMapping="true" resultMap="ItemSpecMapper.ItemSpecResult"/>
+        <association property="item" autoMapping="true" resultMap="ItemMapper.ItemResult" columnPrefix="items_"/>
+        <association property="itemSpec" autoMapping="true" resultMap="ItemSpecMapper.ItemSpecResult" columnPrefix="item_spec_"/>
     </resultMap>
 
     <select id="getById" resultMap="CartResult">
-        SELECT * FROM cart
+        SELECT
+        id,
+        uid,
+        gid,
+        spec,
+        amount,
+        created_at,
+        updated_at
+        FROM cart
         where id=#{id}
     </select>
 
@@ -25,8 +33,16 @@
     </delete>
 
     <select id="getByUid" resultMap="CartResult">
-        SELECT * FROM cart
-        where uid=#{uid}
+        SELECT
+        id,
+        uid,
+        gid,
+        spec,
+        amount,
+        created_at,
+        updated_at
+        FROM cart
+        WHERE uid=#{uid}
     </select>
 
     <delete id="clearByUid">
@@ -34,8 +50,61 @@
     </delete>
 
     <select id="getByUidWithItem" resultMap="CartResult">
-        SELECT * FROM cart LEFT JOIN items i on cart.gid = i.id LEFT JOIN item_spec on cart.spec = item_spec.id
-        where uid=#{uid}
+        SELECT
+        cart.id as id,
+        cart.uid as uid,
+        cart.gid as gid,
+        cart.spec as spec,
+        cart.amount as amount,
+        cart.created_at as created_at,
+        cart.updated_at as updated_at,
+
+        items.id as items_id,
+        items.no as items_no,
+        items.name as items_name,
+        items.cid1 as items_cid1,
+        items.cid2 as items_cid2,
+        items.is_online as items_is_online,
+        items.src as items_src,
+        items.thumb as items_thumb,
+        items.place as items_place,
+        items.summary as items_summary,
+        items.notice as items_notice,
+        items.description as items_description,
+        items.created_at as items_created_at,
+        items.updated_at as items_updated_at,
+        items.deleted_at as items_deleted_at,
+
+        item_spec.id as item_spec_id,
+        item_spec.gid as item_spec_gid,
+        item_spec.is_remain as item_spec_is_remain,
+        item_spec.is_online as item_spec_is_online,
+        item_spec.is_active as item_spec_is_active,
+        item_spec.is_rough as item_spec_is_rough,
+        item_spec.is_promote as item_spec_is_promote,
+        item_spec.is_delete as item_spec_is_delete,
+        item_spec.status as item_spec_status,
+        item_spec.sort as item_spec_sort,
+        item_spec.weight as item_spec_weight,
+        item_spec.order_quantity as item_spec_order_quantity,
+        item_spec.max_quantity as item_spec_max_quantity,
+        item_spec.market_price as item_spec_market_price,
+        item_spec.shop_price as item_spec_shop_price,
+        item_spec.promote_price as item_spec_promote_price,
+        item_spec.remain as item_spec_remain,
+        item_spec.sale_num as item_spec_sale_num,
+        item_spec.quanlity as item_spec_quanlity,
+        item_spec.unit as item_spec_unit,
+        item_spec.unit_sell as item_spec_unit_sell,
+        item_spec.unit_desc as item_spec_unit_desc,
+        item_spec.created_at as item_spec_created_at,
+        item_spec.updated_at as item_spec_updated_at,
+        item_spec.deleted_at as item_spec_deleted_at
+
+        FROM cart
+        LEFT JOIN items on cart.gid = items.id
+        LEFT JOIN item_spec on cart.spec = item_spec.id
+        WHERE cart.uid=#{uid}
     </select>
 
     <insert id="insert" parameterType="Cart">

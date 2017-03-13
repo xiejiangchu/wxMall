@@ -25,7 +25,40 @@
     </resultMap>
 
     <select id="getById" resultMap="OrderResult">
-        SELECT * FROM orders
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
         where id=#{id}
     </select>
 
@@ -41,7 +74,40 @@
     </select>
 
     <select id="getAllByStatus" resultMap="OrderResult" parameterType="map">
-        SELECT * FROM orders
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
         where 1=1
         <if test="order_status!=null">
             and order_status=#{order_status}
@@ -76,7 +142,40 @@
     </select>
 
     <select id="getByStatus" resultMap="OrderResult" parameterType="map">
-        SELECT * FROM orders
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
         where uid=#{uid}
         <if test="order_status!=null">
             and order_status=#{order_status}
@@ -115,11 +214,78 @@
     </select>
 
     <select id="getAll" resultMap="OrderResult">
-        SELECT * FROM orders
+         SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
     </select>
 
     <select id="getAllByUid" resultMap="OrderResult">
-        SELECT * FROM orders WHERE uid=#{uid}
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
+        WHERE uid=#{uid}
     </select>
 
     <select id="countByUid" resultType="Integer">

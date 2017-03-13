@@ -12,11 +12,27 @@
     </resultMap>
 
     <select id="getAll" resultMap="PaymentResult">
-         SELECT * FROM payment
+        SELECT
+        id,
+        code,
+        name,
+        is_enabled,
+        imgid,
+        app_key,
+        app_secret
+        FROM payment
     </select>
 
     <select id="getById" resultMap="PaymentResult">
-        SELECT * FROM payment
+        SELECT
+        id,
+        code,
+        name,
+        is_enabled,
+        imgid,
+        app_key,
+        app_secret
+        FROM payment
         WHERE id=#{id}
     </select>
 

@@ -23,25 +23,93 @@
     </resultMap>
 
     <select id="getById" resultMap="BonusResult">
-        SELECT * FROM bonus where id=#{id}
+        SELECT
+        id,
+        uid,
+        tid,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus
+        WHERE id=#{id}
     </select>
 
     <select id="getAllByUid" resultMap="BonusResult">
-         SELECT * FROM bonus where uid=#{uid}
+          SELECT
+        id,
+        uid,
+        tid,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus
+        WHERE uid=#{uid}
     </select>
 
     <select id="countByUid" resultType="Integer">
-        SELECT count(*) FROM bonus where uid=#{uid}
+        SELECT count(1) FROM bonus where uid=#{uid}
     </select>
 
     <select id="getListInvalidate" resultMap="BonusResult">
-        SELECT * FROM bonus where uid=#{uid}
-         AND <![CDATA[ end_at < now()
+         SELECT
+        id,
+        uid,
+        tid,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at,
+        FROM bonus
+        WHERE uid=#{uid}
+        AND <![CDATA[ end_at < now()
         ]]>
     </select>
 
     <select id="getListValidate" resultMap="BonusResult">
-        SELECT * FROM bonus where uid=#{uid}
+        SELECT
+        id,
+        uid,
+        tid,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus
+        WHERE uid=#{uid}
         AND <![CDATA[ start_at <= now() ]]>
         AND <![CDATA[ end_at >= now()
 

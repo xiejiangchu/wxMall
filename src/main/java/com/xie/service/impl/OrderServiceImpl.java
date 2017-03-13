@@ -51,6 +51,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private ItemSpecService itemSpecService;
+
     @Override
     public Order getById(int id) {
         Order order = orderDao.getById(id);
@@ -156,7 +159,7 @@ public class OrderServiceImpl implements OrderService {
 
         return orderDao.insert(order);
     }
-
+    @Transactional
     @Override
     public int submit(int uid, int aid, int bid, int pid, Date date, Date time_start, Date time_end, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
@@ -174,6 +177,8 @@ public class OrderServiceImpl implements OrderService {
         order.setShip_status(ShipState.待配送.value());
         order.setPackage_status(PackageState.未打包.value());
 
+
+        //计算订单总额
         double order_amount = 0;
         double order_weight = 0;
         double order_money = 0;
@@ -181,6 +186,15 @@ public class OrderServiceImpl implements OrderService {
             order_amount += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getUnit_sell();
             order_weight += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getWeight();
             order_money += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price();
+
+            //更新库存和销量
+            ItemSpec itemSpec = cartList.get(i).getItemSpec();
+            double remain = itemSpec.getRemain();
+            double sale_num = itemSpec.getSale_num();
+            itemSpec.setRemain(remain - cartList.get(i).getAmount() * itemSpec.getUnit_sell());
+            itemSpec.setSale_num(sale_num + cartList.get(i).getAmount() * itemSpec.getUnit_sell());
+            itemSpecService.updateRemainAndSale(itemSpec);
+
         }
         order.setOrder_amount(order_amount);
         order.setOrder_weight(order_weight);
@@ -247,13 +261,12 @@ public class OrderServiceImpl implements OrderService {
         }
         orderItemService.insert(orderItems);
 
+
         //删除购物车
         cartService.clear(uid);
 
         return oid;
     }
-
-    @Transactional
 
 
     @Override
@@ -282,14 +295,15 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.countByUid(uid);
     }
 
+    @Transactional
     @Override
     public int orderMore(int uid, int oid) {
         Order order = orderDao.getById(oid);
         if (null != order && order.getUid() == uid) {
             List<OrderItem> orderItems = orderItemService.getByOid(order.getId());
             for (int i = 0; i < orderItems.size(); i++) {
-                OrderItem orderItem=orderItems.get(i);
-                if (itemService.online(orderItem.getGid(),orderItem.getSpec()) > 0) {
+                OrderItem orderItem = orderItems.get(i);
+                if (itemService.online(orderItem.getGid(), orderItem.getSpec()) > 0) {
                     cartService.saveOrUpdate(uid, orderItem.getGid(), orderItem.getSpec(), orderItem.getAmount());
                 }
             }

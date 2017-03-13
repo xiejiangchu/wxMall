@@ -13,15 +13,43 @@
     </resultMap>
 
     <select id="getAll" resultMap="BannerResult">
-        SELECT * FROM banner
+        SELECT
+        id,
+        tip,
+        url,
+        is_show,
+        sort,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM banner
     </select>
 
     <select id="getAllCanShow" resultMap="BannerResult">
-        SELECT * FROM banner WHERE is_show = 1 order BY sort desc
+        SELECT
+        id,
+        tip,
+        url,
+        is_show,
+        sort,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM banner
+        WHERE is_show = 1 order BY sort desc
     </select>
 
     <select id="getById" resultMap="BannerResult">
-        SELECT * FROM banner
+        SELECT
+        id,
+        tip,
+        url,
+        is_show,
+        sort,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM banner
         where id=#{id} order BY sort desc
     </select>
 

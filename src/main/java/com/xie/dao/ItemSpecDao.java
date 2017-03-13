@@ -47,4 +47,8 @@ public class ItemSpecDao extends BaseDao {
         return this.sqlSession.update("ItemSpecMapper.softDelete", id);
     }
 
+    public int updateRemainAndSale(ItemSpec itemSpec) {
+        return this.sqlSession.update("ItemSpecMapper.updateRemainAndSale", itemSpec);
+    }
+
 }

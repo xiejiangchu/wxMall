@@ -29,17 +29,72 @@
     </resultMap>
 
     <select id="getById" resultMap="ItemSpecResult">
-        SELECT * FROM item_spec
+        SELECT
+        id,
+        gid,
+        is_remain,
+        is_online,
+        is_active,
+        is_rough,
+        is_promote,
+        is_delete,
+        status,
+        sort,
+        weight,
+        order_quantity,
+        max_quantity,
+        market_price,
+        shop_price,
+        promote_price,
+        remain,
+        sale_num,
+        quanlity,
+        unit,
+        unit_sell,
+        unit_desc,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM item_spec
         WHERE id=#{id}
     </select>
 
     <select id="getAllByGid" resultMap="ItemSpecResult">
-        SELECT * FROM item_spec where gid=#{gid}
+        SELECT
+        id,
+        gid,
+        is_remain,
+        is_online,
+        is_active,
+        is_rough,
+        is_promote,
+        is_delete,
+        status,
+        sort,
+        weight,
+        order_quantity,
+        max_quantity,
+        market_price,
+        shop_price,
+        promote_price,
+        remain,
+        sale_num,
+        quanlity,
+        unit,
+        unit_sell,
+        unit_desc,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM item_spec
+        WHERE gid=#{gid}
     </select>
 
 
     <insert id="insert" parameterType="ItemSpec">
-
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
         INSERT INTO item_spec (
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
             <if test="gid!=null">
@@ -140,28 +195,28 @@
                 ,#{sort}
             </if>
             <if test="weight!=null">
-                ,#{weight}
+                ,#{weight,jdbcType=DECIMAL}
             </if>
             <if test="order_quantity!=null">
-                ,#{order_quantity}
+                ,#{order_quantity,jdbcType=DECIMAL}
             </if>
             <if test="max_quantity!=null">
-                ,#{max_quantity}
+                ,#{max_quantity,jdbcType=DECIMAL}
             </if>
             <if test="market_price!=null">
-                ,#{market_price}
+                ,#{market_price,jdbcType=DECIMAL}
             </if>
             <if test="shop_price!=null">
-                ,#{shop_price}
+                ,#{shop_price,jdbcType=DECIMAL}
             </if>
             <if test="promote_price!=null">
-                ,#{promote_price}
+                ,#{promote_price,jdbcType=DECIMAL}
             </if>
             <if test="remain!=null">
-                ,#{remain}
+                ,#{remain,jdbcType=DECIMAL}
             </if>
             <if test="sale_num!=null">
-                ,#{sale_num}
+                ,#{sale_num,jdbcType=DECIMAL}
             </if>
             <if test="quanlity!=null">
                 ,#{quanlity}
@@ -231,7 +286,7 @@
                 promote_price=#{promote_price,jdbcType=DECIMAL},
             </if>
             <if test="remain!=null">
-                remain=#{remain,jdbcType=INTEGER},
+                remain=#{remain,jdbcType=DECIMAL},
             </if>
             <if test="sale_num!=null">
                 sale_num=#{sale_num},
@@ -259,6 +314,20 @@
 
     <update id="softDelete">
         UPDATE item_spec set deleted_at=now() WHERE id=#{id}
+    </update>
+
+    <update id="updateRemainAndSale" parameterType="ItemSpec">
+        UPDATE item_spec set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="remain!=null">
+                remain=#{remain,jdbcType=DECIMAL},
+            </if>
+            <if test="sale_num!=null">
+                sale_num=#{sale_num,jdbcType=DECIMAL},
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
     </update>
 
 

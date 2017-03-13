@@ -109,9 +109,9 @@ public class ItemDao extends BaseDao {
     }
 
 
-    public int online(int gid, int spec) {
+    public int online(int id, int spec) {
         Map map = new HashMap<String, Object>();
-        map.put("gid", gid);
+        map.put("id", id);
         map.put("spec", spec);
         return this.sqlSession.selectOne("ItemMapper.online", map);
     }

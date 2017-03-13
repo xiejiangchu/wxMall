@@ -21,12 +21,66 @@
     </resultMap>
 
     <select id="getById" resultMap="OrderItemResult">
-        SELECT * FROM order_items
+        SELECT
+        id,
+        oid,
+        no,
+        gid,
+        name,
+        cid1,
+        cid2,
+        spec,
+        total,
+        amount,
+        weight,
+        market_price,
+        shop_price,
+        promote_price,
+        quanlity,
+        unit,
+        unit_sell,
+        unit_desc,
+        src,
+        thumb,
+        place,
+        summary,
+        notice,
+        description,
+        created_at,
+        updated_at
+        FROM order_items
         where id=#{id}
     </select>
 
     <select id="getByOid" resultMap="OrderItemResult" >
-        SELECT * FROM order_items WHERE oid=#{oid}
+        SELECT
+        id,
+        oid,
+        no,
+        gid,
+        name,
+        cid1,
+        cid2,
+        spec,
+        total,
+        amount,
+        weight,
+        market_price,
+        shop_price,
+        promote_price,
+        quanlity,
+        unit,
+        unit_sell,
+        unit_desc,
+        src,
+        thumb,
+        place,
+        summary,
+        notice,
+        description,
+        created_at,
+        updated_at
+        FROM order_items WHERE oid=#{oid}
     </select>
 
     <select id="count" parameterType="Boolean">

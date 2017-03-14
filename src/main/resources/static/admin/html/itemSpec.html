@@ -41,18 +41,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="pull-right">
-            <p>
-                <button ng-click="add()" type="button" class="btn bg-green btn-flat margin">
-                    <i class="fa fa-add">添加商品</i>
-                </button>
-                <button ng-click="addBatch()" type="button" class="btn bg-red btn-flat margin">
-                    <i class="fa fa-add">批量添加</i>
-                </button>
-            </p>
-        </div>
-    </div>
     <div class="container-fluid" ng-if="params.cid2>0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -80,7 +68,7 @@
                         <div class="container-fluid" ng-if="params.itemSpecId>0">
                             <form role="form">
                                 <div class="form-group">
-                                    <label>是否上线</label>
+                                    <label>上线</label>
                                     <div class="radio">
                                         <label>
                                             <input ng-model="itemSpec.is_online" type="radio" ng-value="0">
@@ -95,7 +83,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>是否激活</label>
+                                    <label>熟食</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="itemSpec.is_rough" type="radio" name="online" ng-value="0">
+                                            不是
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="itemSpec.is_rough" type="radio" name="online" ng-value="1">
+                                            是
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>激活</label>
                                     <div class="radio">
                                         <label>
                                             <input ng-model="itemSpec.is_active" type="radio" ng-value="0">
@@ -110,7 +113,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>库存是否还有</label>
+                                    <label>库存</label>
                                     <div class="radio">
                                         <label>
                                             <input ng-model="itemSpec.is_remain" type="radio" ng-value="0">
@@ -130,8 +133,8 @@
                                            placeholder="10">
                                 </div>
                                 <div class="form-group">
-                                    <label>质量登记</label>
-                                    <input ng-model="itemSpec.quality" name='quality' type="text" class="form-control"
+                                    <label>质量等级</label>
+                                    <input ng-model="itemSpec.quanlity" name='quality' type="text" class="form-control"
                                            placeholder="10">
                                 </div>
                                 <div class="form-group">
@@ -142,28 +145,29 @@
                                 <div class="form-group">
                                     <label>本店价格</label>
                                     <input ng-model="itemSpec.shop_price" name='shop_price' type="text"
-                                           class="form-control"
-                                           placeholder="0.00">
+                                           class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="form-group">
+                                    <label>市场价格</label>
+                                    <input ng-model="itemSpec.market_price" name='shop_price' type="text"
+                                           class="form-control" placeholder="0.00">
                                 </div>
                                 <div class="form-group">
                                     <label>促销价格</label>
                                     <input ng-model="itemSpec.promote_price" name='promote_price' type="text"
-                                           class="form-control"
-                                           placeholder="0.00">
+                                           class="form-control" placeholder="0.00">
                                 </div>
 
                                 <div class="form-group">
                                     <label>最大购买量</label>
                                     <input ng-model="itemSpec.max_quantity" name='max_quantity' type="text"
-                                           class="form-control"
-                                           placeholder="0.00">
+                                           class="form-control" placeholder="0.00">
                                 </div>
 
                                 <div class="form-group">
                                     <label>最小购买量</label>
                                     <input ng-model="itemSpec.order_quantity" name='order_quantity' type="text"
-                                           class="form-control"
-                                           placeholder="0.00">
+                                           class="form-control" placeholder="0.00">
                                 </div>
 
                                 <div class="form-group">
@@ -186,8 +190,8 @@
 
                                 <div class="form-group">
                                     <label>单位描述</label>
-                        <textarea ng-model="itemSpec.unit_desc" name="description" class="form-control" rows="3"
-                                  placeholder="销售单位描述..."></textarea>
+                                    <textarea ng-model="itemSpec.unit_desc" name="description" class="form-control"
+                                              rows="3" placeholder="销售单位描述..."></textarea>
                                 </div>
 
                                 <div class="form-group">

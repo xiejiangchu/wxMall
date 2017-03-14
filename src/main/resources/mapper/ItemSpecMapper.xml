@@ -20,6 +20,8 @@
         <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="remain" column="remain" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="unit" column="unit" javaType="String" jdbcType="VARCHAR"/>
+        <result property="unit_desc" column="unit_desc" javaType="String" jdbcType="VARCHAR"/>
         <result property="unit_sell" column="unit_sell" javaType="Double" jdbcType="DECIMAL"/>
         <result property="sale_num" column="sale_num" javaType="Double" jdbcType="DECIMAL"/>
         <result property="quanlity" column="quanlity" javaType="Integer" jdbcType="INTEGER"/>

@@ -117,7 +117,9 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
             slaveImageSelected: $scope.slaveImageSelected
         }).then(function (response) {
             if (response.data.code == 0) {
-                history.back();
+                alert('成功');
+            }else{
+                alert(response.data.msg);
             }
         }, function (error) {
         });

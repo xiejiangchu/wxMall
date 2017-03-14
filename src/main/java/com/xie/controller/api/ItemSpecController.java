@@ -1,5 +1,6 @@
 package com.xie.controller.api;
 
+import com.xie.bean.ItemSpec;
 import com.xie.response.BaseResponse;
 import com.xie.service.ItemSpecService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class ItemSpecController {
 
     /**
      * 获取详情
+     *
      * @param id
      * @return
      */
@@ -30,6 +32,7 @@ public class ItemSpecController {
 
     /**
      * 获取能够显示的
+     *
      * @param gid
      * @return
      */
@@ -41,12 +44,16 @@ public class ItemSpecController {
 
     /**
      * 修改
-     * @param id
      * @return
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse put(@PathVariable int id) {
-        return BaseResponse.ok();
+    public BaseResponse put(@RequestBody ItemSpec itemSpec) {
+        int result = itemSpecService.update(itemSpec);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 }

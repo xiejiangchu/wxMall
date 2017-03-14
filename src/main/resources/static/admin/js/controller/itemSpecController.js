@@ -37,6 +37,7 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
             $http.get('/category/getCategoryLevel2/' + $scope.params.cid1, {}).then(function (response) {
                 $scope.cid2 = response.data.data;
                 $scope.cid2Filter = [];
+                $scope.params.cid2 = 0;
                 angular.forEach($scope.cid2, function (value, key) {
                     this.push({
                         'text': value.name,
@@ -72,10 +73,12 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
                 }
             }).then(function (response) {
                 $scope.itemSpecs = response.data.data;
+                $scope.itemSpec = {};
+                $scope.params.itemSpecId = $scope.itemSpecs[0].id;
                 $scope.itemSpecsFilter = [];
                 angular.forEach($scope.itemSpecs, function (value, key) {
                     this.push({
-                        'text': value.shop_price + "元/" + value.unit,
+                        'text': value.shop_price + "元/" + value.unit + "/销量:" + value.sale_num,
                         'value': value.id
                     });
                 }, $scope.itemSpecsFilter);
@@ -91,12 +94,18 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
                     $scope.itemSpec = item;
                 }
             });
-            console.log($scope.itemSpec);
         }
     });
 
     $scope.submit = function () {
-       console.log($scope.itemSpec);
+        $http.put('/itemSpec/', $scope.itemSpec).then(function (response) {
+            if (response.data.code == 0) {
+                alert('成功');
+            }else{
+                alert(response.data.msg);
+            }
+        }, function (error) {
+        });
     };
 
 });

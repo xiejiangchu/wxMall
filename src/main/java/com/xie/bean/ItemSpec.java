@@ -28,7 +28,6 @@ public class ItemSpec {
     private int quanlity;
     private double unit_sell;
     private String unit;
-
     private String unit_desc;
 
     private Date created_at;

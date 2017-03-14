@@ -238,8 +238,8 @@ public class OrderServiceImpl implements OrderService {
 
             //更新库存和销量
             ItemSpec itemSpec = cartList.get(i).getItemSpec();
-            double remain = itemSpec.getRemain();
-            double sale_num = itemSpec.getSale_num();
+            int remain = itemSpec.getRemain();
+            int sale_num = itemSpec.getSale_num();
             itemSpec.setRemain(remain - cartList.get(i).getAmount() * itemSpec.getUnit_sell());
             itemSpec.setSale_num(sale_num + cartList.get(i).getAmount() * itemSpec.getUnit_sell());
             itemSpecService.updateRemainAndSale(itemSpec);

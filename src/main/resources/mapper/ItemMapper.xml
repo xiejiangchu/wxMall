@@ -126,23 +126,24 @@
 
     <select id="lastUpdated" resultMap="ItemResult">
         SELECT
-        id,
-        no,
-        name,
-        cid1,
-        cid2,
-        is_online,
-        src,
-        thumb,
-        place,
-        summary,
-        notice,
-        description,
-        created_at,
-        updated_at,
-        deleted_at
+        items.id,
+        items.no,
+        items.name,
+        items.cid1,
+        items.cid2,
+        items.is_online,
+        items.src,
+        items.thumb,
+        items.place,
+        items.summary,
+        items.notice,
+        items.description,
+        items.created_at,
+        items.updated_at,
+        items.deleted_at
         FROM items
-        ORDER BY updated_at
+        LEFT JOIN item_spec ON items.id = item_spec.gid
+        ORDER BY item_spec.updated_at DESC,items.updated_at DESC
     </select>
 
     <select id="getAllCanShow" resultMap="ItemResult">

@@ -13,17 +13,17 @@
         <result property="is_promote" column="is_promote" javaType="Integer" jdbcType="INTEGER"/>
         <result property="is_delete" column="is_delete" javaType="Integer" jdbcType="INTEGER"/>
         <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="order_quantity" column="order_quantity" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="max_quantity" column="max_quantity" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="order_quantity" column="order_quantity" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="max_quantity" column="max_quantity" javaType="Integer" jdbcType="INTEGER"/>
 
         <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="remain" column="remain" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="remain" column="remain" javaType="Integer" jdbcType="INTEGER"/>
         <result property="unit" column="unit" javaType="String" jdbcType="VARCHAR"/>
         <result property="unit_desc" column="unit_desc" javaType="String" jdbcType="VARCHAR"/>
-        <result property="unit_sell" column="unit_sell" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="sale_num" column="sale_num" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="unit_sell" column="unit_sell" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="sale_num" column="sale_num" javaType="Integer" jdbcType="INTEGER"/>
         <result property="quanlity" column="quanlity" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -200,10 +200,10 @@
                 ,#{weight,jdbcType=DECIMAL}
             </if>
             <if test="order_quantity!=null">
-                ,#{order_quantity,jdbcType=DECIMAL}
+                ,#{order_quantity,jdbcType=INTEGER}
             </if>
             <if test="max_quantity!=null">
-                ,#{max_quantity,jdbcType=DECIMAL}
+                ,#{max_quantity,jdbcType=INTEGER}
             </if>
             <if test="market_price!=null">
                 ,#{market_price,jdbcType=DECIMAL}
@@ -215,10 +215,10 @@
                 ,#{promote_price,jdbcType=DECIMAL}
             </if>
             <if test="remain!=null">
-                ,#{remain,jdbcType=DECIMAL}
+                ,#{remain,jdbcType=INTEGER}
             </if>
             <if test="sale_num!=null">
-                ,#{sale_num,jdbcType=DECIMAL}
+                ,#{sale_num,jdbcType=INTEGER}
             </if>
             <if test="quanlity!=null">
                 ,#{quanlity}
@@ -273,10 +273,10 @@
                 weight=#{weight,jdbcType=DECIMAL},
             </if>
             <if test="order_quantity!=null">
-                order_quantity=#{order_quantity,jdbcType=DECIMAL},
+                order_quantity=#{order_quantity,jdbcType=INTEGER},
             </if>
             <if test="max_quantity!=null">
-                max_quantity=#{max_quantity,jdbcType=DECIMAL},
+                max_quantity=#{max_quantity,jdbcType=INTEGER},
             </if>
             <if test="market_price!=null">
                 market_price=#{market_price,jdbcType=DECIMAL},
@@ -288,7 +288,7 @@
                 promote_price=#{promote_price,jdbcType=DECIMAL},
             </if>
             <if test="remain!=null">
-                remain=#{remain,jdbcType=DECIMAL},
+                remain=#{remain,jdbcType=INTEGER},
             </if>
             <if test="sale_num!=null">
                 sale_num=#{sale_num},
@@ -322,10 +322,10 @@
         UPDATE item_spec set
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="remain!=null">
-                remain=#{remain,jdbcType=DECIMAL},
+                remain=#{remain,jdbcType=INTEGER},
             </if>
             <if test="sale_num!=null">
-                sale_num=#{sale_num,jdbcType=DECIMAL},
+                sale_num=#{sale_num,jdbcType=INTEGER},
             </if>
         </trim>
         ,updated_at=now()

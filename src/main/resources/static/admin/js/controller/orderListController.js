@@ -28,7 +28,6 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
     };
 
     $scope.search = function () {
-        console.log($scope.params);
         $http.get('/order/getAll', {
             params: $scope.params
         }).then(function (response) {

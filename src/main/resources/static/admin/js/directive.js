@@ -188,38 +188,78 @@ mall.directive('datatablecategory', function () {
         },
         template: '<span  ng-class="{search_nav:true,search_focus:item.value==0}"  ng-repeat="item in list" ng-click="select(item,$event)">' + '{{item.text}}' + '</span>',
         link: function (scope, el, attrs) {
-            var attList = [0];
+            scope.attList = [0];
             scope.select = function (item, self) {
                 //什么都没选 默认不限
                 if (item.value == "0" || !$(self.target).siblings().hasClass("search_focus")) {
                     $(self.target).siblings().removeClass("search_focus");
                     $(self.target).removeClass("search_focus");
                     $(self.target).parent().children(":first").addClass("search_focus");
-                    attList = [];
+                    scope.attList = [0];
                 } else {
                     $(self.target).parent().children(":first").removeClass("search_focus");
                     //已选中,移除
                     if ($(self.target).hasClass("search_focus")) {
                         $(self.target).removeClass("search_focus");
-                        attList.splice(attList.indexOf(item.value), 1);
+                        scope.attList.splice(attList.indexOf(item.value), 1);
                     }
                     //未选择,选上
                     else {
                         $(self.target).addClass("search_focus");
                         if (scope.radio) {
                             $(self.target).siblings().removeClass("search_focus");
-                            attList = item.value;
+                            scope.attList = item.value;
                         } else {
-                            attList.push(item.value);
+                            scope.attList.push(item.value);
                         }
                     }
                 }
-                scope.attList = attList.length == 0 ? [0] : attList;
-
             };
             scope.$watch('attList', function (value, oldValue, scope) {
                 eval("scope.$parent." + scope.result + "='" + scope.attList.join(',') + "'");
             }, true);
+        }
+    }
+
+}).directive('operateSelect', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            list: '=',
+            selected: '='
+        },
+        templateUrl: '/admin/template/operateSelect.html',
+        link: function (scope, el, attrs) {
+            scope.$watch('list', function (newData) {
+                scope.list = newData || [];
+            }, true);
+            scope.$watch('selected', function (newData) {
+                scope.selected = newData || '';
+            }, true);
+            scope.itemSelected = function (value) {
+                scope.selected = value;
+            };
+        }
+    }
+
+}).directive('itemSelect', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            list: '=',
+            selected: '='
+        },
+        templateUrl: '/admin/template/itemSelect.html',
+        link: function (scope, el, attrs) {
+            scope.$watch('list', function (newData) {
+                scope.list = newData || [];
+            }, true);
+            scope.$watch('selected', function (newData) {
+                scope.selected = newData || '';
+            }, true);
+            scope.itemSelected = function (value) {
+                scope.selected = value;
+            };
         }
     }
 

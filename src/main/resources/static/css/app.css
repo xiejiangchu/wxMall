@@ -47,8 +47,24 @@ html,body{
 
 /*搜索按钮样式*/
 .search_nav{
-    display: inline-block;
-    width: 90px;
+     display: inline-block;
+     width: 90px;
+     height: 30px;
+     line-height: 30px;
+     text-align: center;
+     color: black;
+     cursor: pointer;
+     margin: 5px 0px 0px 10px;
+     border-radius: 5px;
+
+ }
+.line{
+    height: 1px;
+    width: 100%;
+    background: gray;
+}
+.item_nav{
+    display: block;
     height: 30px;
     line-height: 30px;
     text-align: center;

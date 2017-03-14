@@ -32,6 +32,14 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/itemDetail/:id',
         templateUrl: '/admin/html/itemDetail.html',
         controller: 'itemDetailController'
+    }).state('itemManager', {
+        url: '/itemManager',
+        templateUrl: '/admin/html/itemManager.html',
+        controller: 'itemManagerController'
+    }).state('itemSpec', {
+        url: '/itemSpec',
+        templateUrl: '/admin/html/itemSpec.html',
+        controller: 'itemSpecController'
     }).state('category', {
         abstract: true,
         url: '/category',

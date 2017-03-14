@@ -268,9 +268,13 @@
                         <li>
                             <a ui-sref="category.add"><i class="fa fa-plus"></i>分类添加</a></li>
                         <li>
+                            <a ui-sref="itemManager"><i class="fa fa-plus"></i>商品管理</a></li>
+                        <li>
                             <a ui-sref="item.list({page:1})"><i class="fa fa-align-center"></i> 商品信息</a></li>
                         <li>
                             <a ui-sref="item.add"><i class="fa fa-plus"></i>商品添加</a></li>
+                        <li>
+                            <a ui-sref="itemSpec"><i class="fa fa-balance-scale"></i>规格管理</a></li>
                     </ul>
                 </li>
 
@@ -289,13 +293,13 @@
                 </li>
                 <li class="active treeview">
                     <a href="/">
-                        <i class="fa fa-cny"></i> <span>图片管理</span>
+                        <i class="fa fa-picture-o"></i> <span>图片管理</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a ui-sref="image"><i class="fa fa-file-text-o"></i> 图片管理</a></li>
+                        <li><a ui-sref="image"><i class="fa fa-photo"></i> 图片管理</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -554,5 +558,7 @@
 <script type="text/javascript" src="/admin/js/controller/itemAddController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/itemAddBatchController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/orderListController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/itemSpecController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/itemManagerController.js"></script>
 </body>
 </html>

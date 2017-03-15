@@ -14,7 +14,7 @@ public class Order implements Serializable {
     private int pay_status;
     private int ship_status;
     private int package_status;
-    private double order_amount;
+    private int order_amount;
     private double order_weight;
     private double order_money;
     private double order_amount_real;

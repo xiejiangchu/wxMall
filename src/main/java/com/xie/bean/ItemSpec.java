@@ -18,8 +18,8 @@ public class ItemSpec {
     private int status;
     private int sort;
     private double weight;
-    private int order_quantity;
-    private int max_quantity;
+    private int min;
+    private int max;
     private double market_price;
     private double shop_price;
     private double promote_price;
@@ -122,20 +122,20 @@ public class ItemSpec {
         this.weight = weight;
     }
 
-    public int getOrder_quantity() {
-        return order_quantity;
+    public int getMin() {
+        return min;
     }
 
-    public void setOrder_quantity(int order_quantity) {
-        this.order_quantity = order_quantity;
+    public void setMin(int min) {
+        this.min = min;
     }
 
-    public int getMax_quantity() {
-        return max_quantity;
+    public int getMax() {
+        return max;
     }
 
-    public void setMax_quantity(int max_quantity) {
-        this.max_quantity = max_quantity;
+    public void setMax(int max) {
+        this.max = max;
     }
 
     public double getMarket_price() {

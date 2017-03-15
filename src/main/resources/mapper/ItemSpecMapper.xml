@@ -13,8 +13,8 @@
         <result property="is_promote" column="is_promote" javaType="Integer" jdbcType="INTEGER"/>
         <result property="is_delete" column="is_delete" javaType="Integer" jdbcType="INTEGER"/>
         <result property="weight" column="weight" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="order_quantity" column="order_quantity" javaType="Integer" jdbcType="INTEGER"/>
-        <result property="max_quantity" column="max_quantity" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="min" column="min" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="max" column="max" javaType="Integer" jdbcType="INTEGER"/>
 
         <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
@@ -43,8 +43,8 @@
         status,
         sort,
         weight,
-        order_quantity,
-        max_quantity,
+        min,
+        max,
         market_price,
         shop_price,
         promote_price,
@@ -74,8 +74,8 @@
         status,
         sort,
         weight,
-        order_quantity,
-        max_quantity,
+        min,
+        max,
         market_price,
         shop_price,
         promote_price,
@@ -130,11 +130,11 @@
             <if test="weight!=null">
                 ,weight
             </if>
-            <if test="order_quantity!=null">
-                ,order_quantity
+            <if test="min!=null">
+                ,min
             </if>
-            <if test="max_quantity!=null">
-                ,max_quantity
+            <if test="max!=null">
+                ,max
             </if>
             <if test="market_price!=null">
                 ,market_price
@@ -199,11 +199,11 @@
             <if test="weight!=null">
                 ,#{weight,jdbcType=DECIMAL}
             </if>
-            <if test="order_quantity!=null">
-                ,#{order_quantity,jdbcType=INTEGER}
+            <if test="min!=null">
+                ,#{min,jdbcType=INTEGER}
             </if>
-            <if test="max_quantity!=null">
-                ,#{max_quantity,jdbcType=INTEGER}
+            <if test="max!=null">
+                ,#{max,jdbcType=INTEGER}
             </if>
             <if test="market_price!=null">
                 ,#{market_price,jdbcType=DECIMAL}
@@ -272,11 +272,11 @@
             <if test="weight!=null">
                 weight=#{weight,jdbcType=DECIMAL},
             </if>
-            <if test="order_quantity!=null">
-                order_quantity=#{order_quantity,jdbcType=INTEGER},
+            <if test="min!=null">
+                min=#{min,jdbcType=INTEGER},
             </if>
-            <if test="max_quantity!=null">
-                max_quantity=#{max_quantity,jdbcType=INTEGER},
+            <if test="max!=null">
+                max=#{max,jdbcType=INTEGER},
             </if>
             <if test="market_price!=null">
                 market_price=#{market_price,jdbcType=DECIMAL},

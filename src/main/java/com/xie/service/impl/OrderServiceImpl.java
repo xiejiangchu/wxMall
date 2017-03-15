@@ -138,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
 
         orderCheckDto.setDate_start(DateTime.now().plusDays(1).toDate());
         orderCheckDto.setDate_end(DateTime.now().plusDays(3).toDate());
-        DateFormat dateFormat = new SimpleDateFormat("hh:MM");
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm");
         orderCheckDto.setTime_start(dateFormat.format(DateTime.now().withTimeAtStartOfDay().plusHours(6).toDate()));
         orderCheckDto.setTime_end(dateFormat.format(DateTime.now().withTimeAtStartOfDay().plusHours(9).toDate()));
 
@@ -228,7 +228,7 @@ public class OrderServiceImpl implements OrderService {
 
 
         //计算订单总额
-        double order_amount = 0;
+        int order_amount = 0;
         double order_weight = 0;
         double order_money = 0;
         for (int i = 0; i < cartList.size(); i++) {

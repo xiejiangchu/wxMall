@@ -1,9 +1,7 @@
 package com.xie.controller.api;
 
-import com.xie.bean.Banner;
 import com.xie.bean.Payment;
 import com.xie.response.BaseResponse;
-import com.xie.service.BannerService;
 import com.xie.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

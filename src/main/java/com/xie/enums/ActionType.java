@@ -5,8 +5,9 @@ package com.xie.enums;
  * @Date 17/1/22 下午2:22.
  */
 public enum ActionType {
-    任务操作(10),
-    任务分配(20);
+    信息修改(10),
+    订单操作(20),
+    支付操作(30);
 
     private Integer _value;
 

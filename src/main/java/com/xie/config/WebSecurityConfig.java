@@ -3,7 +3,6 @@ package com.xie.config;
 import com.xie.auth.MyUserDetailsService;
 import com.xie.csrf.MyCsrfRequestMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

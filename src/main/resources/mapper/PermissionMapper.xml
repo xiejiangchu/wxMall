@@ -1,79 +1,64 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="RoleMapper">
+<mapper namespace="PermissionMapper">
 
-    <resultMap id="RoleResult" type="Role" autoMapping="true">
+    <resultMap id="PermissionResult" type="Permission" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
-        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="display_name" column="display_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="description" column="description" javaType="String" jdbcType="VARCHAR"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="getById" resultMap="RoleResult">
+    <select id="getById" resultMap="PermissionResult">
         SELECT
-        roles.id as id,
-        roles.name as name,
-        roles.display_name as display_name,
-        roles.description as description,
-        roles.created_at as created_at,
-        roles.updated_at as updated_at,
-        FROM roles
-        WHERE id=#{id}
-    </select>
-
-    <select id="getRolesByUid" resultMap="RoleResult">
-        SELECT
-        roles.id as id,
-        roles.name as name,
-        roles.display_name as display_name,
-        roles.description as description,
-        roles.created_at as created_at,
-        roles.updated_at as updated_at,
-        FROM roles
-        LEFT JOIN role_user ON role_user.role_id=roles.id
-        WHERE role_user.user_id = #{uid}
-    </select>
-
-    <select id="checkRole" parameterType="map" resultMap="RoleResult">
-        SELECT COUNT(1)
-        FROM role_user
-        LEFT JOIN roles ON role_user.role_id=roles.id
-        WHERE role_user.user_id = #{uid}
-        AND roles.name = #{name}
+        id,
+        name,
+        display_name,
+        description,
+        created_at,
+        updated_at
+        FROM permissions
+        WHERE id = #{id}
     </select>
 
     <select id="checkPermission" parameterType="map" resultType="Integer">
         SELECT COUNT(1)
         FROM (
-          SELECT permission_role.permission_id FROM (
-                SELECT
-                role_id
-                FROM role_user
-                WHERE role_user.user_id = #{uid}
-            ) a LEFT JOIN permission_role ON permission_role.role_id=a.role_id
+        SELECT permission_role.permission_id FROM (
+        SELECT
+        role_id
+        FROM role_user
+        WHERE role_user.user_id = #{uid}
+        ) a LEFT JOIN permission_role ON permission_role.role_id=a.role_id
         ) b LEFT JOIN permissions ON b.permission_id=permissions.id
-        WHERE permissions.name=#{name}
+        WHERE permissions.name=#{permission}
     </select>
 
-    <insert id="assignRole">
-        INSERT INTO role_user(
-          user_id,
-          role_id
-        ) VALUES (
-          #{uid},
-          #{role_id}
-        )
-    </insert>
-
+    <select id="getByUid" parameterType="map" resultMap="PermissionResult">
+        SELECT
+        permissions.id,
+        permissions.name,
+        permissions.display_name,
+        permissions.description,
+        permissions.created_at,
+        permissions.updated_at
+        FROM (
+        SELECT permission_role.permission_id FROM (
+        SELECT
+        role_id
+        FROM role_user
+        WHERE role_user.user_id = #{uid}
+        ) a LEFT JOIN permission_role ON permission_role.role_id=a.role_id
+        ) b LEFT JOIN permissions ON b.permission_id=permissions.id
+    </select>
 
     <insert id="insert" parameterType="Permission">
         <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
             SELECT LAST_INSERT_ID() as id
         </selectKey>
-        INSERT INTO roles (
+        INSERT INTO permissions (
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="name!=null">
                 ,name
@@ -105,7 +90,7 @@
     </insert>
 
     <update id="update" parameterType="OrderLog">
-        UPDATE roles set
+        UPDATE permissions set
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="name!=null">
                 ,name=#{name}
@@ -122,8 +107,7 @@
     </update>
 
     <delete id="delete">
-        DELETE FROM roles WHERE id=#{id}
+        DELETE FROM permissions WHERE id=#{id}
     </delete>
-
 
 </mapper>

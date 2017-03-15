@@ -54,6 +54,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ItemSpecService itemSpecService;
 
+    @Autowired
+    private OrderLogService orderLogService;
+
     @Override
     public Order getById(int id) {
         Order order = orderDao.getById(id);
@@ -310,6 +313,14 @@ public class OrderServiceImpl implements OrderService {
         }
         orderItemService.insert(orderItems);
 
+        //订单日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOid(oid);
+        orderLog.setType(ActionType.订单操作.value());
+        orderLog.setAction("提交了订单");
+        orderLog.setDetails("提交了订单");
+        orderLog.setOperator(uid + "");
+        orderLogService.insert(orderLog);
 
         //删除购物车
         cartService.clear(uid);

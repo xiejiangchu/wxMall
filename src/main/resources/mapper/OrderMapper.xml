@@ -10,7 +10,7 @@
         <result column="pay_status" property="pay_status" javaType="Integer" jdbcType="INTEGER"/>
         <result column="ship_status" property="ship_status" javaType="Integer" jdbcType="INTEGER"/>
         <result column="package_status" property="package_status" javaType="Integer" jdbcType="INTEGER"/>
-        <result property="order_amount" column="order_amount" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="order_amount" column="order_amount" javaType="Integer" jdbcType="INTEGER"/>
         <result property="order_weight" column="order_weight" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_amount_real" column="order_amount_real" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_money_real" column="order_money_real" javaType="Double" jdbcType="DECIMAL"/>

@@ -25,9 +25,9 @@ public class FieldUtils {
         return conn;
     }
 
-    public static void main1(String[] args) {
+    public static void mains(String[] args) {
         Connection conn = getConnection();
-        String sql = "select * from users";
+        String sql = "select * from roles";
         PreparedStatement stmt;
         try {
             stmt = conn.prepareStatement(sql);
@@ -74,9 +74,9 @@ public class FieldUtils {
                         boolean isReadOnly = data.isReadOnly(i);
                         //能否出现在where中
                         boolean isSearchable = data.isSearchable(i);
-                        System.out.println(columnName + ",");
+//                        System.out.println(columnName + ",");
 //                    System.out.println(tableName+"."+columnName+" as "+ tableName+"_"+columnName +",");
-//                    System.out.println(tableName+"."+columnName+" as "+columnName +",");
+                    System.out.println(tableName+"."+columnName+" as "+columnName +",");
 
 
 

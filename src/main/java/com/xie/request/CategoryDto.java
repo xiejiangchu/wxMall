@@ -1,7 +1,6 @@
 package com.xie.request;
 
 import com.xie.bean.Category;
-import com.xie.bean.Item;
 
 import java.util.List;
 

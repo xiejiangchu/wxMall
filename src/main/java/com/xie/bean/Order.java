@@ -111,11 +111,12 @@ public class Order implements Serializable {
         this.package_status = package_status;
     }
 
-    public double getOrder_amount() {
+
+    public int getOrder_amount() {
         return order_amount;
     }
 
-    public void setOrder_amount(double order_amount) {
+    public void setOrder_amount(int order_amount) {
         this.order_amount = order_amount;
     }
 

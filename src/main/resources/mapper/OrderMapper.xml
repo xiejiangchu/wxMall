@@ -5,9 +5,15 @@
 
     <resultMap id="OrderResult" type="Order" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
-        <result property="order_amount" column="order_amount" javaType="Double" jdbcType="DECIMAL"/>
+        <result column="confirmed" property="confirmed" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="order_status" property="order_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="pay_status" property="pay_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="ship_status" property="ship_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="package_status" property="package_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="order_amount" column="order_amount" javaType="Integer" jdbcType="INTEGER"/>
         <result property="order_weight" column="order_weight" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_amount_real" column="order_amount_real" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="order_money" column="order_money" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_money_real" column="order_money_real" javaType="Double" jdbcType="DECIMAL"/>
         <result property="bonus" column="bonus" javaType="Double" jdbcType="DECIMAL"/>
         <result property="point" column="point" javaType="Double" jdbcType="DECIMAL"/>
@@ -20,7 +26,40 @@
     </resultMap>
 
     <select id="getById" resultMap="OrderResult">
-        SELECT * FROM orders
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
         where id=#{id}
     </select>
 
@@ -28,15 +67,116 @@
         SELECT count(1) FROM orders
         WHERE order_status NOT IN (200,500)
         <if test="start!=null">
-            AND <![CDATA[ created_at >=#{start javaType=Date } ]]>
+            AND <![CDATA[ created_at >=#{start,javaType=Date } ]]>
         </if>
         <if test="end!=null">
-            AND <![CDATA[ created_at <=#{end javaType=Date } ]]>
+            AND <![CDATA[ created_at <=#{end,javaType=Date } ]]>
+        </if>
+    </select>
+
+    <select id="getAllByStatus" resultMap="OrderResult" parameterType="map">
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
+        where 1=1
+        <if test="order_status!=null">
+            and order_status=#{order_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="pay_status!=null">
+            and pay_status=#{pay_status}
+        </if>
+        <if test="ship_status!=null">
+            and ship_status=#{ship_status}
+        </if>
+        <if test="created_at_start!=null">
+            AND <![CDATA[ created_at >=#{created_at_start,javaType=Date } ]]>
+        </if>
+        <if test="created_at_end!=null">
+            AND <![CDATA[ created_at <= #{created_at_end,javaType=Date } ]]>
+        </if>
+        <if test="time_start!=null">
+            AND <![CDATA[ send_date >=#{time_start,javaType=Date,jdbcType=DATE } ]]>
+        </if>
+        <if test="time_end!=null">
+            AND <![CDATA[ send_date <= #{time_end,javaType=Date,jdbcType=DATE } ]]>
+        </if>
+        <if test="time_start!=null">
+            AND <![CDATA[ time_start >=#{time_start,javaType=Date,jdbcType=TIMESTAMP } ]]>
+        </if>
+        <if test="time_end!=null">
+            AND <![CDATA[ time_end <= #{time_end,javaType=Date,jdbcType=TIMESTAMP } ]]>
         </if>
     </select>
 
     <select id="getByStatus" resultMap="OrderResult" parameterType="map">
-        SELECT * FROM orders
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
         where uid=#{uid}
         <if test="order_status!=null">
             and order_status=#{order_status}
@@ -75,11 +215,78 @@
     </select>
 
     <select id="getAll" resultMap="OrderResult">
-        SELECT * FROM orders
+         SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
     </select>
 
     <select id="getAllByUid" resultMap="OrderResult">
-        SELECT * FROM orders WHERE uid=#{uid}
+        SELECT
+        id,
+        NO,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        city,
+        district,
+        road,
+        address,
+        message,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
+        WHERE uid=#{uid}
     </select>
 
     <select id="countByUid" resultType="Integer">
@@ -136,6 +343,9 @@
             </if>
             <if test="point!=null">
                 ,point
+            </if>
+            <if test="pid!=null">
+                ,pid
             </if>
             <if test="payment!=null">
                 ,payment
@@ -222,6 +432,9 @@
             </if>
             <if test="point!=null">
                 ,#{point}
+            </if>
+            <if test="pid!=null">
+                ,#{pid}
             </if>
             <if test="payment!=null">
                 ,#{payment}
@@ -313,6 +526,9 @@
             <if test="point!=null">
                 ,point=#{point}
             </if>
+            <if test="pid!=null">
+                ,pid=#{pid}
+            </if>
             <if test="payment!=null">
                 ,payment=#{payment}
             </if>
@@ -352,6 +568,12 @@
 
         </trim>
         ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <update id="cancel" parameterType="Order">
+        UPDATE orders set
+        order_status=#{order_status},updated_at=now()
         where id=#{id}
     </update>
 

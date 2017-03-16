@@ -1,0 +1,113 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PermissionMapper">
+
+    <resultMap id="PermissionResult" type="Permission" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="display_name" column="display_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="description" column="description" javaType="String" jdbcType="VARCHAR"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="PermissionResult">
+        SELECT
+        id,
+        name,
+        display_name,
+        description,
+        created_at,
+        updated_at
+        FROM permissions
+        WHERE id = #{id}
+    </select>
+
+    <select id="checkPermission" parameterType="map" resultType="Integer">
+        SELECT COUNT(1)
+        FROM (
+        SELECT permission_role.permission_id FROM (
+        SELECT
+        role_id
+        FROM role_user
+        WHERE role_user.user_id = #{uid}
+        ) a LEFT JOIN permission_role ON permission_role.role_id=a.role_id
+        ) b LEFT JOIN permissions ON b.permission_id=permissions.id
+        WHERE permissions.name=#{permission}
+    </select>
+
+    <select id="getByUid" parameterType="map" resultMap="PermissionResult">
+        SELECT
+        permissions.id,
+        permissions.name,
+        permissions.display_name,
+        permissions.description,
+        permissions.created_at,
+        permissions.updated_at
+        FROM (
+        SELECT permission_role.permission_id FROM (
+        SELECT
+        role_id
+        FROM role_user
+        WHERE role_user.user_id = #{uid}
+        ) a LEFT JOIN permission_role ON permission_role.role_id=a.role_id
+        ) b LEFT JOIN permissions ON b.permission_id=permissions.id
+    </select>
+
+    <insert id="insert" parameterType="Permission">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO permissions (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="display_name!=null">
+                ,display_name
+            </if>
+            <if test="description!=null">
+                ,description
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="display_name!=null">
+                ,#{display_name}
+            </if>
+            <if test="description!=null">
+                ,#{description}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="OrderLog">
+        UPDATE permissions set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="display_name!=null">
+                ,display_name=#{display_name}
+            </if>
+            <if test="description!=null">
+                ,description=#{description}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM permissions WHERE id=#{id}
+    </delete>
+
+</mapper>

@@ -14,7 +14,7 @@ public class Order implements Serializable {
     private int pay_status;
     private int ship_status;
     private int package_status;
-    private double order_amount;
+    private int order_amount;
     private double order_weight;
     private double order_money;
     private double order_amount_real;
@@ -22,7 +22,8 @@ public class Order implements Serializable {
     private int bid;
     private double bonus;
     private double point;
-    private int payment;
+    private int pid;
+    private String payment;
     private java.sql.Date send_date;
     private Time time_start;
     private Time time_end;
@@ -38,8 +39,13 @@ public class Order implements Serializable {
     private Date updated_at;
     private Date deleted_at;
 
+    /**
+     * 额外字段
+     */
     private List<OrderItem> orderItems;
     private User user;
+    private String statusName;
+    private int status;
 
     public int getId() {
         return id;
@@ -105,11 +111,12 @@ public class Order implements Serializable {
         this.package_status = package_status;
     }
 
-    public double getOrder_amount() {
+
+    public int getOrder_amount() {
         return order_amount;
     }
 
-    public void setOrder_amount(double order_amount) {
+    public void setOrder_amount(int order_amount) {
         this.order_amount = order_amount;
     }
 
@@ -169,11 +176,19 @@ public class Order implements Serializable {
         this.point = point;
     }
 
-    public int getPayment() {
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getPayment() {
         return payment;
     }
 
-    public void setPayment(int payment) {
+    public void setPayment(String payment) {
         this.payment = payment;
     }
 
@@ -303,6 +318,22 @@ public class Order implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
 

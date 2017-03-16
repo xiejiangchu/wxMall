@@ -1,0 +1,157 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            商品规格信息
+            <small>Version 2.0</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">商品规格信息</li>
+        </ol>
+    </section>
+    <div class="container-fluid">
+        <div class="panel panel-success" style="margin-top: 20px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">筛选</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">一级分类 :</label>
+
+                            <div class="col-sm-10">
+                                <operate-select selected="params.cid1" list="cid1Filter"></operate-select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">二级分类 :</label>
+
+                            <div class="col-sm-10">
+                                <operate-select selected="params.cid2" list="cid2Filter"></operate-select>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid" ng-if="params.cid2>0">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">详情</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 bodered">
+                        <item-select selected="params.iid" list="itemsFilter"></item-select>
+                    </div>
+
+                    <div class="col-sm-9" ng-if="editItem.id>0">
+                        <form role="form">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>商品名称</label>
+                                <input ng-model="editItem.name" type="text" class="form-control" placeholder="商品名称">
+                            </div>
+
+                            <select2 options="cid1" title="一级分类" init-item="{{editItem.cid1}}"
+                                     item-selected="itemSelected1(id)"></select2>
+
+                            <select2 options="cid2" title="二级分类" init-item="{{editItem.cid2}}"
+                                     item-selected="itemSelected2(id)"></select2>
+
+                            <div class="form-group">
+                                <label>规格</label>
+                                <div>
+                                    <small class="label margin bg-blue" ng-repeat="spec in editItem.itemSpecList">
+                                        {{spec.shop_price}}/{{spec.unit}}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>商品是否上线</label>
+                                <div class="radio">
+                                    <label>
+                                        <input ng-model="editItem.is_online" type="radio" name="online" ng-value="0">
+                                        不上线
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input ng-model="editItem.is_online" type="radio" name="online" ng-value="1">
+                                        上线
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>产地</label>
+                                <input ng-model="editItem.place" type="text" class="form-control" placeholder="产地">
+                            </div>
+
+                            <div class="form-group">
+                                <label>简单描述</label>
+                        <textarea ng-model="editItem.summary" name="summary" class="form-control" rows="3"
+                                  placeholder="简单描述..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>详细描述</label>
+                        <textarea ng-model="editItem.description" name="description" class="form-control" rows="3"
+                                  placeholder="详细描述..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>通知信息</label>
+                        <textarea ng-model="editItem.notice" name="notice" class="form-control" rows="3"
+                                  placeholder="通知信息..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>当前图像</label>
+                                <div>
+                                    <img src="http://wxmall.image.alimmdn.com/{{editItem.thumb}}@100w_100h" alt="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>详情图像</label>
+                                <div>
+                                    <img ng-repeat="img in editItem.imageList"
+                                         src="http://wxmall.image.alimmdn.com/{{img.uri}}@100w_100h" alt="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>首页图像</label>
+                                <imageselector paginate="images1" single="true" page-changed="pageChanged1(page)"
+                                               image-selected="masterImageSelected"></imageselector>
+                            </div>
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>详情图像</label>
+                                <imageselector paginate="images2" single="false" page-changed="pageChanged2(page)"
+                                               image-selected="slaveImageSelected"></imageselector>
+                            </div>
+                            <div class="form-group">
+                                <button ng-click="delete()" type="button" class="btn btn-primary ">删除</button>
+                                <button ng-click="submit()" type="button" class="btn btn-danger ">修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.content-wrapper -->

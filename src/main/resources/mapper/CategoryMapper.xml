@@ -15,41 +15,126 @@
     </resultMap>
 
     <select id="getById" resultMap="CategoryResult">
-        SELECT * FROM category
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
         where id=#{id}
     </select>
 
     <select id="getAllCategoryCanShow" resultMap="CategoryResult">
-        SELECT * FROM category
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
         WHERE is_delete = 0 order by sort desc
     </select>
 
     <select id="getAllCategory" resultMap="CategoryResult">
-        SELECT * FROM category order by sort desc"
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
+        order by sort desc"
     </select>
 
     <select id="top" resultMap="CategoryResult">
-        SELECT * FROM category
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
     </select>
 
     <select id="last" resultMap="CategoryResult">
-        SELECT * FROM category ORDER BY created_at
+       SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
+        ORDER BY created_at
     </select>
 
     <select id="lastUpdated" resultMap="CategoryResult">
-        SELECT * FROM category ORDER BY updated_at
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
+        ORDER BY updated_at
     </select>
 
     <select id="getCategoryLevel1" resultMap="CategoryResult">
-        SELECT * FROM category WHERE is_delete = 0 and level = 1 order by sort desc
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
+        WHERE is_delete = 0 AND level = 1 order by sort desc
     </select>
 
     <select id="getCategoryLevel2" resultMap="CategoryResult">
-        SELECT * FROM category WHERE pid = #{pid} and is_delete = 0 and level = 2 order by sort desc
+        SELECT
+        id as id,
+        pid as pid,
+        name as name,
+        level as level,
+        sort as sort,
+        is_delete as is_delete,
+        thumb as thumb,
+        created_at as created_at,
+        updated_at as updated_at
+        FROM category
+        WHERE pid = #{pid} AND is_delete = 0 AND level = 2 ORDER BY sort DESC
     </select>
 
     <select id="countCid2ByCid1" resultType="Integer">
-        SELECT count(*) FROM category WHERE pid = #{cid1}
+        SELECT count(1) FROM category WHERE pid = #{cid1}
     </select>
 
 

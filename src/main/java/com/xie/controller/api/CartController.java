@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/cart")
-public class CartController extends BaseController{
+public class CartController extends BaseController {
 
     @Autowired
     private CartService cartService;
@@ -39,14 +39,15 @@ public class CartController extends BaseController{
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse update(@RequestParam("uid") int uid, @RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
-
-        return BaseResponse.ok(cartService.saveOrUpdate(uid, gid, spec, amount));
+        cartService.saveOrUpdate(uid, gid, spec, amount);
+        return BaseResponse.ok(cartService.getByUidWithItem(uid));
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse insert(@RequestParam("uid") int uid, @RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
-        return BaseResponse.ok(cartService.saveOrUpdate(uid, gid, spec, amount));
+        cartService.saveOrUpdate(uid, gid, spec, amount);
+        return BaseResponse.ok(cartService.getByUidWithItem(uid));
     }
 
 }

@@ -1,21 +1,23 @@
-html,body{
+html, body {
     height: 100%;
     width: 100%;
 }
-.image-selected{
+
+.image-selected {
     position: relative;
 }
-.image-selected:before{
+
+.image-selected:before {
     content: '  ';
     position: absolute;
     left: 50%;
     right: 0;
     top: 0;
-    bottom:50%;
-    background: url('/img/selected.png')no-repeat;
+    bottom: 50%;
+    background: url('/img/selected.png') no-repeat;
 }
 
-.content-wrapper{
+.content-wrapper {
     background-color: white;
     padding: 16px;
 }
@@ -25,6 +27,7 @@ html,body{
     height: 1px;
     background-color: #F5F5F5;
 }
+
 .modal {
     display: none;
     position: absolute;
@@ -34,12 +37,126 @@ html,body{
     left: 0;
     z-index: 100;
 }
-.modal .modal-dialog{
+
+.modal .modal-dialog {
     position: absolute;
     top: 50%;
     bottom: 0;
     right: 0;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     display: block;
+}
+
+/*搜索按钮样式*/
+.search_nav {
+    display: inline-block;
+    padding: 0px 8px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    margin: 5px 0px 0px 10px;
+    border-radius: 5px;
+    border: 1px dashed #999;
+
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background: gray;
+}
+
+.item_nav {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    margin: 5px 0px 0px 10px;
+    border-radius: 5px;
+
+}
+
+.search_confirm {
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    margin: 5px 0px 0px 33px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: SimSun, sans-serif;
+
+}
+
+.search_reset {
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #999999;
+    cursor: pointer;
+    margin: 5px 0px 0px 10px;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    font-family: SimSun, sans-serif;
+}
+
+.search_nor {
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #999999;
+    cursor: pointer;
+    margin: 5px 0px 0px 10px;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
+    background-color: #F2F2F2;
+}
+
+.search_nav:hover {
+    color: white;
+    background-color: #00a65a;
+}
+
+.search_focus {
+    color: white;
+    background-color: #00a65a;
+    border: none;
+}
+
+table.table-expandable > tbody > tr:nth-child(odd) {
+    cursor: pointer;
+}
+
+table.table-expandable.table-hover > tbody > tr:nth-child(even):hover td {
+    background-color: white;
+}
+
+table.table-expandable > tbody > tr div.table-expandable-arrow {
+    background: transparent url(../img/arrows.png) no-repeat scroll 0px -16px;
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+table.table-expandable > tbody > tr div.table-expandable-arrow.up {
+    background-position: 0px 0px;
+}
+
+table.table-sticky-header th {
+    color: #FFF;
+    background-color: #00a65a;
 }

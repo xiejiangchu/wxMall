@@ -1,0 +1,127 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderLogMapper">
+
+    <resultMap id="OrderLogResult" type="OrderLog" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="oid" property="oid" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="type" property="type" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="OrderLogResult">
+        SELECT
+        id,
+        oid,
+        type,
+        operator,
+        action,
+        details,
+        created_at,
+        updated_at
+        FROM order_log
+        WHERE id=#{id}
+    </select>
+
+    <select id="getByOid" resultMap="OrderLogResult">
+        SELECT
+        id,
+        oid,
+        type,
+        operator,
+        action,
+        details,
+        created_at,
+        updated_at
+        FROM order_log
+        WHERE oid=#{oid} ORDER BY updated_at DESC
+    </select>
+
+    <select id="countByOid" resultType="Integer">
+        SELECT COUNT(1)
+        FROM order_log
+        WHERE oid=#{oid}
+    </select>
+
+    <insert id="insert" parameterType="OrderLog">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO order_log (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="oid!=null">
+                ,oid
+            </if>
+            <if test="type!=null">
+                ,type
+            </if>
+            <if test="operator!=null">
+                ,operator
+            </if>
+            <if test="action!=null">
+                ,action
+            </if>
+            <if test="details!=null">
+                ,details
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="oid!=null">
+                ,#{oid}
+            </if>
+            <if test="type!=null">
+                ,#{type}
+            </if>
+            <if test="operator!=null">
+                ,#{operator}
+            </if>
+            <if test="action!=null">
+                ,#{action}
+            </if>
+            <if test="details!=null">
+                ,#{details}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="OrderLog">
+        UPDATE order_log set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="oid!=null">
+                ,oid=#{oid}
+            </if>
+            <if test="type!=null">
+                ,type=#{type}
+            </if>
+            <if test="operator!=null">
+                ,operator=#{operator}
+            </if>
+            <if test="action!=null">
+                ,action=#{action}
+            </if>
+            <if test="details!=null">
+                ,details=#{details}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM order_log WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteByOid">
+        DELETE FROM order_log WHERE oid=#{oid}
+    </delete>
+
+
+</mapper>

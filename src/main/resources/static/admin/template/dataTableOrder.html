@@ -1,0 +1,126 @@
+<div class="box box-success">
+    <div class="row">
+        <div class="col-md-12 table-responsive ">
+            <table id="table-expandable" class="table table-expandable table-sticky-header table-hover">
+                <thead>
+                <tr>
+                    <th>订单编号</th>
+                    <th>用户名称</th>
+                    <th>订单状态</th>
+                    <th>支付状态</th>
+                    <th>配送状态</th>
+                    <th>打包状态</th>
+                    <th>订单金额</th>
+                    <th>支付方式</th>
+                    <th>配送时间</th>
+                    <!--<th>配送地址</th>-->
+                    <th>留言信息</th>
+                    <th>详情</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="options.paginate.list.length==0">
+                <td colspan="12" class="text-center">
+                    无数据
+                </td>
+                </tr>
+                <tr ng-repeat-start="order in options.paginate.list" ng-if="false"></tr>
+                <tr>
+                    <td>{{order.no}}</td>
+                    <td>{{order.uid}}</td>
+                    <td>{{order.order_status | orderstatus }}</td>
+                    <td>{{order.pay_status | paystatus}}</td>
+                    <td>{{order.ship_status | shipstatus}}</td>
+                    <td>{{order.package_status | packagestatus}}</td>
+                    <td>{{order.order_amount| number:2}}</td>
+                    <td>{{order.payment }}</td>
+                    <td>日期:{{order.send_date | date : 'yyyy-MM-dd'}}<br>时间:{{order.time_start | date : 'hh:mm:ss'}}</td>
+                    <!--<td>{{ order.receiver }} {{ order.mobile }} {{ order.city }}{{ order.district }}{{ order.road }}{{-->
+                        <!--order.address }}-->
+                    <!--</td>-->
+                    <td>{{order.message}}</td>
+                    <td ng-click="checkDetail($event)"><div class="table-expandable-arrow"></div></td>
+                </tr>
+                <tr style="display: none;">
+                    <td colspan="11">
+                        <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">订单详情</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <dl>
+                                    <dt>配送信息</dt>
+                                    <dd>
+                                        <dl class="dl-horizontal">
+                                    <dt>收货人</dt>
+                                    <dd>{{ order.receiver }} {{ order.mobile }}</dd>
+                                    <dt>收货地址</dt>
+                                    <dd>{{ order.city }}{{ order.district}}{{ order.road }}{{order.address }}</dd>
+                                </dl>
+                                </dd>
+                                <dt>订单信息</dt>
+                                <dd>
+                                   <div class="container-fluid">
+                                       <div class="row">
+                                           <div class="col-md-offset-2 col-md-8">
+                                               <table class="table table-hover">
+                                                   <thead>
+                                                   <tr>
+                                                       <th>名称</th>
+                                                       <th>规格</th>
+                                                       <th>价格</th>
+                                                       <th>产地</th>
+                                                       <th>数量</th>
+                                                       <th>总价</th>
+                                                   </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                   <tr ng-repeat="orderItem in order.orderItems">
+                                                       <td>{{orderItem.name}}</td>
+                                                       <td>{{orderItem.unit}}</td>
+                                                       <td>
+                                                           {{orderItem.shop_price}}
+                                                       </td>
+                                                       <td>{{orderItem.place}}</td>
+                                                       <td>{{orderItem.amount}}</td>
+                                                       <td>{{orderItem.total}}</td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td colspan="6">
+                                                           <p class="text-right text-primary">红包抵扣:{{order.bonus}}</p>
+                                                           <p class="text-right text-success">商品总价:{{order.order_amount}},商品总重量:{{order.order_weight}}</p>
+                                                       </td>
+                                                   </tr>
+                                                   </tbody>
+                                               </table>
+                                           </div>
+                                       </div>
+                                   </div>
+                                </dd>
+                                </dl>
+                                </dd>
+                                </dl>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </td>
+                </tr>
+                <tr ng-repeat-end ng-if="false"></tr>
+                </tbody>
+            </table>
+
+            <div class="box-footer clearfix" ng-if="options.paginate.list.length>0">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a data-ng-click="pageChanged({page:options.paginate.firstPage})">&laquo;</a></li>
+                    <li ng-repeat="pageNum in options.paginate.navigatepageNums"
+                        class="{{pageNum==options.paginate.pageNum? 'active':''}}">
+                        <a data-ng-click="pageChanged({page:pageNum})">{{pageNum}}</a>
+                    </li>
+                    <li><a data-ng-click="pageChanged({page:options.paginate.lastPage})">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,8 @@ import com.xie.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author xie
  * @Date 17/2/24 下午9:58.
@@ -16,6 +18,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private PaymentDao paymentDao;
 
+    @Override
+    public List<Payment> getAll() {
+        return paymentDao.getAll();
+    }
 
     @Override
     public Payment getById(int id) {

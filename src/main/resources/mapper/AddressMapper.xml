@@ -13,22 +13,78 @@
     </resultMap>
 
     <select id="getByUid" resultMap="AddressResult">
-        SELECT * FROM address
+        SELECT
+        id,
+        uid,
+        is_def,
+        mobile,
+        receiver,
+        gender,
+        city,
+        district,
+        road,
+        address,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM address
         where uid=#{uid} AND deleted_at is NULL
     </select>
 
     <select id="getById" resultMap="AddressResult">
-        SELECT * FROM address
+        SELECT
+        id,
+        uid,
+        is_def,
+        mobile,
+        receiver,
+        gender,
+        city,
+        district,
+        road,
+        address,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM  address
         where id=#{id} AND deleted_at is NULL
     </select>
 
     <select id="getDefaultByUid" resultMap="AddressResult">
-        SELECT * FROM address
+        SELECT
+        id,
+        uid,
+        is_def,
+        mobile,
+        receiver,
+        gender,
+        city,
+        district,
+        road,
+        address,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM address
         where uid=#{uid} and is_def=1 AND deleted_at is NULL
     </select>
 
     <select id="getByMobile" resultMap="AddressResult">
-        SELECT * FROM address
+        SELECT
+        id,
+        uid,
+        is_def,
+        mobile,
+        receiver,
+        gender,
+        city,
+        district,
+        road,
+        address,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM address
         where mobile=#{mobile} AND deleted_at is NULL
     </select>
 

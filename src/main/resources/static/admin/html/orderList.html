@@ -1,0 +1,40 @@
+<div class="row">
+    <form class="form-horizontal">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">订单状态 :</label>
+
+            <div class="col-sm-10">
+                <operate-filter result="params.type" radio="true" list="dictionary.checkStatus"></operate-filter>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">下单时间</label>
+
+            <div class="col-sm-10">
+                <datetimepicker time-start="params.created_at_start" time-end="params.created_at_end"></datetimepicker>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">配送时间</label>
+
+            <div class="col-sm-10">
+                <datetimepicker time-start="params.time_start" time-end="params.time_end"></datetimepicker>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+
+            <div class="col-sm-10">
+                <span class="search_nav search_focus" ng-click="search()">搜索</span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div datatableorder options="options" page-changed="pageChanged(page)">
+    </div>
+</div>

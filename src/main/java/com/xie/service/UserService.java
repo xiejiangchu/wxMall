@@ -28,6 +28,10 @@ public interface UserService {
 
     int check(String username, String password);
 
+    int checkUsername(String username);
+
+    int checkMobile(String mobile);
+
     int softDelete(int id);
 
     int count();

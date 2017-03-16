@@ -1,0 +1,165 @@
+html, body, * {
+    font-family: "Microsoft YaHei" ! important;
+}
+
+.clearfix:before, .container:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* IE 6/7 */
+.clearfix {
+    zoom: 1;
+}
+
+
+
+.navbar-inverse {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.navbar-inverse .navbar-toggle {
+    border: none;
+     border-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>li {
+    text-align: center;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fcfcfc;
+    font-size: 1.5rem;
+}
+
+.masthead {
+    padding: 60px 0 80px;
+    margin-bottom: 0;
+    color: #fff;
+}
+.logo-padding{
+    padding: 10px;
+}
+
+.jumbotron .container {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    color: white;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.jumbotron .slogan {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1050;
+}
+.jumbotron .slogan h2{
+    font-weight: bold;
+}
+
+.masthead:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(../img/bg1.jpg) no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.abouthead {
+    position: relative;
+    padding-top: 0px;
+    margin-bottom: 0px;
+    border-bottom: none;
+    background: #0d2843;
+}
+
+.abouthead:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(../images/web/bg2.jpg) no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.about-container {
+    padding: 0 5%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.about-container h4 {
+    margin-top: 90px;
+    font-weight: bold;
+}
+
+.about-container h5 {
+    font-size: medium;
+    line-height: 2rem;
+    color: #d8d8d8;
+}
+h5.vr-product{
+    color: #fcfcfc;
+}
+
+.about-footer-container {
+    margin-top: -5px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background: rgba(15, 35, 60,0.95);
+}
+
+.about-ba, .about-ba a {
+    margin: 0;
+    color: #999;
+    font-size: 12px;
+}
+
+.about-ba a:visited, .about-ba a:hover {
+    text-decoration: none;
+}
+
+.wx-hover {
+    position: relative;
+}
+
+.wx-hover .qrcode {
+    position: absolute;
+    right: -2rem;
+    top: -150px;
+    z-index: 99;
+    width: 10rem;
+    height: 10rem;
+    border: 0.3125rem solid #0085ba;
+    border-radius: 0.25rem;
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: top right;
+    max-width: none;
+}
+
+.wx-hover:hover .qrcode {
+    transform: scale(1);
+    opacity: 1;
+}

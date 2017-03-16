@@ -32,6 +32,14 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/itemDetail/:id',
         templateUrl: '/admin/html/itemDetail.html',
         controller: 'itemDetailController'
+    }).state('itemManager', {
+        url: '/itemManager',
+        templateUrl: '/admin/html/itemManager.html',
+        controller: 'itemManagerController'
+    }).state('itemSpec', {
+        url: '/itemSpec',
+        templateUrl: '/admin/html/itemSpec.html',
+        controller: 'itemSpecController'
     }).state('category', {
         abstract: true,
         url: '/category',
@@ -50,9 +58,14 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         templateUrl: '/admin/html/categoryDetail.html',
         controller: 'categoryDetailController'
     }).state('order', {
+        abstract: true,
         url: '/order',
         templateUrl: '/admin/html/order.html',
         controller: 'orderController'
+    }).state('order.list', {
+        url: '/orderList/:page',
+        templateUrl: '/admin/html/orderList.html',
+        controller: 'orderListController'
     }).state('search', {
         url: '/search',
         templateUrl: '/admin/html/search.html',

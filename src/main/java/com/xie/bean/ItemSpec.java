@@ -18,17 +18,16 @@ public class ItemSpec {
     private int status;
     private int sort;
     private double weight;
-    private double order_quantity;
-    private double max_quantity;
+    private int min;
+    private int max;
     private double market_price;
     private double shop_price;
     private double promote_price;
-    private double remain;
-    private double sale_num;
+    private int remain;
+    private int sale_num;
     private int quanlity;
-    private double unit_sell;
+    private int unit_sell;
     private String unit;
-
     private String unit_desc;
 
     private Date created_at;
@@ -123,20 +122,20 @@ public class ItemSpec {
         this.weight = weight;
     }
 
-    public double getOrder_quantity() {
-        return order_quantity;
+    public int getMin() {
+        return min;
     }
 
-    public void setOrder_quantity(double order_quantity) {
-        this.order_quantity = order_quantity;
+    public void setMin(int min) {
+        this.min = min;
     }
 
-    public double getMax_quantity() {
-        return max_quantity;
+    public int getMax() {
+        return max;
     }
 
-    public void setMax_quantity(double max_quantity) {
-        this.max_quantity = max_quantity;
+    public void setMax(int max) {
+        this.max = max;
     }
 
     public double getMarket_price() {
@@ -163,19 +162,19 @@ public class ItemSpec {
         this.promote_price = promote_price;
     }
 
-    public double getRemain() {
+    public int getRemain() {
         return remain;
     }
 
-    public void setRemain(double remain) {
+    public void setRemain(int remain) {
         this.remain = remain;
     }
 
-    public double getSale_num() {
+    public int getSale_num() {
         return sale_num;
     }
 
-    public void setSale_num(double sale_num) {
+    public void setSale_num(int sale_num) {
         this.sale_num = sale_num;
     }
 
@@ -187,20 +186,20 @@ public class ItemSpec {
         this.quanlity = quanlity;
     }
 
+    public int getUnit_sell() {
+        return unit_sell;
+    }
+
+    public void setUnit_sell(int unit_sell) {
+        this.unit_sell = unit_sell;
+    }
+
     public String getUnit() {
         return unit;
     }
 
     public void setUnit(String unit) {
         this.unit = unit;
-    }
-
-    public double getUnit_sell() {
-        return unit_sell;
-    }
-
-    public void setUnit_sell(double unit_sell) {
-        this.unit_sell = unit_sell;
     }
 
     public String getUnit_desc() {

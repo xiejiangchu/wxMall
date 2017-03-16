@@ -1,0 +1,59 @@
+package com.xie.controller.api;
+
+import com.xie.bean.ItemSpec;
+import com.xie.response.BaseResponse;
+import com.xie.service.ItemSpecService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * @Author xie
+ * @Date 17/3/14 上午11:26.
+ */
+@Controller
+@RequestMapping(value = "/itemSpec")
+public class ItemSpecController {
+
+    @Autowired
+    private ItemSpecService itemSpecService;
+
+    /**
+     * 获取详情
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse get(@PathVariable("id") int id) {
+        return BaseResponse.ok(itemSpecService.getById(id));
+    }
+
+    /**
+     * 获取能够显示的
+     *
+     * @param gid
+     * @return
+     */
+    @RequestMapping(value = "/getAllByGid", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getAllByGid(@RequestParam(value = "gid") int gid) {
+        return BaseResponse.ok(itemSpecService.getAllByGid(gid));
+    }
+
+    /**
+     * 修改
+     * @return
+     */
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse put(@RequestBody ItemSpec itemSpec) {
+        int result = itemSpecService.update(itemSpec);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+}

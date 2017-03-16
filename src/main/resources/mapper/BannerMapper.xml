@@ -5,27 +5,57 @@
 
     <resultMap id="BannerResult" type="Banner" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="is_show" column="is_show" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="getAll" resultMap="BannerResult">
-        SELECT * FROM banner
+        SELECT
+        id,
+        tip,
+        url,
+        is_show,
+        sort,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM banner
     </select>
 
     <select id="getAllCanShow" resultMap="BannerResult">
-        SELECT * FROM banner WHERE is_show = 1 and deleted_at is null order BY sort desc
+        SELECT
+        id,
+        tip,
+        url,
+        is_show,
+        sort,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM banner
+        WHERE is_show = 1 order BY sort desc
     </select>
 
     <select id="getById" resultMap="BannerResult">
-        SELECT * FROM banner
-        where id=#{id} AND deleted_at is NULL order BY sort desc
+        SELECT
+        id,
+        tip,
+        url,
+        is_show,
+        sort,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM banner
+        where id=#{id} order BY sort desc
     </select>
 
     <select id="count" resultMap="BannerResult">
         SELECT count(1) FROM banner
-        WHERE deleted_at is NULL
+        WHERE 1=1
         <if test="all==true">
             and is_show = 1
         </if>

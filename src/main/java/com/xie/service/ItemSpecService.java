@@ -17,6 +17,8 @@ public interface ItemSpecService {
 
     int update(ItemSpec itemSpec);
 
+    int updateRemainAndSale(ItemSpec itemSpec);
+
     int delete(ItemSpec itemSpec);
 
     int delete(int id);

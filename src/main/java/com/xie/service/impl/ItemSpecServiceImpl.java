@@ -39,6 +39,11 @@ public class ItemSpecServiceImpl implements ItemSpecService {
     }
 
     @Override
+    public int updateRemainAndSale(ItemSpec itemSpec) {
+        return itemSpecDao.updateRemainAndSale(itemSpec);
+    }
+
+    @Override
     public int delete(ItemSpec itemSpec) {
         return itemSpecDao.delete(itemSpec);
     }

@@ -42,8 +42,8 @@
 
                     <div class="form-group" ng-show="category.level==1">
                         <label>子类别</label>
-                        <div>
-                            <small class="label margin bg-blue" ng-repeat="cid2 in category.cid2">{{cid2.name}}</small>
+                        <div class="row">
+                            <small class="label margin bg-blue" style="display: inline-block;" ng-repeat="cid2 in category.cid2">{{cid2.name}}</small>
                         </div>
                     </div>
 
@@ -87,6 +87,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- /.content-wrapper -->

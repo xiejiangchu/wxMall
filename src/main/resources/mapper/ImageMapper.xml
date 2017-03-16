@@ -13,17 +13,59 @@
     </resultMap>
 
     <select id="getAll" resultMap="ImageResult">
-        SELECT * FROM images
+        SELECT
+        id as id,
+        name as name,
+        mimeType as mimeType,
+        fileSize as fileSize,
+        uri as uri,
+        url as url,
+        dir as dir,
+        eTag as eTag,
+        fileId as fileId,
+        fileModified as fileModified,
+        created_at as created_at,
+        updated_at as updated_at,
+        deleted_at as deleted_at
+        FROM images
     </select>
 
     <select id="getById" resultMap="ImageResult">
-        SELECT * FROM images
-         where id=#{id}
+        SELECT
+        id as id,
+        name as name,
+        mimeType as mimeType,
+        fileSize as fileSize,
+        uri as uri,
+        url as url,
+        dir as dir,
+        eTag as eTag,
+        fileId as fileId,
+        fileModified as fileModified,
+        created_at as created_at,
+        updated_at as updated_at,
+        deleted_at as deleted_at
+        FROM images
+        WHERE id=#{id}
     </select>
 
     <select id="getByName" resultMap="ImageResult">
-        SELECT * FROM images
-        where name = #{name}
+        SELECT
+        id as id,
+        name as name,
+        mimeType as mimeType,
+        fileSize as fileSize,
+        uri as uri,
+        url as url,
+        dir as dir,
+        eTag as eTag,
+        fileId as fileId,
+        fileModified as fileModified,
+        created_at as created_at,
+        updated_at as updated_at,
+        deleted_at as deleted_at
+        FROM images
+        WHERE name = #{name}
     </select>
 
     <select id="count" resultMap="ImageResult">

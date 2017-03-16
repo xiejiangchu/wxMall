@@ -14,12 +14,30 @@
     </resultMap>
 
     <select id="getById" resultMap="SysLogResult">
-        SELECT * FROM sys_log
+        SELECT
+        id,
+        type,
+        operator,
+        sid,
+        action,
+        details,
+        created_at,
+        updated_at,
+        FROM sys_log
         where id=#{id}
     </select>
 
     <select id="getBySid" resultMap="SysLogResult">
-        SELECT * FROM sys_log
+        SELECT
+        id,
+        type,
+        operator,
+        sid,
+        action,
+        details,
+        created_at,
+        updated_at,
+        FROM sys_log
         <if test="oid!=null">
             and sid=#{sid}
         </if>

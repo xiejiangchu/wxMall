@@ -3,8 +3,6 @@ package com.xie.service;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Item;
 
-import java.util.List;
-
 /**
  * Created by xie on 16/11/24.
  */
@@ -39,6 +37,8 @@ public interface ItemService {
     int insert(Item item);
 
     int update(Item item);
+
+    int online(int id,int spec);
 
     int offline(int id,int is_online);
 

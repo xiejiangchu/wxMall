@@ -18,7 +18,11 @@ public interface BonusService {
 
     Bonus getById(int id);
 
+    Bonus getEnabledById(int id);
+
     int countByUid(int uid);
+
+    int countEnabledByUid(int uid);
 
     int insert(Bonus bonus);
 

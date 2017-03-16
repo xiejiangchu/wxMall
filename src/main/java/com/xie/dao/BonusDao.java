@@ -23,8 +23,16 @@ public class BonusDao extends BaseDao {
         return this.sqlSession.selectOne("BonusMapper.getById", id);
     }
 
+    public Bonus getEnabledById(Integer id) {
+        return this.sqlSession.selectOne("BonusMapper.getEnabledById", id);
+    }
+
     public int countByUid(Integer uid) {
         return this.sqlSession.selectOne("BonusMapper.countByUid", uid);
+    }
+
+    public int countEnabledByUid(Integer uid) {
+        return this.sqlSession.selectOne("BonusMapper.countEnabledByUid", uid);
     }
 
     public int insert(Bonus bonus) {

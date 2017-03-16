@@ -23,7 +23,7 @@ public class OrderItem {
     private double promote_price;
     private int quanlity;
     private String unit;
-    private String unit_sell;
+    private int unit_sell;
     private String unit_desc;
     private String src;
     private String thumb;
@@ -162,11 +162,11 @@ public class OrderItem {
         this.unit = unit;
     }
 
-    public String getUnit_sell() {
+    public int getUnit_sell() {
         return unit_sell;
     }
 
-    public void setUnit_sell(String unit_sell) {
+    public void setUnit_sell(int unit_sell) {
         this.unit_sell = unit_sell;
     }
 

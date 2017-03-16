@@ -130,7 +130,7 @@ public class OrderServiceImpl implements OrderService {
             totalAmount += cart.getSubTotal();
         }
         Address address = addressService.getDefaultByUid(uid);
-        int bonus_count = bonusService.countByUid(uid);
+        int bonus_count = bonusService.countEnabledByUid(uid);
 
 
         OrderCheckDto orderCheckDto = new OrderCheckDto();
@@ -248,9 +248,7 @@ public class OrderServiceImpl implements OrderService {
             itemSpecService.updateRemainAndSale(itemSpec);
 
         }
-        order.setOrder_amount(order_amount);
-        order.setOrder_weight(order_weight);
-        order.setOrder_money(order_money);
+
 
         //point
         order.setPoint(order_money * 100);
@@ -289,14 +287,20 @@ public class OrderServiceImpl implements OrderService {
 
         //bonus
         if (bid > 0) {
-            Bonus bonus = bonusService.getById(bid);
+            Bonus bonus = bonusService.getEnabledById(bid);
             if (null != bonus) {
                 order.setBid(bid);
                 order.setBonus(bonus.getMoney());
                 bonus.setEnd_at(new Date());
+                bonus.setIs_enable(0);
                 bonusService.update(bonus);
+                order_money = order_money - bonus.getMoney();
             }
         }
+
+        order.setOrder_amount(order_amount);
+        order.setOrder_weight(order_weight);
+        order.setOrder_money(order_money);
 
         int oid = orderDao.insert(order);
 

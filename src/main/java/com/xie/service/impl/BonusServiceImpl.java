@@ -41,8 +41,18 @@ public class BonusServiceImpl implements BonusService {
     }
 
     @Override
+    public Bonus getEnabledById(int id) {
+        return bonusDao.getEnabledById(id);
+    }
+
+    @Override
     public int countByUid(int uid) {
         return bonusDao.countByUid(uid);
+    }
+
+    @Override
+    public int countEnabledByUid(int uid) {
+        return bonusDao.countEnabledByUid(uid);
     }
 
     @Override

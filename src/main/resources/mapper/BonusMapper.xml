@@ -43,6 +43,33 @@
         WHERE id=#{id}
     </select>
 
+    <select id="getEnabledById" resultMap="BonusResult">
+        SELECT
+        id,
+        uid,
+        tid,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus
+        WHERE id=#{id}
+        AND is_enable=1
+        AND <![CDATA[ start_at < now()
+        ]]>
+        AND <![CDATA[ end_at >= now()
+
+        ]]>
+    </select>
+
     <select id="getAllByUid" resultMap="BonusResult">
           SELECT
         id,
@@ -65,6 +92,17 @@
     </select>
 
     <select id="countByUid" resultType="Integer">
+        SELECT count(1) FROM bonus
+        WHERE uid=#{uid}
+        AND is_enable=1
+        AND <![CDATA[ start_at < now()
+        ]]>
+        AND <![CDATA[ end_at >= now()
+
+        ]]>
+    </select>
+
+    <select id="countEnabledByUid" resultType="Integer">
         SELECT count(1) FROM bonus where uid=#{uid}
     </select>
 
@@ -88,6 +126,7 @@
         FROM bonus
         WHERE uid=#{uid}
         AND <![CDATA[ end_at < now()
+
         ]]>
     </select>
 
@@ -112,6 +151,7 @@
         WHERE uid=#{uid}
         AND <![CDATA[ start_at <= now() ]]>
         AND <![CDATA[ end_at >= now()
+
 
         ]]>
     </select>

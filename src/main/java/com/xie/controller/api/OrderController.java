@@ -59,11 +59,11 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestParam(value = "type") int type,
+    BaseResponse list(@RequestHeader(value = "SESSIONID") String sessionId,
+                      @RequestParam(value = "type") int type,
                       @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                      HttpSession session) {
-        return BaseResponse.ok(orderService.getByType(getUid(session), type, pageNum, pageSize));
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(orderService.getByType(getUid(sessionId), type, pageNum, pageSize));
     }
 
 
@@ -80,14 +80,15 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse check(HttpSession session) {
-        return BaseResponse.ok(orderService.check(getUid(session)));
+    public BaseResponse check(@RequestHeader(value = "SESSIONID") String sessionId) {
+        return BaseResponse.ok(orderService.check(getUid(sessionId)));
     }
 
     @RequestMapping(value = "/orderMore", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse orderMore(@RequestParam("oid") int oid, HttpSession session) {
-        int result = orderService.orderMore(getUid(session), oid);
+    public BaseResponse orderMore(@RequestParam(value = "sessionId") String sessionId,
+                                  @RequestParam("oid") int oid) {
+        int result = orderService.orderMore(getUid(sessionId), oid);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -98,7 +99,8 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse submit(@RequestParam("aid") int aid,
+    public BaseResponse submit(@RequestParam(value = "sessionId") String sessionId,
+                               @RequestParam("aid") int aid,
                                @RequestParam("bid") int bid,
                                @RequestParam("pid") int pid,
                                @RequestParam("date") Date date,
@@ -106,7 +108,7 @@ public class OrderController extends BaseController {
                                @RequestParam("time_end") Date time_end,
                                @RequestParam("message") String message,
                                HttpSession session) {
-        int result = orderService.submit(getUid(session), aid, bid, pid, date, time_start, time_end, message);
+        int result = orderService.submit(getUid(sessionId), aid, bid, pid, date, time_start, time_end, message);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -128,20 +130,21 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse count(HttpSession session) {
-        return BaseResponse.ok(orderService.countByUid(getUid(session)));
+    public BaseResponse count(@RequestParam(value = "sessionId") String sessionId) {
+        return BaseResponse.ok(orderService.countByUid(getUid(sessionId)));
     }
 
 
     @RequestMapping(value = "/orderCount", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse ordercount(HttpSession session) {
-        return BaseResponse.ok(orderService.orderCount(getUid(session)));
+    public BaseResponse ordercount(@RequestParam(value = "sessionId") String sessionId) {
+        return BaseResponse.ok(orderService.orderCount(getUid(sessionId)));
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse cancel(@RequestParam("oid") int oid, HttpSession session) {
-        return BaseResponse.ok(orderService.cancel(getUid(session), oid));
+    public BaseResponse cancel(@RequestParam(value = "sessionId") String sessionId,
+                               @RequestParam("oid") int oid) {
+        return BaseResponse.ok(orderService.cancel(getUid(sessionId), oid));
     }
 }

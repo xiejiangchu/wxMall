@@ -4,7 +4,9 @@ import com.xie.bean.Cart;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -46,6 +48,13 @@ public class CartDao extends BaseDao {
 
     public int clearByUid(int uid) {
         return this.sqlSession.delete("CartMapper.clearByUid", uid);
+    }
+
+    public int deleteByGidAndSpec(int gid, int spec) {
+        Map map = new HashMap<String, Object>();
+        map.put("gid", gid);
+        map.put("spec", spec);
+        return this.sqlSession.delete("CartMapper.deleteByGidAndSpec", map);
     }
 
 

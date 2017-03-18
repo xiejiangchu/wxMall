@@ -24,6 +24,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByOpenId(String openId) {
+        return userDao.getByOpenId(openId);
+    }
+
+    @Override
+    public User getBySessionId(String sessionId) {
+        return userDao.getBySessionId(sessionId);
+    }
+
+    @Override
     public User getByName(String username) {
         return userDao.getByName(username);
     }
@@ -55,6 +65,16 @@ public class UserServiceImpl implements UserService {
         Assert.notNull(username);
         Assert.notNull(password);
         return userDao.check(username, password);
+    }
+
+    @Override
+    public int insertAll(User user) {
+        return userDao.insertAll(user);
+    }
+
+    @Override
+    public int updateAll(User user) {
+        return userDao.updateAll(user);
     }
 
     @Override

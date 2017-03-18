@@ -18,6 +18,14 @@ public class UserDao extends BaseDao {
         return this.sqlSession.selectOne("UserMapper.getById", id);
     }
 
+    public User getByOpenId(String openId) {
+        return this.sqlSession.selectOne("UserMapper.getByOpenId", openId);
+    }
+
+    public User getBySessionId(String sessionId) {
+        return this.sqlSession.selectOne("UserMapper.getBySessionId", sessionId);
+    }
+
     public User getByName(String name) {
         return this.sqlSession.selectOne("UserMapper.getByName", name);
     }
@@ -31,7 +39,13 @@ public class UserDao extends BaseDao {
     }
 
     public int insert(User user) {
-        return this.sqlSession.insert("UserMapper.insert", user);
+        this.sqlSession.insert("UserMapper.insert", user);
+        return user.getId();
+    }
+
+    public int insertAll(User user) {
+        this.sqlSession.insert("UserMapper.insertAll", user);
+        return user.getId();
     }
 
     public List<User> getAll() {
@@ -44,6 +58,10 @@ public class UserDao extends BaseDao {
 
     public int update(User user) {
         return this.sqlSession.update("UserMapper.update", user);
+    }
+
+    public int updateAll(User user) {
+        return this.sqlSession.update("UserMapper.updateAll", user);
     }
 
     public int delete(int id) {

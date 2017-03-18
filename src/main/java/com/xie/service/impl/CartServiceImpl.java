@@ -58,6 +58,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public int deleteByGidAndSpec(int gid, int spec) {
+        return cartDao.deleteByGidAndSpec(gid,spec);
+    }
+
+    @Override
     public List<Cart> getByUidWithItem(int uid) {
         return cartDao.getByUidWithItem(uid);
     }

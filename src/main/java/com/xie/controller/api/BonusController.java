@@ -28,11 +28,12 @@ public class BonusController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestParam("type") int type,
+    BaseResponse list(@RequestParam(value = "sessionId") String sessionId,
+                      @RequestParam("type") int type,
                       @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
                       HttpSession session) {
-        return BaseResponse.ok(bonusService.getListByType(getUid(session), type, pageNum, pageSize));
+        return BaseResponse.ok(bonusService.getListByType(getUid(sessionId), type, pageNum, pageSize));
     }
 
 

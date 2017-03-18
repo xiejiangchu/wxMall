@@ -1,6 +1,7 @@
 package com.xie.config;
 
 
+import com.xie.utils.AES;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,12 @@ public class MyBatisConfig {
     public DataSourceTransactionManager transactionManager(@Qualifier(value = "dataSource") DataSource dataSource) throws Exception {
         return new DataSourceTransactionManager(dataSource);
     }
+
+    @Bean(name = "AES")
+    public AES aes() {
+        return new AES();
+    }
+
 
     @Bean(name = "jdbcTemplate")
     public JdbcTemplate jdbcTemplate(@Qualifier(value = "dataSource") DataSource dataSource) throws Exception {

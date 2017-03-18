@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * @Author xie
  * @Date 17/1/22 下午3:52.
@@ -34,10 +32,10 @@ public class AddressController extends BaseController {
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByUid(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                          HttpSession session) {
-        return BaseResponse.ok(addressService.getByUid(getUid(session), pageNum, pageSize));
+    BaseResponse getByUid(@RequestParam(value = "sessionId") String sessionId,
+                          @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(addressService.getByUid(getUid(sessionId), pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getDefaultByUid", method = RequestMethod.GET)
@@ -49,7 +47,11 @@ public class AddressController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse post(@ModelAttribute Address address) {
+    public BaseResponse post(@RequestHeader("SESSIONID") String sessionId, @RequestBody Address address) {
+        address.setUid(getUid(sessionId));
+        if (addressService.countByUid(getUid(sessionId)) == 0) {
+            address.setIs_def(1);
+        }
         int result = addressService.insert(address);
         if (result > 0) {
             return BaseResponse.ok();
@@ -58,9 +60,9 @@ public class AddressController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse put(@PathVariable int id, @ModelAttribute Address address) {
+    public BaseResponse put(@RequestBody Address address) {
         int result = addressService.update(address);
         if (result > 0) {
             return BaseResponse.ok();

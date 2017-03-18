@@ -35,4 +35,8 @@ public class StringUtils {
     public static String generateItemNo() {
         return "NO" + randomString(10);
     }
+
+    public static String generateSessionId() {
+        return randomString(20);
+    }
 }

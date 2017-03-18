@@ -13,12 +13,25 @@
         SELECT
         id,
         name,
+        sessionId,
         mobile,
         email,
         wx,
         enabled,
         verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
         description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
         password,
         remember_token,
         created_at,
@@ -28,16 +41,94 @@
         WHERE id = #{id}
     </select>
 
-    <select id="getByName" resultMap="UserResult">
+    <select id="getByOpenId" resultMap="UserResult">
         SELECT
         id,
         name,
+        sessionId,
         mobile,
         email,
         wx,
         enabled,
         verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
         description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM users
+        WHERE openId = #{openId}
+    </select>
+
+    <select id="getBySessionId" resultMap="UserResult">
+        SELECT
+        id,
+        name,
+        sessionId,
+        mobile,
+        email,
+        wx,
+        enabled,
+        verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
+        description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM users
+        WHERE sessionId = #{sessionId}
+        AND <![CDATA[ expired > now() ]]>
+    </select>
+
+    <select id="getByName" resultMap="UserResult">
+        SELECT
+        id,
+        name,
+        sessionId,
+        mobile,
+        email,
+        wx,
+        enabled,
+        verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
+        description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
         password,
         remember_token,
         created_at,
@@ -48,13 +139,13 @@
     </select>
 
     <select id="checkMobile" resultType="Integer">
-        SELECT count(*)
+        SELECT count(1)
         FROM users
         WHERE mobile = #{mobile}
     </select>
 
     <select id="checkUsername" resultType="Integer">
-        SELECT count(*)
+        SELECT count(1)
         FROM users
         WHERE name = #{username}
     </select>
@@ -63,12 +154,25 @@
         SELECT
         id,
         name,
+        sessionId,
         mobile,
         email,
         wx,
         enabled,
         verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
         description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
         password,
         remember_token,
         created_at,
@@ -91,12 +195,25 @@
         SELECT
         id,
         name,
+        sessionId,
         mobile,
         email,
         wx,
         enabled,
         verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
         description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
         password,
         remember_token,
         created_at,
@@ -110,12 +227,25 @@
         SELECT
         id,
         name,
+        sessionId,
         mobile,
         email,
         wx,
         enabled,
         verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
         description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
         password,
         remember_token,
         created_at,
@@ -125,7 +255,7 @@
     </select>
 
     <select id="check" resultType="Integer">
-        SELECT count(*)
+        SELECT count(1)
         FROM users
         WHERE name = #{username}
         AND password=#{password}
@@ -234,6 +364,240 @@
             </if>
             ,updated_at=now()
         </trim>
+        WHERE id=#{id}
+    </update>
+
+
+    <insert id="insertAll" parameterType="User">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO users(
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="sessionId,!=null">
+                ,sessionId,
+            </if>
+            <if test="mobile!=null">
+                ,mobile
+            </if>
+            <if test="email!=null">
+                ,email
+            </if>
+            <if test="wx!=null">
+                ,wx
+            </if>
+            <if test="enabled!=null">
+                ,enabled
+            </if>
+            <if test="verified!=null">
+                ,verified
+            </if>
+            <if test="code!=null">
+                ,code
+            </if>
+            <if test="iv!=null">
+                ,iv
+            </if>
+            <if test="userInfo!=null">
+                ,userInfo
+            </if>
+            <if test="encryptedData!=null">
+                ,encryptedData
+            </if>
+            <if test="description!=null">
+                ,description
+            </if>
+            <if test="openId!=null">
+                ,openId
+            </if>
+            <if test="nickName!=null">
+                ,nickName
+            </if>
+            <if test="gender!=null">
+                ,gender
+            </if>
+            <if test="city!=null">
+                ,city
+            </if>
+            <if test="province!=null">
+                ,province
+            </if>
+            <if test="country!=null">
+                ,country
+            </if>
+            <if test="avatarUrl!=null">
+                ,avatarUrl
+            </if>
+            <if test="unionId!=null">
+                ,unionId
+            </if>
+            <if test="password!=null">
+                ,password
+            </if>
+            <if test="remember_token!=null">
+                ,remember_token
+            </if>
+            <if test="expired!=null">
+                ,expired
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="sessionId,!=null">
+                ,#{sessionId,}
+            </if>
+            <if test="mobile!=null">
+                ,#{mobile}
+            </if>
+            <if test="email!=null">
+                ,#{email}
+            </if>
+            <if test="wx!=null">
+                ,#{wx}
+            </if>
+            <if test="enabled!=null">
+                ,#{enabled}
+            </if>
+            <if test="verified!=null">
+                ,#{verified}
+            </if>
+            <if test="code!=null">
+                ,#{code}
+            </if>
+            <if test="iv!=null">
+                ,#{iv}
+            </if>
+            <if test="userInfo!=null">
+                ,#{userInfo}
+            </if>
+            <if test="encryptedData!=null">
+                ,#{encryptedData}
+            </if>
+            <if test="description!=null">
+                ,#{description}
+            </if>
+            <if test="openId!=null">
+                ,#{openId}
+            </if>
+            <if test="nickName!=null">
+                ,#{nickName}
+            </if>
+            <if test="gender!=null">
+                ,#{gender}
+            </if>
+            <if test="city!=null">
+                ,#{city}
+            </if>
+            <if test="province!=null">
+                ,#{province}
+            </if>
+            <if test="country!=null">
+                ,#{country}
+            </if>
+            <if test="avatarUrl!=null">
+                ,#{avatarUrl}
+            </if>
+            <if test="unionId!=null">
+                ,#{unionId}
+            </if>
+            <if test="password!=null">
+                ,#{password}
+            </if>
+            <if test="remember_token!=null">
+                ,#{remember_token}
+            </if>
+            <if test="expired!=null">
+                ,#{expired}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="updateAll" parameterType="User">
+        UPDATE users set
+        <trim prefixOverrides="," prefix="" suffixOverrides="," suffix="">
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="sessionId!=null">
+                ,sessionId=#{sessionId}
+            </if>
+            <if test="mobile!=null">
+                ,mobile=#{mobile}
+            </if>
+            <if test="email!=null">
+                ,email=#{email}
+            </if>
+            <if test="wx!=null">
+                ,wx=#{wx}
+            </if>
+            <if test="enabled!=null">
+                ,enabled=#{enabled}
+            </if>
+            <if test="verified!=null">
+                ,verified=#{verified}
+            </if>
+            <if test="code!=null">
+                ,code=#{code}
+            </if>
+            <if test="iv!=null">
+                ,iv=#{iv}
+            </if>
+            <if test="userInfo!=null">
+                ,userInfo=#{userInfo}
+            </if>
+            <if test="encryptedData!=null">
+                ,encryptedData=#{encryptedData}
+            </if>
+            <if test="description!=null">
+                ,description=#{description}
+            </if>
+            <if test="openId!=null">
+                ,openId=#{openId}
+            </if>
+            <if test="nickName!=null">
+                ,nickName=#{nickName}
+            </if>
+            <if test="gender!=null">
+                ,gender=#{gender}
+            </if>
+            <if test="city!=null">
+                ,city=#{city}
+            </if>
+            <if test="province!=null">
+                ,province=#{province}
+            </if>
+            <if test="country!=null">
+                ,country=#{country}
+            </if>
+            <if test="avatarUrl!=null">
+                ,avatarUrl=#{avatarUrl}
+            </if>
+            <if test="unionId!=null">
+                ,unionId=#{unionId}
+            </if>
+            <if test="password!=null">
+                ,password=#{password}
+            </if>
+            <if test="remember_token!=null">
+                ,remember_token=#{remember_token}
+            </if>
+            <if test="expired!=null">
+                ,expired=#{expired}
+            </if>
+            ,updated_at=now()
+        </trim>
+        WHERE id=#{id}
     </update>
 
     <delete id="delete">

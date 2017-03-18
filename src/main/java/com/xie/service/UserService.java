@@ -10,6 +10,10 @@ public interface UserService {
 
     User getById(int id);
 
+    User getByOpenId(String openId);
+
+    User getBySessionId(String sessionId);
+
     User getByName(String username);
 
     User getByWx(String wx);
@@ -21,6 +25,10 @@ public interface UserService {
     int insert(User user);
 
     int update(User user);
+
+    int insertAll(User user);
+
+    int updateAll(User user);
 
     int delete(User user);
 

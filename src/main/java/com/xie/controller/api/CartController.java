@@ -30,17 +30,22 @@ public class CartController extends BaseController {
         return BaseResponse.ok(cartService.clear(uid));
     }
 
-    @RequestMapping(value = "item/{uid}", method = RequestMethod.GET)
+    @RequestMapping(value = "item/", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse getByUidWithItem(@PathVariable("uid") int uid) {
-        return BaseResponse.ok(cartService.getByUidWithItem(uid));
+    public BaseResponse getByUidWithItem(@RequestParam("sessionId") String sessionId) {
+        return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse update(@RequestParam("uid") int uid, @RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
-        cartService.saveOrUpdate(uid, gid, spec, amount);
-        return BaseResponse.ok(cartService.getByUidWithItem(uid));
+    public BaseResponse update(@RequestHeader(value = "sessionId") String sessionId, @RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
+        if (amount > 0) {
+            cartService.saveOrUpdate(getUid(sessionId), gid, spec, amount);
+        } else {
+            cartService.deleteByGidAndSpec(gid, spec);
+        }
+
+        return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

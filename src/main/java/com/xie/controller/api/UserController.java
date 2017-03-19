@@ -3,6 +3,7 @@ package com.xie.controller.api;
 import com.xie.bean.User;
 import com.xie.bean.WxSession;
 import com.xie.bean.WxUser;
+import com.xie.config.WxPayConfig;
 import com.xie.response.BaseResponse;
 import com.xie.response.SessionResponse;
 import com.xie.service.UserService;
@@ -110,7 +111,7 @@ public class UserController extends BaseController {
     public BaseResponse get3rdSession(@RequestParam("code") String code,
                                       @RequestParam("encryptedData") String encryptedData,
                                       @RequestParam("iv") String iv, HttpSession session) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=&secret=&js_code=" + code + "&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + WxPayConfig.getAppID() + "&secret=" + WxPayConfig.getAppSecret() + "&js_code=" + code + "&grant_type=authorization_code";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             HttpGet get = new HttpGet(url);
@@ -125,10 +126,10 @@ public class UserController extends BaseController {
                     SessionResponse sessionResponse = new SessionResponse();
                     sessionResponse.setSessionId(sessionId);
                     if (user != null) {
-                        session.setAttribute(MallConstants.SESSION_USER, user);
                         user.setSessionId(sessionId);
                         user.setExpired(DateTime.now().plusDays(30).toDate());
                         userService.updateAll(user);
+                        session.setAttribute(MallConstants.SESSION_USER, user);
                         sessionResponse.setUid(user.getId());
                     } else {
                         byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(wxSession.getSession_key()), Base64.decodeBase64(iv));

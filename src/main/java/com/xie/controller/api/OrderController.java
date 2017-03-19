@@ -1,15 +1,23 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Order;
+import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.BaseResponse;
 import com.xie.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,15 +29,15 @@ import java.util.Date;
 @RequestMapping(value = "/order")
 public class OrderController extends BaseController {
 
+    @Autowired
+    private OrderService orderService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:MM:ss");
         dateFormat.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
-
-    @Autowired
-    private OrderService orderService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
@@ -146,5 +154,44 @@ public class OrderController extends BaseController {
     public BaseResponse cancel(@RequestParam(value = "sessionId") String sessionId,
                                @RequestParam("oid") int oid) {
         return BaseResponse.ok(orderService.cancel(getUid(sessionId), oid));
+    }
+
+    @RequestMapping(value = "/pay", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse pay(@RequestParam(value = "sessionId") String sessionId,
+                            @RequestParam("oid") int oid,
+                            HttpServletRequest request) throws IllegalAccessException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException, IOException {
+        OrderReturnInfo result = orderService.pay(getUid(sessionId), oid, getIpAddr(request));
+        return BaseResponse.ok(result);
+    }
+
+    /**
+     * 获取访问者IP
+     * <p>
+     * 在一般情况下使用Request.getRemoteAddr()即可，但是经过nginx等反向代理软件后，这个方法会失效。
+     * <p>
+     * 本方法先从Header中获取X-Real-IP，如果不存在再从X-Forwarded-For获得第一个IP(用,分割)，
+     * 如果还不存在则调用Request .getRemoteAddr()。
+     *
+     * @param request
+     * @return
+     */
+    private String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Real-IP");
+        if (!StringUtils.isEmpty(ip) && !"unknown".equalsIgnoreCase(ip)) {
+            return ip;
+        }
+        ip = request.getHeader("X-Forwarded-For");
+        if (!StringUtils.isEmpty(ip) && !"unknown".equalsIgnoreCase(ip)) {
+            // 多次反向代理后会有多个IP值，第一个为真实IP。
+            int index = ip.indexOf(',');
+            if (index != -1) {
+                return ip.substring(0, index);
+            } else {
+                return ip;
+            }
+        } else {
+            return request.getRemoteAddr();
+        }
     }
 }

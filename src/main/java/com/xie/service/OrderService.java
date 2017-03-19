@@ -2,9 +2,15 @@ package com.xie.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Order;
+import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.OrderCheckDto;
 import com.xie.response.OrderCountDto;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.Date;
 
 /**
@@ -44,5 +50,7 @@ public interface OrderService {
     int cancel(int uid, int oid);
 
     OrderCountDto orderCount(int uid);
+
+    OrderReturnInfo pay(int uid, int oid, String ip) throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, IOException, IllegalAccessException, UnrecoverableKeyException;
 
 }

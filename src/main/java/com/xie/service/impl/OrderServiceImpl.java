@@ -2,9 +2,15 @@ package com.xie.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.thoughtworks.xstream.XStream;
 import com.xie.bean.*;
+import com.xie.config.WxPayConfig;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
+import com.xie.pay.common.HttpRequest;
+import com.xie.pay.common.Signature;
+import com.xie.pay.model.OrderInfo;
+import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.OrderCheckDto;
 import com.xie.response.OrderCountDto;
 import com.xie.service.*;
@@ -16,6 +22,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,6 +43,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDao orderDao;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CartService cartService;
@@ -403,5 +417,35 @@ public class OrderServiceImpl implements OrderService {
         orderCountDto.setOrder_sending(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
         orderCountDto.setOrder_finish(orderDao.countByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
         return orderCountDto;
+    }
+
+    @Override
+    public OrderReturnInfo pay(int uid, int oid, String ip) throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, IOException, IllegalAccessException, UnrecoverableKeyException {
+        User user = userService.getById(uid);
+        Order order = orderDao.getById(oid);
+
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setAppid(WxPayConfig.getAppID());
+        orderInfo.setMch_id(WxPayConfig.getMch_id());
+        orderInfo.setNonce_str(StringUtils.randomString(32));
+        orderInfo.setBody("dfdfdf");
+        orderInfo.setOut_trade_no(order.getNO());
+        orderInfo.setTotal_fee((int) (order.getOrder_money() * 100));
+        orderInfo.setSpbill_create_ip("123.57.218.54");
+        orderInfo.setNotify_url(WxPayConfig.getNotify_url());
+        orderInfo.setTrade_type("JSAPI");
+        orderInfo.setOpenid(user.getOpenId());
+        orderInfo.setSign_type("MD5");
+        //生成签名
+        String sign = Signature.getSign(orderInfo);
+        orderInfo.setSign(sign);
+
+        String result = HttpRequest.sendPost("https://api.mch.weixin.qq.com/pay/unifiedorder", orderInfo);
+        System.out.println(result);
+        XStream xStream = new XStream();
+        xStream.alias("xml", OrderReturnInfo.class);
+
+        OrderReturnInfo returnInfo = (OrderReturnInfo) xStream.fromXML(result);
+        return returnInfo;
     }
 }

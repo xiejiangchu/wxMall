@@ -1,6 +1,7 @@
 package com.xie.pay.common;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.xie.config.WxPayConfig;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
@@ -8,12 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-
-/**
- * 签名
- *
- * @author zuoliangzhu
- */
 public class Signature {
     private static final Logger L = Logger.getLogger(Signature.class);
 
@@ -46,8 +41,6 @@ public class Signature {
             sb.append(arrayToSort[i]);
         }
         String result = sb.toString();
-        result += "key=" + Configure.getKey();
-        System.out.println("签名数据：" + result);
         result = MD5.MD5Encode(result).toUpperCase();
         return result;
     }
@@ -67,7 +60,7 @@ public class Signature {
             sb.append(arrayToSort[i]);
         }
         String result = sb.toString();
-        result += "key=" + Configure.getKey();
+        result += "key=" + WxPayConfig.getAppKey();
         //Util.log("Sign Before MD5:" + result);
         result = MD5.MD5Encode(result).toUpperCase();
         //Util.log("Sign Result:" + result);

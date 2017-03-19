@@ -3,15 +3,15 @@ package com.xie.pay.common;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import libs.httpclient.org.apache.http.HttpEntity;
+import libs.httpclient.org.apache.http.HttpResponse;
+import libs.httpclient.org.apache.http.client.ClientProtocolException;
+import libs.httpclient.org.apache.http.client.HttpClient;
+import libs.httpclient.org.apache.http.client.config.RequestConfig;
+import libs.httpclient.org.apache.http.client.methods.HttpPost;
+import libs.httpclient.org.apache.http.entity.StringEntity;
+import libs.httpclient.org.apache.http.impl.client.HttpClients;
+import libs.httpclient.org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
@@ -51,6 +51,7 @@ public class HttpRequest {
         //得指明使用UTF-8编码，否则到API服务器XML的中文不能被成功识别
         StringEntity postEntity = new StringEntity(postDataXML, "UTF-8");
         httpPost.addHeader("Content-Type", "text/xml");
+
         httpPost.setEntity(postEntity);
 
         //设置请求器的配置

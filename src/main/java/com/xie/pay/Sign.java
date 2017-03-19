@@ -1,10 +1,10 @@
 package com.xie.pay;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xie.pay.common.Configure;
-import com.xie.pay.common.RandomStringGenerator;
+import com.xie.config.WxPayConfig;
 import com.xie.pay.common.Signature;
 import com.xie.pay.model.SignInfo;
+import com.xie.utils.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -31,10 +31,10 @@ public class Sign extends HttpServlet {
         try {
             String repay_id = request.getParameter("repay_id");
             SignInfo signInfo = new SignInfo();
-            signInfo.setAppId(Configure.getAppID());
+            signInfo.setAppId(WxPayConfig.getAppID());
             long time = System.currentTimeMillis() / 1000;
             signInfo.setTimeStamp(String.valueOf(time));
-            signInfo.setNonceStr(RandomStringGenerator.getRandomStringByLength(32));
+            signInfo.setNonceStr(StringUtils.randomNumber(32));
             signInfo.setRepay_id("prepay_id=" + repay_id);
             signInfo.setSignType("MD5");
             //生成签名
@@ -46,7 +46,6 @@ public class Sign extends HttpServlet {
             json.put("package", signInfo.getRepay_id());
             json.put("signType", signInfo.getSignType());
             json.put("paySign", sign);
-            L.info("-------再签名:" + json.toJSONString());
             response.getWriter().append(json.toJSONString());
         } catch (Exception e) {
             // TODO Auto-generated catch block

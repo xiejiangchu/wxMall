@@ -65,7 +65,7 @@
 //                    throws DataAccessException {
 //                RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
 //                for (Map.Entry<String, String> entry : map.entrySet()) {
-//                    byte[] key  = serializer.serialize(entry.getKey());
+//                    byte[] key  = serializer.serialize(entry.getAppKey());
 //                    byte[] name = serializer.serialize(entry.getValue());
 //                    connection.setNX(key, name);
 //                }

@@ -32,7 +32,7 @@ public class CartController extends BaseController {
 
     @RequestMapping(value = "item/", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse getByUidWithItem(@RequestParam("sessionId") String sessionId) {
+    public BaseResponse getByUidWithItem(@RequestParam(value = "sessionId", required = true) String sessionId) {
         return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
     }
 

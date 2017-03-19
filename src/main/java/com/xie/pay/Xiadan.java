@@ -2,12 +2,12 @@ package com.xie.pay;
 
 import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.xstream.XStream;
-import com.xie.pay.common.Configure;
+import com.xie.config.WxPayConfig;
 import com.xie.pay.common.HttpRequest;
-import com.xie.pay.common.RandomStringGenerator;
 import com.xie.pay.common.Signature;
 import com.xie.pay.model.OrderInfo;
 import com.xie.pay.model.OrderReturnInfo;
+import com.xie.utils.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -38,11 +38,11 @@ public class Xiadan extends HttpServlet {
         try {
             String openid = request.getParameter("openid");
             OrderInfo order = new OrderInfo();
-            order.setAppid(Configure.getAppID());
-            order.setMch_id(Configure.getMch_id());
-            order.setNonce_str(RandomStringGenerator.getRandomStringByLength(32));
+            order.setAppid(WxPayConfig.getAppID());
+            order.setMch_id(WxPayConfig.getMch_id());
+            order.setNonce_str(StringUtils.randomString(32));
             order.setBody("dfdfdf");
-            order.setOut_trade_no(RandomStringGenerator.getRandomStringByLength(32));
+            order.setOut_trade_no(StringUtils.randomString(32));
             order.setTotal_fee(10);
             order.setSpbill_create_ip("123.57.218.54");
             order.setNotify_url("https://www.see-source.com/weixinpay/PayResult");

@@ -377,8 +377,8 @@
             <if test="name!=null">
                 ,name
             </if>
-            <if test="sessionId,!=null">
-                ,sessionId,
+            <if test="sessionId!=null">
+                ,sessionId
             </if>
             <if test="mobile!=null">
                 ,mobile
@@ -451,8 +451,8 @@
             <if test="name!=null">
                 ,#{name}
             </if>
-            <if test="sessionId,!=null">
-                ,#{sessionId,}
+            <if test="sessionId!=null">
+                ,#{sessionId}
             </if>
             <if test="mobile!=null">
                 ,#{mobile}

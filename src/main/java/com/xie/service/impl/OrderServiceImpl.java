@@ -330,16 +330,6 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
         }
         orderItemService.insert(orderItems);
-
-        //订单日志
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOid(oid);
-        orderLog.setType(ActionType.订单操作.value());
-        orderLog.setAction("提交了订单");
-        orderLog.setDetails("提交了订单");
-        orderLog.setOperator(uid + "");
-        orderLogService.insert(orderLog);
-
         //删除购物车
         cartService.clear(uid);
 
@@ -386,6 +376,7 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
         }
+
         return 0;
     }
 
@@ -404,6 +395,7 @@ public class OrderServiceImpl implements OrderService {
                 return 0;
             }
             order.setOrder_status(OrderState.已取消.value());
+
             return orderDao.cancel(order);
         }
         return 0;

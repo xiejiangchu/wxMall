@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 public class WxPayConfig {
     private static String appKey;
     //小程序ID
-    private static String appID = "wx846c47708b8cf91c";
+    private static String appID = "";
     //商户号
     private static String mch_id;
     //
-    private static String appSecret = "81df80ba9ca647eddaab2e770e85ca33";
+    private static String appSecret = "";
 
     private static String notify_url;
 

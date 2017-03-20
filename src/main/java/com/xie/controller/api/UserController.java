@@ -140,6 +140,7 @@ public class UserController extends BaseController {
                             insert.setName(wxUser.getNickName());
                             insert.setEnabled(1);
                             insert.setVerified(1);
+                            insert.setSessionId(sessionId);
                             insert.setPassword(bCryptPasswordEncoder.encode("pass@1234"));
                             insert.setExpired(DateTime.now().plusDays(30).toDate());
                             int uid = userService.insertAll(insert);

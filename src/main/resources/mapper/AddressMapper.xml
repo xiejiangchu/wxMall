@@ -88,7 +88,7 @@
         where mobile=#{mobile} AND deleted_at is NULL
     </select>
 
-    <select id="countByUid">
+    <select id="countByUid" resultType="Integer">
         SELECT count(1) FROM address
         where uid=#{uid} AND deleted_at is NULL
     </select>

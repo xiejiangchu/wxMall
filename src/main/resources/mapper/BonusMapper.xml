@@ -71,7 +71,7 @@
     </select>
 
     <select id="getAllByUid" resultMap="BonusResult">
-          SELECT
+        SELECT
         id,
         uid,
         tid,

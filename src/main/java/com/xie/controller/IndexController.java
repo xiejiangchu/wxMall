@@ -20,10 +20,10 @@ public class IndexController {
         return "admin/index";
     }
 
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String error() {
-        return "admin/404";
-    }
+//    @RequestMapping(value = "/error", method = RequestMethod.GET)
+//    public String error() {
+//        return "admin/404";
+//    }
 
 
 }

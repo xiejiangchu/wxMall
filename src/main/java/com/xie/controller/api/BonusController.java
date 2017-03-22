@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -29,10 +28,9 @@ public class BonusController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse list(@RequestParam(value = "sessionId") String sessionId,
-                      @RequestParam("type") int type,
+                      @RequestParam(value = "type") int type,
                       @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                      HttpSession session) {
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(bonusService.getListByType(getUid(sessionId), type, pageNum, pageSize));
     }
 

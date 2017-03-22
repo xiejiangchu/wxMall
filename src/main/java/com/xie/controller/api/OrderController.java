@@ -34,7 +34,7 @@ public class OrderController extends BaseController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:MM:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         dateFormat.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
@@ -114,8 +114,7 @@ public class OrderController extends BaseController {
                                @RequestParam("date") Date date,
                                @RequestParam("time_start") Date time_start,
                                @RequestParam("time_end") Date time_end,
-                               @RequestParam("message") String message,
-                               HttpSession session) {
+                               @RequestParam("message") String message) {
         int result = orderService.submit(getUid(sessionId), aid, bid, pid, date, time_start, time_end, message);
         if (result > 0) {
             return BaseResponse.ok();

@@ -249,7 +249,7 @@ public class OrderServiceImpl implements OrderService {
         double order_weight = 0;
         double order_money = 0;
         for (int i = 0; i < cartList.size(); i++) {
-            order_amount += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getUnit_sell();
+            order_amount += cartList.get(i).getAmount();
             order_weight += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getWeight();
             order_money += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price();
 
@@ -257,7 +257,7 @@ public class OrderServiceImpl implements OrderService {
             ItemSpec itemSpec = cartList.get(i).getItemSpec();
             int remain = itemSpec.getRemain();
             int sale_num = itemSpec.getSale_num();
-            itemSpec.setRemain(remain - cartList.get(i).getAmount() * itemSpec.getUnit_sell());
+            itemSpec.setRemain(remain - cartList.get(i).getAmount());
             itemSpec.setSale_num(sale_num + cartList.get(i).getAmount() * itemSpec.getUnit_sell());
             itemSpecService.updateRemainAndSale(itemSpec);
 

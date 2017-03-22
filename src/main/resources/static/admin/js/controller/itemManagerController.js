@@ -37,6 +37,8 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
     });
 
     $scope.$watch('params.cid1', function (value, oldValue, scope) {
+        $scope.masterImageSelected = [];
+        $scope.slaveImageSelected = [];
         if (value > 0) {
             $http.get('/category/getCategoryLevel2/' + $scope.params.cid1, {}).then(function (response) {
                 $scope.cid2 = response.data.data;
@@ -52,6 +54,8 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
         }
     });
     $scope.$watch('params.cid2', function (value, oldValue, scope) {
+        $scope.masterImageSelected = [];
+        $scope.slaveImageSelected = [];
         if (value > 0) {
             $http.get('/item/getByCategory/', {
                 params: $scope.params
@@ -69,13 +73,15 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
         }
     });
     $scope.$watch('params.iid', function (value, oldValue, scope) {
+        $scope.masterImageSelected = [];
+        $scope.slaveImageSelected = [];
         if (value > 0) {
             $http.get('/item/' + $scope.params.iid, {}).then(function (response) {
                 $scope.editItem = response.data.data;
             }, function (error) {
             });
         }
-    })
+    });
 
 
     $http.get('/image/list', {params: {pageNum: 1, pageSize: $scope.pageSize}}).then(function (response) {
@@ -118,11 +124,14 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
         }).then(function (response) {
             if (response.data.code == 0) {
                 alert('成功');
-            }else{
+            } else {
                 alert(response.data.msg);
             }
+            $scope.masterImageSelected = [];
+            $scope.slaveImageSelected = [];
         }, function (error) {
         });
+
     };
 
     $scope.delete = function () {

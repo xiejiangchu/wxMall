@@ -28,6 +28,10 @@ public class AddressDao extends BaseDao {
         return this.sqlSession.selectOne("AddressDao.getByMobile", mobile);
     }
 
+    public Address getFirstAddress(int uid){
+        return this.sqlSession.selectOne("AddressDao.getFirstAddress", uid);
+    }
+
     public int countByUid(Integer uid) {
         return this.sqlSession.selectOne("AddressDao.countByUid", uid);
     }

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Configuration
 @ConfigurationProperties(prefix = "spring.alibaba")
 @Component
-public class AlibabaConfig {
+public class  AlibabaConfig {
     private String appkey;
     private String appsecret;
     private String namespace;

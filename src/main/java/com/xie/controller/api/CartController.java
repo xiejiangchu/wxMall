@@ -19,15 +19,14 @@ public class CartController extends BaseController {
     @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse cart(@PathVariable("uid") int uid) {
-
         return BaseResponse.ok(cartService.getByUid(uid));
     }
 
     @RequestMapping(value = "/clear", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse clear(@RequestParam("uid") int uid) {
-
-        return BaseResponse.ok(cartService.clear(uid));
+        cartService.clear(uid);
+        return BaseResponse.ok(cartService.getByUidWithItem(uid));
     }
 
     @RequestMapping(value = "item/", method = RequestMethod.GET)
@@ -39,13 +38,13 @@ public class CartController extends BaseController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     public BaseResponse update(@RequestHeader(value = "sessionId") String sessionId, @RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
+        int uid = getUid(sessionId);
         if (amount > 0) {
-            cartService.saveOrUpdate(getUid(sessionId), gid, spec, amount);
+            cartService.saveOrUpdate(uid, gid, spec, amount);
         } else {
             cartService.deleteByGidAndSpec(gid, spec);
         }
-
-        return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
+        return BaseResponse.ok(cartService.getByUidWithItem(uid));
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xie.bean.Address;
 import com.xie.dao.AddressDao;
 import com.xie.service.AddressService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -39,6 +40,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public Address getFirstAddress(int uid) {
+        return addressDao.getFirstAddress(uid);
+    }
+
+    @Override
     public Address getById(int id) {
         return addressDao.getById(id);
     }
@@ -63,6 +69,9 @@ public class AddressServiceImpl implements AddressService {
     public int update(Address address) {
         Assert.notNull(address);
         Assert.isTrue(address.getId() > 0);
+        if (address.getIs_def() == MallConstants.NO && addressDao.getById(address.getId()).getIs_def() == MallConstants.YES) {
+            return 0;
+        }
         return addressDao.update(address);
     }
 

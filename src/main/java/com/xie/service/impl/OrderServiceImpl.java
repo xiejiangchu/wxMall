@@ -143,7 +143,7 @@ public class OrderServiceImpl implements OrderService {
             cart.setSubTotal(cart.getAmount() * cart.getItemSpec().getShop_price());
             totalAmount += cart.getSubTotal();
         }
-        Address address = addressService.getDefaultByUid(uid);
+        Address address = addressService.getFirstAddress(uid);
         int bonus_count = bonusService.countEnabledByUid(uid);
 
 

@@ -28,7 +28,27 @@
         updated_at,
         deleted_at
         FROM address
-        where uid=#{uid} AND deleted_at is NULL
+        WHERE uid=#{uid} AND deleted_at is NULL
+    </select>
+    <select id="getFirstAddress" resultMap="AddressResult">
+        SELECT
+        id,
+        uid,
+        is_def,
+        mobile,
+        receiver,
+        gender,
+        city,
+        district,
+        road,
+        address,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM address
+        WHERE uid=#{uid} AND deleted_at IS NULL
+        ORDER BY is_def DESC 
+        limit 0,1
     </select>
 
     <select id="getById" resultMap="AddressResult">
@@ -47,7 +67,7 @@
         updated_at,
         deleted_at
         FROM  address
-        where id=#{id} AND deleted_at is NULL
+        WHERE id=#{id} AND deleted_at IS NULL
     </select>
 
     <select id="getDefaultByUid" resultMap="AddressResult">
@@ -66,7 +86,7 @@
         updated_at,
         deleted_at
         FROM address
-        where uid=#{uid} and is_def=1 AND deleted_at is NULL
+        WHERE uid=#{uid} and is_def=1 AND deleted_at IS NULL
     </select>
 
     <select id="getByMobile" resultMap="AddressResult">
@@ -85,12 +105,12 @@
         updated_at,
         deleted_at
         FROM address
-        where mobile=#{mobile} AND deleted_at is NULL
+        WHERE mobile=#{mobile} AND deleted_at is NULL
     </select>
 
-    <select id="countByUid">
+    <select id="countByUid" resultType="Integer">
         SELECT count(1) FROM address
-        where uid=#{uid} AND deleted_at is NULL
+        WHERE uid=#{uid} AND deleted_at is NULL
     </select>
 
 
@@ -194,7 +214,7 @@
             </if>
             ,updated_at=now()
         </trim>
-        where id=#{id}
+        WHERE id=#{id}
     </update>
 
     <delete id="delete">

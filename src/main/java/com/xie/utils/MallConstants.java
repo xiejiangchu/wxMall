@@ -13,4 +13,8 @@ public class MallConstants {
     public final static String SESSION_WXSESSION = "SESSION_WXSESSION";
     public final static String COOKIE_UID = "COOKIE_UID";
     public final static int ERROR_CODE = -1;
+
+
+    public final static int YES = 1;
+    public final static int NO = 0;
 }

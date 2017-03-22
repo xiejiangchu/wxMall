@@ -16,6 +16,8 @@ public interface AddressService {
 
     Address getDefaultByUid(int uid);
 
+    Address getFirstAddress(int uid);
+
     Address getById(int id);
 
     List<Address> getByMobile(String mobile);

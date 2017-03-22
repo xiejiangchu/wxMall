@@ -135,10 +135,10 @@ mall.directive('datatablecategory', function () {
             scope.itemSelected = function (id) {
 
                 if (scope.single) {
-                    if (scope.imageSelected.length > 0) {
-                        scope.imageSelected = [];
+                    if (scope.imageSelected[0] == id) {
+                        scope.imageSelected.splice(0, 1);
                     } else {
-                        scope.imageSelected = [];
+                        scope.imageSelected.splice(0, 1);
                         scope.imageSelected.push(id);
                     }
                     return;

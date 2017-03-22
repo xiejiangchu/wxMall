@@ -67,7 +67,7 @@ public class AddressController extends BaseController {
         if (result > 0) {
             return BaseResponse.ok();
         } else {
-            return BaseResponse.fail();
+            return BaseResponse.fail("修改失败");
         }
     }
 

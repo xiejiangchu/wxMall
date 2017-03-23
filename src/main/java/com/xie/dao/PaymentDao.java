@@ -17,7 +17,7 @@ public class PaymentDao extends BaseDao {
         return sqlSession.selectOne("PaymentMapper.getById", id);
     }
 
-    public List<Payment> getAll(){
+    public List<Payment> getAll() {
         return sqlSession.selectList("PaymentMapper.getAll");
     }
 
@@ -32,6 +32,12 @@ public class PaymentDao extends BaseDao {
     public int delete(Payment payment) {
         Assert.notNull(payment);
         return sqlSession.delete("PaymentMapper.delete", payment.getId());
+    }
+
+    public List<Payment> getEnabled() {
+        return sqlSession.selectList("PaymentMapper.getEnabled");
+
+
     }
 
     public int delete(int id) {

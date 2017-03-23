@@ -1,5 +1,8 @@
 package com.xie.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xie.utils.DoubleSerializer;
+
 import java.util.Date;
 
 /**
@@ -8,13 +11,15 @@ import java.util.Date;
  */
 public class BonusType {
     private int id;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double money;
     private String name;
     private String description;
-    private Integer cid1;
-    private Integer cid2;
-    private Integer gid;
-    private Integer is_enable;
+    private int cid1;
+    private int cid2;
+    private int gid;
+    private int is_enable;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double min_amount;
     private Date start_at;
     private Date end_at;
@@ -53,35 +58,35 @@ public class BonusType {
         this.description = description;
     }
 
-    public Integer getCid1() {
+    public int getCid1() {
         return cid1;
     }
 
-    public void setCid1(Integer cid1) {
+    public void setCid1(int cid1) {
         this.cid1 = cid1;
     }
 
-    public Integer getCid2() {
+    public int getCid2() {
         return cid2;
     }
 
-    public void setCid2(Integer cid2) {
+    public void setCid2(int cid2) {
         this.cid2 = cid2;
     }
 
-    public Integer getGid() {
+    public int getGid() {
         return gid;
     }
 
-    public void setGid(Integer gid) {
+    public void setGid(int gid) {
         this.gid = gid;
     }
 
-    public Integer getIs_enable() {
+    public int getIs_enable() {
         return is_enable;
     }
 
-    public void setIs_enable(Integer is_enable) {
+    public void setIs_enable(int is_enable) {
         this.is_enable = is_enable;
     }
 

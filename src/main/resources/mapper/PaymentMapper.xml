@@ -23,6 +23,19 @@
         FROM payment
     </select>
 
+    <select id="getEnabled" resultMap="PaymentResult">
+        SELECT
+        id,
+        code,
+        name,
+        is_enabled,
+        imgid,
+        app_key,
+        app_secret
+        FROM payment
+        WHERE is_enabled = 1
+    </select>
+
     <select id="getById" resultMap="PaymentResult">
         SELECT
         id,

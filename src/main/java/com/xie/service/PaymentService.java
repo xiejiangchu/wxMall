@@ -14,6 +14,8 @@ public interface PaymentService {
 
     List<Payment> getAll();
 
+    List<Payment> getEnabled();
+
     int insert(Payment payment);
 
     int update(Payment payment);

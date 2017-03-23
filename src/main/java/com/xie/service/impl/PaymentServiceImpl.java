@@ -24,6 +24,11 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public List<Payment> getEnabled() {
+        return paymentDao.getEnabled();
+    }
+
+    @Override
     public Payment getById(int id) {
         return paymentDao.getById(id);
     }

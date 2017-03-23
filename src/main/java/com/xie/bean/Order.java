@@ -1,5 +1,8 @@
 package com.xie.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xie.utils.DoubleSerializer;
+
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
@@ -15,12 +18,18 @@ public class Order implements Serializable {
     private int ship_status;
     private int package_status;
     private int order_amount;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double order_weight;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double order_money;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double order_amount_real;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double order_money_real;
     private int bid;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double bonus;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double point;
     private int pid;
     private String payment;

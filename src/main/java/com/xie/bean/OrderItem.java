@@ -1,5 +1,8 @@
 package com.xie.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xie.utils.DoubleSerializer;
+
 import java.util.Date;
 
 /**
@@ -16,10 +19,15 @@ public class OrderItem {
     private int gid;
     private int spec;
     private int amount;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double total;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double weight;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double market_price;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double shop_price;
+    @JsonSerialize(using = DoubleSerializer.class)
     private double promote_price;
     private int quanlity;
     private String unit;

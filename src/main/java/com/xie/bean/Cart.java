@@ -1,6 +1,8 @@
 package com.xie.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xie.utils.DoubleSerializer;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +21,7 @@ public class Cart implements Serializable {
     private Item item;
     private ItemSpec itemSpec;
 
+    @JsonSerialize(using = DoubleSerializer.class)
     private double subTotal;
 
     public Integer getId() {

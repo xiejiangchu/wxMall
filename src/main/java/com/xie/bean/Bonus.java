@@ -1,59 +1,66 @@
 package com.xie.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xie.utils.DoubleSerializer;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Bonus implements Serializable {
-    private Integer id;
-    private Integer uid;
-    private Integer tid;
-    private Double money;
+    private int id;
+    private int uid;
+    private int tid;
+    @JsonSerialize(using = DoubleSerializer.class)
+    private double money;
+
     private String name;
     private String description;
-    private Integer cid1;
-    private Integer cid2;
-    private Integer gid;
-    private Double min_amount;
-    private Integer is_enable;
+    private int cid1;
+    private int cid2;
+    private int gid;
+
+    @JsonSerialize(using = DoubleSerializer.class)
+    private double min_amount;
+    private int is_enable;
     private Date start_at;
     private Date end_at;
     private Date created_at;
     private Date updated_at;
 
-    public Integer getId() {
-        return this.id;
+    public int getId() {
+        return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return this.uid;
+    public int getUid() {
+        return uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(int uid) {
         this.uid = uid;
     }
 
-    public Integer getTid() {
+    public int getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(int tid) {
         this.tid = tid;
     }
 
-    public Double getMoney() {
-        return this.money;
+    public double getMoney() {
+        return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -68,43 +75,43 @@ public class Bonus implements Serializable {
         this.description = description;
     }
 
-    public Integer getCid1() {
+    public int getCid1() {
         return cid1;
     }
 
-    public void setCid1(Integer cid1) {
+    public void setCid1(int cid1) {
         this.cid1 = cid1;
     }
 
-    public Integer getCid2() {
+    public int getCid2() {
         return cid2;
     }
 
-    public void setCid2(Integer cid2) {
+    public void setCid2(int cid2) {
         this.cid2 = cid2;
     }
 
-    public Integer getGid() {
+    public int getGid() {
         return gid;
     }
 
-    public void setGid(Integer gid) {
+    public void setGid(int gid) {
         this.gid = gid;
     }
 
-    public Double getMin_amount() {
-        return this.min_amount;
+    public double getMin_amount() {
+        return min_amount;
     }
 
-    public void setMin_amount(Double min_amount) {
+    public void setMin_amount(double min_amount) {
         this.min_amount = min_amount;
     }
 
-    public Integer getIs_enable() {
+    public int getIs_enable() {
         return is_enable;
     }
 
-    public void setIs_enable(Integer is_enable) {
+    public void setIs_enable(int is_enable) {
         this.is_enable = is_enable;
     }
 

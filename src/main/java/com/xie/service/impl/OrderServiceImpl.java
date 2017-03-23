@@ -152,6 +152,7 @@ public class OrderServiceImpl implements OrderService {
         orderCheckDto.setBonusCount(bonus_count);
         orderCheckDto.setTotalAmount(totalAmount);
         orderCheckDto.setItems(cartList);
+        orderCheckDto.setPayments(paymentService.getEnabled());
 
         orderCheckDto.setDate_start(DateTime.now().plusDays(1).toDate());
         orderCheckDto.setDate_end(DateTime.now().plusDays(3).toDate());

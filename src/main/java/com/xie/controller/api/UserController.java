@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasAuthority('ROLE_DOMAIN_USER')")
     public BaseResponse postUser(@ModelAttribute User user) {
         userService.insert(user);
         return BaseResponse.ok();
@@ -72,6 +74,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
+    @PreAuthorize("hasAuthority('ROLE_DOMAIN_USER')")
     public BaseResponse putUser(@PathVariable int id, @ModelAttribute User user) {
         int result = userService.update(user);
         if (result > 0) {
@@ -83,6 +86,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
+    @PreAuthorize("hasAuthority('ROLE_DOMAIN_USER')")
     public BaseResponse deleteUser(@PathVariable int id) {
         int result = userService.softDelete(id);
         if (result > 0) {

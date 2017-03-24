@@ -16,6 +16,8 @@ public interface UserService {
 
     User getByName(String username);
 
+    User getByNameOrSessionId(String token);
+
     User getByWx(String wx);
 
     User getByEmail(String email);

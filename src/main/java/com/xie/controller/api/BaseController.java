@@ -1,10 +1,14 @@
 package com.xie.controller.api;
 
+import com.xie.auth.MyUserDetails;
 import com.xie.bean.User;
 import com.xie.response.BaseResponse;
 import com.xie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -31,11 +35,21 @@ public class BaseController {
     }
 
     public User getUser(String sessionId) {
-        return userService.getBySessionId(sessionId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
+            MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+            return myUserDetails.getUser();
+        }
+        return null;
     }
 
     public int getUid(String sessionId) {
-        return userService.getBySessionId(sessionId).getId();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
+            MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+            return myUserDetails.getUser().getId();
+        }
+        return -1;
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

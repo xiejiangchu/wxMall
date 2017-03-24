@@ -80,7 +80,7 @@ public class AdminController {
                             @RequestParam("password") String password,
                             HttpServletResponse response,
                             HttpSession session, Model model) {
-        if (userService.check(username, password) > 0) {
+        if (userService.check(username, bCryptPasswordEncoder.encode(password)) > 0) {
             User user = userService.getByName(username);
             session.setAttribute(MallConstants.SESSION_USER, user);
             Cookie cookie = new Cookie(MallConstants.COOKIE_UID, String.valueOf(user.getId()));

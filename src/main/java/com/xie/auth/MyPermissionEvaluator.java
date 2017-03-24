@@ -1,8 +1,8 @@
 package com.xie.auth;
 
-import com.xie.bean.User;
-import com.xie.dao.RoleDao;
-import com.xie.dao.UserDao;
+import com.xie.service.PermissionService;
+import com.xie.service.RoleService;
+import com.xie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -18,20 +18,23 @@ import java.io.Serializable;
 public class MyPermissionEvaluator implements PermissionEvaluator {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
-    private RoleDao roleDao;
+    private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
-        String username = authentication.getName();
-        User user = userDao.getByName(username);
-        return roleDao.authorized(user.getId(), permission.toString());
+        MyUserDetails myUserDetails = (MyUserDetails) authentication.getDetails();
+        return permissionService.checkPermission(myUserDetails.getUser().getId(), permission.toString()) > 0;
     }
 
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
-        return false;
+        MyUserDetails myUserDetails = (MyUserDetails) authentication.getDetails();
+        return permissionService.checkPermission(myUserDetails.getUser().getId(), permission.toString()) > 0;
     }
 }

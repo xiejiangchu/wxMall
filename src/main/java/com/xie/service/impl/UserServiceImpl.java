@@ -39,6 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByNameOrSessionId(String token) {
+        return userDao.getByNameOrSessionId(token);
+    }
+
+    @Override
     public User getByWx(String wx) {
         return userDao.getByWx(wx);
     }

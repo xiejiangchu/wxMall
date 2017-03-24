@@ -9,10 +9,11 @@ public class MallConstants {
     public final static int PAGESIZE = 10;
     public final static String SESSION_USER = "SESSION_USER";
     public final static String SESSION_OPENID = "SESSION_OPENID";
-    public final static String SESSION_ID = "SESSION_ID";
     public final static String SESSION_WXSESSION = "SESSION_WXSESSION";
     public final static String COOKIE_UID = "COOKIE_UID";
     public final static int ERROR_CODE = -1;
+
+    public final static String SESSION_ID = "sessionId";
 
 
     public final static int YES = 1;

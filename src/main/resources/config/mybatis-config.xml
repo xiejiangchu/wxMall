@@ -52,6 +52,7 @@
         <typeAlias type="com.xie.bean.SysConfig" alias="SysConfig"/>
         <typeAlias type="com.xie.bean.SysLog" alias="SysLog"/>
         <typeAlias type="com.xie.bean.User" alias="User"/>
+        <typeAlias type="com.xie.bean.Point" alias="Point"/>
     </typeAliases>
 
     <plugins>

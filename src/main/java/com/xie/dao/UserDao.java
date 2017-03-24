@@ -48,6 +48,10 @@ public class UserDao extends BaseDao {
         return user.getId();
     }
 
+    public User getByNameOrSessionId(String token){
+        return this.sqlSession.selectOne("UserMapper.getByNameOrSessionId", token);
+    }
+
     public List<User> getAll() {
         return this.sqlSession.selectList("UserMapper.getAll");
     }
@@ -72,7 +76,6 @@ public class UserDao extends BaseDao {
         Map map = new HashMap<>();
         map.put("username", username);
         map.put("password", password);
-
         return this.sqlSession.selectOne("UserMapper.check", map);
     }
 

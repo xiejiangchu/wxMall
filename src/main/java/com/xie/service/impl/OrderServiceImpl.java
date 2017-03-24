@@ -376,8 +376,8 @@ public class OrderServiceImpl implements OrderService {
                     cartService.saveOrUpdate(uid, orderItem.getGid(), orderItem.getSpec(), orderItem.getAmount());
                 }
             }
+            return 1;
         }
-
         return 0;
     }
 

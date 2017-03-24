@@ -19,7 +19,7 @@
         roles.display_name as display_name,
         roles.description as description,
         roles.created_at as created_at,
-        roles.updated_at as updated_at,
+        roles.updated_at as updated_at
         FROM roles
         WHERE id=#{id}
     </select>
@@ -31,7 +31,7 @@
         roles.display_name as display_name,
         roles.description as description,
         roles.created_at as created_at,
-        roles.updated_at as updated_at,
+        roles.updated_at as updated_at
         FROM roles
         LEFT JOIN role_user ON role_user.role_id=roles.id
         WHERE role_user.user_id = #{uid}

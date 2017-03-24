@@ -106,7 +106,7 @@
         UPDATE payment set
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
             <if test="code!=null">
-                ,code=#{type}
+                ,code=#{code}
             </if>
             <if test="name!=null">
                 ,name=#{name}

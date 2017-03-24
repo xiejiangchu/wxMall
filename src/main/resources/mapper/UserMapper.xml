@@ -41,6 +41,39 @@
         WHERE id = #{id}
     </select>
 
+    <select id="getByNameOrSessionId" resultMap="UserResult">
+        SELECT
+        id,
+        name,
+        sessionId,
+        mobile,
+        email,
+        wx,
+        enabled,
+        verified,
+        code,
+        iv,
+        userInfo,
+        encryptedData,
+        description,
+        openId,
+        nickName,
+        gender,
+        city,
+        province,
+        country,
+        avatarUrl,
+        unionId,
+        password,
+        remember_token,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM users
+        WHERE name = #{token}
+        OR sessionId = #{token}
+    </select>
+
     <select id="getByOpenId" resultMap="UserResult">
         SELECT
         id,
@@ -103,7 +136,8 @@
         deleted_at
         FROM users
         WHERE sessionId = #{sessionId}
-        AND <![CDATA[ expired > now() ]]>
+        AND <![CDATA[ expired > now()
+        ]]>
     </select>
 
     <select id="getByName" resultMap="UserResult">

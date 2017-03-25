@@ -14,6 +14,7 @@ import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.OrderCheckDto;
 import com.xie.response.OrderCountDto;
 import com.xie.service.*;
+import com.xie.utils.MallConstants;
 import com.xie.utils.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
@@ -69,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
     private ItemSpecService itemSpecService;
 
     @Autowired
-    private OrderLogService orderLogService;
+    private PointService pointService;
 
     @Override
     public Order getById(int id) {
@@ -153,6 +154,7 @@ public class OrderServiceImpl implements OrderService {
         orderCheckDto.setTotalAmount(totalAmount);
         orderCheckDto.setItems(cartList);
         orderCheckDto.setPayments(paymentService.getEnabled());
+        orderCheckDto.setPoint(pointService.getByUid(uid).getPoints());
 
         orderCheckDto.setDate_start(DateTime.now().plusDays(1).toDate());
         orderCheckDto.setDate_end(DateTime.now().plusDays(3).toDate());
@@ -266,7 +268,9 @@ public class OrderServiceImpl implements OrderService {
 
 
         //point
-        order.setPoint(order_money * 100);
+        int point = (int) (order_money);
+        order.setPoint(point);
+        pointService.add(uid, 0, point);
 
         //地址操作
         order.setAddress_id(address.getId());
@@ -409,6 +413,15 @@ public class OrderServiceImpl implements OrderService {
         orderCountDto.setOrder_receive(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
         orderCountDto.setOrder_sending(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
         orderCountDto.setOrder_finish(orderDao.countByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+        Point point = pointService.getByUid(uid);
+        orderCountDto.setPoint(point.getPoints());
+        orderCountDto.setMoney(point.getMoney());
+        if (uid < 12) {
+            orderCountDto.setAdmins(MallConstants.YES);
+        } else {
+            orderCountDto.setAdmins(MallConstants.NO);
+        }
+
         return orderCountDto;
     }
 

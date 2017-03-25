@@ -16,6 +16,7 @@ import java.util.List;
 public class OrderCheckDto {
     private Address address;
     private int bonusCount;
+    private int point;
 
     @JsonSerialize(using = DoubleSerializer.class)
     private double totalAmount;
@@ -96,5 +97,13 @@ public class OrderCheckDto {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

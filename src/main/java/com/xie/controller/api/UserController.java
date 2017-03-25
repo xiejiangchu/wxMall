@@ -1,11 +1,13 @@
 package com.xie.controller.api;
 
+import com.xie.bean.Point;
 import com.xie.bean.User;
 import com.xie.bean.WxSession;
 import com.xie.bean.WxUser;
 import com.xie.config.WxPayConfig;
 import com.xie.response.BaseResponse;
 import com.xie.response.SessionResponse;
+import com.xie.service.PointService;
 import com.xie.service.UserService;
 import com.xie.utils.AES;
 import com.xie.utils.MallConstants;
@@ -42,6 +44,10 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PointService pointService;
+
 
     @Autowired
     private AES aes;
@@ -151,6 +157,13 @@ public class UserController extends BaseController {
                             user = userService.getById(uid);
                             session.setAttribute(MallConstants.SESSION_USER, user);
                             sessionResponse.setUid(uid);
+
+                            //积分初始化
+                            Point point = new Point();
+                            point.setUid(uid);
+                            point.setMoney(0);
+                            point.setPoints(0);
+                            pointService.insert(point);
                         }
                     }
                     return BaseResponse.ok(sessionResponse);

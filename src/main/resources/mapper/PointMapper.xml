@@ -6,6 +6,7 @@
     <resultMap id="PointResult" type="Point" autoMapping="true">
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="uid" column="uid" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="money" column="money" javaType="Double" jdbcType="DECIMAL"/>
         <result property="points" column="points" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -16,6 +17,7 @@
         id,
         uid,
         points,
+        money,
         created_at,
         updated_at
         FROM point
@@ -26,6 +28,7 @@
         id,
         uid,
         points,
+        money,
         created_at,
         updated_at
         FROM point
@@ -37,6 +40,7 @@
         id,
         uid,
         points,
+        money,
         created_at,
         updated_at
         FROM point
@@ -55,6 +59,9 @@
             <if test="points!=null">
                 ,points
             </if>
+            <if test="money!=null">
+                ,money
+            </if>
             ,created_at
             ,updated_at
         </trim>
@@ -65,6 +72,9 @@
             </if>
             <if test="points!=null">
                 ,#{points}
+            </if>
+            <if test="money!=null">
+                ,#{money}
             </if>
             ,now()
             ,now()
@@ -78,12 +88,30 @@
             <if test="uid!=null">
                 ,uid=#{uid}
             </if>
-            <if test="uid!=null">
-                ,uid=#{uid}
+            <if test="points!=null">
+                ,points=#{points}
+            </if>
+            <if test="money!=null">
+                ,money=#{money}
             </if>
         </trim>
         ,updated_at=now()
         where id=#{id}
+    </update>
+
+
+    <update id="add">
+        UPDATE point set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="points!=null">
+                ,points=points + #{points}
+            </if>
+            <if test="money!=null">
+                ,money= money + #{money}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where uid=#{uid}
     </update>
 
     <delete id="delete">

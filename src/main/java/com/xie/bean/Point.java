@@ -1,5 +1,8 @@
 package com.xie.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xie.utils.DoubleSerializer;
+
 import java.util.Date;
 
 /**
@@ -17,6 +20,8 @@ public class Point {
     private int id;
     private int uid;
     private int points;
+    @JsonSerialize(using = DoubleSerializer.class)
+    private double money;
     private Date created_at;
     private Date updated_at;
 
@@ -58,5 +63,13 @@ public class Point {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 }

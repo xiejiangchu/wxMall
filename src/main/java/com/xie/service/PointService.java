@@ -16,13 +16,15 @@ import java.util.List;
  */
 public interface PointService {
 
-    public List<Point> getByUid(Integer uid);
+    public Point getByUid(Integer uid);
 
     public Point getById(int id);
 
     public int insert(Point point);
 
     public int update(Point point);
+
+    public int add(int uid, double money, int point);
 
     public int delete(Point point);
 

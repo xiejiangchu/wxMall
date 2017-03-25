@@ -36,6 +36,7 @@ public class ItemController extends BaseController {
 
     /**
      * 获取能够显示的
+     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -49,6 +50,7 @@ public class ItemController extends BaseController {
 
     /**
      * 获取所有的
+     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -62,6 +64,7 @@ public class ItemController extends BaseController {
 
     /**
      * 由分类获取所有商品
+     *
      * @param cid1
      * @param cid2
      * @param pageNum
@@ -79,6 +82,7 @@ public class ItemController extends BaseController {
 
     /**
      * 获取详情
+     *
      * @param id
      * @return
      */
@@ -90,6 +94,7 @@ public class ItemController extends BaseController {
 
     /**
      * 查找
+     *
      * @param keyword
      * @param pageNum
      * @param pageSize
@@ -105,6 +110,7 @@ public class ItemController extends BaseController {
 
     /**
      * 列表
+     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -118,6 +124,7 @@ public class ItemController extends BaseController {
 
     /**
      * top 10个
+     *
      * @return
      */
     @RequestMapping(value = "/top", method = RequestMethod.GET)
@@ -129,6 +136,7 @@ public class ItemController extends BaseController {
 
     /**
      * 修改
+     *
      * @param id
      * @param itemDto
      * @return
@@ -160,6 +168,7 @@ public class ItemController extends BaseController {
 
     /**
      * 增加
+     *
      * @param itemDto
      * @return
      */
@@ -191,6 +200,7 @@ public class ItemController extends BaseController {
 
     /**
      * 下架商品
+     *
      * @param item
      * @return
      */
@@ -205,9 +215,22 @@ public class ItemController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/offline2", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse offline2(@RequestParam(value = "id") int id,
+                                 @RequestParam(value = "online") int online) {
+        int result = itemService.offline(id, online);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
 
     /**
      * 删除商品
+     *
      * @param id
      * @return
      */

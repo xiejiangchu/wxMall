@@ -164,7 +164,7 @@
         updated_at,
         deleted_at
         FROM items
-        WHERE items.is_online = 1
+        WHERE is_online = 1
     </select>
 
     <select id="getByCategory" resultMap="ItemResult">

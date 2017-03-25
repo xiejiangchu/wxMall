@@ -6,7 +6,9 @@ import com.xie.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +27,7 @@ public class PointServiceImpl implements PointService {
     PointDao pointDao;
 
     @Override
-    public List<Point> getByUid(Integer uid) {
+    public Point getByUid(Integer uid) {
         return pointDao.getByUid(uid);
     }
 
@@ -42,6 +44,11 @@ public class PointServiceImpl implements PointService {
     @Override
     public int update(Point point) {
         return pointDao.update(point);
+    }
+
+    @Override
+    public int add(int uid, double money, int point) {
+        return pointDao.add(uid, money, point);
     }
 
     @Override

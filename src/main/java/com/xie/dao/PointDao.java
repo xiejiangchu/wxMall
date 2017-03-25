@@ -4,7 +4,9 @@ import com.xie.bean.Point;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -13,8 +15,8 @@ import java.util.List;
 @Component
 public class PointDao extends BaseDao {
 
-    public List<Point> getByUid(Integer uid) {
-        return this.sqlSession.selectList("PointMapper.getByUid", uid);
+    public Point getByUid(Integer uid) {
+        return this.sqlSession.selectOne("PointMapper.getByUid", uid);
     }
 
     public Point getById(int id) {
@@ -24,6 +26,14 @@ public class PointDao extends BaseDao {
     public int insert(Point point) {
         this.sqlSession.insert("PointMapper.insert", point);
         return point.getId();
+    }
+
+    public int add(int uid, double money, int point) {
+        Map map = new HashMap<>();
+        map.put("uid", uid);
+        map.put("money", money);
+        map.put("point", point);
+        return this.sqlSession.update("PointMapper.add", map);
     }
 
     public int update(Point point) {

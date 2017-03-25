@@ -1,0 +1,92 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CategoryFoodMapper">
+
+    <resultMap id="CategoryFoodResult" type="CategoryFood" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="thumb" column="thumb" javaType="String" jdbcType="VARCHAR"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="CategoryFoodResult">
+        SELECT
+        id,
+        name,
+        thumb,
+         created_at,
+        updated_at
+        FROM category_food
+        WHERE id=#{id}
+    </select>
+
+    <select id="getByName" resultMap="CategoryFoodResult">
+        SELECT
+        id,
+        name,
+        thumb,
+         created_at,
+        updated_at
+        FROM category_food
+        WHERE name=#{name}
+    </select>
+
+    <select id="getAll" resultMap="CategoryFoodResult">
+        SELECT
+        id,
+        name,
+        thumb,
+         created_at,
+        updated_at
+        FROM category_food
+    </select>
+
+    <insert id="insert" parameterType="Cart">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO category_food (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="thumb!=null">
+                ,thumb
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="thumb!=null">
+                ,#{thumb}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="Food">
+        UPDATE category_food SET
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="thumb!=null">
+                ,thumb=#{thumb}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM category_food WHERE id=#{id}
+    </delete>
+</mapper>

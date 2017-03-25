@@ -27,7 +27,7 @@ public class FieldUtils {
 
     public static void mains(String[] args) {
         Connection conn = getConnection();
-        String sql = "select * from users";
+        String sql = "select * from food";
         PreparedStatement stmt;
         try {
             stmt = conn.prepareStatement(sql);
@@ -88,10 +88,13 @@ public class FieldUtils {
 //                                "</if>";
 //                        System.out.println(str2.replace("#columnName#",columnName));
 
-                        String str3="<if test=\"#columnName#!=null\">\n" +
-                                ",#columnName#=#{#columnName#}\n" +
-                                "</if>";
-                        System.out.println(str3.replace("#columnName#",columnName));
+//                        String str3="<if test=\"#columnName#!=null\">\n" +
+//                                ",#columnName#=#{#columnName#}\n" +
+//                                "</if>";
+//                        System.out.println(str3.replace("#columnName#",columnName));
+
+//                        String str4="<result property=\"#columnName#\" column=\"#columnName#\" javaType=\"Double\" jdbcType=\"DECIMAL\"/>";
+//                        System.out.println(str4.replace("#columnName#",columnName));
 
 
 

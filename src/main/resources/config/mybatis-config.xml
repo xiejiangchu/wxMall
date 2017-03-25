@@ -53,6 +53,8 @@
         <typeAlias type="com.xie.bean.SysLog" alias="SysLog"/>
         <typeAlias type="com.xie.bean.User" alias="User"/>
         <typeAlias type="com.xie.bean.Point" alias="Point"/>
+        <typeAlias type="com.xie.bean.Food" alias="Food"/>
+        <typeAlias type="com.xie.bean.CategoryFood" alias="CategoryFood"/>
     </typeAliases>
 
     <plugins>

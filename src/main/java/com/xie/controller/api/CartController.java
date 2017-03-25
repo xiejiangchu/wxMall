@@ -16,17 +16,11 @@ public class CartController extends BaseController {
     @Autowired
     private CartService cartService;
 
-    @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
-    @ResponseBody
-    public BaseResponse cart(@PathVariable("uid") int uid) {
-        return BaseResponse.ok(cartService.getByUid(uid));
-    }
-
     @RequestMapping(value = "/clear", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse clear(@RequestParam("uid") int uid) {
-        cartService.clear(uid);
-        return BaseResponse.ok(cartService.getByUidWithItem(uid));
+    public BaseResponse clear(@RequestParam(value = "sessionId", required = true) String sessionId) {
+        cartService.clear(getUid(sessionId));
+        return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
     }
 
     @RequestMapping(value = "item/", method = RequestMethod.GET)

@@ -16,7 +16,7 @@ public class DoubleSerializer extends JsonSerializer<Double> {
 
     @Override
     public void serialize(Double value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         String formattedDate = df.format(value);
         gen.writeString(formattedDate);
     }

@@ -4,7 +4,6 @@ import com.xie.auth.AuthenticationTokenProcessingFilter;
 import com.xie.auth.MyAccessDeniedHandler;
 import com.xie.auth.MyAuthenticationProvider;
 import com.xie.auth.MyUserDetailsService;
-import com.xie.csrf.MyCsrfRequestMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,17 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     MyUserDetailsService myUserDetailsService;
-
-    @Autowired
-    private MyAuthenticationProvider myAuthenticationProvider;//自定义验证
-
-    @Autowired
-    MyCsrfRequestMatcher myCsrfSecurityRequestMatcher;
-
-
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    @Autowired
+    private MyAuthenticationProvider myAuthenticationProvider;//自定义验证
     @Autowired
     private AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter;
 
@@ -56,17 +48,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //Let’s you specify a custom LogoutSuccessHandler. If this is specified, logoutSuccessUrl() is ignored. For for information,
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.addFilterBefore(authenticationTokenProcessingFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/js/**", "/admin/html/**", "/admin/js/**", "/admin/template/**", "/admin/*.html", "/css/**", "/**/favicon.ico").permitAll()
-                .antMatchers("/", "index", "/banner/list", "/category/**", "/item/list", "/item/getAllAvailable", "/item/getByCategory").permitAll()
+                .antMatchers("/", "index", "/banner/list", "/category/**", "/item/*").permitAll()
+                .antMatchers("/user/get3rdSession", "/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login.html").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/admin", true).failureUrl("/login.html?error=true").permitAll()
                 .and().logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccess").invalidateHttpSession(true)
                 .and().exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
 //                .and().addFilterAfter(new MyCsrfHeaderFilter(), CsrfFilter.class);
 //        http.csrf().requireCsrfProtectionMatcher(myCsrfSecurityRequestMatcher).csrfTokenRepository(csrfTokenRepository());
-        http.csrf().disable();
+
     }
 
     @Override

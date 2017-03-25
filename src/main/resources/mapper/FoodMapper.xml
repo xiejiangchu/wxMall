@@ -1,0 +1,474 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FoodMapper">
+
+    <resultMap id="FoodResult" type="Food" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="cid" column="cid" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="food_name" column="food_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="Energ" column="Energ" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Protein" column="Protein" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Riboflavin" column="Riboflavin" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Lipid_Tot" column="Lipid_Tot" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Carbohydrt" column="Carbohydrt" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Fiber_TD" column="Fiber_TD" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Calcium" column="Calcium" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Iron" column="Iron" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Magnesium" column="Magnesium" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Phosphorus" column="Phosphorus" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Potassium" column="Potassium" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Sodium" column="Sodium" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Zinc" column="Zinc" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Copper" column="Copper" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Manganese" column="Manganese" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Selenium" column="Selenium" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Vit_C" column="Vit_C" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Thiamin" column="Thiamin" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Panto_Acid" column="Panto_Acid" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Cholestrl" column="Cholestrl" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Vit_A_RAE" column="Vit_A_RAE" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Retinol" column="Retinol" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Alpha_Carot" column="Alpha_Carot" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="Vit_E" column="Vit_E" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="FoodResult">
+        SELECT
+        id,
+        cid,
+        food_name,
+        Energ,
+        Protein,
+        Riboflavin,
+        Lipid_Tot,
+        Carbohydrt,
+        Fiber_TD,
+        Calcium,
+        Iron,
+        Magnesium,
+        Phosphorus,
+        Potassium,
+        Sodium,
+        Zinc,
+        Copper,
+        Manganese,
+        Selenium,
+        Vit_C,
+        Thiamin,
+        Panto_Acid,
+        Cholestrl,
+        Vit_A_RAE,
+        Retinol,
+        Alpha_Carot,
+        Vit_E,
+         created_at,
+        updated_at
+        FROM food
+        WHERE id=#{id}
+    </select>
+
+    <select id="getByName" resultMap="FoodResult">
+        SELECT
+        id,
+        cid,
+        food_name,
+        Energ,
+        Protein,
+        Riboflavin,
+        Lipid_Tot,
+        Carbohydrt,
+        Fiber_TD,
+        Calcium,
+        Iron,
+        Magnesium,
+        Phosphorus,
+        Potassium,
+        Sodium,
+        Zinc,
+        Copper,
+        Manganese,
+        Selenium,
+        Vit_C,
+        Thiamin,
+        Panto_Acid,
+        Cholestrl,
+        Vit_A_RAE,
+        Retinol,
+        Alpha_Carot,
+        Vit_E,
+         created_at,
+        updated_at
+        FROM food
+        WHERE food_name=#{name}
+    </select>
+
+    <select id="search" resultMap="FoodResult">
+        SELECT
+        id,
+        cid,
+        food_name,
+        Energ,
+        Protein,
+        Riboflavin,
+        Lipid_Tot,
+        Carbohydrt,
+        Fiber_TD,
+        Calcium,
+        Iron,
+        Magnesium,
+        Phosphorus,
+        Potassium,
+        Sodium,
+        Zinc,
+        Copper,
+        Manganese,
+        Selenium,
+        Vit_C,
+        Thiamin,
+        Panto_Acid,
+        Cholestrl,
+        Vit_A_RAE,
+        Retinol,
+        Alpha_Carot,
+        Vit_E,
+        created_at,
+        updated_at
+        FROM food
+        WHERE food_name like CONCAT('%',#{name},'%')
+    </select>
+
+    <select id="getByCid" resultMap="FoodResult">
+        SELECT
+        id,
+        cid,
+        food_name,
+        Energ,
+        Protein,
+        Riboflavin,
+        Lipid_Tot,
+        Carbohydrt,
+        Fiber_TD,
+        Calcium,
+        Iron,
+        Magnesium,
+        Phosphorus,
+        Potassium,
+        Sodium,
+        Zinc,
+        Copper,
+        Manganese,
+        Selenium,
+        Vit_C,
+        Thiamin,
+        Panto_Acid,
+        Cholestrl,
+        Vit_A_RAE,
+        Retinol,
+        Alpha_Carot,
+        Vit_E,
+         created_at,
+        updated_at
+        FROM food
+        WHERE cid=#{cid}
+    </select>
+
+    <select id="getAll" resultMap="FoodResult">
+        SELECT
+        id,
+        cid,
+        food_name,
+        Energ,
+        Protein,
+        Riboflavin,
+        Lipid_Tot,
+        Carbohydrt,
+        Fiber_TD,
+        Calcium,
+        Iron,
+        Magnesium,
+        Phosphorus,
+        Potassium,
+        Sodium,
+        Zinc,
+        Copper,
+        Manganese,
+        Selenium,
+        Vit_C,
+        Thiamin,
+        Panto_Acid,
+        Cholestrl,
+        Vit_A_RAE,
+        Retinol,
+        Alpha_Carot,
+        Vit_E,
+         created_at,
+        updated_at
+        FROM food
+    </select>
+
+    <insert id="insert" parameterType="Cart">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO food (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="cid!=null">
+                ,cid
+            </if>
+            <if test="food_name!=null">
+                ,food_name
+            </if>
+            <if test="Energ!=null">
+                ,Energ
+            </if>
+            <if test="Protein!=null">
+                ,Protein
+            </if>
+            <if test="Riboflavin!=null">
+                ,Riboflavin
+            </if>
+            <if test="Lipid_Tot!=null">
+                ,Lipid_Tot
+            </if>
+            <if test="Carbohydrt!=null">
+                ,Carbohydrt
+            </if>
+            <if test="Fiber_TD!=null">
+                ,Fiber_TD
+            </if>
+            <if test="Calcium!=null">
+                ,Calcium
+            </if>
+            <if test="Iron!=null">
+                ,Iron
+            </if>
+            <if test="Magnesium!=null">
+                ,Magnesium
+            </if>
+            <if test="Phosphorus!=null">
+                ,Phosphorus
+            </if>
+            <if test="Potassium!=null">
+                ,Potassium
+            </if>
+            <if test="Sodium!=null">
+                ,Sodium
+            </if>
+            <if test="Zinc!=null">
+                ,Zinc
+            </if>
+            <if test="Copper!=null">
+                ,Copper
+            </if>
+            <if test="Manganese!=null">
+                ,Manganese
+            </if>
+            <if test="Selenium!=null">
+                ,Selenium
+            </if>
+            <if test="Vit_C!=null">
+                ,Vit_C
+            </if>
+            <if test="Thiamin!=null">
+                ,Thiamin
+            </if>
+            <if test="Panto_Acid!=null">
+                ,Panto_Acid
+            </if>
+            <if test="Cholestrl!=null">
+                ,Cholestrl
+            </if>
+            <if test="Vit_A_RAE!=null">
+                ,Vit_A_RAE
+            </if>
+            <if test="Retinol!=null">
+                ,Retinol
+            </if>
+            <if test="Alpha_Carot!=null">
+                ,Alpha_Carot
+            </if>
+            <if test="Vit_E!=null">
+                ,Vit_E
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="cid!=null">
+                ,#{cid}
+            </if>
+            <if test="food_name!=null">
+                ,#{food_name}
+            </if>
+            <if test="Energ!=null">
+                ,#{Energ}
+            </if>
+            <if test="Protein!=null">
+                ,#{Protein}
+            </if>
+            <if test="Riboflavin!=null">
+                ,#{Riboflavin}
+            </if>
+            <if test="Lipid_Tot!=null">
+                ,#{Lipid_Tot}
+            </if>
+            <if test="Carbohydrt!=null">
+                ,#{Carbohydrt}
+            </if>
+            <if test="Fiber_TD!=null">
+                ,#{Fiber_TD}
+            </if>
+            <if test="Calcium!=null">
+                ,#{Calcium}
+            </if>
+            <if test="Iron!=null">
+                ,#{Iron}
+            </if>
+            <if test="Magnesium!=null">
+                ,#{Magnesium}
+            </if>
+            <if test="Phosphorus!=null">
+                ,#{Phosphorus}
+            </if>
+            <if test="Potassium!=null">
+                ,#{Potassium}
+            </if>
+            <if test="Sodium!=null">
+                ,#{Sodium}
+            </if>
+            <if test="Zinc!=null">
+                ,#{Zinc}
+            </if>
+            <if test="Copper!=null">
+                ,#{Copper}
+            </if>
+            <if test="Manganese!=null">
+                ,#{Manganese}
+            </if>
+            <if test="Selenium!=null">
+                ,#{Selenium}
+            </if>
+            <if test="Vit_C!=null">
+                ,#{Vit_C}
+            </if>
+            <if test="Thiamin!=null">
+                ,#{Thiamin}
+            </if>
+            <if test="Panto_Acid!=null">
+                ,#{Panto_Acid}
+            </if>
+            <if test="Cholestrl!=null">
+                ,#{Cholestrl}
+            </if>
+            <if test="Vit_A_RAE!=null">
+                ,#{Vit_A_RAE}
+            </if>
+            <if test="Retinol!=null">
+                ,#{Retinol}
+            </if>
+            <if test="Alpha_Carot!=null">
+                ,#{Alpha_Carot}
+            </if>
+            <if test="Vit_E!=null">
+                ,#{Vit_E}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="Food">
+        UPDATE food SET
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="cid!=null">
+                ,cid=#{cid}
+            </if>
+            <if test="food_name!=null">
+                ,food_name=#{food_name}
+            </if>
+            <if test="Energ!=null">
+                ,Energ=#{Energ}
+            </if>
+            <if test="Protein!=null">
+                ,Protein=#{Protein}
+            </if>
+            <if test="Riboflavin!=null">
+                ,Riboflavin=#{Riboflavin}
+            </if>
+            <if test="Lipid_Tot!=null">
+                ,Lipid_Tot=#{Lipid_Tot}
+            </if>
+            <if test="Carbohydrt!=null">
+                ,Carbohydrt=#{Carbohydrt}
+            </if>
+            <if test="Fiber_TD!=null">
+                ,Fiber_TD=#{Fiber_TD}
+            </if>
+            <if test="Calcium!=null">
+                ,Calcium=#{Calcium}
+            </if>
+            <if test="Iron!=null">
+                ,Iron=#{Iron}
+            </if>
+            <if test="Magnesium!=null">
+                ,Magnesium=#{Magnesium}
+            </if>
+            <if test="Phosphorus!=null">
+                ,Phosphorus=#{Phosphorus}
+            </if>
+            <if test="Potassium!=null">
+                ,Potassium=#{Potassium}
+            </if>
+            <if test="Sodium!=null">
+                ,Sodium=#{Sodium}
+            </if>
+            <if test="Zinc!=null">
+                ,Zinc=#{Zinc}
+            </if>
+            <if test="Copper!=null">
+                ,Copper=#{Copper}
+            </if>
+            <if test="Manganese!=null">
+                ,Manganese=#{Manganese}
+            </if>
+            <if test="Selenium!=null">
+                ,Selenium=#{Selenium}
+            </if>
+            <if test="Vit_C!=null">
+                ,Vit_C=#{Vit_C}
+            </if>
+            <if test="Thiamin!=null">
+                ,Thiamin=#{Thiamin}
+            </if>
+            <if test="Panto_Acid!=null">
+                ,Panto_Acid=#{Panto_Acid}
+            </if>
+            <if test="Cholestrl!=null">
+                ,Cholestrl=#{Cholestrl}
+            </if>
+            <if test="Vit_A_RAE!=null">
+                ,Vit_A_RAE=#{Vit_A_RAE}
+            </if>
+            <if test="Retinol!=null">
+                ,Retinol=#{Retinol}
+            </if>
+            <if test="Alpha_Carot!=null">
+                ,Alpha_Carot=#{Alpha_Carot}
+            </if>
+            <if test="Vit_E!=null">
+                ,Vit_E=#{Vit_E}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM food WHERE id=#{id}
+    </delete>
+</mapper>

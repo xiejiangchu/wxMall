@@ -1,7 +1,6 @@
 package com.xie.config;
 
 import com.xie.auth.AdminInteceptor;
-import com.xie.csrf.CSRFHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -14,8 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    private CSRFHandlerInterceptor csrfHandlerInterceptor;
     @Autowired
     private AdminInteceptor adminInteceptor;
 

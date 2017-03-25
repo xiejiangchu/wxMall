@@ -110,7 +110,7 @@ public class UserController extends BaseController {
         return BaseResponse.ok(sessionResponse);
     }
 
-    @RequestMapping(value = "get3rdSession", method = RequestMethod.GET)
+    @RequestMapping(value = "/get3rdSession", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get3rdSession(@RequestParam("code") String code,
                                       @RequestParam("encryptedData") String encryptedData,

@@ -28,8 +28,10 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.selectList("ItemMapper.getAllAvailable");
     }
 
-    public List<Item> getAllCanShow() {
-        return this.sqlSession.selectList("ItemMapper.getAllCanShow");
+    public List<Item> getAllCanShow(String orderBy) {
+        Map map = new HashMap<String, Object>();
+        map.put("orderBy", orderBy);
+        return this.sqlSession.selectList("ItemMapper.getAllCanShow", map);
     }
 
     public List<Item> getByCategory(Integer cid1, Integer cid2) {

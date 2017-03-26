@@ -115,6 +115,7 @@ public class OrderController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse submit(@RequestParam(value = "sessionId") String sessionId,
+                               @RequestParam("point") int point,
                                @RequestParam("aid") int aid,
                                @RequestParam("bid") int bid,
                                @RequestParam("pid") int pid,
@@ -122,7 +123,7 @@ public class OrderController extends BaseController {
                                @RequestParam("time_start") Date time_start,
                                @RequestParam("time_end") Date time_end,
                                @RequestParam("message") String message) {
-        int result = orderService.submit(getUid(sessionId), aid, bid, pid, date, time_start, time_end, message);
+        int result = orderService.submit(getUid(sessionId), point, aid, bid, pid, date, time_start, time_end, message);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

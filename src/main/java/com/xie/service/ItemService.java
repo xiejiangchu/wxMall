@@ -18,7 +18,7 @@ public interface ItemService {
 
     PageInfo<Item> search(String keywors, int pageNum, int pageSize);
 
-    PageInfo<Item> getAllCanShow(int pageNum, int pageSize);
+    PageInfo<Item> getAllCanShow(int orderBy, int pageNum, int pageSize);
 
     PageInfo<Item> top(int pageNum, int pageSize);
 

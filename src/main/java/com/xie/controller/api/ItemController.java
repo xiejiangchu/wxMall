@@ -117,9 +117,10 @@ public class ItemController extends BaseController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+    BaseResponse list(@RequestParam(value = "orderby", required = false, defaultValue = "0") int orderby,
+                      @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(itemService.getAllCanShow(pageNum, pageSize));
+        return BaseResponse.ok(itemService.getAllCanShow(orderby, pageNum, pageSize));
     }
 
     /**

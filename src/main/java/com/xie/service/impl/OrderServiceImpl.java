@@ -295,7 +295,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public int submit(int uid, int aid, int bid, int pid, Date date, Date time_start, Date time_end, String message) {
+    public int submit(int uid, int point, int aid, int bid, int pid, Date date, Date time_start, Date time_end, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
         List<OrderItem> orderItems = new ArrayList<>();
         Address address = addressService.getById(aid);
@@ -333,9 +333,9 @@ public class OrderServiceImpl implements OrderService {
 
 
         //point
-        int point = (int) (order_money);
-        order.setPoint(point);
-        pointService.add(uid, 0, point);
+        int point_add = (int) (order_money);
+        order.setPoint(point_add);
+        pointService.add(uid, 0, point_add);
 
         //地址操作
         order.setAddress_id(address.getId());

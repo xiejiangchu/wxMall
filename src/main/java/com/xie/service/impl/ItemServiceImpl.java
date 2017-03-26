@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Item;
 import com.xie.dao.ItemDao;
+import com.xie.enums.ItemOrderByType;
 import com.xie.service.ItemImageService;
 import com.xie.service.ItemService;
 import com.xie.service.ItemSpecService;
@@ -53,9 +54,25 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public PageInfo<Item> getAllCanShow(int pageNum, int pageSize) {
+    public PageInfo<Item> getAllCanShow(int orderBy, int pageNum, int pageSize) {
+        String orderby = null;
+        if (orderBy == ItemOrderByType.推荐排序.value()) {
+            orderby = "sort DESC";
+        } else if (orderBy == ItemOrderByType.按商品名称字典正序.value()) {
+            orderby = "name DESC";
+        } else if (orderBy == ItemOrderByType.按商品名称字典反序.value()) {
+            orderby = "name ASC";
+        } else if (orderBy == ItemOrderByType.按商品类别由低到高.value()) {
+            orderby = "cid1 ASC,cid2 ASC";
+        } else if (orderBy == ItemOrderByType.按商品类别由高到低.value()) {
+            orderby = "cid1 DESC,cid2 DESC";
+        } else if (orderBy == ItemOrderByType.按上架时间由新到旧.value()) {
+            orderby = "created_at DESC";
+        } else if (orderBy == ItemOrderByType.按上架时间由旧到新.value()) {
+            orderby = "created_at ASC";
+        }
         PageHelper.startPage(pageNum, pageSize);
-        PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllCanShow());
+        PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllCanShow(orderby));
         List<Item> list = page.getList();
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setItemSpecList(itemSpecService.getAllByGid(list.get(i).getId()));

@@ -165,6 +165,9 @@
         deleted_at
         FROM items
         WHERE is_online = 1
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy}
+        </if>
     </select>
 
     <select id="getByCategory" resultMap="ItemResult">

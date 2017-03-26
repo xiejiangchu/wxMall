@@ -8,8 +8,8 @@ import java.util.Date;
 public class BaseResponse {
     private final static int SUCCESS_CODE = 0;
     private final static int FAIL_CODE = -1;
-    private final static String SUCCESS_MESSAGE = "ok";
-    private final static String FAIL_MESSAGE = "fail";
+    private final static String SUCCESS_MESSAGE = "成功";
+    private final static String FAIL_MESSAGE = "错误";
 
     private int code;
     private String msg;
@@ -31,8 +31,8 @@ public class BaseResponse {
         return new BaseResponse(SUCCESS_CODE, SUCCESS_MESSAGE, null);
     }
 
-    public static BaseResponse fail(Object data) {
-        return new BaseResponse(FAIL_CODE, FAIL_MESSAGE, data);
+    public static BaseResponse fail(String data) {
+        return new BaseResponse(FAIL_CODE, data, null);
     }
 
     public static BaseResponse fail() {

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Author xie
@@ -24,13 +25,20 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private RoleService roleService;
 
+    private ConcurrentHashMap<String, UserDetails> users = new ConcurrentHashMap<>();
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (users.containsKey(username)) {
+            return users.get(username);
+        }
         User user = userService.getByNameOrSessionId(username);
         if (null == user) {
             throw new UsernameNotFoundException("用户不存在");
         }
         List<Role> roles = roleService.getRolesByUid(user.getId());
-        return new MyUserDetails(user, roles);
+        UserDetails userDetails = new MyUserDetails(user, roles);
+        users.put(username, userDetails);
+        return userDetails;
     }
 }

@@ -138,11 +138,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderCheckDto check(int uid) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
+        List<Cart> carts = new ArrayList<>();
         double totalAmount = 0.0;
+        int changed = MallConstants.NO;
         for (int i = 0; i < cartList.size(); i++) {
+
             Cart cart = cartList.get(i);
-            cart.setSubTotal(cart.getAmount() * cart.getItemSpec().getShop_price());
-            totalAmount += cart.getSubTotal();
+            if (itemService.getById(cart.getGid()).getIs_online() == MallConstants.YES && itemSpecService.getById(cart.getSpec()).getIs_online() == MallConstants.YES) {
+                cart.setSubTotal(cart.getAmount() * cart.getItemSpec().getShop_price());
+                totalAmount += cart.getSubTotal();
+                carts.add(cart);
+            } else {
+                changed = MallConstants.YES;
+            }
         }
         Address address = addressService.getFirstAddress(uid);
         int bonus_count = bonusService.countEnabledByUid(uid);
@@ -152,9 +160,10 @@ public class OrderServiceImpl implements OrderService {
         orderCheckDto.setAddress(address);
         orderCheckDto.setBonusCount(bonus_count);
         orderCheckDto.setTotalAmount(totalAmount);
-        orderCheckDto.setItems(cartList);
+        orderCheckDto.setItems(carts);
         orderCheckDto.setPayments(paymentService.getEnabled());
         orderCheckDto.setPoint(pointService.getByUid(uid).getPoints());
+        orderCheckDto.setChanged(changed);
 
         orderCheckDto.setDate_start(DateTime.now().plusDays(1).toDate());
         orderCheckDto.setDate_end(DateTime.now().plusDays(3).toDate());
@@ -191,6 +200,62 @@ public class OrderServiceImpl implements OrderService {
             for (int i = 0; i < orders.size(); i++) {
                 Order order = orders.get(i);
                 order.setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+                if (!OrderType.所有.value().equals(type)) {
+                    order.setStatus(type);
+                    order.setStatusName(OrderType.getTypeName(type));
+                } else {
+                    if (order.getOrder_status() == OrderState.已取消.value()) {
+                        order.setStatus(OrderType.已取消.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.已取消.value()));
+                    } else if (order.getOrder_status() == OrderState.已完成.value()) {
+                        order.setStatus(OrderType.已完成.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.已完成.value()));
+                    } else if (order.getOrder_status() == OrderState.进行中.value()) {
+                        if (order.getPay_status() == PayState.未支付.value()) {
+                            order.setStatus(OrderType.待支付.value());
+                            order.setStatusName(OrderType.getTypeName(OrderType.待支付.value()));
+                        } else if (order.getPay_status() == PayState.已支付.value()) {
+                            if (order.getShip_status() == ShipState.待配送.value()) {
+                                order.setStatus(OrderType.待发货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                            } else if (order.getShip_status() == ShipState.配送中.value()) {
+                                order.setStatus(OrderType.待收货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return page;
+    }
+
+    @Override
+    public PageInfo<Order> getAllByType(int type, int pageNum, int pageSize) {
+        PageInfo<Order> page = null;
+
+        if (OrderType.待支付.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAllByStatus(OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
+        } else if (OrderType.待发货.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAllByStatus(OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
+        } else if (OrderType.待收货.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAllByStatus(OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
+        } else if (OrderType.已完成.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAllByStatus(OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+        } else if (OrderType.所有.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
+                    () -> orderDao.getAllByStatus(null, null, null, null));
+        }
+        if (null != page) {
+            List<Order> orders = page.getList();
+            for (int i = 0; i < orders.size(); i++) {
+                Order order = orders.get(i);
+                order.setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+                order.setUser(userService.getById(order.getUid()));
                 if (!OrderType.所有.value().equals(type)) {
                     order.setStatus(type);
                     order.setStatusName(OrderType.getTypeName(type));

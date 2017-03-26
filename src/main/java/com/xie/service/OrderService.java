@@ -27,6 +27,8 @@ public interface OrderService {
 
     PageInfo<Order> getByType(int uid, int type, int pageNum, int pageSize);
 
+    PageInfo<Order> getAllByType(int type, int pageNum, int pageSize);
+
     OrderCheckDto check(int uid);
 
     int countByUid(int uid);

@@ -73,6 +73,14 @@ public class OrderController extends BaseController {
         return BaseResponse.ok(orderService.getByType(getUid(sessionId), type, pageNum, pageSize));
     }
 
+    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse listAll(@RequestParam(value = "type") int type,
+                         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(orderService.getAllByType(type, pageNum, pageSize));
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody

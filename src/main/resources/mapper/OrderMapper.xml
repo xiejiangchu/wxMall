@@ -140,6 +140,7 @@
         <if test="time_end!=null">
             AND <![CDATA[ time_end <= #{time_end,javaType=Date,jdbcType=TIMESTAMP } ]]>
         </if>
+        ORDER by created_at DESC
     </select>
 
     <select id="getByStatus" resultMap="OrderResult" parameterType="map">
@@ -190,6 +191,7 @@
         <if test="ship_status!=null">
             and ship_status=#{ship_status}
         </if>
+        ORDER by created_at DESC
     </select>
 
     <select id="check" resultType="Integer">

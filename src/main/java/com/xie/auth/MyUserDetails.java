@@ -1,5 +1,6 @@
 package com.xie.auth;
 
+import com.xie.bean.Permission;
 import com.xie.bean.Role;
 import com.xie.bean.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,10 +24,12 @@ public class MyUserDetails implements UserDetails {
 
     private User user;
     private List<Role> roleList;
+    private List<Permission> permissionList;
 
-    public MyUserDetails(User user, List<Role> roleList) {
+    public MyUserDetails(User user, List<Role> roleList, List<Permission> permissionList) {
         this.user = user;
         this.roleList = roleList;
+        this.permissionList = permissionList;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class MyUserDetails implements UserDetails {
         }
         StringBuilder commaBuilder = new StringBuilder();
         for (Role role : roleList) {
-            commaBuilder.append(role.getName()).append(",");
+            commaBuilder.append("ROLE_" + role.getName().trim()).append(",");
         }
         String authorities = commaBuilder.substring(0, commaBuilder.length() - 1);
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
@@ -48,6 +51,22 @@ public class MyUserDetails implements UserDetails {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<Permission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Permission> permissionList) {
+        this.permissionList = permissionList;
     }
 
     @Override

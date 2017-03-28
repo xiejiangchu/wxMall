@@ -141,33 +141,45 @@ public class UserController extends BaseController {
                         userService.updateAll(user);
                         session.setAttribute(MallConstants.SESSION_USER, user);
                         sessionResponse.setUid(user.getId());
+                        return BaseResponse.ok(sessionResponse);
                     } else {
-                        byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(wxSession.getSession_key()), Base64.decodeBase64(iv));
-                        if (null != resultByte && resultByte.length > 0) {
-                            WxUser wxUser = JSON.parseObject(new String(resultByte, "UTF-8"), WxUser.class);
-                            User insert = new User();
-                            BeanUtils.copyProperties(wxUser, insert);
-                            insert.setName(wxUser.getNickName());
-                            insert.setEnabled(1);
-                            insert.setVerified(1);
-                            insert.setSessionId(sessionId);
-                            insert.setPassword(bCryptPasswordEncoder.encode("pass@1234"));
-                            insert.setExpired(DateTime.now().plusDays(30).toDate());
-                            int uid = userService.insertAll(insert);
-                            user = userService.getById(uid);
-                            session.setAttribute(MallConstants.SESSION_USER, user);
-                            sessionResponse.setUid(uid);
+                        if (null != wxSession.getSession_key()) {
+                            byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(wxSession.getSession_key()), Base64.decodeBase64(iv));
+                            if (null != resultByte && resultByte.length > 0) {
+                                WxUser wxUser = JSON.parseObject(new String(resultByte, "UTF-8"), WxUser.class);
+                                User insert = new User();
+                                BeanUtils.copyProperties(wxUser, insert);
+                                insert.setSessionId(sessionId);
+                                insert.setExpired(DateTime.now().plusDays(30).toDate());
 
-                            //积分初始化
-                            Point point = new Point();
-                            point.setUid(uid);
-                            point.setMoney(0);
-                            point.setPoints(0);
-                            pointService.insert(point);
+                                User checkExisted = userService.getByOpenId(insert.getOpenId());
+                                int uid = -1;
+                                if (checkExisted != null) {
+                                    uid = checkExisted.getId();
+                                    userService.updateAll(insert);
+                                } else {
+                                    insert.setName(wxUser.getNickName());
+                                    insert.setEnabled(1);
+                                    insert.setVerified(1);
+                                    insert.setPassword(bCryptPasswordEncoder.encode("pass@1234"));
+                                    uid = userService.insertAll(insert);
+                                    user = userService.getById(uid);
+                                    session.setAttribute(MallConstants.SESSION_USER, user);
+                                    sessionResponse.setUid(uid);
+                                    //积分初始化
+                                    Point point = new Point();
+                                    point.setUid(uid);
+                                    point.setMoney(0);
+                                    point.setPoints(0);
+                                    pointService.insert(point);
+                                }
+                            }
+                            return BaseResponse.ok(sessionResponse);
+                        } else {
+                            logger.error("微信appKey,appSecret错误");
                         }
-                    }
-                    return BaseResponse.ok(sessionResponse);
 
+                    }
                 }
             } finally {
                 httpResponse.close();
@@ -183,6 +195,6 @@ public class UserController extends BaseController {
                 e.printStackTrace();
             }
         }
-        return BaseResponse.fail();
+        return BaseResponse.ok();
     }
 }

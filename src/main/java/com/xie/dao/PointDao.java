@@ -28,11 +28,11 @@ public class PointDao extends BaseDao {
         return point.getId();
     }
 
-    public int add(int uid, double money, int point) {
+    public int add(int uid, double money, int points) {
         Map map = new HashMap<>();
         map.put("uid", uid);
         map.put("money", money);
-        map.put("point", point);
+        map.put("points", points);
         return this.sqlSession.update("PointMapper.add", map);
     }
 

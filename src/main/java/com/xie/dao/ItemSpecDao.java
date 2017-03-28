@@ -4,7 +4,9 @@ import com.xie.bean.ItemSpec;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xie on 16/11/24.
@@ -20,6 +22,10 @@ public class ItemSpecDao extends BaseDao {
 
     public List<ItemSpec> getAllByGid(int gid) {
         return this.sqlSession.selectList("ItemSpecMapper.getAllByGid", gid);
+    }
+
+    public List<ItemSpec> getOnlineByGid(int gid) {
+        return this.sqlSession.selectList("ItemSpecMapper.getOnlineByGid", gid);
     }
 
 
@@ -49,6 +55,13 @@ public class ItemSpecDao extends BaseDao {
 
     public int updateRemainAndSale(ItemSpec itemSpec) {
         return this.sqlSession.update("ItemSpecMapper.updateRemainAndSale", itemSpec);
+    }
+
+    public int offline(int id, int is_online) {
+        Map map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("is_online", is_online);
+        return this.sqlSession.update("ItemSpecMapper.offline", map);
     }
 
 }

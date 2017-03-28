@@ -1,7 +1,9 @@
 package com.xie.auth;
 
+import com.xie.bean.Permission;
 import com.xie.bean.Role;
 import com.xie.bean.User;
+import com.xie.service.PermissionService;
 import com.xie.service.RoleService;
 import com.xie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class MyUserDetailsService implements UserDetailsService {
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     private ConcurrentHashMap<String, UserDetails> users = new ConcurrentHashMap<>();
 
@@ -37,7 +43,8 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         List<Role> roles = roleService.getRolesByUid(user.getId());
-        UserDetails userDetails = new MyUserDetails(user, roles);
+        List<Permission> permissions = permissionService.getByUid(user.getId());
+        UserDetails userDetails = new MyUserDetails(user, roles, permissions);
         users.put(username, userDetails);
         return userDetails;
     }

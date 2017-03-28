@@ -7,7 +7,6 @@ import com.xie.auth.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,9 +21,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
  * @Date 17/1/19 下午4:32.
  */
 @Configuration
-@EnableWebSecurity
-//启用Security注解，例如最常用的@PreAuthorize
-@EnableGlobalMethodSecurity(prePostEnabled = false)
+@EnableWebSecurity(debug = false)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -54,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**", "/admin/html/**", "/admin/js/**", "/admin/template/**", "/admin/*.html", "/css/**", "/**/favicon.ico").permitAll()
                 .antMatchers("/", "index", "/banner/list", "/category/**", "/item/*").permitAll()
                 .antMatchers("/user/get3rdSession", "/user/login").permitAll()
+                .antMatchers("/sysConfig/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login.html").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/admin", true).failureUrl("/login.html?error=true").permitAll()
                 .and().logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccess").invalidateHttpSession(true)
@@ -65,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("112233").roles("USER");
+        auth.inMemoryAuthentication().withUser("administrator").password("112233").roles("USER");
         auth.userDetailsService(myUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
         auth.authenticationProvider(myAuthenticationProvider);
     }

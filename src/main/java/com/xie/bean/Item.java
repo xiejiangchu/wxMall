@@ -16,6 +16,7 @@ public class Item implements Serializable {
     private String place;
     private String summary;
     private String notice;
+    private String notice_color;
     private String description;
     private Date created_at;
     private Date updated_at;
@@ -132,6 +133,10 @@ public class Item implements Serializable {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -158,6 +163,14 @@ public class Item implements Serializable {
 
     public void setIs_online(int is_online) {
         this.is_online = is_online;
+    }
+
+    public String getNotice_color() {
+        return notice_color;
+    }
+
+    public void setNotice_color(String notice_color) {
+        this.notice_color = notice_color;
     }
 }
 

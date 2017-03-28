@@ -40,9 +40,8 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemDao.getById(id);
         if (null != item) {
             item.setImageList(itemImageService.getByIid(id));
-            item.setItemSpecList(itemSpecService.getAllByGid(item.getId()));
+            item.setItemSpecList(itemSpecService.getOnlineByGid(item.getId()));
         }
-
         return item;
     }
 
@@ -75,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
         PageInfo<Item> page = new PageInfo<Item>(itemDao.getAllCanShow(orderby));
         List<Item> list = page.getList();
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setItemSpecList(itemSpecService.getAllByGid(list.get(i).getId()));
+            list.get(i).setItemSpecList(itemSpecService.getOnlineByGid(list.get(i).getId()));
         }
         return page;
     }

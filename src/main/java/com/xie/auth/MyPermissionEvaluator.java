@@ -1,5 +1,6 @@
 package com.xie.auth;
 
+import com.xie.bean.Permission;
 import com.xie.service.PermissionService;
 import com.xie.service.RoleService;
 import com.xie.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author xie
@@ -17,24 +19,27 @@ import java.io.Serializable;
 @Component
 public class MyPermissionEvaluator implements PermissionEvaluator {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PermissionService permissionService;
-
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
         MyUserDetails myUserDetails = (MyUserDetails) authentication.getDetails();
-        return permissionService.checkPermission(myUserDetails.getUser().getId(), permission.toString()) > 0;
+        List<Permission> permissionList = myUserDetails.getPermissionList();
+        for (int i = 0; i < permissionList.size(); i++) {
+            if (permissionList.get(i).getName().equals(permission.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
         MyUserDetails myUserDetails = (MyUserDetails) authentication.getDetails();
-        return permissionService.checkPermission(myUserDetails.getUser().getId(), permission.toString()) > 0;
+        List<Permission> permissionList = myUserDetails.getPermissionList();
+        for (int i = 0; i < permissionList.size(); i++) {
+            if (permissionList.get(i).getName().equals(permission.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

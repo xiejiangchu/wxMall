@@ -42,8 +42,28 @@ public class ItemSpecController {
         return BaseResponse.ok(itemSpecService.getAllByGid(gid));
     }
 
+    @RequestMapping(value = "/getOnlineByGid", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getOnlineByGid(@RequestParam(value = "gid") int gid) {
+        return BaseResponse.ok(itemSpecService.getOnlineByGid(gid));
+    }
+
+
+    @RequestMapping(value = "/offline", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse offline(@RequestParam(value = "id") int id,
+                                @RequestParam(value = "online") int online) {
+        int result = itemSpecService.offline(id, online);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
     /**
      * 修改
+     *
      * @return
      */
     @RequestMapping(value = "/", method = RequestMethod.PUT)

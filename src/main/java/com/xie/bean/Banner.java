@@ -7,6 +7,7 @@ public class Banner implements Serializable {
     private int id;
     private String tip;
     private String url;
+    private String target;
     private int is_show;
     private int sort;
     private Date created_at;
@@ -17,11 +18,11 @@ public class Banner implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -79,6 +80,14 @@ public class Banner implements Serializable {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 }
 

@@ -19,12 +19,6 @@ public class User implements Serializable {
     private String sessionId;
     private Date expired;
 
-    //wx
-    private String code;
-    private String userInfo;
-    private String encryptedData;
-    private String iv;
-
     //wx 解密
     private String openId;
     private String nickName;
@@ -164,38 +158,6 @@ public class User implements Serializable {
 
     public void setRemember_token(String remember_token) {
         this.remember_token = remember_token;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(String userInfo) {
-        this.userInfo = userInfo;
-    }
-
-    public String getEncryptedData() {
-        return encryptedData;
-    }
-
-    public void setEncryptedData(String encryptedData) {
-        this.encryptedData = encryptedData;
-    }
-
-    public String getIv() {
-        return iv;
-    }
-
-    public void setIv(String iv) {
-        this.iv = iv;
     }
 
     public String getOpenId() {

@@ -19,10 +19,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -51,10 +47,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -84,10 +76,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -116,10 +104,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -150,10 +134,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -194,10 +174,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -235,10 +211,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -267,10 +239,6 @@
         wx,
         enabled,
         verified,
-        code,
-        iv,
-        userInfo,
-        encryptedData,
         description,
         openId,
         nickName,
@@ -429,18 +397,6 @@
             <if test="verified!=null">
                 ,verified
             </if>
-            <if test="code!=null">
-                ,code
-            </if>
-            <if test="iv!=null">
-                ,iv
-            </if>
-            <if test="userInfo!=null">
-                ,userInfo
-            </if>
-            <if test="encryptedData!=null">
-                ,encryptedData
-            </if>
             <if test="description!=null">
                 ,description
             </if>
@@ -502,18 +458,6 @@
             </if>
             <if test="verified!=null">
                 ,#{verified}
-            </if>
-            <if test="code!=null">
-                ,#{code}
-            </if>
-            <if test="iv!=null">
-                ,#{iv}
-            </if>
-            <if test="userInfo!=null">
-                ,#{userInfo}
-            </if>
-            <if test="encryptedData!=null">
-                ,#{encryptedData}
             </if>
             <if test="description!=null">
                 ,#{description}
@@ -580,18 +524,6 @@
             </if>
             <if test="verified!=null">
                 ,verified=#{verified}
-            </if>
-            <if test="code!=null">
-                ,code=#{code}
-            </if>
-            <if test="iv!=null">
-                ,iv=#{iv}
-            </if>
-            <if test="userInfo!=null">
-                ,userInfo=#{userInfo}
-            </if>
-            <if test="encryptedData!=null">
-                ,encryptedData=#{encryptedData}
             </if>
             <if test="description!=null">
                 ,description=#{description}

@@ -297,6 +297,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int submit(int uid, int point, int aid, int bid, int pid, Date date, Date time_start, Date time_end, String message) {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
+
+        if (null == cartList || cartList.size() == 0) {
+            return -1;
+        }
         List<OrderItem> orderItems = new ArrayList<>();
         Address address = addressService.getById(aid);
         Order order = new Order();

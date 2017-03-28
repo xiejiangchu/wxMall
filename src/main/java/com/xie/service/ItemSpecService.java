@@ -13,6 +13,8 @@ public interface ItemSpecService {
 
     List<ItemSpec> getAllByGid(int gid);
 
+    List<ItemSpec> getOnlineByGid(int gid);
+
     int insert(ItemSpec itemSpec);
 
     int update(ItemSpec itemSpec);
@@ -24,4 +26,6 @@ public interface ItemSpecService {
     int delete(int id);
 
     int softDelete(int id);
+
+    int offline(int id, int is_online);
 }

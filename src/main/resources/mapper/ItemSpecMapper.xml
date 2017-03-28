@@ -93,6 +93,43 @@
     </select>
 
 
+    <select id="getOnlineByGid" resultMap="ItemSpecResult">
+        SELECT
+        id,
+        gid,
+        is_remain,
+        is_online,
+        is_active,
+        is_rough,
+        is_promote,
+        is_delete,
+        status,
+        sort,
+        weight,
+        min,
+        max,
+        market_price,
+        shop_price,
+        promote_price,
+        remain,
+        sale_num,
+        quanlity,
+        unit,
+        unit_sell,
+        unit_desc,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM item_spec
+        WHERE gid = #{gid}
+        AND is_online = 1
+    </select>
+
+    <update id="offline" parameterType="map">
+        UPDATE item_spec set is_online=#{is_online} WHERE id=#{id}
+    </update>
+
+
     <insert id="insert" parameterType="ItemSpec">
         <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
             SELECT LAST_INSERT_ID() as id

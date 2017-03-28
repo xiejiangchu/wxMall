@@ -3,6 +3,7 @@ package com.xie.service.impl;
 import com.xie.bean.ItemSpec;
 import com.xie.dao.ItemSpecDao;
 import com.xie.service.ItemSpecService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,11 @@ public class ItemSpecServiceImpl implements ItemSpecService {
     }
 
     @Override
+    public List<ItemSpec> getOnlineByGid(int gid) {
+        return itemSpecDao.getOnlineByGid(gid);
+    }
+
+    @Override
     public int insert(ItemSpec itemSpec) {
         return itemSpecDao.insert(itemSpec);
     }
@@ -40,6 +46,9 @@ public class ItemSpecServiceImpl implements ItemSpecService {
 
     @Override
     public int updateRemainAndSale(ItemSpec itemSpec) {
+        if (itemSpec.getRemain() <= 0) {
+            itemSpec.setIs_remain(MallConstants.NO);
+        }
         return itemSpecDao.updateRemainAndSale(itemSpec);
     }
 
@@ -56,5 +65,10 @@ public class ItemSpecServiceImpl implements ItemSpecService {
     @Override
     public int softDelete(int id) {
         return itemSpecDao.softDelete(id);
+    }
+
+    @Override
+    public int offline(int id, int is_online) {
+        return itemSpecDao.offline(id, is_online);
     }
 }

@@ -17,6 +17,7 @@
         id,
         tip,
         url,
+        target,
         is_show,
         sort,
         created_at,
@@ -30,6 +31,7 @@
         id,
         tip,
         url,
+        target,
         is_show,
         sort,
         created_at,
@@ -44,6 +46,7 @@
         id,
         tip,
         url,
+        target,
         is_show,
         sort,
         created_at,
@@ -70,6 +73,9 @@
             <if test="url!=null">
                 ,url
             </if>
+            <if test="target!=null">
+                ,target
+            </if>
             <if test="is_show!=null">
                 ,is_show
             </if>
@@ -86,6 +92,9 @@
             </if>
             <if test="url!=null">
                 ,#{url}
+            </if>
+            <if test="target!=null">
+                ,#{target}
             </if>
             <if test="is_show!=null">
                 ,#{is_show}
@@ -107,6 +116,9 @@
             </if>
             <if test="url!=null">
                 ,url=#{url}
+            </if>
+            <if test="target!=null">
+                ,target=#{target}
             </if>
             <if test="is_show!=null">
                 ,is_show=#{is_show}

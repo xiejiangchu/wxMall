@@ -4,8 +4,10 @@ import com.xie.bean.Order;
 import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.BaseResponse;
 import com.xie.service.OrderService;
+import com.xie.utils.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
@@ -52,7 +54,8 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByUid(@RequestParam("uid") Integer uid,
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    BaseResponse getByUid(@RequestParam("uid") int uid,
                           @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(orderService.getAllByUid(uid, pageNum, pageSize));
@@ -168,37 +171,8 @@ public class OrderController extends BaseController {
     public BaseResponse pay(@RequestParam(value = "sessionId") String sessionId,
                             @RequestParam("oid") int oid,
                             HttpServletRequest request) throws IllegalAccessException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException, IOException {
-        OrderReturnInfo result = orderService.pay(getUid(sessionId), oid, getIpAddr(request));
+        OrderReturnInfo result = orderService.pay(getUid(sessionId), oid, IpUtils.getIpAddr(request));
         return BaseResponse.ok(result);
     }
 
-    /**
-     * 获取访问者IP
-     * <p>
-     * 在一般情况下使用Request.getRemoteAddr()即可，但是经过nginx等反向代理软件后，这个方法会失效。
-     * <p>
-     * 本方法先从Header中获取X-Real-IP，如果不存在再从X-Forwarded-For获得第一个IP(用,分割)，
-     * 如果还不存在则调用Request .getRemoteAddr()。
-     *
-     * @param request
-     * @return
-     */
-    private String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("X-Real-IP");
-        if (!StringUtils.isEmpty(ip) && !"unknown".equalsIgnoreCase(ip)) {
-            return ip;
-        }
-        ip = request.getHeader("X-Forwarded-For");
-        if (!StringUtils.isEmpty(ip) && !"unknown".equalsIgnoreCase(ip)) {
-            // 多次反向代理后会有多个IP值，第一个为真实IP。
-            int index = ip.indexOf(',');
-            if (index != -1) {
-                return ip.substring(0, index);
-            } else {
-                return ip;
-            }
-        } else {
-            return request.getRemoteAddr();
-        }
-    }
 }

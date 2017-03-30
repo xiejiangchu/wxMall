@@ -39,6 +39,7 @@ public class Order implements Serializable {
     private int address_id;
     private String mobile;
     private String receiver;
+    private String province;
     private String city;
     private String district;
     private String road;
@@ -343,6 +344,14 @@ public class Order implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 }
 

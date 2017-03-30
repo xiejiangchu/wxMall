@@ -62,6 +62,9 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public int insert(Address address) {
         Assert.notNull(address);
+        if (address.getIs_def() == MallConstants.YES) {
+            addressDao.removeDefaultByUid(address.getUid());
+        }
         return addressDao.insert(address);
     }
 

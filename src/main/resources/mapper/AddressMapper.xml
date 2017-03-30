@@ -20,6 +20,7 @@
         mobile,
         receiver,
         gender,
+        province,
         city,
         district,
         road,
@@ -29,6 +30,7 @@
         deleted_at
         FROM address
         WHERE uid=#{uid} AND deleted_at is NULL
+        ORDER by is_def DESC 
     </select>
     <select id="getFirstAddress" resultMap="AddressResult">
         SELECT
@@ -38,6 +40,7 @@
         mobile,
         receiver,
         gender,
+        province,
         city,
         district,
         road,
@@ -59,6 +62,7 @@
         mobile,
         receiver,
         gender,
+        province,
         city,
         district,
         road,
@@ -78,6 +82,7 @@
         mobile,
         receiver,
         gender,
+        province,
         city,
         district,
         road,
@@ -97,6 +102,7 @@
         mobile,
         receiver,
         gender,
+        province,
         city,
         district,
         road,
@@ -132,6 +138,9 @@
             <if test="gender!=null">
                 ,gender
             </if>
+            <if test="province!=null">
+                ,province
+            </if>
             <if test="city!=null">
                 ,city
             </if>
@@ -163,6 +172,9 @@
             </if>
             <if test="gender!=null">
                 ,#{gender}
+            </if>
+            <if test="province!=null">
+                ,#{province}
             </if>
             <if test="city!=null">
                 ,#{city}
@@ -200,6 +212,9 @@
             <if test="gender!=null">
                 ,gender=#{gender}
             </if>
+            <if test="province!=null">
+                ,province=#{province}
+            </if>
             <if test="city!=null">
                 ,city=#{city}
             </if>
@@ -215,6 +230,13 @@
             ,updated_at=now()
         </trim>
         WHERE id=#{id}
+    </update>
+
+    <update id="removeDefaultByUid">
+        UPDATE address set
+        is_def = 0
+        ,updated_at=now()
+        WHERE uid=#{uid}
     </update>
 
     <delete id="delete">

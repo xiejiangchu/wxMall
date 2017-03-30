@@ -6,6 +6,8 @@ package com.xie.utils;
  */
 public class MallConstants {
 
+    public final static String CNAREA_ROOT = "江西省";
+
     public final static int PAGESIZE = 10;
     public final static String SESSION_USER = "SESSION_USER";
     public final static String SESSION_OPENID = "SESSION_OPENID";

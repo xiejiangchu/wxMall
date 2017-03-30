@@ -1,0 +1,234 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CnAreaMapper">
+
+    <resultMap id="CnAreaResult" type="CnArea" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="level" column="level" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="area_code" column="area_code" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="zip_code" column="zip_code" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="city_code" column="city_code" javaType="String" jdbcType="CHAR"/>
+        <result property="sort" column="sort" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="short_name" column="short_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="merger_name" column="merger_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="pinyin" column="pinyin" javaType="String" jdbcType="VARCHAR"/>
+        <result property="lng" column="lng" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="lat" column="lat" javaType="Double" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="getById" resultMap="CnAreaResult">
+        SELECT
+        id,
+        pid,
+        level,
+        area_code,
+        zip_code,
+        city_code,
+        name,
+        short_name,
+        merger_name,
+        pinyin,
+        sort,
+        lng,
+        lat
+        FROM cnarea
+        where id=#{id}
+        ORDER BY sort DESC;
+    </select>
+
+
+    <select id="getByPid" resultMap="CnAreaResult">
+        SELECT
+        id,
+        pid,
+        level,
+        area_code,
+        zip_code,
+        city_code,
+        name,
+        short_name,
+        merger_name,
+        pinyin,
+        sort,
+        lng,
+        lat
+        FROM cnarea
+        where pid=#{id}
+        ORDER BY sort DESC;
+    </select>
+
+    <select id="getByName" resultMap="CnAreaResult">
+        SELECT
+        id,
+        pid,
+        level,
+        area_code,
+        zip_code,
+        city_code,
+        name,
+        short_name,
+        merger_name,
+        pinyin,
+        sort,
+        lng,
+        lat
+        FROM cnarea
+        where name=#{name}
+        ORDER BY sort DESC;
+    </select>
+
+    <select id="getByLevel" resultMap="CnAreaResult">
+        SELECT
+        id,
+        pid,
+        level,
+        area_code,
+        zip_code,
+        city_code,
+        name,
+        short_name,
+        merger_name,
+        pinyin,
+        sort,
+        lng,
+        lat
+        FROM cnarea
+        where level=#{level}
+        ORDER BY sort DESC;
+    </select>
+
+    <insert id="insert" parameterType="CnArea">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO cnarea (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="id!=null">
+                ,id
+            </if>
+            <if test="pid!=null">
+                ,pid
+            </if>
+            <if test="level!=null">
+                ,level
+            </if>
+            <if test="area_code!=null">
+                ,area_code
+            </if>
+            <if test="zip_code!=null">
+                ,zip_code
+            </if>
+            <if test="city_code!=null">
+                ,city_code
+            </if>
+            <if test="name!=null">
+                ,name
+            </if>
+            <if test="short_name!=null">
+                ,short_name
+            </if>
+            <if test="merger_name!=null">
+                ,merger_name
+            </if>
+            <if test="pinyin!=null">
+                ,pinyin
+            </if>
+            <if test="lng!=null">
+                ,lng
+            </if>
+            <if test="lat!=null">
+                ,lat
+            </if>
+        </trim>
+        ) VALUES (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="id!=null">
+                ,#{id}
+            </if>
+            <if test="pid!=null">
+                ,#{pid}
+            </if>
+            <if test="level!=null">
+                ,#{level}
+            </if>
+            <if test="area_code!=null">
+                ,#{area_code}
+            </if>
+            <if test="zip_code!=null">
+                ,#{zip_code}
+            </if>
+            <if test="city_code!=null">
+                ,#{city_code}
+            </if>
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="short_name!=null">
+                ,#{short_name}
+            </if>
+            <if test="merger_name!=null">
+                ,#{merger_name}
+            </if>
+            <if test="pinyin!=null">
+                ,#{pinyin}
+            </if>
+            <if test="lng!=null">
+                ,#{lng}
+            </if>
+            <if test="lat!=null">
+                ,#{lat}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="CnArea">
+        UPDATE cnarea SET
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="id!=null">
+                ,#{id}
+            </if>
+            <if test="pid!=null">
+                ,#{pid}
+            </if>
+            <if test="level!=null">
+                ,#{level}
+            </if>
+            <if test="area_code!=null">
+                ,#{area_code}
+            </if>
+            <if test="zip_code!=null">
+                ,#{zip_code}
+            </if>
+            <if test="city_code!=null">
+                ,#{city_code}
+            </if>
+            <if test="name!=null">
+                ,#{name}
+            </if>
+            <if test="short_name!=null">
+                ,#{short_name}
+            </if>
+            <if test="merger_name!=null">
+                ,#{merger_name}
+            </if>
+            <if test="pinyin!=null">
+                ,#{pinyin}
+            </if>
+            <if test="lng!=null">
+                ,#{lng}
+            </if>
+            <if test="lat!=null">
+                ,#{lat}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="delete">
+        DELETE FROM food WHERE id=#{id}
+    </delete>
+
+</mapper>

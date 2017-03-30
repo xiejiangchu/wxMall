@@ -55,6 +55,7 @@
         <typeAlias type="com.xie.bean.Point" alias="Point"/>
         <typeAlias type="com.xie.bean.Food" alias="Food"/>
         <typeAlias type="com.xie.bean.CategoryFood" alias="CategoryFood"/>
+        <typeAlias type="com.xie.bean.CnArea" alias="CnArea"/>
     </typeAliases>
 
     <plugins>

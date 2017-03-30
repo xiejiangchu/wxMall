@@ -483,8 +483,19 @@ public class OrderServiceImpl implements OrderService {
         orderCountDto.setOrder_sending(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
         orderCountDto.setOrder_finish(orderDao.countByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
         Point point = pointService.getByUid(uid);
-        orderCountDto.setPoint(point.getPoints());
-        orderCountDto.setMoney(point.getMoney());
+        if (null == point) {
+            Point point_insert = new Point();
+            point_insert.setUid(uid);
+            point_insert.setMoney(0);
+            point_insert.setPoints(0);
+            pointService.insert(point_insert);
+            orderCountDto.setPoint(0);
+            orderCountDto.setMoney(0);
+        } else {
+            orderCountDto.setPoint(point.getPoints());
+            orderCountDto.setMoney(point.getMoney());
+        }
+
         if (uid < 12) {
             orderCountDto.setAdmins(MallConstants.YES);
         } else {

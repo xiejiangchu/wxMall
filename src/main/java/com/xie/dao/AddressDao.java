@@ -20,6 +20,10 @@ public class AddressDao extends BaseDao {
         return this.sqlSession.selectOne("AddressDao.getDefaultByUid", uid);
     }
 
+    public Address removeDefaultByUid(Integer uid) {
+        return this.sqlSession.selectOne("AddressDao.removeDefaultByUid", uid);
+    }
+
     public Address getById(Integer id) {
         return this.sqlSession.selectOne("AddressDao.getById", id);
     }

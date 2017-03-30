@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 public class WxPayConfig {
     private static String appKey;
     //小程序ID
-    private static String appID = "wx846c47708b8cf561c";
+    private static String appID = "";
     //商户号
     private static String mch_id;
     //
-    private static String appSecret = "81df80ba9ca647eddaab2e770e85df33";
+    private static String appSecret = "";
 
     private static String notify_url;
 
@@ -20,7 +20,7 @@ public class WxPayConfig {
     }
 
     @Value("${wx.pay.appKey}")
-    public static void setAppKey(String appKey) {
+    public void setAppKey(String appKey) {
         WxPayConfig.appKey = appKey;
     }
 
@@ -29,7 +29,7 @@ public class WxPayConfig {
     }
 
     @Value("${wx.pay.appID}")
-    public static void setAppID(String appID) {
+    public void setAppID(String appID) {
         WxPayConfig.appID = appID;
     }
 
@@ -38,7 +38,7 @@ public class WxPayConfig {
     }
 
     @Value("${wx.pay.mch_id}")
-    public static void setMch_id(String mch_id) {
+    public void setMch_id(String mch_id) {
         WxPayConfig.mch_id = mch_id;
     }
 
@@ -47,7 +47,7 @@ public class WxPayConfig {
     }
 
     @Value("${wx.pay.appSecret}")
-    public static void setAppSecret(String appSecret) {
+    public void setAppSecret(String appSecret) {
         WxPayConfig.appSecret = appSecret;
     }
 
@@ -56,7 +56,7 @@ public class WxPayConfig {
     }
 
     @Value("${wx.pay.notify_url}")
-    public static void setNotify_url(String notify_url) {
+    public void setNotify_url(String notify_url) {
         WxPayConfig.notify_url = notify_url;
     }
 }

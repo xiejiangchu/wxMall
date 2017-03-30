@@ -51,6 +51,7 @@
         address_id,
         mobile,
         receiver,
+        province,
         city,
         district,
         road,
@@ -99,6 +100,7 @@
         time_end,
         address_id,
         mobile,
+        province,
         receiver,
         city,
         district,
@@ -169,6 +171,7 @@
         address_id,
         mobile,
         receiver,
+        province,
         city,
         district,
         road,
@@ -242,6 +245,7 @@
         address_id,
         mobile,
         receiver,
+        province,
         city,
         district,
         road,
@@ -279,6 +283,7 @@
         address_id,
         mobile,
         receiver,
+        province,
         city,
         district,
         road,
@@ -370,6 +375,9 @@
             <if test="receiver!=null">
                 ,receiver
             </if>
+            <if test="province!=null">
+                ,province
+            </if>
             <if test="city!=null">
                 ,city
             </if>
@@ -458,6 +466,9 @@
             </if>
             <if test="receiver!=null">
                 ,#{receiver}
+            </if>
+            <if test="province!=null">
+                ,#{province}
             </if>
             <if test="city!=null">
                 ,#{city}
@@ -551,6 +562,9 @@
             </if>
             <if test="receiver!=null">
                 ,receiver=#{receiver}
+            </if>
+            <if test="province!=null">
+                ,province=#{province}
             </if>
             <if test="city!=null">
                 ,city=#{city}

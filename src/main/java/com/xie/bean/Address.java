@@ -10,6 +10,7 @@ public class Address implements Serializable {
     private Integer is_def;
     private String mobile;
     private String receiver;
+    private String province;
     private String city;
     private String district;
     private String road;
@@ -120,6 +121,14 @@ public class Address implements Serializable {
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 }
 

@@ -20,25 +20,42 @@
                 <th>名称</th>
                 <th>级别</th>
                 <th>排序</th>
-                <th>小图</th>
-                <th>修改时间</th>
+                <th>上架</th>
+                <th>操作</th>
             </tr>
-            <tr ng-repeat="item in options.paginate.list" data-ng-click="itemClick({id:item.id})">
+            <tr ng-repeat="item in options.paginate.list">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.level}}</td>
-                <td><div class="progress progress-xs">
-                    <div class="progress-bar {{item.sort<4? 'progress-bar-primary':item.sort<6? 'progress-bar-yellow':'progress-bar-danger'}}" style="width: {{item.sort*10}}%"></div>
-                </div></td>
-                <td>{{item.thumb}}</td>
-                <td>{{item.updated_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar {{item.sort<4? 'progress-bar-primary':item.sort<6? 'progress-bar-yellow':'progress-bar-danger'}}"
+                             style="width: {{item.sort*10}}%"></div>
+                    </div>
+                </td>
+                <td>{{item.is_delete==0? '已上架':"已下架"}}</td>
+                <td>
+                    <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-edit text-blue"></i>
+                    </a>
+                    <a data-ng-click="itemDelete({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-remove text-red"></i>
+                    </a>
+                    <a data-ng-click="itemOnline({id:item.id})" href="javascript:void(0);">
+                        <i class="fa  fa-arrow-circle-o-up text-success"></i>
+                    </a>
+                    <a data-ng-click="itemOffline({id:item.id})" href="javascript:void(0);">
+                        <i class="fa  fa-arrow-circle-o-down text-danger"></i>
+                    </a>
+                </td>
             </tr>
         </table>
 
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a data-ng-click="pageChanged({page:options.paginate.firstPage})">&laquo;</a></li>
-                <li ng-repeat="pageNum in options.paginate.navigatepageNums" class="{{pageNum==options.paginate.pageNum? 'active':''}}">
+                <li ng-repeat="pageNum in options.paginate.navigatepageNums"
+                    class="{{pageNum==options.paginate.pageNum? 'active':''}}">
                     <a data-ng-click="pageChanged({page:pageNum})">{{pageNum}}</a>
                 </li>
                 <li><a data-ng-click="pageChanged({page:options.paginate.lastPage})">&raquo;</a></li>

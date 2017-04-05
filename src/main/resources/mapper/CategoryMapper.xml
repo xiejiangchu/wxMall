@@ -29,6 +29,14 @@
         where id=#{id}
     </select>
 
+
+    <update id="offline">
+        UPDATE category
+        SET is_delete = #{online}
+        ,updated_at=now()
+        WHERE id=#{id}
+    </update>
+
     <select id="getAllCategoryCanShow" resultMap="CategoryResult">
         SELECT
         id as id,
@@ -56,7 +64,7 @@
         created_at as created_at,
         updated_at as updated_at
         FROM category
-        order by sort desc"
+        order by pid desc,sort desc
     </select>
 
     <select id="top" resultMap="CategoryResult">
@@ -228,10 +236,6 @@
     <delete id="delete">
         DELETE FROM category WHERE id=#{id}
     </delete>
-
-    <update id="softDelete">
-        UPDATE category set deleted_at=now() WHERE id=#{id}
-    </update>
 
     <delete id="deleteBatch">
         DELETE FROM category WHERE id IN

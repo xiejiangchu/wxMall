@@ -162,7 +162,17 @@ public class OrderServiceImpl implements OrderService {
         orderCheckDto.setTotalAmount(totalAmount);
         orderCheckDto.setItems(carts);
         orderCheckDto.setPayments(paymentService.getEnabled());
-        orderCheckDto.setPoint(pointService.getByUid(uid).getPoints());
+        Point point = pointService.getByUid(uid);
+        if (null == point) {
+            Point point_insert = new Point();
+            point_insert.setUid(uid);
+            point_insert.setMoney(0);
+            point_insert.setPoints(0);
+            pointService.insert(point_insert);
+            orderCheckDto.setPoint(0);
+        } else {
+            orderCheckDto.setPoint(point.getPoints());
+        }
         orderCheckDto.setChanged(changed);
 
         orderCheckDto.setDate_start(DateTime.now().plusDays(1).toDate());

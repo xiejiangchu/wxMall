@@ -3,7 +3,9 @@ package com.xie.controller.api;
 import com.xie.bean.Bonus;
 import com.xie.response.BaseResponse;
 import com.xie.service.BonusService;
+import com.xie.service.BonusTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ public class BonusController extends BaseController {
 
     @Autowired
     BonusService bonusService;
+
+    @Autowired
+    BonusTypeService bonusTypeService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -35,8 +40,17 @@ public class BonusController extends BaseController {
     }
 
 
+    @RequestMapping(value = "/getAllEnabled", method = RequestMethod.GET)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    BaseResponse getAllEnabled() {
+        return BaseResponse.ok(bonusTypeService.getAllEnabled());
+    }
+
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse post(@ModelAttribute Bonus bonus) {
         int result = bonusService.insert(bonus);
         if (result > 0) {
@@ -46,9 +60,10 @@ public class BonusController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/{uid}", method = RequestMethod.POST)
+    @RequestMapping(value = "/give", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse post(@PathVariable(value = "uid") int uid,
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse post(@RequestParam(value = "uid") int uid,
                              @RequestParam(value = "tid") int aid,
                              @RequestParam(value = "is_enable", defaultValue = "0") int is_enable,
                              @RequestParam(value = "begin", defaultValue = "2017-01-01") Date begin,

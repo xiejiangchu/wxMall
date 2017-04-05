@@ -62,8 +62,9 @@ public class UserController extends BaseController {
     }
 
 
-    @RequestMapping(value = "users", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     BaseResponse getAllUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(userService.getAllUsers(pageNum, pageSize));
@@ -72,7 +73,6 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasAuthority('ROLE_DOMAIN_USER')")
     public BaseResponse postUser(@ModelAttribute User user) {
         userService.insert(user);
         return BaseResponse.ok();
@@ -80,7 +80,6 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    @PreAuthorize("hasAuthority('ROLE_DOMAIN_USER')")
     public BaseResponse putUser(@PathVariable int id, @ModelAttribute User user) {
         int result = userService.update(user);
         if (result > 0) {
@@ -92,7 +91,6 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    @PreAuthorize("hasAuthority('ROLE_DOMAIN_USER')")
     public BaseResponse deleteUser(@PathVariable int id) {
         int result = userService.softDelete(id);
         if (result > 0) {

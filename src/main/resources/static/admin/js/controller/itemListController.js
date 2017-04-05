@@ -64,6 +64,14 @@ mall.controller('itemListController', function ($rootScope, $scope, $timeout, $h
         $http.put('/item/offline', {
             id: id,
             is_online: 0
+        }, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
         }).then(function (response) {
 
         }, function (error) {

@@ -155,24 +155,29 @@
 
     <select id="getAllCanShow" resultMap="ItemResult">
         SELECT
-        id,
-        no,
-        name,
-        cid1,
-        cid2,
-        is_online,
-        src,
-        thumb,
-        place,
-        summary,
-        notice,
-        notice_color,
-        description,
-        created_at,
-        updated_at,
-        deleted_at
+        items.id as id,
+        items.no as no,
+        items.name as name,
+        items.cid1 as cid1,
+        items.cid2 as cid2,
+        items.is_online as is_online,
+        items.sort as sort,
+        items.src as src,
+        items.thumb as thumb,
+        items.place as place,
+        items.summary as summary,
+        items.notice as notice,
+        items.notice_color as notice_color,
+        items.description as description,
+        items.created_at as created_at,
+        items.updated_at as updated_at,
+        items.deleted_at as deleted_at
         FROM items
+        LEFT JOIN category c1 on items.cid1 = c1.id
+        LEFT JOIN category c2 on items.cid2 = c2.id
         WHERE is_online = 1
+        AND c1.is_delete=0
+        AND c1.is_delete=0
         <if test="orderBy!=null">
             ORDER BY ${orderBy}
         </if>

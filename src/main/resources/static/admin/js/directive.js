@@ -4,7 +4,10 @@ mall.directive('datatablecategory', function () {
         scope: {
             options: "=",
             pageChanged: "&",
-            itemClick: "&"
+            itemClick: "&",
+            itemDelete: "&",
+            itemOnline: "&",
+            itemOffline: "&"
         },
         templateUrl: '/admin/template/dataTableCategory.html',
         link: function (scope, element, attrs) {

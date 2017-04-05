@@ -22,8 +22,9 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryDao categoryDao;
 
     @Override
-    public List<Category> getAll() {
-        return categoryDao.getAllCategory();
+    public PageInfo<Category> getAll(int pageNum, int pageSize) {
+        PageInfo<Category> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> categoryDao.getAllCategory());
+        return page;
     }
 
     @Override
@@ -73,6 +74,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public int offline(int id, int online) {
+        return categoryDao.offline(id, online);
+    }
+
+    @Override
     public int delete(Category category) {
         Assert.notNull(category);
         return categoryDao.delete(category.getId());
@@ -84,7 +90,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (category != null) {
             if (category.getLevel() == 1) {
                 List<Category> categories = categoryDao.getCategoryLevel2(category.getId());
-                if(categories!=null&&categories.size()>0){
+                if (categories != null && categories.size() > 0) {
                     categoryDao.deleteBatch(categories);
                 }
                 return categoryDao.delete(id);

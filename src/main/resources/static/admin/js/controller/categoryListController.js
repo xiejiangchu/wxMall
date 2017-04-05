@@ -13,7 +13,7 @@ mall.controller('categoryListController', function ($rootScope, $scope, $http, $
 
     $scope.pageChanged = function (page) {
         $scope.page = page;
-        $http.get('/category/getCid1', {params: {pageNum: page, pageSize: 20}}).then(function (response) {
+        $http.get('/category/getAll', {params: {pageNum: page, pageSize: 20}}).then(function (response) {
             $scope.options.paginate = response.data.data;
         }, function (error) {
             console.log(response);
@@ -24,7 +24,53 @@ mall.controller('categoryListController', function ($rootScope, $scope, $http, $
         $state.go('categoryDetail', {id: id});
     };
 
-    $http.get('/category/getCid1', {params: {pageNum: $scope.page, pageSize: 20}}).then(function (response) {
+    $scope.itemDelete = function (id) {
+        $http.delete('/category/' + id).then(function (response) {
+            console.log("asf");
+        }, function (error) {
+
+        });
+    };
+
+    $scope.itemOnline = function (id) {
+        $http.put('/category/offline', {
+            id: id,
+            online: 0
+        }, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
+        }).then(function (response) {
+            alert("上架成功");
+        }, function (error) {
+
+        });
+    };
+
+    $scope.itemOffline = function (id) {
+        $http.put('/category/offline', {
+            id: id,
+            online: 1
+        }, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
+        }).then(function (response) {
+            alert("下架成功")
+        }, function (error) {
+
+        });
+    };
+
+    $http.get('/category/getAll', {params: {pageNum: $scope.page, pageSize: 20}}).then(function (response) {
         $scope.options.paginate = response.data.data;
     }, function (error) {
         console.log(response);

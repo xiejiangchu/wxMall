@@ -47,6 +47,14 @@ public class CategoryDao extends BaseDao {
         return this.sqlSession.delete("CategoryMapper.delete", id);
     }
 
+    public int offline(int id, int online) {
+
+        Map map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("online", online);
+        return this.sqlSession.update("CategoryMapper.offline", map);
+    }
+
     public int deleteBatch(List<Category> categories) {
         Map map = new HashMap<String, Object>();
         map.put("categories", categories);

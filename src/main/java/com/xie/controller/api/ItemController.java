@@ -10,6 +10,7 @@ import com.xie.service.ItemService;
 import com.xie.service.ItemSpecService;
 import com.xie.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +58,7 @@ public class ItemController extends BaseController {
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(itemService.getAll(pageNum, pageSize));
@@ -207,6 +209,7 @@ public class ItemController extends BaseController {
      */
     @RequestMapping(value = "/offline", method = RequestMethod.PUT)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse offline(@RequestBody Item item) {
         int result = itemService.offline(item.getId(), item.getIs_online());
         if (result > 0) {
@@ -218,6 +221,7 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = "/offline2", method = RequestMethod.PUT)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse offline2(@RequestParam(value = "id") int id,
                                  @RequestParam(value = "online") int online) {
         int result = itemService.offline(id, online);
@@ -237,6 +241,7 @@ public class ItemController extends BaseController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse delete(@PathVariable int id) {
         int result = itemService.softDelete(id);
         if (result > 0) {
@@ -244,9 +249,13 @@ public class ItemController extends BaseController {
         } else {
             return BaseResponse.fail();
         }
-
     }
 
+    /**
+     * 个人页面的数量
+     * @param all
+     * @return
+     */
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse count(@RequestParam(value = "all", defaultValue = "false") boolean all) {

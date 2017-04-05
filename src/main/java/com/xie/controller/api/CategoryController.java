@@ -7,6 +7,7 @@ import com.xie.service.CategoryService;
 import com.xie.service.ImageFileService;
 import com.xie.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,9 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse getAll() {
-        return BaseResponse.ok(categoryService.getAll());
+    public BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(categoryService.getAll(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getCategoryLevel1", method = RequestMethod.GET)
@@ -90,6 +92,20 @@ public class CategoryController extends BaseController {
     @ResponseBody
     public BaseResponse getCategoryDetail(@PathVariable("id") int id) {
         return BaseResponse.ok(categoryService.getById(id));
+    }
+
+
+    @RequestMapping(value = "/offline", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse offline2(@RequestParam(value = "id") int id,
+                                 @RequestParam(value = "online") int online) {
+        int result = categoryService.offline(id, online);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

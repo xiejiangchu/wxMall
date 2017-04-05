@@ -30,7 +30,7 @@
         deleted_at
         FROM address
         WHERE uid=#{uid} AND deleted_at is NULL
-        ORDER by is_def DESC 
+        ORDER by is_def DESC
     </select>
     <select id="getFirstAddress" resultMap="AddressResult">
         SELECT

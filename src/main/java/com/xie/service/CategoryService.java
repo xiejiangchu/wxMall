@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface CategoryService {
 
-    List<Category> getAll();
+    PageInfo<Category> getAll(int pageNum, int pageSize);
 
     List<Category> getAllCanShow();
 
@@ -24,10 +24,11 @@ public interface CategoryService {
 
     int countCid2ByCid1(int cid1);
 
-
     int insert(Category category);
 
     int update(Category category);
+
+    int offline(int id,int online);
 
     int delete(Category category);
 

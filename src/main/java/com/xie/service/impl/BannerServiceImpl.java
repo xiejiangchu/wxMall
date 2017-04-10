@@ -1,6 +1,9 @@
 package com.xie.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Banner;
+import com.xie.bean.Category;
 import com.xie.dao.BannerDao;
 import com.xie.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +27,9 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public List<Banner> getAll() {
-        return bannerDao.getAll();
+    public PageInfo<Banner> getAll(int pageNum, int pageSize) {
+        PageInfo<Banner> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bannerDao.getAll());
+        return page;
     }
 
     @Override

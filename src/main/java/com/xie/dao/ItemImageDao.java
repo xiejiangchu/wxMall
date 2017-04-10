@@ -61,4 +61,12 @@ public class ItemImageDao extends BaseDao {
     public int delete(int id) {
         return this.sqlSession.delete("ItemImageMapper.delete", id);
     }
+
+    public int delete(List<Integer> ids) {
+        return this.sqlSession.delete("ItemImageMapper.deleteByIds", ids);
+    }
+
+    public int deleteByIid(int iid) {
+        return this.sqlSession.delete("ItemImageMapper.deleteByIid", iid);
+    }
 }

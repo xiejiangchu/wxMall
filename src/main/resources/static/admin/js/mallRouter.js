@@ -7,6 +7,23 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/dashBoard',
         templateUrl: '/admin/html/dashBoard.html',
         controller: 'dashBoardController'
+    }).state('banner', {
+        abstract: true,
+        url: '/banner',
+        templateUrl: '/admin/html/banner.html',
+        controller: 'bannerController'
+    }).state('banner.add', {
+        url: '/bannerAdd',
+        templateUrl: '/admin/html/bannerAdd.html',
+        controller: 'bannerAddController'
+    }).state('bannerDetail', {
+        url: '/bannerDetail',
+        templateUrl: '/admin/html/bannerDetail.html',
+        controller: 'bannerDetailController'
+    }).state('banner.list', {
+        url: '/bannerList/:page',
+        templateUrl: '/admin/html/bannerList.html',
+        controller: 'bannerListController'
     }).state('item', {
         abstract: true,
         url: '/item',

@@ -1,0 +1,31 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            广告位
+            <small>Version 2.0</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">广告位</li>
+        </ol>
+    </section>
+
+    <div class="row">
+        <div class="pull-right">
+            <p>
+                <button ng-click="add()" type="button" class="btn bg-green btn-flat margin">
+                    <i class="fa fa-add">添加广告位</i>
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div ui-view="">
+
+        </div>
+    </div>
+</div>
+<!-- /.content-wrapper -->

@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.Banner;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface BannerService {
 
-    List<Banner> getAll();
+    PageInfo<Banner> getAll(int pageNum, int pageSize);
 
     List<Banner> getAllCanShow();
 

@@ -10,7 +10,7 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
     $scope.masterImageSelected = [];
     $scope.slaveImageSelected = [];
     //图片分页大小
-    $scope.pageSize = 60;
+    $scope.pageSize = 100;
 
     $scope.cid1Filter = [];
     $scope.cid2Filter = [];
@@ -23,6 +23,14 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
         pageSize: 50
     };
 
+    $scope.add = function (id) {
+        $state.go('item.add');
+    };
+
+    $scope.addBatch = function () {
+        $state.go('item.addBatch');
+    };
+
     $http.get('/category/getCategoryLevel1', {params: {pageNum: 1, pageSize: 10}}).then(function (response) {
         $scope.cid1 = response.data.data;
         $scope.params.cid1 = response.data.data[0].id;
@@ -33,7 +41,6 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
             });
         }, $scope.cid1Filter);
     }, function (error) {
-        console.log(response);
     });
 
     $scope.$watch('params.cid1', function (value, oldValue, scope) {

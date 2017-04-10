@@ -8,7 +8,7 @@ mall.controller('itemListController', function ($rootScope, $scope, $timeout, $h
     $scope.options.autoWidth = false;
     $scope.options.title = '商品一级分类';
     $scope.options.paginate = {};
-    $scope.options.pageSize = 30;
+    $scope.options.pageSize = 60;
     $scope.showDeleteDialog = false;
     $scope.showSuccessDialog = false;
     $scope.operateSuccess = false;

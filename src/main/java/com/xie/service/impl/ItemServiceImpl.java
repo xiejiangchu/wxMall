@@ -151,6 +151,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public boolean isOnline(int id) {
+        int result = itemDao.isOnline(id);
+        return result > 0;
+    }
+
+    @Override
     public int offline(int id, int is_online) {
         return itemDao.offline(id, is_online);
     }

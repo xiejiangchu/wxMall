@@ -27,6 +27,7 @@ public class OrderCheckDto {
     private String time_end;
     private List<Payment> payments;
     private int changed;
+    private int point_rate;
 
     public Address getAddress() {
         return address;
@@ -114,5 +115,13 @@ public class OrderCheckDto {
 
     public void setChanged(int changed) {
         this.changed = changed;
+    }
+
+    public int getPoint_rate() {
+        return point_rate;
+    }
+
+    public void setPoint_rate(int point_rate) {
+        this.point_rate = point_rate;
     }
 }

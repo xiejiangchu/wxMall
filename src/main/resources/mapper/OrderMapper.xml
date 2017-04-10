@@ -10,13 +10,15 @@
         <result column="pay_status" property="pay_status" javaType="Integer" jdbcType="INTEGER"/>
         <result column="ship_status" property="ship_status" javaType="Integer" jdbcType="INTEGER"/>
         <result column="package_status" property="package_status" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="order_total" column="order_total" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_amount" column="order_amount" javaType="Integer" jdbcType="INTEGER"/>
         <result property="order_weight" column="order_weight" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_amount_real" column="order_amount_real" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_money" column="order_money" javaType="Double" jdbcType="DECIMAL"/>
         <result property="order_money_real" column="order_money_real" javaType="Double" jdbcType="DECIMAL"/>
         <result property="bonus" column="bonus" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="point" column="point" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="point" column="point" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="point_used" column="point_used" javaType="Integer" jdbcType="INTEGER"/>
         <result property="send_date" column="send_date" javaType="java.sql.Date" jdbcType="DATE"/>
         <result property="time_start" column="time_start" javaType="java.sql.Time" jdbcType="TIME"/>
         <result property="time_end" column="time_end" javaType="java.sql.Time" jdbcType="TIME"/>
@@ -35,6 +37,7 @@
         pay_status,
         ship_status,
         package_status,
+        order_total,
         order_amount,
         order_weight,
         order_money,
@@ -43,6 +46,7 @@
         bid,
         bonus,
         point,
+        point_used,
         pid,
         payment,
         send_date,
@@ -85,6 +89,7 @@
         pay_status,
         ship_status,
         package_status,
+        order_total,
         order_amount,
         order_weight,
         order_money,
@@ -93,6 +98,7 @@
         bid,
         bonus,
         point,
+        point_used,
         pid,
         payment,
         send_date,
@@ -155,6 +161,7 @@
         pay_status,
         ship_status,
         package_status,
+        order_total,
         order_amount,
         order_weight,
         order_money,
@@ -163,6 +170,7 @@
         bid,
         bonus,
         point,
+        point_used,
         pid,
         payment,
         send_date,
@@ -183,16 +191,28 @@
         FROM orders
         where uid=#{uid}
         <if test="order_status!=null">
-            and order_status=#{order_status}
+            AND order_status IN
+            <foreach collection="order_status" separator="," open="(" close=")" item="order_status_item">
+                #{order_status_item}
+            </foreach>
         </if>
         <if test="pay_status!=null">
-            and pay_status=#{pay_status}
-        </if>
-        <if test="pay_status!=null">
-            and pay_status=#{pay_status}
+            AND pay_status IN
+            <foreach collection="pay_status" separator="," open="(" close=")" item="pay_status_item">
+                #{pay_status_item}
+            </foreach>
         </if>
         <if test="ship_status!=null">
-            and ship_status=#{ship_status}
+            AND ship_status IN
+            <foreach collection="ship_status" separator="," open="(" close=")" item="ship_status_item">
+                #{ship_status_item}
+            </foreach>
+        </if>
+        <if test="package_status!=null">
+            AND package_status IN
+            <foreach collection="package_status" separator="," open="(" close=")" item="package_status_item">
+                #{package_status_item}
+            </foreach>
         </if>
         ORDER by created_at DESC
     </select>
@@ -206,16 +226,28 @@
         SELECT count(1) FROM orders
         where uid=#{uid}
         <if test="order_status!=null">
-            and order_status=#{order_status}
+            AND order_status IN
+            <foreach collection="order_status" separator="," open="(" close=")" item="order_status_item">
+                #{order_status_item}
+            </foreach>
         </if>
         <if test="pay_status!=null">
-            and pay_status=#{pay_status}
-        </if>
-        <if test="pay_status!=null">
-            and pay_status=#{pay_status}
+            AND pay_status IN
+            <foreach collection="pay_status" separator="," open="(" close=")" item="pay_status_item">
+                #{pay_status_item}
+            </foreach>
         </if>
         <if test="ship_status!=null">
-            and ship_status=#{ship_status}
+            AND ship_status IN
+            <foreach collection="ship_status" separator="," open="(" close=")" item="ship_status_item">
+                #{ship_status_item}
+            </foreach>
+        </if>
+        <if test="package_status!=null">
+            AND package_status IN
+            <foreach collection="package_status" separator="," open="(" close=")" item="package_status_item">
+                #{package_status_item}
+            </foreach>
         </if>
     </select>
 
@@ -229,6 +261,7 @@
         pay_status,
         ship_status,
         package_status,
+        order_total,
         order_amount,
         order_weight,
         order_money,
@@ -237,6 +270,7 @@
         bid,
         bonus,
         point,
+        point_used,
         pid,
         payment,
         send_date,
@@ -267,6 +301,7 @@
         pay_status,
         ship_status,
         package_status,
+        order_total,
         order_amount,
         order_weight,
         order_money,
@@ -275,6 +310,7 @@
         bid,
         bonus,
         point,
+        point_used,
         pid,
         payment,
         send_date,
@@ -327,6 +363,9 @@
             <if test="package_status!=null">
                 ,package_status
             </if>
+            <if test="order_total!=null">
+                ,order_total
+            </if>
             <if test="order_amount!=null">
                 ,order_amount
             </if>
@@ -350,6 +389,9 @@
             </if>
             <if test="point!=null">
                 ,point
+            </if>
+            <if test="point_used!=null">
+                ,point_used
             </if>
             <if test="pid!=null">
                 ,pid
@@ -419,6 +461,9 @@
             <if test="package_status!=null">
                 ,#{package_status}
             </if>
+            <if test="order_total!=null">
+                ,#{order_total}
+            </if>
             <if test="order_amount!=null">
                 ,#{order_amount}
             </if>
@@ -442,6 +487,9 @@
             </if>
             <if test="point!=null">
                 ,#{point}
+            </if>
+            <if test="point_used!=null">
+                ,#{point_used}
             </if>
             <if test="pid!=null">
                 ,#{pid}
@@ -515,6 +563,9 @@
             <if test="package_status!=null">
                 ,package_status=#{package_status}
             </if>
+            <if test="order_total!=null">
+                ,order_total=#{order_total}
+            </if>
             <if test="order_amount!=null">
                 ,order_amount=#{order_amount}
             </if>
@@ -538,6 +589,9 @@
             </if>
             <if test="point!=null">
                 ,point=#{point}
+            </if>
+            <if test="point_used!=null">
+                ,point_used=#{point_used}
             </if>
             <if test="pid!=null">
                 ,pid=#{pid}

@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12" style="background: white;padding: 16px;">
+        <form role="form">
+            <!-- text input -->
+            <div class="form-group">
+                <label>分类名称</label>
+                <input ng-model="category.name" type="text" class="form-control" placeholder="分类名称">
+            </div>
+
+            <div class="form-group">
+                <label>商品级别</label>
+                <div class="radio">
+                    <label>
+                        <input ng-model="category.level" ng-checked="category.level==1" type="radio" name="level"
+                               value="1">
+                        一级分类
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-model="category.level" ng-checked="category.level==2" type="radio" name="level"
+                               value="2">
+                        二级分类
+                    </label>
+                </div>
+            </div>
+
+            <select2 ng-show="category.level==2" options="cid1" title="一级父类" init-item="{{category.cid1}}"
+                     item-selected="itemSelected1(id)"></select2>
+
+            <div class="form-group">
+                <label>商品是否上线</label>
+                <div class="radio">
+                    <label>
+                        <input ng-model="category.is_delete" ng-checked="category.is_delete==0" type="radio"
+                               name="online" value="0">
+                        上线
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-model="category.is_delete" ng-checked="category.is_delete==1" type="radio"
+                               name="online" value="1">
+                        不上线
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>排序</label>
+                <input ng-model="category.sort" type="text" class="form-control" placeholder="排序大小">
+            </div>
+
+            <div class="form-group">
+                <label>图片</label>
+                <imageselector paginate="images" single="true" page-changed="pageChanged(page)"
+                               image-selected="masterImageSelected"></imageselector>
+            </div>
+            <div class="form-group">
+                <button ng-click="cancel()" type="button" class="btn btn-primary ">取消</button>
+                <button ng-click="submit()" type="button" class="btn btn-danger ">修改</button>
+            </div>
+        </form>
+    </div>
+</div>

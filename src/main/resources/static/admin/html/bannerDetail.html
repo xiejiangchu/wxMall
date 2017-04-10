@@ -1,0 +1,75 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            广告位详情
+            <small>Version 2.0</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">广告位详情</li>
+        </ol>
+    </section>
+
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12" style="background: white;padding: 16px;">
+                <form role="form">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>广告位名称</label>
+                        <input ng-model="item.name" type="text" class="form-control" placeholder="广告位名称">
+                    </div>
+
+                    <div class="form-group">
+                        <label>广告位是否显示</label>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="item.is_show" ng-checked="item.is_show==0" type="radio"
+                                       name="online" value="0">
+                                不显示
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="item.is_show" ng-checked="item.is_show==1" type="radio"
+                                       name="online" value="1">
+                                显示
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>文字描述</label>
+                        <input ng-model="item.tips" type="text" class="form-control" placeholder="产地">
+                    </div>
+
+                    <div class="form-group">
+                        <label>跳转目标</label>
+                        <textarea ng-model="item.target" name="summary" class="form-control" rows="3"
+                                  placeholder="简单描述..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>当前图像</label>
+                        <div>
+                            <img src="http://wxmall.image.alimmdn.com/{{item.url}}@100w_100h" alt="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>首页图像</label>
+                        <imageselector paginate="images1" single="true" page-changed="pageChanged1(page)"
+                                       image-selected="masterImageSelected"></imageselector>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="delete()" type="button" class="btn btn-primary ">删除</button>
+                        <button ng-click="submit()" type="button" class="btn btn-danger ">修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.content-wrapper -->

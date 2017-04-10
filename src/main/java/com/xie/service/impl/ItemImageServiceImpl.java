@@ -65,4 +65,14 @@ public class ItemImageServiceImpl implements ItemImageService {
     public int delete(int id) {
         return itemImageDao.delete(id);
     }
+
+    @Override
+    public int delete(List<Integer> ids) {
+        return itemImageDao.delete(ids);
+    }
+
+    @Override
+    public int deleteByIid(int iid) {
+        return itemImageDao.deleteByIid(iid);
+    }
 }

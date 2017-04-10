@@ -4,7 +4,6 @@ mall.controller('dashBoardController', function ($rootScope, $scope, $http, $sta
     $http.get('/statistics/dashboard').then(function (response) {
         $scope.dashBoardDto = response.data.data;
     }, function (error) {
-        console.log(response)
     });
 
     $scope.checkAll= function () {

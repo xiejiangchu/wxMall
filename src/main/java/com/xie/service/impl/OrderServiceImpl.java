@@ -32,6 +32,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -95,6 +96,14 @@ public class OrderServiceImpl implements OrderService {
                         order.setStatus(OrderType.待收货.value());
                         order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
                     }
+                } else if (order.getPay_status() == PayState.货到付款.value()) {
+                    if (order.getShip_status() == ShipState.待配送.value()) {
+                        order.setStatus(OrderType.待发货.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                    } else if (order.getShip_status() == ShipState.配送中.value()) {
+                        order.setStatus(OrderType.待收货.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                    }
                 }
             }
         }
@@ -142,9 +151,8 @@ public class OrderServiceImpl implements OrderService {
         double totalAmount = 0.0;
         int changed = MallConstants.NO;
         for (int i = 0; i < cartList.size(); i++) {
-
             Cart cart = cartList.get(i);
-            if (itemService.getById(cart.getGid()).getIs_online() == MallConstants.YES && itemSpecService.getById(cart.getSpec()).getIs_online() == MallConstants.YES) {
+            if (cart.getItem().getIs_online() == MallConstants.YES && cart.getItemSpec().getIs_online() == MallConstants.YES) {
                 cart.setSubTotal(cart.getAmount() * cart.getItemSpec().getShop_price());
                 totalAmount += cart.getSubTotal();
                 carts.add(cart);
@@ -162,6 +170,7 @@ public class OrderServiceImpl implements OrderService {
         orderCheckDto.setTotalAmount(totalAmount);
         orderCheckDto.setItems(carts);
         orderCheckDto.setPayments(paymentService.getEnabled());
+        orderCheckDto.setPoint_rate(MallConstants.POINT_RATE);
         Point point = pointService.getByUid(uid);
         if (null == point) {
             Point point_insert = new Point();
@@ -191,16 +200,16 @@ public class OrderServiceImpl implements OrderService {
 
         if (OrderType.待支付.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
+                    () -> orderDao.getByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.未支付.value()), Arrays.asList(ShipState.待配送.value()), Arrays.asList(PackageState.未打包.value())));
         } else if (OrderType.待发货.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
+                    () -> orderDao.getByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.已支付.value(), PayState.货到付款.value()), Arrays.asList(ShipState.待配送.value()), null));
         } else if (OrderType.待收货.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
+                    () -> orderDao.getByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.已支付.value(), PayState.货到付款.value()), Arrays.asList(ShipState.配送中.value()), Arrays.asList(PackageState.已打包.value())));
         } else if (OrderType.已完成.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
-                    () -> orderDao.getByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+                    () -> orderDao.getByStatus(uid, Arrays.asList(OrderState.已完成.value(), OrderState.已取消.value()), null, null, null));
         } else if (OrderType.所有.value().equals(type)) {
             page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(
                     () -> orderDao.getByStatus(uid, null, null, null, null));
@@ -225,6 +234,14 @@ public class OrderServiceImpl implements OrderService {
                             order.setStatus(OrderType.待支付.value());
                             order.setStatusName(OrderType.getTypeName(OrderType.待支付.value()));
                         } else if (order.getPay_status() == PayState.已支付.value()) {
+                            if (order.getShip_status() == ShipState.待配送.value()) {
+                                order.setStatus(OrderType.待发货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                            } else if (order.getShip_status() == ShipState.配送中.value()) {
+                                order.setStatus(OrderType.待收货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                            }
+                        } else if (order.getPay_status() == PayState.货到付款.value()) {
                             if (order.getShip_status() == ShipState.待配送.value()) {
                                 order.setStatus(OrderType.待发货.value());
                                 order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
@@ -299,7 +316,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int insert(Order order) {
         order.setNO(StringUtils.generateOrderNo());
-
         return orderDao.insert(order);
     }
 
@@ -318,22 +334,40 @@ public class OrderServiceImpl implements OrderService {
         order.setNO(StringUtils.generateOrderNo());
         order.setUid(uid);
 
-        //status
-        order.setConfirmed(ConfirmState.待确认.value());
-        order.setOrder_status(OrderState.进行中.value());
-        order.setPay_status(PayState.未支付.value());
-        order.setShip_status(ShipState.待配送.value());
-        order.setPackage_status(PackageState.未打包.value());
+        //payment
+        if (pid > 0) {
+            Payment payment = paymentService.getById(pid);
+            if (null != payment) {
+                order.setPid(pid);
+                order.setPayment(payment.getName());
+                if (payment.getName().trim().equals(MallConstants.PAYMENT_CASH)) {
+
+                    order.setConfirmed(ConfirmState.已确认.value());
+                    order.setOrder_status(OrderState.进行中.value());
+                    order.setPay_status(PayState.货到付款.value());
+                    order.setShip_status(ShipState.待配送.value());
+                    order.setPackage_status(PackageState.未打包.value());
+                } else {
+
+                    order.setConfirmed(ConfirmState.已确认.value());
+                    order.setOrder_status(OrderState.进行中.value());
+                    order.setPay_status(PayState.未支付.value());
+                    order.setShip_status(ShipState.待配送.value());
+                    order.setPackage_status(PackageState.未打包.value());
+                }
+            }
+        }
 
 
         //计算订单总额
         int order_amount = 0;
         double order_weight = 0;
         double order_money = 0;
+        double order_total = 0;
         for (int i = 0; i < cartList.size(); i++) {
             order_amount += cartList.get(i).getAmount();
             order_weight += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getWeight();
-            order_money += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price();
+            order_total += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price();
 
             //更新库存和销量
             ItemSpec itemSpec = cartList.get(i).getItemSpec();
@@ -344,12 +378,16 @@ public class OrderServiceImpl implements OrderService {
             itemSpecService.updateRemainAndSale(itemSpec);
 
         }
+        order.setOrder_total(order_total);
+        order_money = order_total;
 
 
         //point
-        int point_add = (int) (order_money);
+        order.setPoint_used(point);
+        order_money = order_money - (double) point / MallConstants.POINT_RATE;
+        int point_add = (int) (order_total / 10);
         order.setPoint(point_add);
-        pointService.add(uid, 0, point_add);
+        pointService.add(uid, 0, point_add - point);
 
         //地址操作
         order.setAddress_id(address.getId());
@@ -374,14 +412,6 @@ public class OrderServiceImpl implements OrderService {
             order.setTime_end(new Time(DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(10).toDate().getTime()));
         }
 
-        //payment
-        if (pid > 0) {
-            Payment payment = paymentService.getById(pid);
-            if (null != payment) {
-                order.setPid(pid);
-                order.setPayment(payment.getName());
-            }
-        }
 
         //bonus
         if (bid > 0) {
@@ -488,10 +518,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderCountDto orderCount(int uid) {
         OrderCountDto orderCountDto = new OrderCountDto();
-        orderCountDto.setOrder_pay(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.未支付.value(), ShipState.待配送.value(), PackageState.未打包.value()));
-        orderCountDto.setOrder_receive(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.配送中.value(), PackageState.已打包.value()));
-        orderCountDto.setOrder_sending(orderDao.countByStatus(uid, OrderState.进行中.value(), PayState.已支付.value(), ShipState.待配送.value(), null));
-        orderCountDto.setOrder_finish(orderDao.countByStatus(uid, OrderState.已完成.value(), PayState.已支付.value(), ShipState.已配送.value(), PackageState.已打包.value()));
+        orderCountDto.setOrder_pay(orderDao.countByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.未支付.value()), Arrays.asList(ShipState.待配送.value()), Arrays.asList(PackageState.未打包.value())));
+        orderCountDto.setOrder_receive(orderDao.countByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.已支付.value(), PayState.货到付款.value()), Arrays.asList(ShipState.配送中.value()), Arrays.asList(PackageState.已打包.value())));
+        orderCountDto.setOrder_sending(orderDao.countByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.已支付.value(), PayState.货到付款.value()), Arrays.asList(ShipState.待配送.value()), null));
+        orderCountDto.setOrder_finish(orderDao.countByStatus(uid, Arrays.asList(OrderState.已完成.value(), OrderState.已取消.value()), null, null, null));
         Point point = pointService.getByUid(uid);
         if (null == point) {
             Point point_insert = new Point();

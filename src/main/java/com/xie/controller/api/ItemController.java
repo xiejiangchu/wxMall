@@ -91,7 +91,12 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get(@PathVariable("id") int id) {
-        return BaseResponse.ok(itemService.getDetailById(id));
+        if (itemService.isOnline(id)) {
+            return BaseResponse.ok(itemService.getDetailById(id));
+        } else {
+            return BaseResponse.fail("商品未上架");
+        }
+
     }
 
     /**
@@ -155,7 +160,8 @@ public class ItemController extends BaseController {
         }
         int result = itemService.update(item);
         List<Integer> slaveImageSelected = itemDto.getSlaveImageSelected();
-        if (null != slaveImageSelected) {
+        if (null != slaveImageSelected && slaveImageSelected.size() > 0) {
+            itemImageService.deleteByIid(id);
             for (int i = 0; i < slaveImageSelected.size(); i++) {
                 if (itemImageService.check(id, slaveImageSelected.get(i)) <= 0) {
                     itemImageService.insert(id, slaveImageSelected.get(i), ImageType.详情图片.value());
@@ -253,6 +259,7 @@ public class ItemController extends BaseController {
 
     /**
      * 个人页面的数量
+     *
      * @param all
      * @return
      */

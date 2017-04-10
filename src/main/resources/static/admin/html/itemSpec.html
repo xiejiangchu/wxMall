@@ -61,11 +61,17 @@
                                 <div class="col-sm-10">
                                     <operate-select selected="params.itemSpecId"
                                                     list="itemSpecsFilter"></operate-select>
+
+                                    <span ng-class="{search_nav:true,search_focus:mode=='new'}"
+                                          ng-click="itemNew()">
+新增
+</span>
                                 </div>
+
                             </div>
                         </div>
 
-                        <div class="container-fluid" ng-if="params.itemSpecId>0">
+                        <div class="container-fluid" ng-if="params.itemSpecId>0 || mode=='new'">
                             <form role="form">
                                 <div class="form-group">
                                     <label>上线</label>
@@ -160,13 +166,13 @@
 
                                 <div class="form-group">
                                     <label>最大购买量</label>
-                                    <input ng-model="itemSpec.max_quantity" name='max_quantity' type="text"
+                                    <input ng-model="itemSpec.max" name='max' type="text"
                                            class="form-control" placeholder="0.00">
                                 </div>
 
                                 <div class="form-group">
                                     <label>最小购买量</label>
-                                    <input ng-model="itemSpec.order_quantity" name='order_quantity' type="text"
+                                    <input ng-model="itemSpec.min" name='min' type="text"
                                            class="form-control" placeholder="0.00">
                                 </div>
 
@@ -180,6 +186,12 @@
                                     <label>销量</label>
                                     <input ng-model="itemSpec.sale_num" type="text" class="form-control"
                                            placeholder="0.00">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>销售步长</label>
+                                    <input ng-model="itemSpec.unit_sell" name="unit_sell" type="text" class="form-control"
+                                           placeholder="1">
                                 </div>
 
                                 <div class="form-group">

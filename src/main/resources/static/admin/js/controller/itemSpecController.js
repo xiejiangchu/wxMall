@@ -18,6 +18,7 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
         pageNum: 1,
         pageSize: 50
     };
+    $scope.mode = "modify";
 
     $http.get('/category/getCategoryLevel1', {params: {pageNum: 1, pageSize: 10}}).then(function (response) {
         $scope.cid1 = response.data.data;
@@ -34,6 +35,7 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
 
     $scope.$watch('params.cid1', function (value, oldValue, scope) {
         if (value > 0) {
+            $scope.mode = "modify";
             $http.get('/category/getCategoryLevel2/' + $scope.params.cid1, {}).then(function (response) {
                 $scope.cid2 = response.data.data;
                 $scope.cid2Filter = [];
@@ -50,6 +52,7 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
     });
     $scope.$watch('params.cid2', function (value, oldValue, scope) {
         if (value > 0) {
+            $scope.mode = "modify";
             $http.get('/item/getByCategory/', {
                 params: $scope.params
             }).then(function (response) {
@@ -67,6 +70,7 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
     });
     $scope.$watch('params.gid', function (value, oldValue, scope) {
         if (value > 0) {
+            $scope.mode = "modify";
             $http.get('/itemSpec/getAllByGid', {
                 params: {
                     gid: $scope.params.gid
@@ -74,7 +78,9 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
             }).then(function (response) {
                 $scope.itemSpecs = response.data.data;
                 $scope.itemSpec = {};
-                $scope.params.itemSpecId = $scope.itemSpecs[0].id;
+                if ($scope.itemSpecs.length > 0) {
+                    $scope.params.itemSpecId = $scope.itemSpecs[0].id;
+                }
                 $scope.itemSpecsFilter = [];
                 angular.forEach($scope.itemSpecs, function (value, key) {
                     this.push({
@@ -97,15 +103,34 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
         }
     });
 
+    $scope.itemNew = function () {
+        $scope.mode = "new"
+        $scope.params.itemSpecId=null;
+        $scope.itemSpec={};
+    };
+
     $scope.submit = function () {
-        $http.put('/itemSpec/', $scope.itemSpec).then(function (response) {
-            if (response.data.code == 0) {
-                alert('成功');
-            }else{
-                alert(response.data.msg);
-            }
-        }, function (error) {
-        });
+        if ($scope.mode == 'modify') {
+            $http.put('/itemSpec/', $scope.itemSpec).then(function (response) {
+                if (response.data.code == 0) {
+                    alert('成功');
+                } else {
+                    alert(response.data.msg);
+                }
+            }, function (error) {
+            });
+        } else if ($scope.mode == 'new') {
+            $scope.itemSpec.gid = $scope.params.gid;
+            $http.post('/itemSpec/', $scope.itemSpec).then(function (response) {
+                if (response.data.code == 0) {
+                    alert('成功');
+                } else {
+                    alert(response.data.msg);
+                }
+            }, function (error) {
+            });
+        }
+
     };
 
 });

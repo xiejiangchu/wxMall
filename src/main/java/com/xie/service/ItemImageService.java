@@ -25,4 +25,8 @@ public interface ItemImageService {
     int delete(ItemImage itemImage);
 
     int delete(int id);
+
+    int delete(List<Integer> ids);
+
+    int deleteByIid(int iid);
 }

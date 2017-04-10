@@ -32,15 +32,17 @@ public interface ItemService {
 
     int count(boolean all);
 
-    int countByCid1Cid2(int cid1,int cid2);
+    int countByCid1Cid2(int cid1, int cid2);
 
     int insert(Item item);
 
     int update(Item item);
 
-    int online(int id,int spec);
+    int online(int id, int spec);
 
-    int offline(int id,int is_online);
+    boolean isOnline(int id);
+
+    int offline(int id, int is_online);
 
     int delete(Item item);
 

@@ -18,6 +18,9 @@ public class Order implements Serializable {
     private int ship_status;
     private int package_status;
     private int order_amount;
+
+    @JsonSerialize(using = DoubleSerializer.class)
+    private double order_total;
     @JsonSerialize(using = DoubleSerializer.class)
     private double order_weight;
     @JsonSerialize(using = DoubleSerializer.class)
@@ -29,8 +32,9 @@ public class Order implements Serializable {
     private int bid;
     @JsonSerialize(using = DoubleSerializer.class)
     private double bonus;
-    @JsonSerialize(using = DoubleSerializer.class)
-    private double point;
+
+    private int point;
+    private int point_used;
     private int pid;
     private String payment;
     private java.sql.Date send_date;
@@ -121,7 +125,6 @@ public class Order implements Serializable {
         this.package_status = package_status;
     }
 
-
     public int getOrder_amount() {
         return order_amount;
     }
@@ -178,12 +181,20 @@ public class Order implements Serializable {
         this.bonus = bonus;
     }
 
-    public double getPoint() {
+    public int getPoint() {
         return point;
     }
 
-    public void setPoint(double point) {
+    public void setPoint(int point) {
         this.point = point;
+    }
+
+    public int getPoint_used() {
+        return point_used;
+    }
+
+    public void setPoint_used(int point_used) {
+        this.point_used = point_used;
     }
 
     public int getPid() {
@@ -248,6 +259,14 @@ public class Order implements Serializable {
 
     public void setReceiver(String receiver) {
         this.receiver = receiver;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getCity() {
@@ -346,12 +365,12 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public String getProvince() {
-        return province;
+    public double getOrder_total() {
+        return order_total;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setOrder_total(double order_total) {
+        this.order_total = order_total;
     }
 }
 

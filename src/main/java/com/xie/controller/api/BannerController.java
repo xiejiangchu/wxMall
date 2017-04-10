@@ -23,6 +23,19 @@ public class BannerController extends BaseController{
         return BaseResponse.ok(bannerService.getById(id));
     }
 
+    /**
+     * 后台管理
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(bannerService.getAll(pageNum, pageSize));
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse list() {

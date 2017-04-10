@@ -237,6 +237,13 @@
         DELETE FROM category WHERE id=#{id}
     </delete>
 
+    <update id="offlineByPid">
+         UPDATE category
+        SET is_delete = #{online}
+        ,updated_at=now()
+        WHERE pid=#{pid}
+    </update>
+
     <delete id="deleteBatch">
         DELETE FROM category WHERE id IN
         <foreach collection="categories" item="category" separator="," open="(" close=")">

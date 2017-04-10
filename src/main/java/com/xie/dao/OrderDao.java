@@ -20,7 +20,7 @@ public class OrderDao extends BaseDao {
         return this.sqlSession.selectOne("OrderMapper.getById", id);
     }
 
-    public List<Order> getByStatus(Integer uid, Integer order_status, Integer pay_status, Integer ship_status, Integer package_status) {
+    public List<Order> getByStatus(Integer uid, List<Integer> order_status, List<Integer> pay_status, List<Integer> ship_status, List<Integer> package_status) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", uid);
         map.put("pay_status", pay_status);
@@ -53,7 +53,7 @@ public class OrderDao extends BaseDao {
     }
 
 
-    public int countByStatus(Integer uid, Integer order_status, Integer pay_status, Integer ship_status, Integer package_status) {
+    public int countByStatus(Integer uid, List<Integer> order_status, List<Integer> pay_status, List<Integer> ship_status, List<Integer> package_status) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", uid);
         map.put("pay_status", pay_status);

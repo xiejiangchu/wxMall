@@ -1,4 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -12,6 +13,18 @@
         </ol>
     </section>
     <div class="container-fluid">
+        <div class="row">
+            <div class="pull-right">
+                <p>
+                    <button ng-click="add()" type="button" class="btn bg-green btn-flat margin">
+                        <i class="fa fa-add">添加商品</i>
+                    </button>
+                    <button ng-click="addBatch()" type="button" class="btn bg-red btn-flat margin">
+                        <i class="fa fa-add">批量添加</i>
+                    </button>
+                </p>
+            </div>
+        </div>
         <div class="panel panel-success" style="margin-top: 20px;">
             <div class="panel-heading">
                 <h3 class="panel-title">筛选</h3>
@@ -114,6 +127,12 @@
                                 <label>通知信息</label>
                         <textarea ng-model="editItem.notice" name="notice" class="form-control" rows="3"
                                   placeholder="通知信息..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>通知信息色彩</label>
+                        <textarea ng-model="item.notice_color" name="notice_color" class="form-control" rows="3"
+                                  placeholder="通知信息色彩(green,red,blue,yellow)"></textarea>
                             </div>
 
                             <div class="form-group">

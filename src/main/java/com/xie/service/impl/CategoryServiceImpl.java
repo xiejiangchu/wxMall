@@ -75,6 +75,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int offline(int id, int online) {
+        Category category = categoryDao.getById(id);
+        Assert.isTrue(category != null, "category不允许为空");
+        if (category.getLevel() == MallConstants.YES) {
+            categoryDao.offlineByPid(category.getId(), online);
+        }
         return categoryDao.offline(id, online);
     }
 

@@ -53,6 +53,10 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.selectList("ItemMapper.search", map);
     }
 
+    public int isOnline(int id){
+        return this.sqlSession.selectOne("ItemMapper.isOnline", id);
+    }
+
     public List<Item> top() {
         return this.sqlSession.selectList("ItemMapper.top");
     }

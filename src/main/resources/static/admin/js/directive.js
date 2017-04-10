@@ -70,6 +70,31 @@ mall.directive('datatablecategory', function () {
             }
         }
     };
+}).directive('datatablebanner', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: "=",
+            pageChanged: "&",
+            itemClick: "&",
+            itemDelete: "&",
+            itemOnline: "&",
+            itemOffline: "&"
+        },
+        templateUrl: '/admin/template/dataTableBanner.html',
+        link: function (scope, element, attrs) {
+            scope.$watch('options.paginate', handleModelUpdates, true);
+            scope.$watch('options.title', titleChanged, true);
+
+            function titleChanged(newData) {
+                scope.options.title = newData || "";
+            }
+
+            function handleModelUpdates(newData) {
+                scope.options.paginate = newData || {};
+            }
+        }
+    };
 }).directive('datatableimage', function () {
     return {
         restrict: 'EA',

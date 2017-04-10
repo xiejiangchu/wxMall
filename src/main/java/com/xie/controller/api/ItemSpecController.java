@@ -76,4 +76,20 @@ public class ItemSpecController {
             return BaseResponse.fail();
         }
     }
+
+    /**
+     * 修改
+     *
+     * @return
+     */
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse post(@RequestBody ItemSpec itemSpec) {
+        int result = itemSpecService.insert(itemSpec);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
 }

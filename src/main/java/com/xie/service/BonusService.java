@@ -2,6 +2,7 @@ package com.xie.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Bonus;
+import com.xie.bean.Cart;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,10 @@ public interface BonusService {
 
     int countEnabledByUid(int uid);
 
+    int countEnabledByCart(int uid, List<Cart> carts);
+
+    List<Bonus> getEnabledByCart(int uid, List<Cart> carts);
+
     int insert(Bonus bonus);
 
     int insert(int uid, int tid, Integer is_enable, Date begin, Date end);
@@ -39,4 +44,6 @@ public interface BonusService {
     int softDelete(int id);
 
     int saveOrUpdate(Bonus bonus);
+
+    int fetchBonusByCode(int uid, String code);
 }

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Bonus;
 import com.xie.bean.BonusType;
+import com.xie.bean.Cart;
 import com.xie.dao.BonusDao;
 import com.xie.enums.BonusQueryType;
 import com.xie.service.BonusService;
@@ -16,6 +17,7 @@ import org.springframework.util.Assert;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author xie
@@ -53,6 +55,30 @@ public class BonusServiceImpl implements BonusService {
     @Override
     public int countEnabledByUid(int uid) {
         return bonusDao.countEnabledByUid(uid);
+    }
+
+    @Override
+    public int countEnabledByCart(int uid, List<Cart> carts) {
+        return getEnabledByCart(uid, carts).size();
+    }
+
+    @Override
+    public List<Bonus> getEnabledByCart(int uid, List<Cart> carts) {
+        List<Bonus> bonusList = bonusDao.getListValidate(uid);
+        List<Bonus> output = bonusList.stream().filter(bonus -> {
+            for (int i = 0; i < carts.size(); i++) {
+                Cart cart = carts.get(i);
+                if (bonus.getGid() > 0) {
+                    return bonus.getGid() == cart.getGid();
+                } else if (bonus.getCid2() > 0) {
+                    return bonus.getCid2() == cart.getItem().getCid2();
+                } else if (bonus.getCid1() > 0) {
+                    return bonus.getCid1() == cart.getItem().getCid1();
+                }
+            }
+            return false;
+        }).collect(Collectors.toList());
+        return output;
     }
 
     @Override
@@ -138,5 +164,10 @@ public class BonusServiceImpl implements BonusService {
     @Override
     public int saveOrUpdate(Bonus bonus) {
         return bonusDao.saveOrUpdate(bonus);
+    }
+
+    @Override
+    public int fetchBonusByCode(int uid, String code) {
+        return 0;
     }
 }

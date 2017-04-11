@@ -1,15 +1,18 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Bonus;
+import com.xie.bean.Cart;
 import com.xie.response.BaseResponse;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
+import com.xie.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xie on 17/1/7.
@@ -24,6 +27,9 @@ public class BonusController extends BaseController {
     @Autowired
     BonusTypeService bonusTypeService;
 
+    @Autowired
+    CartService cartService;
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get(@PathVariable("id") int id) {
@@ -37,6 +43,22 @@ public class BonusController extends BaseController {
                       @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(bonusService.getListByType(getUid(sessionId), type, pageNum, pageSize));
+    }
+
+    @RequestMapping(value = "/getEnabledByCart", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getEnabledByCart(@RequestParam(value = "sessionId") String sessionId) {
+        int uid = getUid(sessionId);
+        List<Cart> cartList = cartService.getByUid(uid);
+        return BaseResponse.ok(bonusService.getEnabledByCart(uid, cartList));
+    }
+
+    @RequestMapping(value = "/fetchBonusByCode", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse fetchBonusByCode(@RequestParam(value = "sessionId") String sessionId,
+                                  @RequestParam(value = "code") String code) {
+        int uid = getUid(sessionId);
+        return BaseResponse.ok();
     }
 
 

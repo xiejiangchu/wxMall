@@ -158,9 +158,11 @@
         FROM items
         LEFT JOIN category c1 on items.cid1 = c1.id
         LEFT JOIN category c2 on items.cid2 = c2.id
-        WHERE is_online = 1
-        AND c1.is_delete=0
-        AND c1.is_delete=0
+        WHERE
+        items.id = #{id}
+        AND is_online = 1
+        AND c1.is_delete = 0
+        AND c2.is_delete = 0
     </select>
 
     <select id="getAllCanShow" resultMap="ItemResult">
@@ -251,7 +253,11 @@
         updated_at,
         deleted_at
         FROM items
-        WHERE items.is_online = 1
+        LEFT JOIN category c1 on items.cid1 = c1.id
+        LEFT JOIN category c2 on items.cid2 = c2.id
+        WHERE is_online = 1
+        AND c1.is_delete=0
+        AND c1.is_delete=0
         <if test="keywords!=null">
             and name like CONCAT('%',#{keywords},'%')
         </if>

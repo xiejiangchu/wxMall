@@ -106,6 +106,7 @@
         LEFT JOIN items on cart.gid = items.id
         LEFT JOIN item_spec on cart.spec = item_spec.id
         WHERE cart.uid=#{uid}
+        ORDER BY items.name
     </select>
 
     <insert id="insert" parameterType="Cart">

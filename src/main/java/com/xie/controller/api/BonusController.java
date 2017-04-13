@@ -3,6 +3,7 @@ package com.xie.controller.api;
 import com.xie.bean.Bonus;
 import com.xie.bean.Cart;
 import com.xie.response.BaseResponse;
+import com.xie.service.BonusExchangeService;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
 import com.xie.service.CartService;
@@ -29,6 +30,9 @@ public class BonusController extends BaseController {
 
     @Autowired
     CartService cartService;
+
+    @Autowired
+    private BonusExchangeService bonusExchangeService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -58,7 +62,13 @@ public class BonusController extends BaseController {
     BaseResponse fetchBonusByCode(@RequestParam(value = "sessionId") String sessionId,
                                   @RequestParam(value = "code") String code) {
         int uid = getUid(sessionId);
-        return BaseResponse.ok();
+        int result = bonusExchangeService.fetchBonusByCode(uid, code);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail("兑换失败");
+        }
+
     }
 
 
@@ -86,11 +96,11 @@ public class BonusController extends BaseController {
     @ResponseBody
     @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse post(@RequestParam(value = "uid") int uid,
-                             @RequestParam(value = "tid") int aid,
+                             @RequestParam(value = "tid") int tid,
                              @RequestParam(value = "is_enable", defaultValue = "0") int is_enable,
                              @RequestParam(value = "begin", defaultValue = "2017-01-01") Date begin,
                              @RequestParam(value = "end", defaultValue = "2017-01-01") Date end) {
-        int result = bonusService.insert(uid, aid, is_enable, begin, end);
+        int result = bonusService.insert(uid, tid, is_enable, begin, end);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

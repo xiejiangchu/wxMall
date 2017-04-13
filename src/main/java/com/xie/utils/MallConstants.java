@@ -17,6 +17,8 @@ public class MallConstants {
     public final static int POINT_RATE = 100;
     public final static int ERROR_CODE = -1;
 
+    public final static String ADMIN = "admin";
+
     public final static String SESSION_ID = "sessionId";
 
 

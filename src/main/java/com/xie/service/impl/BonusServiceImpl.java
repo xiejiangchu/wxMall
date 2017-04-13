@@ -9,6 +9,7 @@ import com.xie.dao.BonusDao;
 import com.xie.enums.BonusQueryType;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
+import com.xie.utils.MallConstants;
 import org.joda.time.DateTimeComparator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,18 @@ public class BonusServiceImpl implements BonusService {
             return page;
         }
         return null;
+    }
+
+    @Override
+    public int insert(int uid, BonusType bonusType) {
+        Bonus insert = new Bonus();
+        insert.setUid(uid);
+        insert.setTid(bonusType.getId());
+        insert.setIs_enable(MallConstants.YES);
+
+        BeanUtils.copyProperties(bonusType, insert, "id", "uid", "tid", "created_at", "updated_at");
+
+        return bonusDao.insert(insert);
     }
 
     @Override

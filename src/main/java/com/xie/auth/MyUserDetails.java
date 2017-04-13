@@ -3,6 +3,7 @@ package com.xie.auth;
 import com.xie.bean.Permission;
 import com.xie.bean.Role;
 import com.xie.bean.User;
+import com.xie.utils.MallConstants;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -104,5 +105,18 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.getEnabled() > 0;
+    }
+
+    public boolean isAdmin() {
+        if (roleList == null || roleList.size() == 0) {
+            return false;
+        } else {
+            for (int i = 0; i < roleList.size(); i++) {
+                if (roleList.get(i).getName().equals(MallConstants.ADMIN)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

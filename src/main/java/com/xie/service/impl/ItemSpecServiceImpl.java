@@ -36,11 +36,18 @@ public class ItemSpecServiceImpl implements ItemSpecService {
 
     @Override
     public int insert(ItemSpec itemSpec) {
+        if (itemSpec.getUnit_sell() <= 0) {
+            itemSpec.setUnit_sell(1);
+        }
         return itemSpecDao.insert(itemSpec);
     }
 
     @Override
     public int update(ItemSpec itemSpec) {
+
+        if (itemSpec.getUnit_sell() <= 0) {
+            itemSpec.setUnit_sell(1);
+        }
         return itemSpecDao.update(itemSpec);
     }
 

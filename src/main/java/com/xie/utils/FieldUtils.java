@@ -27,7 +27,7 @@ public class FieldUtils {
 
     public static void mains(String[] args) {
         Connection conn = getConnection();
-        String sql = "select * from items limit 0,2";
+        String sql = "select * from bonus_exchange limit 0,2";
         PreparedStatement stmt;
         try {
             stmt = conn.prepareStatement(sql);
@@ -76,23 +76,25 @@ public class FieldUtils {
                         boolean isSearchable = data.isSearchable(i);
 //                        System.out.println(columnName + ",");
 //                    System.out.println(tableName+"."+columnName+" as "+ tableName+"_"+columnName +",");
-                    System.out.println(tableName+"."+columnName+" as "+columnName +",");
+//                    System.out.println(tableName+"."+columnName+" as "+columnName +",");
 
-//                        String str1="<if test=\"#columnName#!=null\">\n" +
-//                                ",#columnName#\n" +
-//                                "</if>";
-//                        System.out.println(str1.replace("#columnName#",columnName));
+                        String str1="<if test=\"#columnName#!=null\">\n" +
+                                ",#columnName#\n" +
+                                "</if>";
+                        System.out.println(str1.replace("#columnName#",columnName));
 
 //                        String str2="<if test=\"#columnName#!=null\">\n" +
 //                                ",#{#columnName#}\n" +
 //                                "</if>";
 //                        System.out.println(str2.replace("#columnName#",columnName));
-
+//
 //                        String str3="<if test=\"#columnName#!=null\">\n" +
 //                                ",#columnName#=#{#columnName#}\n" +
 //                                "</if>";
 //                        System.out.println(str3.replace("#columnName#",columnName));
-
+//
+//                        System.out.println("        ===             ");
+//
 //                        String str4 = "<result property=\"#columnName#\" column=\"#columnName#\" javaType=\"Double\" jdbcType=\"DECIMAL\"/>";
 //                        System.out.println(str4.replace("#columnName#", columnName));
 

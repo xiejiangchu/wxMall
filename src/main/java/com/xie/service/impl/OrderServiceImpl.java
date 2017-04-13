@@ -3,6 +3,7 @@ package com.xie.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.thoughtworks.xstream.XStream;
+import com.xie.auth.MyUserDetails;
 import com.xie.bean.*;
 import com.xie.config.WxPayConfig;
 import com.xie.dao.OrderDao;
@@ -19,6 +20,9 @@ import com.xie.utils.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -536,7 +540,12 @@ public class OrderServiceImpl implements OrderService {
             orderCountDto.setMoney(point.getMoney());
         }
 
-        if (uid < 12) {
+        MyUserDetails myUserDetails = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
+            myUserDetails = (MyUserDetails) authentication.getPrincipal();
+        }
+        if (myUserDetails.isAdmin()) {
             orderCountDto.setAdmins(MallConstants.YES);
         } else {
             orderCountDto.setAdmins(MallConstants.NO);

@@ -27,7 +27,7 @@
         created_at as created_at,
         updated_at as updated_at,
         deleted_at as deleted_at
-        FROM images ORDER BY created_at desc;
+        FROM images ORDER BY created_at desc
     </select>
 
     <select id="getById" resultMap="ImageResult">

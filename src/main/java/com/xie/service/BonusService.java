@@ -2,6 +2,7 @@ package com.xie.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Bonus;
+import com.xie.bean.BonusType;
 import com.xie.bean.Cart;
 
 import java.util.Date;
@@ -32,6 +33,8 @@ public interface BonusService {
     int insert(Bonus bonus);
 
     int insert(int uid, int tid, Integer is_enable, Date begin, Date end);
+
+    int insert(int uid, BonusType bonusType);
 
     int insert(int uid, int tid);
 

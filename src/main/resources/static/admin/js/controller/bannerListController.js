@@ -23,13 +23,38 @@ mall.controller('bannerListController', function ($rootScope, $scope, $http, $st
     $scope.itemOnline = function (id) {
         $http.put('/banner/offline', {
             id: id,
-            is_online: 1
+            online: 1
+        },{
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
         }).then(function (response) {
             if (response.data.code == 0) {
-                $scope.operateSuccess = true;
-                $timeout(function () {
-                    $scope.operateSuccess = false;
-                }, 1000);
+                alert("成功");
+            }
+        }, function (error) {
+        });
+    };
+
+    $scope.itemOffline = function (id) {
+        $http.put('/banner/offline', {
+            id: id,
+            online: 0
+        },{
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
+        }).then(function (response) {
+            if (response.data.code == 0) {
+                alert("成功");
             }
         }, function (error) {
         });

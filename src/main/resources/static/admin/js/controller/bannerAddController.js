@@ -1,49 +1,29 @@
-mall.controller('bannerAddController', function ($rootScope, $scope, $http, $state) {
-    $scope.cid1 = [];
-    $scope.images = {};
-    $scope.masterImageSelected = [];
+mall.controller('bannerAddController', function ($rootScope, $scope, $http) {
+    $scope.banner = {};
+    $scope.image = [];
+    $scope.pageSize = 60;
 
-    $scope.category = {
-        is_delete: 0,
-        level: 1,
-        sort: 10
-    };
-
-    $http.get('/image/list', {params: {pageNum: 1, pageSize: 50}}).then(function (response) {
-        $scope.images = response.data.data;
+    $http.get('/image/list', {params: {pageNum: 1, pageSize: $scope.pageSize}}).then(function (response) {
+        $scope.images1 = response.data.data;
     }, function (error) {
     });
 
-    $http.get('/category/getCategoryLevel1', {params: {pageNum: 1, pageSize: 10}}).then(function (response) {
-        $scope.cid1 = response.data.data;
-    }, function (error) {
-        console.log(response);
-    });
-
-    $scope.pageChanged = function (id) {
+    $scope.pageChanged1 = function (id) {
         $http.get('/image/list', {params: {pageNum: id, pageSize: $scope.pageSize}}).then(function (response) {
-            $scope.images = response.data.data;
+            $scope.images1 = response.data.data;
         }, function (error) {
         });
-    };
-
-    $scope.itemSelected1 = function (id) {
-        $scope.category.pid = id;
     };
 
     $scope.submit = function () {
-        $http.post('/category/', {
-            category: $scope.category,
-            masterImageSelected: $scope.masterImageSelected
+        $http.post('/banner/', {
+            banner: $scope.banner,
+            image: $scope.image
         }).then(function (response) {
             if (response.data.code == 0) {
-                alert('添加成功');
+                history.back();
             }
         }, function (error) {
         });
-    };
-
-    $scope.cancel = function () {
-
     };
 });

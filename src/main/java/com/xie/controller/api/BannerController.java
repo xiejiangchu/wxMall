@@ -1,8 +1,11 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Banner;
+import com.xie.bean.Image;
+import com.xie.request.BannerDto;
 import com.xie.response.BaseResponse;
 import com.xie.service.BannerService;
+import com.xie.service.ImageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +15,13 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/banner")
-public class BannerController extends BaseController{
+public class BannerController extends BaseController {
 
     @Autowired
     BannerService bannerService;
+
+    @Autowired
+    ImageFileService imageFileService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -25,6 +31,7 @@ public class BannerController extends BaseController{
 
     /**
      * 后台管理
+     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -45,8 +52,27 @@ public class BannerController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse post(@ModelAttribute Banner banner) {
+    public BaseResponse post(@RequestBody BannerDto bannerDto) {
+        Banner banner = bannerDto.getBanner();
+        if(bannerDto.getImage().size()>0){
+            Image image = imageFileService.getById(bannerDto.getImage().get(0));
+            if (image != null) {
+                banner.setUrl(image.getUri());
+            }
+        }
         int result = bannerService.insert(banner);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    @RequestMapping(value = "/offline", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse offline(@RequestParam("id") int id,
+                                @RequestParam("online") int online) {
+        int result = bannerService.offline(id, online);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -56,7 +82,15 @@ public class BannerController extends BaseController{
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse put(@PathVariable("id") int id, @ModelAttribute Banner banner) {
+    public BaseResponse put(@PathVariable("id") int id, @RequestBody BannerDto bannerDto) {
+        Banner banner = bannerDto.getBanner();
+        if(bannerDto.getImage().size()>0){
+            Image image = imageFileService.getById(bannerDto.getImage().get(0));
+            if (image != null) {
+                banner.setUrl(image.getUri());
+            }
+        }
+
         int result = bannerService.update(banner);
         if (result > 0) {
             return BaseResponse.ok();
@@ -68,7 +102,7 @@ public class BannerController extends BaseController{
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public BaseResponse delete(@PathVariable("id") int id) {
-        int result = bannerService.softDelete(id);
+        int result = bannerService.delete(id);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

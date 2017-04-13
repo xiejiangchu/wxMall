@@ -17,7 +17,7 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         templateUrl: '/admin/html/bannerAdd.html',
         controller: 'bannerAddController'
     }).state('bannerDetail', {
-        url: '/bannerDetail',
+        url: '/bannerDetail/:id',
         templateUrl: '/admin/html/bannerDetail.html',
         controller: 'bannerDetailController'
     }).state('banner.list', {

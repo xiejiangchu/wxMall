@@ -26,6 +26,7 @@
         FROM banner
     </select>
 
+
     <select id="getAllCanShow" resultMap="BannerResult">
         SELECT
         id,
@@ -39,6 +40,7 @@
         deleted_at
         FROM banner
         WHERE is_show = 1 order BY sort desc
+        AND <![CDATA[ deleted_at<now() ]]>
     </select>
 
     <select id="getById" resultMap="BannerResult">
@@ -107,6 +109,13 @@
         </trim>
         )
     </insert>
+
+    <update id="offline">
+        UPDATE banner set
+        is_show=#{online}
+        ,updated_at=now()
+        WHERE id=#{id}
+    </update>
 
     <update id="update" parameterType="Banner">
         UPDATE banner set

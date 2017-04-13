@@ -165,7 +165,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         Address address = addressService.getFirstAddress(uid);
-        int bonus_count = bonusService.countEnabledByUid(uid);
+        int bonus_count = bonusService.countEnabledByCart(uid, cartList);
 
 
         OrderCheckDto orderCheckDto = new OrderCheckDto();

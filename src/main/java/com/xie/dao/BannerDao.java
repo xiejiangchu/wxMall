@@ -3,7 +3,9 @@ package com.xie.dao;
 import com.xie.bean.Banner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xie on 16/11/24.
@@ -29,7 +31,7 @@ public class BannerDao extends BaseDao {
     }
 
     public int insert(Banner banner) {
-        return this.sqlSession.insert("BannerMapper.insert");
+        return this.sqlSession.insert("BannerMapper.insert",banner);
     }
 
     public int update(Banner banner) {
@@ -42,6 +44,13 @@ public class BannerDao extends BaseDao {
 
     public int softDelete(Integer id) {
         return this.sqlSession.update("BannerMapper.softDelete", id);
+    }
+
+    public int offline(int id, int online) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("online", online);
+        return this.sqlSession.update("BannerMapper.offline", map);
     }
 
 }

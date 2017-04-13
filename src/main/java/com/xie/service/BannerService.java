@@ -16,6 +16,8 @@ public interface BannerService {
 
     Banner getById(int id);
 
+    int offline(int id,int online);
+
     int count(boolean all);
 
     int insert(Banner address);

@@ -30,8 +30,9 @@
                     </a>
                     {{item.tip}}
                 </td>
-                <td class="{{item.is_show==1? 'text-success':'text-danger'}}">{{item.is_show==1? '是':'否'}}</td>
                 <td>{{item.target}}</td>
+                <td class="{{item.is_show==1? 'text-success':'text-danger'}}">{{item.is_show==1? '是':'否'}}</td>
+
                 <td>
                     <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
                         <i class="fa fa-edit text-blue"></i>

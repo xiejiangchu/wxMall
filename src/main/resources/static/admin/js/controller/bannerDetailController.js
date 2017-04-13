@@ -2,6 +2,8 @@ mall.controller('bannerDetailController', function ($rootScope, $scope, $http, $
 
     $scope.bid = $stateParams.id;
     $scope.banner = {};
+    $scope.image = [];
+    $scope.pageSize = 60;
 
     $http.get('/banner/' + $scope.bid, {}).then(function (response) {
         $scope.banner = response.data.data;
@@ -21,10 +23,9 @@ mall.controller('bannerDetailController', function ($rootScope, $scope, $http, $
     };
 
     $scope.submit = function () {
-        $http.put('/banner/' + $scope.item.id, {
-            item: $scope.item,
-            masterImageSelected: $scope.masterImageSelected,
-            slaveImageSelected: $scope.slaveImageSelected
+        $http.put('/banner/' + $scope.bid, {
+            banner: $scope.banner,
+            image: $scope.image
         }).then(function (response) {
             if (response.data.code == 0) {
                 history.back();
@@ -34,7 +35,20 @@ mall.controller('bannerDetailController', function ($rootScope, $scope, $http, $
     };
 
     $scope.delete = function () {
+        $scope.showDeleteDialog = true;
+    };
 
+    $scope.dimissDeleteDialog = function () {
+        $scope.showDeleteDialog = false;
+    };
+    $scope.confirmDeleteDialog = function () {
+        $scope.showDeleteDialog = false;
+        $http.delete('/banner/' + $scope.bid).then(function (response) {
+            if (response.data.code == 0) {
+                history.back();
+            }
+        }, function (error) {
+        });
     };
 
 });

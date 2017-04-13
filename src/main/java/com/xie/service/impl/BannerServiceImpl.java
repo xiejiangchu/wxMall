@@ -3,7 +3,6 @@ package com.xie.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Banner;
-import com.xie.bean.Category;
 import com.xie.dao.BannerDao;
 import com.xie.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,11 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public Banner getById(int id) {
         return bannerDao.getById(id);
+    }
+
+    @Override
+    public int offline(int id, int online) {
+        return bannerDao.offline(id, online);
     }
 
     @Override

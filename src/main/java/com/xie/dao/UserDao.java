@@ -14,7 +14,7 @@ import java.util.Map;
 @Component
 public class UserDao extends BaseDao {
 
-    public User getById(Integer id) {
+    public User getById(int id) {
         return this.sqlSession.selectOne("UserMapper.getById", id);
     }
 

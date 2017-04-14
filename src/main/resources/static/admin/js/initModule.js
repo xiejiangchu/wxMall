@@ -17,11 +17,11 @@ mall.factory('$dictionary', function () {
 
 mall.filter('orderstatus', function () {
     var orderStatus = {
-        100: '进行中',
-        200: '已取消',
-        300: '已完成',
-        400: '已删除',
-        500: '系统回收'
+        10: '进行中',
+        20: '已取消',
+        30: '已完成',
+        40: '已删除',
+        50: '系统回收'
     };
     return function (input, param) {
         if (typeof (input) == 'number') {

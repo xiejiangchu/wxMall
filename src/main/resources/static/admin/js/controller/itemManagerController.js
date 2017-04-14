@@ -22,6 +22,12 @@ mall.controller('itemManagerController', function ($rootScope, $scope, $http, $s
         pageNum: 1,
         pageSize: 50
     };
+    $scope.options={spellChecker: false,
+        autosave: {
+            enabled: false,
+            unique_id: "detail"
+        }};
+
 
     $scope.add = function (id) {
         $state.go('item.add');

@@ -143,6 +143,7 @@ public class OrderServiceImpl implements OrderService {
             List<Order> orders = page.getList();
             for (int i = 0; i < orders.size(); i++) {
                 orders.get(i).setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
+                orders.get(i).setUser(userService.getById(orders.get(i).getUid()));
             }
         }
         return page;

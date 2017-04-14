@@ -118,12 +118,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label>详细描述</label>
-                        <textarea ng-model="editItem.description" name="description" class="form-control" rows="3"
-                                  placeholder="详细描述..."></textarea>
-                            </div>
-
-                            <div class="form-group">
                                 <label>通知信息</label>
                         <textarea ng-model="editItem.notice" name="notice" class="form-control" rows="3"
                                   placeholder="通知信息..."></textarea>
@@ -160,6 +154,11 @@
                                 <label>详情图像</label>
                                 <imageselector paginate="images2" single="false" page-changed="pageChanged2(page)"
                                                image-selected="slaveImageSelected"></imageselector>
+                            </div>
+
+                            <div class="form-group">
+                                <label>详细描述</label>
+                                <textarea mb-simplemde="options" ng-model="editItem.description"></textarea>
                             </div>
                             <div class="form-group">
                                 <button ng-click="delete()" type="button" class="btn btn-primary ">删除</button>

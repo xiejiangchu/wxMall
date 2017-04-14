@@ -16,6 +16,7 @@
                     <!--<th>配送地址</th>-->
                     <th>留言信息</th>
                     <th>详情</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,19 +28,35 @@
                 <tr ng-repeat-start="order in options.paginate.list" ng-if="false"></tr>
                 <tr>
                     <td>{{order.no}}</td>
-                    <td>{{order.uid}}</td>
+                    <td>{{order.user.name}}</td>
                     <td>{{order.order_status | orderstatus }}</td>
                     <td>{{order.pay_status | paystatus}}</td>
                     <td>{{order.ship_status | shipstatus}}</td>
                     <td>{{order.package_status | packagestatus}}</td>
                     <td>{{order.order_amount| number:2}}</td>
                     <td>{{order.payment }}</td>
-                    <td>日期:{{order.send_date | date : 'yyyy-MM-dd'}}<br>时间:{{order.time_start | date : 'hh:mm:ss'}}</td>
+                    <td>日期:{{order.send_date | date : 'MM-dd'}} {{order.time_start | date : 'hh:mm:ss'}}
+                        - {{order.time_end | date : 'hh:mm:ss'}}
+                    </td>
                     <!--<td>{{ order.receiver }} {{ order.mobile }} {{ order.city }}{{ order.district }}{{ order.road }}{{-->
                         <!--order.address }}-->
                     <!--</td>-->
                     <td>{{order.message}}</td>
                     <td ng-click="checkDetail($event)"><div class="table-expandable-arrow"></div></td>
+                    <td>
+                        <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
+                            确认
+                        </a>
+                        <a data-ng-click="itemDelete({id:item.id})" href="javascript:void(0);">
+                           配送
+                        </a>
+                        <a  data-ng-click="itemOnline({id:item.id})" href="javascript:void(0);">
+                           打包
+                        </a>
+                        <a  data-ng-click="itemOffline({id:item.id})" href="javascript:void(0);">
+                           取消
+                        </a>
+                    </td>
                 </tr>
                 <tr style="display: none;">
                     <td colspan="11">

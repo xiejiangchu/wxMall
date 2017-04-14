@@ -100,6 +100,19 @@ public class ItemController extends BaseController {
     }
 
     /**
+     * 获取详情(后台管理)
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse detail(@PathVariable("id") int id) {
+        return BaseResponse.ok(itemService.getDetailById(id));
+    }
+
+    /**
      * 查找
      *
      * @param keyword

@@ -7,11 +7,16 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
     $scope.masterImageSelected = [];
     $scope.slaveImageSelected = [];
     $scope.pageSize = 60;
+    $scope.options={spellChecker: false,
+        autosave: {
+            enabled: false,
+            unique_id: "detail"
+        }};
 
     $scope.iid = $stateParams.id;
     $scope.item = {};
 
-    $http.get('/item/' + $scope.iid, {}).then(function (response) {
+    $http.get('/item/detail/' + $scope.iid, {}).then(function (response) {
         $scope.item = response.data.data;
         $http.get('/category/getCategoryLevel2/' + $scope.item.cid1).then(function (response) {
             $scope.cid2 = response.data.data;
@@ -23,7 +28,6 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
     $http.get('/category/getCategoryLevel1', {params: {pageNum: 1, pageSize: 10}}).then(function (response) {
         $scope.cid1 = response.data.data;
     }, function (error) {
-        console.log(response);
     });
 
 
@@ -66,7 +70,7 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
             slaveImageSelected: $scope.slaveImageSelected
         }).then(function (response) {
             if (response.data.code == 0) {
-                history.back();
+                alert("成功")
             }
         }, function (error) {
         });

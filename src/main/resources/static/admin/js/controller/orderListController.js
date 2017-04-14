@@ -6,7 +6,7 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
     $scope.params = {
         type: 0,
         pageNum: 1,
-        pageSize: 5,
+        pageSize: 50,
         time_start: '',
         time_end: '',
         created_at_start: '',
@@ -20,7 +20,6 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
     }).then(function (response) {
         $scope.options.paginate = response.data.data;
     }, function (error) {
-        console.log(response);
     });
 
     $scope.pageChanged = function (page) {
@@ -33,7 +32,6 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
         }).then(function (response) {
             $scope.options.paginate = response.data.data;
         }, function (error) {
-            console.log(response);
         });
     }
 });

@@ -168,7 +168,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         Address address = addressService.getFirstAddress(uid);
-        int bonus_count = bonusService.countEnabledByCart(uid, cartList);
+        int bonus_count = bonusService.countEnabledByCart(uid, carts);
 
         if (promote_price > pointService.getByUid(uid).getPoints()) {
             changed = MallConstants.ERROR_POINT_NOT_ENOUGH;

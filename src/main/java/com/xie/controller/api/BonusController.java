@@ -7,11 +7,13 @@ import com.xie.service.BonusExchangeService;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
 import com.xie.service.CartService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,8 +55,15 @@ public class BonusController extends BaseController {
     @ResponseBody
     BaseResponse getEnabledByCart(@RequestParam(value = "sessionId") String sessionId) {
         int uid = getUid(sessionId);
-        List<Cart> cartList = cartService.getByUid(uid);
-        return BaseResponse.ok(bonusService.getEnabledByCart(uid, cartList));
+        List<Cart> cartList = cartService.getByUidWithItem(uid);
+        List<Cart> carts = new ArrayList<>();
+        for (int i = 0; i < cartList.size(); i++) {
+            Cart cart = cartList.get(i);
+            if (cart.getItem().getIs_online() == MallConstants.YES && cart.getItemSpec().getIs_online() == MallConstants.YES) {
+                carts.add(cart);
+            }
+        }
+        return BaseResponse.ok(bonusService.getEnabledByCart(uid, carts));
     }
 
     @RequestMapping(value = "/fetchBonusByCode", method = RequestMethod.GET)

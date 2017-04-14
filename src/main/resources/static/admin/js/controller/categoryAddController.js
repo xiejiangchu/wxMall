@@ -8,8 +8,9 @@ mall.controller('categoryAddController', function ($rootScope, $scope, $http, $s
         level: 1,
         sort: 10
     };
+    $scope.pageSize=50;
 
-    $http.get('/image/list', {params: {pageNum: 1, pageSize: 50}}).then(function (response) {
+    $http.get('/image/list', {params: {pageNum: 1, pageSize: $scope.pageSize}}).then(function (response) {
         $scope.images = response.data.data;
     }, function (error) {
     });

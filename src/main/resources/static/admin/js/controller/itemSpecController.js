@@ -133,4 +133,21 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
 
     };
 
+    $scope.delete = function () {
+        $scope.showDeleteDialog = true;
+    };
+
+    $scope.dimissDeleteDialog = function () {
+        $scope.showDeleteDialog = false;
+    };
+    $scope.confirmDeleteDialog = function () {
+        $scope.showDeleteDialog = false;
+        $http.delete('/itemSpec/' + $scope.params.itemSpecId).then(function (response) {
+            if (response.data.code == 0) {
+               alert('成功')
+            }
+        }, function (error) {
+        });
+    };
+
 });

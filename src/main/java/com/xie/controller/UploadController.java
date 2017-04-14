@@ -46,7 +46,7 @@ public class UploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse upload(HttpServletRequest request, @ModelAttribute Image image) {
+    public BaseResponse upload(@ModelAttribute Image image) {
         return BaseResponse.ok(imageFileService.insert(image));
     }
 

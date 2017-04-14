@@ -28,6 +28,7 @@ public class OrderCheckDto {
     private List<Payment> payments;
     private int changed;
     private int point_rate;
+    private int promoto_price;
 
     public Address getAddress() {
         return address;
@@ -123,5 +124,13 @@ public class OrderCheckDto {
 
     public void setPoint_rate(int point_rate) {
         this.point_rate = point_rate;
+    }
+
+    public int getPromoto_price() {
+        return promoto_price;
+    }
+
+    public void setPromoto_price(int promoto_price) {
+        this.promoto_price = promoto_price;
     }
 }

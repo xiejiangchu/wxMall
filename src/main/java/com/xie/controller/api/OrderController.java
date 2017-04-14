@@ -3,8 +3,10 @@ package com.xie.controller.api;
 import com.xie.bean.Order;
 import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.BaseResponse;
+import com.xie.response.OrderCheckDto;
 import com.xie.service.OrderService;
 import com.xie.utils.IpUtils;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -98,8 +100,10 @@ public class OrderController extends BaseController {
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse check(@RequestHeader(value = "SESSIONID") String sessionId) {
-        return BaseResponse.ok(orderService.check(getUid(sessionId)));
+        OrderCheckDto orderCheckDto = orderService.check(getUid(sessionId));
+        return BaseResponse.ok(orderCheckDto);
     }
+
 
     @RequestMapping(value = "/orderMore", method = RequestMethod.GET)
     @ResponseBody
@@ -126,9 +130,16 @@ public class OrderController extends BaseController {
                                @RequestParam("time_end") Date time_end,
                                @RequestParam(value = "message", required = false, defaultValue = "") String message) {
         int result = orderService.submit(getUid(sessionId), point, aid, bid, pid, date, time_start, time_end, message);
+        if (result == MallConstants.ERROR_POINT_NOT_ENOUGH) {
+            return BaseResponse.fail("积分不足");
+        }
+        if (result == MallConstants.ERROR_LT_ORDER_MIN_MONEY) {
+            return BaseResponse.fail("订单金额低于起送金额");
+        }
         if (result > 0) {
             return BaseResponse.ok();
         } else {
+
             return BaseResponse.fail();
         }
     }

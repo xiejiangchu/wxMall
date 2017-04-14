@@ -154,22 +154,32 @@ public class OrderServiceImpl implements OrderService {
         List<Cart> cartList = cartService.getByUidWithItem(uid);
         List<Cart> carts = new ArrayList<>();
         double totalAmount = 0.0;
+        int promote_price = 0;
         int changed = MallConstants.NO;
         for (int i = 0; i < cartList.size(); i++) {
             Cart cart = cartList.get(i);
             if (cart.getItem().getIs_online() == MallConstants.YES && cart.getItemSpec().getIs_online() == MallConstants.YES) {
                 cart.setSubTotal(cart.getAmount() * cart.getItemSpec().getShop_price());
                 totalAmount += cart.getSubTotal();
+                promote_price += cart.getAmount() * cart.getItemSpec().getPromote_price();
                 carts.add(cart);
             } else {
-                changed = MallConstants.YES;
+                changed = MallConstants.ERROR_ITEM_CHANGED;
             }
         }
         Address address = addressService.getFirstAddress(uid);
         int bonus_count = bonusService.countEnabledByCart(uid, cartList);
 
+        if (promote_price > pointService.getByUid(uid).getPoints()) {
+            changed = MallConstants.ERROR_POINT_NOT_ENOUGH;
+        }
+        if (totalAmount < MallConstants.ORDER_MIN_MONEY) {
+            changed = MallConstants.ERROR_LT_ORDER_MIN_MONEY;
+        }
+
 
         OrderCheckDto orderCheckDto = new OrderCheckDto();
+        orderCheckDto.setPromoto_price(promote_price);
         orderCheckDto.setAddress(address);
         orderCheckDto.setBonusCount(bonus_count);
         orderCheckDto.setTotalAmount(totalAmount);
@@ -369,11 +379,12 @@ public class OrderServiceImpl implements OrderService {
         double order_weight = 0;
         double order_money = 0;
         double order_total = 0;
+        int promote_price = 0;
         for (int i = 0; i < cartList.size(); i++) {
             order_amount += cartList.get(i).getAmount();
             order_weight += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getWeight();
             order_total += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getShop_price();
-
+            promote_price += cartList.get(i).getAmount() * cartList.get(i).getItemSpec().getPromote_price();
             //更新库存和销量
             ItemSpec itemSpec = cartList.get(i).getItemSpec();
             int remain = itemSpec.getRemain();
@@ -383,16 +394,24 @@ public class OrderServiceImpl implements OrderService {
             itemSpecService.updateRemainAndSale(itemSpec);
 
         }
+
+
+        int totalPoint = point + promote_price;
+        if (totalPoint > pointService.getByUid(uid).getPoints()) {
+            return MallConstants.ERROR_POINT_NOT_ENOUGH;
+        }
+        if (order_total < MallConstants.ORDER_MIN_MONEY) {
+            return MallConstants.ERROR_LT_ORDER_MIN_MONEY;
+        }
         order.setOrder_total(order_total);
         order_money = order_total;
 
-
         //point
-        order.setPoint_used(point);
+        order.setPoint_used(point + promote_price);
         order_money = order_money - (double) point / MallConstants.POINT_RATE;
         int point_add = (int) (order_total / 10);
         order.setPoint(point_add);
-        pointService.add(uid, 0, point_add - point);
+        pointService.add(uid, 0, point_add - point - promote_price);
 
         //地址操作
         order.setAddress_id(address.getId());

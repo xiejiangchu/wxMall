@@ -30,8 +30,8 @@ public class ItemSpec {
     private double market_price;
     @JsonSerialize(using = DoubleSerializer.class)
     private double shop_price;
-    @JsonSerialize(using = DoubleSerializer.class)
-    private double promote_price;
+
+    private int promote_price;
     private int remain;
     private int sale_num;
     private int quanlity;
@@ -163,11 +163,11 @@ public class ItemSpec {
         this.shop_price = shop_price;
     }
 
-    public double getPromote_price() {
+    public int getPromote_price() {
         return promote_price;
     }
 
-    public void setPromote_price(double promote_price) {
+    public void setPromote_price(int promote_price) {
         this.promote_price = promote_price;
     }
 

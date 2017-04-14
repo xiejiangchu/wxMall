@@ -18,7 +18,7 @@
 
         <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="promote_price" column="promote_price" javaType="Integer" jdbcType="INTEGER"/>
         <result property="remain" column="remain" javaType="Integer" jdbcType="INTEGER"/>
         <result property="unit" column="unit" javaType="String" jdbcType="VARCHAR"/>
         <result property="unit_desc" column="unit_desc" javaType="String" jdbcType="VARCHAR"/>

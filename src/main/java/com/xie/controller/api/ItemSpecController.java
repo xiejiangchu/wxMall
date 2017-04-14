@@ -4,6 +4,7 @@ import com.xie.bean.ItemSpec;
 import com.xie.response.BaseResponse;
 import com.xie.service.ItemSpecService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,6 +87,24 @@ public class ItemSpecController {
     @ResponseBody
     public BaseResponse post(@RequestBody ItemSpec itemSpec) {
         int result = itemSpecService.insert(itemSpec);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse delete(@PathVariable int id) {
+        int result = itemSpecService.delete(id);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

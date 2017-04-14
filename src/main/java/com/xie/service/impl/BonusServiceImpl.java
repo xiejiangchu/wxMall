@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xie.bean.Bonus;
 import com.xie.bean.BonusType;
 import com.xie.bean.Cart;
+import com.xie.bean.Item;
 import com.xie.dao.BonusDao;
 import com.xie.enums.BonusQueryType;
 import com.xie.service.BonusService;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -66,15 +69,50 @@ public class BonusServiceImpl implements BonusService {
     @Override
     public List<Bonus> getEnabledByCart(int uid, List<Cart> carts) {
         List<Bonus> bonusList = bonusDao.getListValidate(uid);
+        double total = 0;
+        Map<Integer, Double> cid1Total = new HashMap<>();
+        Map<Integer, Double> cid2Total = new HashMap<>();
+        for (int i = 0; i < carts.size(); i++) {
+            Cart cart = carts.get(i);
+            double subtotal = cart.getItemSpec().getShop_price() * cart.getAmount();
+            total += subtotal;
+            Item item = cart.getItem();
+
+            if (cid2Total.get(item.getCid2()) == null) {
+                cid2Total.put(item.getCid2(), subtotal);
+            } else {
+                cid2Total.put(item.getCid2(), cid2Total.get(item.getCid2()) + subtotal);
+            }
+
+            if (cid1Total.get(item.getCid1()) == null) {
+                cid1Total.put(item.getCid1(), subtotal);
+            } else {
+                cid1Total.put(item.getCid1(), cid1Total.get(item.getCid1()) + subtotal);
+            }
+        }
+        final double finalTotal = total;
         List<Bonus> output = bonusList.stream().filter(bonus -> {
+
             for (int i = 0; i < carts.size(); i++) {
                 Cart cart = carts.get(i);
+                double subtotal = cart.getAmount() * cart.getItemSpec().getShop_price();
                 if (bonus.getGid() > 0) {
-                    return bonus.getGid() == cart.getGid();
+                    if (bonus.getGid() == cart.getGid() && subtotal >= bonus.getMin_amount()) {
+                        return true;
+                    }
+                    return false;
                 } else if (bonus.getCid2() > 0) {
-                    return bonus.getCid2() == cart.getItem().getCid2();
+                    if (bonus.getCid2() == cart.getItem().getCid2() && cid2Total.get(bonus.getCid2()) >= bonus.getMin_amount()) {
+                        return true;
+                    }
+                    return false;
                 } else if (bonus.getCid1() > 0) {
-                    return bonus.getCid1() == cart.getItem().getCid1();
+                    if (bonus.getCid1() == cart.getItem().getCid1() && cid1Total.get(bonus.getCid1()) >= bonus.getMin_amount()) {
+                        return true;
+                    }
+                    return false;
+                } else {
+                    return finalTotal > bonus.getMin_amount();
                 }
             }
             return false;

@@ -35,6 +35,10 @@ public class BaseResponse {
         return new BaseResponse(FAIL_CODE, data, null);
     }
 
+    public static BaseResponse fail(Object data) {
+        return new BaseResponse(FAIL_CODE, FAIL_MESSAGE, data);
+    }
+
     public static BaseResponse fail() {
         return new BaseResponse(FAIL_CODE, FAIL_MESSAGE, null);
     }

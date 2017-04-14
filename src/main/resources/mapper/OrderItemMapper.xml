@@ -12,7 +12,7 @@
         <result property="amount" column="amount" javaType="Integer" jdbcType="INTEGER"/>
         <result property="market_price" column="market_price" javaType="Double" jdbcType="DECIMAL"/>
         <result property="shop_price" column="shop_price" javaType="Double" jdbcType="DECIMAL"/>
-        <result property="promote_price" column="promote_price" javaType="Double" jdbcType="DECIMAL"/>
+        <result property="promote_price" column="promote_price" javaType="Integer" jdbcType="INTEGER"/>
         <result property="quanlity" column="quanlity" javaType="Integer" jdbcType="INTEGER"/>
         <result property="unit_sell" column="unit_sell" javaType="Integer" jdbcType="INTEGER"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>

@@ -236,22 +236,22 @@
 
     <select id="search" resultMap="ItemResult">
         SELECT
-        id,
-        no,
-        name,
-        cid1,
-        cid2,
-        is_online,
-        src,
-        thumb,
-        place,
-        summary,
-        notice,
-        notice_color,
-        description,
-        created_at,
-        updated_at,
-        deleted_at
+        items.id,
+        items.no,
+        items.name,
+        items.cid1,
+        items.cid2,
+        items.is_online,
+        items.src,
+        items.thumb,
+        items.place,
+        items.summary,
+        items.notice,
+        items.notice_color,
+        items.description,
+        items.created_at,
+        items.updated_at,
+        items.deleted_at
         FROM items
         LEFT JOIN category c1 on items.cid1 = c1.id
         LEFT JOIN category c2 on items.cid2 = c2.id

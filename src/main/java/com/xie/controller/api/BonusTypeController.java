@@ -4,6 +4,7 @@ import com.xie.bean.BonusType;
 import com.xie.response.BaseResponse;
 import com.xie.service.BonusTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,18 +24,26 @@ public class BonusTypeController extends BaseController{
         return BaseResponse.ok(bonusTypeService.getById(id));
     }
 
+    /**
+     * 后台管理
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(bonusTypeService.getAll(pageNum, pageSize));
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse list() {
         return BaseResponse.ok(bonusTypeService.getAllEnabled());
     }
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    @ResponseBody
-    BaseResponse all() {
-        return BaseResponse.ok(bonusTypeService.getAll());
-    }
-
 
     @RequestMapping(value = "/count/{gid}", method = RequestMethod.GET)
     @ResponseBody
@@ -63,8 +72,21 @@ public class BonusTypeController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse post(@ModelAttribute BonusType bonus) {
+    public BaseResponse post(@RequestBody BonusType bonus) {
         int result = bonusTypeService.insert(bonus);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    @RequestMapping(value = "/offline", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse offline2(@RequestParam(value = "id") int id,
+                                 @RequestParam(value = "online") int online) {
+        int result = bonusTypeService.offline(id, online);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -74,7 +96,7 @@ public class BonusTypeController extends BaseController{
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse put(@PathVariable("id") int id, @ModelAttribute BonusType bonus) {
+    public BaseResponse put(@PathVariable("id") int id, @RequestBody BonusType bonus) {
         int result = bonusTypeService.update(bonus);
         if (result > 0) {
             return BaseResponse.ok();
@@ -86,7 +108,7 @@ public class BonusTypeController extends BaseController{
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public BaseResponse delete(@PathVariable("id") int id) {
-        int result = bonusTypeService.softDelete(id);
+        int result = bonusTypeService.delete(id);
         if (result > 0) {
             return BaseResponse.ok();
         } else {

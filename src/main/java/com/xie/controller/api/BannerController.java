@@ -7,6 +7,7 @@ import com.xie.response.BaseResponse;
 import com.xie.service.BannerService;
 import com.xie.service.ImageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,7 @@ public class BannerController extends BaseController {
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                                @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return BaseResponse.ok(bannerService.getAll(pageNum, pageSize));

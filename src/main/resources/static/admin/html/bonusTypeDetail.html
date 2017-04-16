@@ -1,0 +1,111 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            红包类型详情
+            <small>Version 2.0</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">红包类型</li>
+        </ol>
+    </section>
+
+    <div class="modal modal-danger" ng-class="{true: 'show', false: 'hidden'}[showDeleteDialog]">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">警告</h4>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="dimissDeleteDialog()" class="btn btn-outline pull-left"
+                            data-dismiss="modal">取消
+                    </button>
+                    <button type="button" ng-click="confirmDeleteDialog()" class="btn btn-outline">确认</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12" style="background: white;padding: 16px;">
+                <form role="form">
+
+                    <div class="form-group">
+                        <label>红包名称</label>
+                        <input ng-model="bonustype.name" type="text" class="form-control" placeholder="红包名称">
+                    </div>
+
+                    <div class="form-group">
+                        <label>简单描述</label>
+                        <textarea ng-model="bonustype.description" name="description" class="form-control" rows="3"
+                                  placeholder="简单描述..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">生效时间</label>
+
+                        <datetimepicker time-start="bonustype.start_at" time-end="bonustype.end_at"></datetimepicker>
+                    </div>
+
+                    <div class="form-group">
+                        <label>红包是否激活</label>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="bonustype.is_enable" ng-checked="bonustype.is_enable==0" type="radio"
+                                       name="online" value="0">
+                                不激活
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="bonustype.is_enable" ng-checked="bonustype.is_enable==1" type="radio"
+                                       name="online" value="1">
+                                激活
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>金额</label>
+                        <input ng-model="bonustype.money" type="number" class="form-control" placeholder="0.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>最低金额</label>
+                        <input ng-model="bonustype.min_amount" type="number" class="form-control" placeholder="0.00">
+                    </div>
+
+
+
+                    <select2 options="cid1" title="一级分类" init-item="{{bonustype.cid1}}"
+                             item-selected="itemSelected1(id)"></select2>
+
+                    <select2 options="cid2" title="二级分类" init-item="{{bonustype.cid2}}"
+                             item-selected="itemSelected2(id)"></select2>
+
+                    <select2 options="gid" title="商品" init-item="{{bonustype.gid}}"
+                             item-selected="itemSelected3(id)"></select2>
+
+
+
+                    <div class="form-group">
+                        <button ng-click="submit()" type="button" class="btn btn-danger ">增加</button>
+                        <button ng-click="delete()" type="button" class="btn btn-danger ">删除</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

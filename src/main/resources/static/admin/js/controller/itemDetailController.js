@@ -7,11 +7,13 @@ mall.controller('itemDetailController', function ($rootScope, $scope, $http, $st
     $scope.masterImageSelected = [];
     $scope.slaveImageSelected = [];
     $scope.pageSize = 60;
-    $scope.options={spellChecker: false,
+    $scope.options={
+        spellChecker: false,
         autosave: {
             enabled: false,
             unique_id: "detail"
-        }};
+        }
+    };
 
     $scope.iid = $stateParams.id;
     $scope.item = {};

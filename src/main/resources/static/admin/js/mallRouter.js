@@ -24,6 +24,40 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/bannerList/:page',
         templateUrl: '/admin/html/bannerList.html',
         controller: 'bannerListController'
+    }).state('bonus', {
+        abstract: true,
+        url: '/bonus',
+        templateUrl: '/admin/html/bonus.html',
+        controller: 'bonusController'
+    }).state('bonus.list', {
+        url: '/bonusList/:page',
+        templateUrl: '/admin/html/bonusList.html',
+        controller: 'bonusListController'
+    }).state('bonus.add', {
+        url: '/bonusAdd',
+        templateUrl: '/admin/html/bonusAdd.html',
+        controller: 'bonusAddController'
+    }).state('bonusDetail', {
+        url: '/bonusDetail/:id',
+        templateUrl: '/admin/html/bonusDetail.html',
+        controller: 'bonusDetailController'
+    }).state('bonusType', {
+        abstract: true,
+        url: '/bonusType',
+        templateUrl: '/admin/html/bonusType.html',
+        controller: 'bonusTypeController'
+    }).state('bonusType.list', {
+        url: '/bonusTypeList/:page',
+        templateUrl: '/admin/html/bonusTypeList.html',
+        controller: 'bonusTypeListController'
+    }).state('bonusType.add', {
+        url: '/bonusTypeAdd',
+        templateUrl: '/admin/html/bonusTypeAdd.html',
+        controller: 'bonusTypeAddController'
+    }).state('bonusTypeDetail', {
+        url: '/bonusTypeDetail/:id',
+        templateUrl: '/admin/html/bonusTypeDetail.html',
+        controller: 'bonusTypeDetailController'
     }).state('item', {
         abstract: true,
         url: '/item',
@@ -87,6 +121,10 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/search',
         templateUrl: '/admin/html/search.html',
         controller: 'searchController'
+    }).state('sysConfigSetting', {
+        url: '/sysConfigSetting',
+        templateUrl: '/admin/html/sysConfigSetting.html',
+        controller: 'sysConfigSettingController'
     });
     $urlRouterProvider.otherwise("/dashBoard");
 });

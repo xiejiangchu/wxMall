@@ -1,4 +1,54 @@
-mall.directive('datatablecategory', function () {
+mall.directive('datatablebonus', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: "=",
+            pageChanged: "&",
+            itemClick: "&",
+            itemDelete: "&",
+            itemOnline: "&",
+            itemOffline: "&"
+        },
+        templateUrl: '/admin/template/dataTableBonus.html',
+        link: function (scope, element, attrs) {
+            scope.$watch('options.paginate', handleModelUpdates, true);
+            scope.$watch('options.title', titleChanged, true);
+
+            function titleChanged(newData) {
+                scope.options.title = newData || "";
+            }
+
+            function handleModelUpdates(newData) {
+                scope.options.paginate = newData || {};
+            }
+        }
+    };
+}).directive('datatablebonustype', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: "=",
+            pageChanged: "&",
+            itemClick: "&",
+            itemDelete: "&",
+            itemOnline: "&",
+            itemOffline: "&"
+        },
+        templateUrl: '/admin/template/dataTableBonusType.html',
+        link: function (scope, element, attrs) {
+            scope.$watch('options.paginate', handleModelUpdates, true);
+            scope.$watch('options.title', titleChanged, true);
+
+            function titleChanged(newData) {
+                scope.options.title = newData || "";
+            }
+
+            function handleModelUpdates(newData) {
+                scope.options.paginate = newData || {};
+            }
+        }
+    };
+}).directive('datatablecategory', function () {
     return {
         restrict: 'EA',
         scope: {
@@ -318,8 +368,8 @@ mall.directive('datatablecategory', function () {
                     monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                 }
             }, function (start, end, label) {
-                eval("scope.$parent." + scope.timeStart + "='" + start.format('YYYY/MM/DD hh:MM:ss') + "'");
-                eval("scope.$parent." + scope.timeEnd + "='" + end.format('YYYY/MM/DD hh:MM:ss') + "'");
+                eval("scope.$parent." + scope.timeStart + "='" + start.format('YYYY/MM/DD hh:mm:ss') + "'");
+                eval("scope.$parent." + scope.timeEnd + "='" + end.format('YYYY/MM/DD hh:mm:ss') + "'");
             });
         }
     };

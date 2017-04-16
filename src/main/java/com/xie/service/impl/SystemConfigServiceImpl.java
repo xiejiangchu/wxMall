@@ -3,6 +3,7 @@ package com.xie.service.impl;
 import com.xie.bean.SysConfig;
 import com.xie.dao.SysConfigDao;
 import com.xie.service.SystemConfigService;
+import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +49,20 @@ public class SystemConfigServiceImpl implements SystemConfigService {
         return sysConfigDao.delete(id);
     }
 
+    @Override
+    public SysConfig questions() {
+        return sysConfigDao.getByName(MallConstants.SYS_QUESTIONS);
+    }
+
+    @Override
+    public SysConfig about() {
+        return sysConfigDao.getByName(MallConstants.SYS_ABOUT);
+    }
+
+    @Override
+    public int saveQuestionAndAbout(String questions, String about) {
+        sysConfigDao.saveByName(MallConstants.SYS_QUESTIONS, questions);
+        sysConfigDao.saveByName(MallConstants.SYS_ABOUT, about);
+        return MallConstants.YES;
+    }
 }

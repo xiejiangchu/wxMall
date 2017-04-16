@@ -1,0 +1,70 @@
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">{{options.title}}</h3>
+
+        <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover table-sticky-header">
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>详细描述</th>
+                <th>金额</th>
+                <th>最低消费</th>
+                <th>激活</th>
+                <th>时间</th>
+                <th>商品</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="item in options.paginate.list">
+                <td>{{item.id}}</td>
+                <td>
+                    {{item.name}}
+                </td>
+                <td>
+                    {{item.description}}
+                </td>
+                <td>{{item.money}}</td>
+                <td>{{item.min_amount}}</td>
+                <td class="{{item.is_enable==1? 'text-success':'text-danger'}}">{{item.is_enable==1? '是':'否'}}</td>
+                <td>{{item.start_at | date : 'MM-dd hh:mm:ss'}} - {{item.end_at | date : 'MM-dd hh:mm:ss'}}</td>
+                <td>{{item.cid1_name}}{{item.cid2_name}}{{item.gid_name}}</td>
+                <td>
+                    <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-edit text-blue"></i>
+                    </a>
+                    <a data-ng-click="itemDelete({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-remove text-red"></i>
+                    </a>
+                    <a  data-ng-click="itemOnline({id:item.id})" href="javascript:void(0);">
+                        <i class="fa  fa-arrow-circle-o-up text-success"></i>
+                    </a>
+                    <a  data-ng-click="itemOffline({id:item.id})" href="javascript:void(0);">
+                        <i class="fa  fa-arrow-circle-o-down text-danger"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a data-ng-click="pageChanged({page:options.paginate.firstPage})">&laquo;</a></li>
+                <li ng-repeat="pageNum in options.paginate.navigatepageNums"
+                    class="{{pageNum==options.paginate.pageNum? 'active':''}}">
+                    <a data-ng-click="pageChanged({page:pageNum})">{{pageNum}}</a>
+                </li>
+                <li><a data-ng-click="pageChanged({page:options.paginate.lastPage})">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>

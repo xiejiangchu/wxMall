@@ -6,6 +6,7 @@ import com.xie.dao.BonusExchangeDao;
 import com.xie.service.BonusExchangeService;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
+import com.xie.utils.MallConstants;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,14 +52,17 @@ public class BonusExchangeServiceImpl implements BonusExchangeService {
             return -1;
         } else {
             BonusType bonusType = bonusTypeService.getById(bonusExchange.getId());
-            int left=bonusExchange.getNumber() - 1;
-            bonusExchange.setNumber(left);
-            //更新
-            update(bonusExchange);
-            //插入用户红包
-            bonusService.insert(uid, bonusType);
+            if (bonusType.getIs_enable() == MallConstants.YES) {
+                int left = bonusExchange.getNumber() - 1;
+                bonusExchange.setNumber(left);
+                //更新
+                update(bonusExchange);
+                //插入用户红包
+                return bonusService.insert(uid, bonusType);
+            }
+
         }
-        return 1;
+        return -1;
     }
 
     @Override

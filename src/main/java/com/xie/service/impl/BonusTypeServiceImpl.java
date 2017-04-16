@@ -1,8 +1,12 @@
 package com.xie.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.BonusType;
 import com.xie.dao.BonusTypeDao;
 import com.xie.service.BonusTypeService;
+import com.xie.service.CategoryService;
+import com.xie.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +21,35 @@ public class BonusTypeServiceImpl implements BonusTypeService {
 
     @Autowired
     private BonusTypeDao bonusTypeDao;
+    @Autowired
+    BonusTypeService bonusTypeService;
+
+    @Autowired
+    ItemService itemService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Override
-    public List<BonusType> getAll() {
-        return bonusTypeDao.getAll();
+    public PageInfo<BonusType> getAll(int pageNum, int pageSize) {
+        PageInfo<BonusType> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusTypeDao.getAll());
+
+        if (page != null && page.getList() != null) {
+            List<BonusType> list = page.getList();
+            for (int i = 0; i < list.size(); i++) {
+                BonusType bonus = list.get(i);
+                if (bonus.getGid() > 0 && itemService.getById(bonus.getGid()) != null) {
+                    bonus.setGid_name(itemService.getById(bonus.getGid()).getName());
+                }
+                if (bonus.getCid1() > 0 && categoryService.getById(bonus.getCid1()) != null) {
+                    bonus.setCid1_name(categoryService.getById(bonus.getCid1()).getName());
+                }
+                if (bonus.getCid2() > 0 && categoryService.getById(bonus.getCid2()) != null) {
+                    bonus.setCid2_name(categoryService.getById(bonus.getCid2()).getName());
+                }
+            }
+        }
+        return page;
     }
 
     @Override
@@ -68,13 +97,14 @@ public class BonusTypeServiceImpl implements BonusTypeService {
         return bonusTypeDao.delete(bonusType);
     }
 
-    @Override
-    public int softDelete(Integer id) {
-        return bonusTypeDao.softDelete(id);
-    }
 
     @Override
     public int saveOrUpdate(BonusType bonus) {
         return bonusTypeDao.saveOrUpdate(bonus);
+    }
+
+    @Override
+    public int offline(int id, int online) {
+        return bonusTypeDao.offline(id,online);
     }
 }

@@ -19,6 +19,10 @@ public class BonusDao extends BaseDao {
         return this.sqlSession.selectList("BonusMapper.getAllByUid", uid);
     }
 
+    public List<Bonus> getAll() {
+        return this.sqlSession.selectList("BonusMapper.getAll");
+    }
+
     public Bonus getById(Integer id) {
         return this.sqlSession.selectOne("BonusMapper.getById", id);
     }
@@ -71,6 +75,20 @@ public class BonusDao extends BaseDao {
         Map map = new HashMap<String, Object>();
         map.put("uid", uid);
         return this.sqlSession.selectList("BonusMapper.getListValidate", map);
+    }
+
+    public Bonus fetchBonusByCode(int uid,String code){
+        Map map = new HashMap<String, Object>();
+        map.put("uid", uid);
+        map.put("code", code);
+        return this.sqlSession.selectOne("BonusMapper.fetchBonusByCode", map);
+    }
+
+    public int offline(int id,int online){
+        Map map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("online", online);
+        return this.sqlSession.update("BonusMapper.offline", map);
     }
 
 }

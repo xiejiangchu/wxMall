@@ -245,7 +245,7 @@
                     <a href="/">
                         <i class="fa fa-picture-o"></i> <span>广告位</span>
                         <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
+                          <i class="fa fa-angle-down pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
@@ -256,7 +256,7 @@
                     <a href="/">
                         <i class="fa fa-list"></i> <span>商品信息</span>
                         <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
+                          <i class="fa fa-angle-down pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
@@ -275,7 +275,7 @@
                     <a href="/">
                         <i class="fa fa-cny"></i> <span>订单信息</span>
                         <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
+                          <i class="fa fa-angle-down pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
@@ -286,13 +286,46 @@
                 </li>
                 <li class="treeview">
                     <a href="/">
+                        <i class="fa fa-hourglass-2"></i> <span>红包管理</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-down pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a ui-sref="bonus.list({page:1})"><i class="fa fa-hourglass-2"></i>红包管理</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/">
+                        <i class="fa fa-balance-scale"></i> <span>红包类型管理</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-down pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a ui-sref="bonusType.list({page:1})"><i class="fa fa-balance-scale"></i>红包类型管理</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/">
                         <i class="fa fa-picture-o"></i> <span>图片管理</span>
                         <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
+                          <i class="fa fa-angle-down pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a ui-sref="image"><i class="fa fa-photo"></i> 图片管理</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/">
+                        <i class="fa fa-picture-o"></i> <span>系统设置</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-down pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a ui-sref="sysConfigSetting"><i class="fa fa-photo"></i> 系统设置</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -387,5 +420,14 @@
 <script type="text/javascript" src="/admin/js/controller/bannerAddController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/bannerListController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/bannerDetailController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusAddController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusListController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusDetailController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusTypeController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusTypeAddController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusTypeListController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/bonusTypeDetailController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/sysConfigSettingController.js"></script>
 </body>
 </html>

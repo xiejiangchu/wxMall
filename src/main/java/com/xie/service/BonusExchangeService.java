@@ -12,21 +12,21 @@ import com.xie.bean.BonusExchange;
  * lates.
  * @since 2017-04-13 下午3:15
  */
-public interface BonusExchangeService {
+ public interface BonusExchangeService {
 
-    public BonusExchange getById(Integer id);
+     BonusExchange getById(Integer id);
 
-    public BonusExchange getByCode(String code);
+     BonusExchange getByCode(String code);
 
-    public int fetchBonusByCode(int uid,String code);
+     int fetchBonusByCode(int uid,String code);
 
-    public int invalid(int id);
+     int invalid(int id);
 
-    public int insert(BonusExchange bonusExchange);
+     int insert(BonusExchange bonusExchange);
 
-    public int update(BonusExchange bonusExchange);
+     int update(BonusExchange bonusExchange);
 
-    public int delete(Integer id);
+     int delete(Integer id);
 
-    public int delete(BonusExchange bonusExchange);
+     int delete(BonusExchange bonusExchange);
 }

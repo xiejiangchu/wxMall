@@ -4,7 +4,9 @@ import com.xie.bean.SysConfig;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -15,6 +17,10 @@ public class SysConfigDao extends BaseDao {
 
     public SysConfig getById(int id) {
         return this.sqlSession.selectOne("SysConfigMapper.getById", id);
+    }
+
+    public SysConfig getByName(String name) {
+        return this.sqlSession.selectOne("SysConfigMapper.getByName", name);
     }
 
     public List<SysConfig> getAll() {
@@ -37,5 +43,12 @@ public class SysConfigDao extends BaseDao {
 
     public int delete(int id) {
         return this.sqlSession.delete("SysConfigMapper.delete", id);
+    }
+
+    public int saveByName(String name,String content){
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("content", content);
+        return this.sqlSession.update("SysConfigMapper.saveByName", map);
     }
 }

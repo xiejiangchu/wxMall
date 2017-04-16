@@ -126,6 +126,10 @@
         SELECT count(1) FROM bonus_type where gid = #{gid}
     </select>
 
+    <update id="offline">
+        UPDATE bonus_type set is_enable=#{online} WHERE id=#{id}
+    </update>
+
     <insert id="insert">
         <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
             SELECT LAST_INSERT_ID() as id
@@ -366,9 +370,5 @@
     <delete id="delete">
         DELETE FROM bonus_type WHERE id=#{id}
     </delete>
-
-    <update id="softDelete">
-        UPDATE bonus_type set deleted_at=now() WHERE id=#{id}
-    </update>
 
 </mapper>

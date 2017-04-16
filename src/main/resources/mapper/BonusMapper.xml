@@ -43,6 +43,26 @@
         WHERE id=#{id}
     </select>
 
+    <select id="getAll" resultMap="BonusResult">
+        SELECT
+        id,
+        uid,
+        tid,
+        money,
+        name,
+        description,
+        cid1,
+        cid2,
+        gid,
+        min_amount,
+        is_enable,
+        start_at,
+        end_at,
+        created_at,
+        updated_at
+        FROM bonus
+    </select>
+
     <select id="getEnabledById" resultMap="BonusResult">
         SELECT
         id,

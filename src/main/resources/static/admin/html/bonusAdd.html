@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-12" style="background: white;padding: 16px;">
+        <form role="form">
+
+            <div class="form-group">
+                <label>广告位是否显示</label>
+                <div class="radio">
+                    <label>
+                        <input ng-model="bonus.is_show" ng-checked="bonus.is_show==0" type="radio"
+                               name="online" value="0">
+                        不显示
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-model="bonus.is_show" ng-checked="bonus.is_show==1" type="radio"
+                               name="online" value="1">
+                        显示
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>文字描述</label>
+                <input ng-model="bonus.tip" type="text" class="form-control" placeholder="文字描述">
+            </div>
+
+            <div class="form-group">
+                <label>跳转目标</label>
+                        <textarea ng-model="bonus.target" name="summary" class="form-control" rows="3"
+                                  placeholder="简单描述..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>当前图像</label>
+                <div>
+                    <img src="http://wxmall.image.alimmdn.com/{{bonus.url}}@100w_100h" alt="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>图像</label>
+                <imageselector paginate="images1" single="true" page-changed="pageChanged1(page)"
+                               image-selected="image"></imageselector>
+            </div>
+            <div class="form-group">
+                <button ng-click="submit()" type="button" class="btn btn-danger ">增加</button>
+            </div>
+        </form>
+    </div>
+</div>

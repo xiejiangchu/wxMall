@@ -18,6 +18,8 @@ public interface BonusService {
 
     PageInfo<Bonus> getListByType(int uid, int type, int pageNum, int pageSize);
 
+    PageInfo<Bonus> getAll(int pageNum, int pageSize);
+
     Bonus getById(int id);
 
     Bonus getEnabledById(int id);
@@ -48,5 +50,7 @@ public interface BonusService {
 
     int saveOrUpdate(Bonus bonus);
 
-    int fetchBonusByCode(int uid, String code);
+    Bonus fetchBonusByCode(int uid, String code);
+
+    int offline(int id,int online);
 }

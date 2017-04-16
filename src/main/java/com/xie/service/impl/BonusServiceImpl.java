@@ -10,8 +10,12 @@ import com.xie.dao.BonusDao;
 import com.xie.enums.BonusQueryType;
 import com.xie.service.BonusService;
 import com.xie.service.BonusTypeService;
+import com.xie.service.CategoryService;
+import com.xie.service.ItemService;
 import com.xie.utils.MallConstants;
 import org.joda.time.DateTimeComparator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +34,19 @@ import java.util.stream.Collectors;
 @Service
 public class BonusServiceImpl implements BonusService {
 
+    private final Logger logger= LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     BonusDao bonusDao;
 
     @Autowired
     BonusTypeService bonusTypeService;
+
+    @Autowired
+    ItemService itemService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Override
     public List<Bonus> getAllByUid(int uid) {
@@ -126,15 +138,53 @@ public class BonusServiceImpl implements BonusService {
     }
 
     @Override
-    public PageInfo<Bonus> getListByType(int uid, int type, int pageNum, int pageSize) {
-        if (BonusQueryType.未使用.value().equals(type)) {
-            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListValidate(uid));
-            return page;
-        } else if (BonusQueryType.已过期.value().equals(type)) {
-            PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListInvalidate(uid));
-            return page;
+    public PageInfo<Bonus> getAll(int pageNum, int pageSize) {
+
+        PageInfo<Bonus> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getAll());
+
+        if (page != null && page.getList() != null) {
+            List<Bonus> list = page.getList();
+            for (int i = 0; i < list.size(); i++) {
+                Bonus bonus = list.get(i);
+                if (bonus.getGid() > 0 && itemService.getById(bonus.getGid()) != null) {
+                    bonus.setGid_name(itemService.getById(bonus.getGid()).getName());
+                }
+                if (bonus.getCid1() > 0 && categoryService.getById(bonus.getCid1()) != null) {
+                    bonus.setCid1_name(categoryService.getById(bonus.getCid1()).getName());
+                }
+                if (bonus.getCid2() > 0 && categoryService.getById(bonus.getCid2()) != null) {
+                    bonus.setCid2_name(categoryService.getById(bonus.getCid2()).getName());
+                }
+            }
         }
-        return null;
+        return page;
+    }
+
+    @Override
+    public PageInfo<Bonus> getListByType(int uid, int type, int pageNum, int pageSize) {
+        PageInfo<Bonus> page = null;
+        if (BonusQueryType.未使用.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListValidate(uid));
+        } else if (BonusQueryType.已过期.value().equals(type)) {
+            page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> bonusDao.getListInvalidate(uid));
+        }
+
+        if (page != null && page.getList() != null) {
+            List<Bonus> list = page.getList();
+            for (int i = 0; i < list.size(); i++) {
+                Bonus bonus = list.get(i);
+                if (bonus.getGid() > 0 && itemService.getById(bonus.getGid()) != null) {
+                    bonus.setGid_name(itemService.getById(bonus.getGid()).getName());
+                }
+                if (bonus.getCid1() > 0 && categoryService.getById(bonus.getCid1()) != null) {
+                    bonus.setCid1_name(categoryService.getById(bonus.getCid1()).getName());
+                }
+                if (bonus.getCid2() > 0 && categoryService.getById(bonus.getCid2()) != null) {
+                    bonus.setCid2_name(categoryService.getById(bonus.getCid2()).getName());
+                }
+            }
+        }
+        return page;
     }
 
     @Override
@@ -155,6 +205,9 @@ public class BonusServiceImpl implements BonusService {
         Assert.notNull(tid);
         BonusType bonusType = bonusTypeService.getById(tid);
         Assert.notNull(bonusType);
+        if(bonusType.getIs_enable()==MallConstants.YES){
+            return -1;
+        }
 
 
         Bonus insert = new Bonus();
@@ -218,7 +271,12 @@ public class BonusServiceImpl implements BonusService {
     }
 
     @Override
-    public int fetchBonusByCode(int uid, String code) {
-        return 0;
+    public Bonus fetchBonusByCode(int uid, String code) {
+        return bonusDao.fetchBonusByCode(uid,code);
+    }
+
+    @Override
+    public int offline(int id, int online) {
+        return bonusDao.offline(id,online);
     }
 }

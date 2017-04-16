@@ -27,6 +27,10 @@ public class Bonus implements Serializable {
     private Date created_at;
     private Date updated_at;
 
+    private String cid1_name;
+    private String cid2_name;
+    private String gid_name;
+
     public int getId() {
         return id;
     }
@@ -145,6 +149,30 @@ public class Bonus implements Serializable {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getCid1_name() {
+        return cid1_name;
+    }
+
+    public void setCid1_name(String cid1_name) {
+        this.cid1_name = cid1_name;
+    }
+
+    public String getCid2_name() {
+        return cid2_name;
+    }
+
+    public void setCid2_name(String cid2_name) {
+        this.cid2_name = cid2_name;
+    }
+
+    public String getGid_name() {
+        return gid_name;
+    }
+
+    public void setGid_name(String gid_name) {
+        this.gid_name = gid_name;
     }
 }
 

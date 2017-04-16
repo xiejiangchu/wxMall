@@ -2,6 +2,7 @@ package com.xie.controller.api;
 
 import com.xie.bean.Bonus;
 import com.xie.bean.Cart;
+import com.xie.enums.BonusQueryType;
 import com.xie.response.BaseResponse;
 import com.xie.service.BonusExchangeService;
 import com.xie.service.BonusService;
@@ -9,10 +10,14 @@ import com.xie.service.BonusTypeService;
 import com.xie.service.CartService;
 import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,10 +41,32 @@ public class BonusController extends BaseController {
     @Autowired
     private BonusExchangeService bonusExchangeService;
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        dateFormat.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse get(@PathVariable("id") int id) {
         return BaseResponse.ok(bonusService.getById(id));
+    }
+
+    /**
+     * 后台管理
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse getAll(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(bonusService.getAll(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -73,7 +100,7 @@ public class BonusController extends BaseController {
         int uid = getUid(sessionId);
         int result = bonusExchangeService.fetchBonusByCode(uid, code);
         if (result > 0) {
-            return BaseResponse.ok();
+            return BaseResponse.ok(bonusService.getListByType(getUid(sessionId), BonusQueryType.未使用.value(), 1, 10));
         } else {
             return BaseResponse.fail("兑换失败");
         }
@@ -92,7 +119,7 @@ public class BonusController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize(value = "hasRole('ROLE_admin')")
-    public BaseResponse post(@ModelAttribute Bonus bonus) {
+    public BaseResponse post(@RequestBody Bonus bonus) {
         int result = bonusService.insert(bonus);
         if (result > 0) {
             return BaseResponse.ok();
@@ -116,6 +143,20 @@ public class BonusController extends BaseController {
             return BaseResponse.fail();
         }
     }
+
+    @RequestMapping(value = "/offline", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse offline2(@RequestParam(value = "id") int id,
+                                 @RequestParam(value = "online") int online) {
+        int result = bonusService.offline(id, online);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody

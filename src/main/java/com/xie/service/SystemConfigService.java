@@ -21,4 +21,10 @@ public interface SystemConfigService {
     int delete(SysConfig sysConfig);
 
     int delete(int id);
+
+    SysConfig questions();
+
+    SysConfig about();
+
+    int saveQuestionAndAbout(String questions,String about);
 }

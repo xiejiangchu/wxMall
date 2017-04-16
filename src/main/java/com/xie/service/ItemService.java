@@ -3,6 +3,8 @@ package com.xie.service;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Item;
 
+import java.util.List;
+
 /**
  * Created by xie on 16/11/24.
  */
@@ -29,6 +31,8 @@ public interface ItemService {
     PageInfo<Item> getByCategory(Integer cid1, Integer cid2, int pageNum, int pageSize);
 
     PageInfo<Item> getByCategory(Integer cid1, int pageNum, int pageSize);
+
+    List<Item> getByCategoryWithoutPaginate(int cid1, int cid2);
 
     int count(boolean all);
 

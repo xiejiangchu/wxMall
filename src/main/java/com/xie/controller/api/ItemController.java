@@ -83,6 +83,20 @@ public class ItemController extends BaseController {
     }
 
     /**
+     * 由分类获取所有商品
+     *
+     * @param cid1
+     * @param cid2
+     * @return
+     */
+    @RequestMapping(value = "/getByCategoryWithoutPaginate", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse getByCategoryWithoutPaginate(@RequestParam("cid1") Integer cid1,
+                               @RequestParam("cid2") Integer cid2) {
+        return BaseResponse.ok(itemService.getByCategoryWithoutPaginate(cid1, cid2));
+    }
+
+    /**
      * 获取详情
      *
      * @param id

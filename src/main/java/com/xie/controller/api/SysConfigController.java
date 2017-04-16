@@ -1,9 +1,11 @@
 package com.xie.controller.api;
 
 import com.xie.bean.SysConfig;
+import com.xie.request.SysConfigDto;
 import com.xie.response.BaseResponse;
 import com.xie.service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,5 +64,24 @@ public class SysConfigController extends BaseController {
             return BaseResponse.fail();
         }
 
+    }
+
+    @RequestMapping(value = "/saveQuestionAndAbout", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse saveQuestionAndAbout(@RequestBody SysConfigDto sysConfigDto) {
+        return BaseResponse.ok(systemConfigService.saveQuestionAndAbout(sysConfigDto.getQuestions(),sysConfigDto.getAbout()));
+    }
+
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse questions() {
+        return BaseResponse.ok(systemConfigService.questions());
+    }
+
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse about() {
+        return BaseResponse.ok(systemConfigService.about());
     }
 }

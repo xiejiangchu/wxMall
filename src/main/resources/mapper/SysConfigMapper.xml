@@ -16,9 +16,20 @@
         SELECT * FROM sys_config where id=#{id}
     </select>
 
+    <select id="getByName" resultMap="SysConfigResult">
+        SELECT * FROM sys_config where name=#{name}
+    </select>
+
     <select id="getAll" resultMap="SysConfigResult">
          SELECT * FROM sys_config
     </select>
+
+    <update id="saveByName">
+        UPDATE sys_config SET
+        value=#{content}
+        ,updated_at=now()
+        where name=#{name}
+    </update>
 
     <insert id="insert">
         <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">

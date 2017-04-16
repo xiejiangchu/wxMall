@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xie.bean.BonusType;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface BonusTypeService {
 
-    List<BonusType> getAll();
+    PageInfo<BonusType> getAll(int pageNum, int pageSize);
 
     List<BonusType> getAllEnabled();
 
@@ -30,8 +31,8 @@ public interface BonusTypeService {
 
     int delete(BonusType bonusType);
 
-    int softDelete(Integer id);
-
     int saveOrUpdate(BonusType bonus);
+
+    int offline(int id,int online);
 
 }

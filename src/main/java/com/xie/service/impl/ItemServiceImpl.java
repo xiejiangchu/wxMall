@@ -120,6 +120,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<Item> getByCategoryWithoutPaginate(int cid1, int cid2) {
+        return itemDao.getByCategory(cid1, cid2);
+    }
+
+    @Override
     public PageInfo<Item> getAll(int pageNum, int pageSize) {
         PageInfo<Item> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> itemDao.getAll());
         return page;

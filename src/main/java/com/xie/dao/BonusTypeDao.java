@@ -60,12 +60,14 @@ public class BonusTypeDao extends BaseDao {
         return this.sqlSession.delete("BonusTypeMapper.delete", bonusType.getId());
     }
 
-    public int softDelete(Integer id) {
-        return this.sqlSession.update("BonusTypeMapper.softDelete", id);
-    }
-
     public int saveOrUpdate(BonusType bonus) {
         return this.sqlSession.insert("BonusTypeMapper.saveOrUpdate", bonus);
     }
 
+    public int offline(int id, int online) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("online", online);
+        return this.sqlSession.insert("BonusTypeMapper.offline", map);
+    }
 }

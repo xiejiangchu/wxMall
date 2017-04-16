@@ -64,11 +64,15 @@
                         <input ng-model="banner.tip" type="text" class="form-control" placeholder="文字描述">
                     </div>
 
-                    <div class="form-group">
-                        <label>跳转目标</label>
-                        <textarea ng-model="banner.target" name="summary" class="form-control" rows="3"
-                                  placeholder="简单描述..."></textarea>
-                    </div>
+
+                    <select2 options="cid1" title="一级分类"
+                             item-selected="itemSelected1(id)"></select2>
+
+                    <select2 options="cid2" title="二级分类"
+                             item-selected="itemSelected2(id)"></select2>
+
+                    <select2 options="gid" title="跳转目标" init-item="{{banner.target}}"
+                             item-selected="itemSelected3(id)"></select2>
 
                     <div class="form-group">
                         <label>当前图像</label>

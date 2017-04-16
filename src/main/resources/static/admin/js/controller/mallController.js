@@ -7,11 +7,11 @@ mall.controller('mallController', function ($rootScope, $scope, $http, $state) {
         console.log(response);
     });
     $scope.logout = function () {
-        $http.post('/admin/logout').then(function (response) {
+        $http.post('/logout').then(function (response) {
             $scope.user = {};
             window.location.href = "/admin/login";
         }, function (error) {
-            console.log(response);
+
         });
     }
 });

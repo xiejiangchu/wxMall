@@ -1,5 +1,6 @@
 package com.xie.controller;
 
+import com.xie.auth.MyUserDetails;
 import com.xie.bean.User;
 import com.xie.request.UserRegisterDto;
 import com.xie.response.BaseResponse;
@@ -8,6 +9,9 @@ import com.xie.service.UserService;
 import com.xie.utils.MallConstants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,8 +64,12 @@ public class AdminController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse user(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(MallConstants.SESSION_USER);
-        return BaseResponse.ok(user);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
+            MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+            return BaseResponse.ok(myUserDetails.getUser());
+        }
+        return BaseResponse.ok();
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)

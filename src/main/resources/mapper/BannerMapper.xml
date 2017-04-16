@@ -7,6 +7,7 @@
         <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="is_show" column="is_show" javaType="Integer" jdbcType="INTEGER"/>
         <result property="sort" column="sort" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="gid_name" column="gid_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
         <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
@@ -14,16 +15,18 @@
 
     <select id="getAll" resultMap="BannerResult">
         SELECT
-        id,
-        tip,
-        url,
-        target,
-        is_show,
-        sort,
-        created_at,
-        updated_at,
-        deleted_at
+        banner.id,
+        banner.tip,
+        banner.url,
+        banner.target,
+        banner.is_show,
+        banner.sort,
+        banner.created_at,
+        banner.updated_at,
+        banner.deleted_at,
+        items.name as gid_name
         FROM banner
+        LEFT JOIN items ON banner.target=items.id
     </select>
 
 

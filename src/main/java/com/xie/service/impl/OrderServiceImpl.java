@@ -234,36 +234,31 @@ public class OrderServiceImpl implements OrderService {
             for (int i = 0; i < orders.size(); i++) {
                 Order order = orders.get(i);
                 order.setOrderItems(orderItemService.getByOid(orders.get(i).getId()));
-                if (!OrderType.所有.value().equals(type)) {
-                    order.setStatus(type);
-                    order.setStatusName(OrderType.getTypeName(type));
-                } else {
-                    if (order.getOrder_status() == OrderState.已取消.value()) {
-                        order.setStatus(OrderType.已取消.value());
-                        order.setStatusName(OrderType.getTypeName(OrderType.已取消.value()));
-                    } else if (order.getOrder_status() == OrderState.已完成.value()) {
-                        order.setStatus(OrderType.已完成.value());
-                        order.setStatusName(OrderType.getTypeName(OrderType.已完成.value()));
-                    } else if (order.getOrder_status() == OrderState.进行中.value()) {
-                        if (order.getPay_status() == PayState.未支付.value()) {
-                            order.setStatus(OrderType.待支付.value());
-                            order.setStatusName(OrderType.getTypeName(OrderType.待支付.value()));
-                        } else if (order.getPay_status() == PayState.已支付.value()) {
-                            if (order.getShip_status() == ShipState.待配送.value()) {
-                                order.setStatus(OrderType.待发货.value());
-                                order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
-                            } else if (order.getShip_status() == ShipState.配送中.value()) {
-                                order.setStatus(OrderType.待收货.value());
-                                order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
-                            }
-                        } else if (order.getPay_status() == PayState.货到付款.value()) {
-                            if (order.getShip_status() == ShipState.待配送.value()) {
-                                order.setStatus(OrderType.待发货.value());
-                                order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
-                            } else if (order.getShip_status() == ShipState.配送中.value()) {
-                                order.setStatus(OrderType.待收货.value());
-                                order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
-                            }
+                if (order.getOrder_status() == OrderState.已取消.value()) {
+                    order.setStatus(OrderType.已取消.value());
+                    order.setStatusName(OrderType.getTypeName(OrderType.已取消.value()));
+                } else if (order.getOrder_status() == OrderState.已完成.value()) {
+                    order.setStatus(OrderType.已完成.value());
+                    order.setStatusName(OrderType.getTypeName(OrderType.已完成.value()));
+                } else if (order.getOrder_status() == OrderState.进行中.value()) {
+                    if (order.getPay_status() == PayState.未支付.value()) {
+                        order.setStatus(OrderType.待支付.value());
+                        order.setStatusName(OrderType.getTypeName(OrderType.待支付.value()));
+                    } else if (order.getPay_status() == PayState.已支付.value()) {
+                        if (order.getShip_status() == ShipState.待配送.value()) {
+                            order.setStatus(OrderType.待发货.value());
+                            order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                        } else if (order.getShip_status() == ShipState.配送中.value()) {
+                            order.setStatus(OrderType.待收货.value());
+                            order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                        }
+                    } else if (order.getPay_status() == PayState.货到付款.value()) {
+                        if (order.getShip_status() == ShipState.待配送.value()) {
+                            order.setStatus(OrderType.待发货.value());
+                            order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                        } else if (order.getShip_status() == ShipState.配送中.value()) {
+                            order.setStatus(OrderType.待收货.value());
+                            order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
                         }
                     }
                 }
@@ -320,7 +315,7 @@ public class OrderServiceImpl implements OrderService {
                                 order.setStatus(OrderType.待收货.value());
                                 order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
                             }
-                        }else if (order.getPay_status() == PayState.货到付款.value()) {
+                        } else if (order.getPay_status() == PayState.货到付款.value()) {
                             if (order.getShip_status() == ShipState.待配送.value()) {
                                 order.setStatus(OrderType.待发货.value());
                                 order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));

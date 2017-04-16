@@ -13,6 +13,7 @@ public class Banner implements Serializable {
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
+    private String gid_name;
 
     public Integer getId() {
         return id;
@@ -88,6 +89,14 @@ public class Banner implements Serializable {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public String getGid_name() {
+        return gid_name;
+    }
+
+    public void setGid_name(String gid_name) {
+        this.gid_name = gid_name;
     }
 }
 

@@ -175,7 +175,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/webjars/AdminLTE/2.3.8/dist/img/user2-160x160.jpg" class="user-image"
                                  alt="User Image">
-                            <span class="hidden-xs">{{user.name}}</span>
+
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -184,7 +184,7 @@
                                      alt="User Image">
 
                                 <p>
-
+                                    <span class="hidden-xs">{{user.name}}</span>
                                     <small>{{user.created_at | date : 'yyyy-MM-dd hh:mm:ss'}}
                                     </small>
                                 </p>
@@ -221,7 +221,7 @@
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" style="height: 100%;overflow: scroll;">
+    <aside class="main-sidebar" style="min-height: 100%;">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -303,7 +303,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a ui-sref="bonusType.list({page:1})"><i class="fa fa-balance-scale"></i>红包类型管理</a></li>
+                        <li class="active"><a ui-sref="bonusType.list({page:1})"><i class="fa fa-balance-scale"></i>红包类型管理</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

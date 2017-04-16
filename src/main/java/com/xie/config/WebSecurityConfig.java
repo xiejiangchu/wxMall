@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/sysConfig/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login.html").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/admin", true).failureUrl("/login.html?error=true").permitAll()
-                .and().logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccess").invalidateHttpSession(true)
+                .and().logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/admin/index").invalidateHttpSession(true)
                 .and().exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
 //                .and().addFilterAfter(new MyCsrfHeaderFilter(), CsrfFilter.class);
 //        http.csrf().requireCsrfProtectionMatcher(myCsrfSecurityRequestMatcher).csrfTokenRepository(csrfTokenRepository());

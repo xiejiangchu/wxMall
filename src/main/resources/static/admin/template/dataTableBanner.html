@@ -17,7 +17,7 @@
             <tr>
                 <th>ID</th>
                 <th>名称</th>
-                <th>目标id</th>
+                <th>跳转</th>
                 <th>是否上架</th>
                 <th>操作</th>
             </tr>
@@ -30,7 +30,7 @@
                     </a>
                     {{item.tip}}
                 </td>
-                <td>{{item.target}}</td>
+                <td>{{item.gid_name}}({{item.target}})</td>
                 <td class="{{item.is_show==1? 'text-success':'text-danger'}}">{{item.is_show==1? '是':'否'}}</td>
 
                 <td>

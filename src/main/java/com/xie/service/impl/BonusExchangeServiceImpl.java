@@ -51,8 +51,8 @@ public class BonusExchangeServiceImpl implements BonusExchangeService {
         if (bonusExchange.getDeleted_at() != null && DateTime.now().toDate().compareTo(bonusExchange.getDeleted_at()) > 0 && bonusExchange.getNumber() > 0) {
             return -1;
         } else {
-            BonusType bonusType = bonusTypeService.getById(bonusExchange.getId());
-            if (bonusType.getIs_enable() == MallConstants.YES) {
+            BonusType bonusType = bonusTypeService.getById(bonusExchange.getTid());
+            if (bonusType != null && bonusType.getIs_enable() == MallConstants.YES) {
                 int left = bonusExchange.getNumber() - 1;
                 bonusExchange.setNumber(left);
                 //更新

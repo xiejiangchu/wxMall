@@ -320,6 +320,14 @@ public class OrderServiceImpl implements OrderService {
                                 order.setStatus(OrderType.待收货.value());
                                 order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
                             }
+                        }else if (order.getPay_status() == PayState.货到付款.value()) {
+                            if (order.getShip_status() == ShipState.待配送.value()) {
+                                order.setStatus(OrderType.待发货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待发货.value()));
+                            } else if (order.getShip_status() == ShipState.配送中.value()) {
+                                order.setStatus(OrderType.待收货.value());
+                                order.setStatusName(OrderType.getTypeName(OrderType.待收货.value()));
+                            }
                         }
                     }
                 }

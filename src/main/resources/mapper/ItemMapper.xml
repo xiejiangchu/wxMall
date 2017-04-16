@@ -259,7 +259,7 @@
         AND c1.is_delete=0
         AND c1.is_delete=0
         <if test="keywords!=null">
-            and name like CONCAT('%',#{keywords},'%')
+            and items.name like CONCAT('%',#{keywords},'%')
         </if>
     </select>
 

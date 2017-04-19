@@ -30,8 +30,8 @@ public class OrderLogServiceImpl implements OrderLogService {
     }
 
     @Override
-    public List<OrderLog> getByOid(int oid) {
-        return orderLogDao.getByOid(oid);
+    public List<OrderLog> getByOid(int oid,List<Integer> types) {
+        return orderLogDao.getByOid(oid,types);
     }
 
     @Override

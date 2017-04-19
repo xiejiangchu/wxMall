@@ -70,7 +70,7 @@ public class SysConfigController extends BaseController {
     @ResponseBody
     @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse saveQuestionAndAbout(@RequestBody SysConfigDto sysConfigDto) {
-        return BaseResponse.ok(systemConfigService.saveQuestionAndAbout(sysConfigDto.getQuestions(),sysConfigDto.getAbout()));
+        return BaseResponse.ok(systemConfigService.saveQuestionAndAbout(sysConfigDto.getQuestions(), sysConfigDto.getAbout()));
     }
 
     @RequestMapping(value = "/questions", method = RequestMethod.GET)

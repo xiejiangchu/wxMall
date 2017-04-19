@@ -32,10 +32,9 @@ public class AddressController extends BaseController {
 
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getByUid(@RequestParam(value = "sessionId") String sessionId,
-                          @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+    BaseResponse getByUid(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(addressService.getByUid(getUid(sessionId), pageNum, pageSize));
+        return BaseResponse.ok(addressService.getByUid(getUid(), pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getDefaultByUid", method = RequestMethod.GET)
@@ -47,9 +46,9 @@ public class AddressController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse post(@RequestHeader("SESSIONID") String sessionId, @RequestBody Address address) {
-        address.setUid(getUid(sessionId));
-        if (addressService.countByUid(getUid(sessionId)) == 0) {
+    public BaseResponse post(@RequestBody Address address) {
+        address.setUid(getUid());
+        if (addressService.countByUid(getUid()) == 0) {
             address.setIs_def(1);
         }
         int result = addressService.insert(address);

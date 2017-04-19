@@ -3,6 +3,10 @@ html, body {
     width: 100%;
 }
 
+.content *{
+    font-size:12px;
+}
+
 .image-selected {
     position: relative;
 }

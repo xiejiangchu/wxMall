@@ -1,6 +1,6 @@
 package com.xie.dao;
 
-import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -10,6 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BaseDao {
 
     @Autowired
-    protected SqlSession sqlSession;
+    protected SqlSessionTemplate sqlSession;
 
 }

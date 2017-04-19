@@ -56,7 +56,7 @@ public class BannerController extends BaseController {
     @ResponseBody
     public BaseResponse post(@RequestBody BannerDto bannerDto) {
         Banner banner = bannerDto.getBanner();
-        if(bannerDto.getImage().size()>0){
+        if (bannerDto.getImage().size() > 0) {
             Image image = imageFileService.getById(bannerDto.getImage().get(0));
             if (image != null) {
                 banner.setUrl(image.getUri());
@@ -86,7 +86,7 @@ public class BannerController extends BaseController {
     @ResponseBody
     public BaseResponse put(@PathVariable("id") int id, @RequestBody BannerDto bannerDto) {
         Banner banner = bannerDto.getBanner();
-        if(bannerDto.getImage().size()>0){
+        if (bannerDto.getImage().size() > 0) {
             Image image = imageFileService.getById(bannerDto.getImage().get(0));
             if (image != null) {
                 banner.setUrl(image.getUri());

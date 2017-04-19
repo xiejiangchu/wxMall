@@ -7,7 +7,10 @@ import com.xie.service.ItemSpecService;
 import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by xie on 17/1/7.
@@ -27,21 +30,21 @@ public class CartController extends BaseController {
 
     @RequestMapping(value = "/clear", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse clear(@RequestParam(value = "sessionId", required = true) String sessionId) {
-        cartService.clear(getUid(sessionId));
-        return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
+    public BaseResponse clear() {
+        cartService.clear(getUid());
+        return BaseResponse.ok(cartService.getByUidWithItem(getUid()));
     }
 
     @RequestMapping(value = "item/", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse getByUidWithItem(@RequestParam(value = "sessionId", required = true) String sessionId) {
-        return BaseResponse.ok(cartService.getByUidWithItem(getUid(sessionId)));
+    public BaseResponse getByUidWithItem() {
+        return BaseResponse.ok(cartService.getByUidWithItem(getUid()));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse update(@RequestHeader(value = "sessionId") String sessionId, @RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
-        int uid = getUid(sessionId);
+    public BaseResponse update(@RequestParam("gid") int gid, @RequestParam("spec") int spec, @RequestParam("amount") int amount) {
+        int uid = getUid();
         if (itemService.getById(gid).getIs_online() == MallConstants.NO || itemSpecService.getById(spec).getIs_online() == MallConstants.NO) {
             return BaseResponse.fail("商品已经下架");
         }

@@ -34,7 +34,7 @@ public class BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
-    public User getUser(String sessionId) {
+    public User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
             MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
@@ -43,7 +43,7 @@ public class BaseController {
         return null;
     }
 
-    public int getUid(String sessionId) {
+    public int getUid() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
             MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();

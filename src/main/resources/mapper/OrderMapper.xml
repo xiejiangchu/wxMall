@@ -647,6 +647,18 @@
         where id=#{id}
     </update>
 
+    <update id="packageOrder" parameterType="Order">
+        UPDATE orders set
+        package_status=#{package_status},updated_at=now()
+        where id=#{id}
+    </update>
+
+    <update id="sendOrder" parameterType="Order">
+        UPDATE orders set
+        ship_status=#{ship_status},updated_at=now()
+        where id=#{id}
+    </update>
+
     <delete id="delete">
         DELETE FROM orders WHERE id=#{id}
     </delete>

@@ -54,23 +54,17 @@ dependencies {
     /** -Swagger */
     compile("io.springfox:springfox-swagger-ui:2.2.2")
     compile("io.springfox:springfox-swagger2:2.2.2")
-    testCompile 'org.springframework.boot:spring-boot-starter-com.xie.test'
     /** http 请求类*/
     compile 'httpcomponents-httpcore:httpcore:4.0-alpha6'
-// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
-
     compile 'dom4j:dom4j:1.6.1'
     compile 'com.alibaba:fastjson:1.2.21'
-
     compile 'com.thoughtworks.xstream:xstream:1.4.7'
-
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.7'
     compile group: 'joda-time', name: 'joda-time', version: '2.9.7'
     /**阿里百川多媒体*/
     compile 'com.alibaba.media:sdk:1.2.7'
     compile 'commons-io:commons-io:2.4'
-
     compile("org.webjars:html5shiv:3.7.2")
     compile("org.webjars:respond:1.4.2")
     compile("org.webjars:ionicons:2.0.1")
@@ -78,10 +72,10 @@ dependencies {
     compile("org.webjars:jquery:3.1.0")
     compile("org.webjars:AdminLTE:2.3.8")
     compile("org.webjars:momentjs:2.17.1")
-    compile group: 'org.webjars', name: 'angularjs', version: '1.6.1'
-    compile group: 'org.webjars', name: 'angular-ui-router', version: '1.0.0-beta.3'
-    compile group: 'org.webjars', name: 'font-awesome', version: '4.7.0'
-    compile 'net.sourceforge.nekohtml:nekohtml:1.9.21'
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.56'
+    compile("org.webjars:angularjs:1.6.1")
+    compile("org.webjars:angular-ui-router:1.0.0-beta.3")
+    compile("org.webjars:font-awesome:4.7.0")
+    compile('net.sourceforge.nekohtml:nekohtml:1.9.21')
+    compile('org.bouncycastle:bcprov-jdk15on:1.56')
 
 }

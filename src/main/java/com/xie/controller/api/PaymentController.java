@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/payment")
-public class PaymentController extends BaseController{
+public class PaymentController extends BaseController {
 
     @Autowired
     PaymentService paymentService;

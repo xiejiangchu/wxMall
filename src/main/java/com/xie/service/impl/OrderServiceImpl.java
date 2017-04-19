@@ -418,6 +418,7 @@ public class OrderServiceImpl implements OrderService {
 
         //地址操作
         order.setAddress_id(address.getId());
+        order.setProvince(address.getProvince());
         order.setCity(address.getCity());
         order.setDistrict(address.getDistrict());
         order.setMobile(address.getMobile());
@@ -540,6 +541,42 @@ public class OrderServiceImpl implements OrderService {
             return orderDao.cancel(order);
         }
         return 0;
+    }
+
+    @Override
+    public int packageOrder(int oid, int package_status) {
+        Order order = orderDao.getById(oid);
+        if (order.getOrder_status() == OrderState.已取消.value() || order.getOrder_status() == OrderState.已完成.value() || order.getOrder_status() == OrderState.已删除.value() || order.getOrder_status() == OrderState.系统回收.value()) {
+            return MallConstants.NO;
+        } else if (order.getPackage_status() == PackageState.已打包.value()) {
+            return MallConstants.NO;
+        } else if (order.getShip_status() == ShipState.已配送.value() || order.getShip_status() == ShipState.配送中.value()) {
+            return MallConstants.NO;
+        }
+        if (package_status == PackageState.已打包.value() || package_status == PackageState.未打包.value()) {
+            order.setPackage_status(package_status);
+            return orderDao.packageOrder(order);
+        }
+
+        return MallConstants.NO;
+    }
+
+    @Override
+    public int sendOrder(int oid, int ship_status) {
+        Order order = orderDao.getById(oid);
+        if (order.getOrder_status() == OrderState.已取消.value() || order.getOrder_status() == OrderState.已完成.value() || order.getOrder_status() == OrderState.已删除.value() || order.getOrder_status() == OrderState.系统回收.value()) {
+            return MallConstants.NO;
+        } else if (order.getPackage_status() == PackageState.已打包.value()) {
+            return MallConstants.NO;
+        } else if (order.getShip_status() == ShipState.已配送.value() || order.getShip_status() == ShipState.配送中.value()) {
+            return MallConstants.NO;
+        }
+        if (ship_status == ShipState.已配送.value() || ship_status == ShipState.待配送.value() || ship_status == ShipState.配送中.value()) {
+            order.setPackage_status(PackageState.已打包.value());
+            order.setShip_status(ship_status);
+            return orderDao.sendOrder(order);
+        }
+        return MallConstants.NO;
     }
 
     @Override

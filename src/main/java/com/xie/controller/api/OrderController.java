@@ -41,6 +41,18 @@ public class OrderController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
+    /**
+     * 后台管理
+     *
+     * @param type
+     * @param created_at_start
+     * @param created_at_end
+     * @param time_start
+     * @param time_end
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getAll(@RequestParam("type") int type,
@@ -53,6 +65,14 @@ public class OrderController extends BaseController {
         return BaseResponse.ok(orderService.getAll(type, created_at_start, created_at_end, time_start, time_end, pageNum, pageSize));
     }
 
+    /**
+     * 后台管理
+     *
+     * @param uid
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/getByUid", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize(value = "hasRole('ROLE_admin')")
@@ -70,13 +90,21 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestHeader(value = "SESSIONID") String sessionId,
-                      @RequestParam(value = "type") int type,
-                      @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(orderService.getByType(getUid(sessionId), type, pageNum, pageSize));
+    BaseResponse list(
+            @RequestParam(value = "type") int type,
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(orderService.getByType(getUid(), type, pageNum, pageSize));
     }
 
+    /**
+     * 后台管理
+     *
+     * @param type
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse listAll(@RequestParam(value = "type") int type,
@@ -99,17 +127,17 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse check(@RequestHeader(value = "SESSIONID") String sessionId) {
-        OrderCheckDto orderCheckDto = orderService.check(getUid(sessionId));
+    public BaseResponse check() {
+        OrderCheckDto orderCheckDto = orderService.check(getUid());
         return BaseResponse.ok(orderCheckDto);
     }
 
 
     @RequestMapping(value = "/orderMore", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse orderMore(@RequestParam(value = "sessionId") String sessionId,
-                                  @RequestParam("oid") int oid) {
-        int result = orderService.orderMore(getUid(sessionId), oid);
+    public BaseResponse orderMore(
+            @RequestParam("oid") int oid) {
+        int result = orderService.orderMore(getUid(), oid);
         if (result > 0) {
             return BaseResponse.ok();
         } else {
@@ -120,16 +148,16 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse submit(@RequestParam(value = "sessionId") String sessionId,
-                               @RequestParam(value = "point", required = false, defaultValue = "0") int point,
-                               @RequestParam("aid") int aid,
-                               @RequestParam("bid") int bid,
-                               @RequestParam("pid") int pid,
-                               @RequestParam("date") Date date,
-                               @RequestParam("time_start") Date time_start,
-                               @RequestParam("time_end") Date time_end,
-                               @RequestParam(value = "message", required = false, defaultValue = "") String message) {
-        int result = orderService.submit(getUid(sessionId), point, aid, bid, pid, date, time_start, time_end, message);
+    public BaseResponse submit(
+            @RequestParam(value = "point", required = false, defaultValue = "0") int point,
+            @RequestParam("aid") int aid,
+            @RequestParam("bid") int bid,
+            @RequestParam("pid") int pid,
+            @RequestParam("date") Date date,
+            @RequestParam("time_start") Date time_start,
+            @RequestParam("time_end") Date time_end,
+            @RequestParam(value = "message", required = false, defaultValue = "") String message) {
+        int result = orderService.submit(getUid(), point, aid, bid, pid, date, time_start, time_end, message);
         if (result == MallConstants.ERROR_POINT_NOT_ENOUGH) {
             return BaseResponse.fail("积分不足");
         }
@@ -158,30 +186,55 @@ public class OrderController extends BaseController {
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse count(@RequestParam(value = "sessionId") String sessionId) {
-        return BaseResponse.ok(orderService.countByUid(getUid(sessionId)));
+    public BaseResponse count() {
+        return BaseResponse.ok(orderService.countByUid(getUid()));
     }
 
 
     @RequestMapping(value = "/orderCount", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse ordercount(@RequestParam(value = "sessionId") String sessionId) {
-        return BaseResponse.ok(orderService.orderCount(getUid(sessionId)));
+    public BaseResponse ordercount() {
+        return BaseResponse.ok(orderService.orderCount(getUid()));
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse cancel(@RequestParam(value = "sessionId") String sessionId,
-                               @RequestParam("oid") int oid) {
-        return BaseResponse.ok(orderService.cancel(getUid(sessionId), oid));
+    public BaseResponse cancel(@RequestParam("oid") int oid) {
+        return BaseResponse.ok(orderService.cancel(getUid(), oid));
+    }
+
+    /**
+     * 后台管理
+     *
+     * @param oid
+     * @return
+     */
+    @RequestMapping(value = "/packageOrder", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse packageOrder(@RequestParam("oid") int oid,
+                                     @RequestParam("package_status") int package_status) {
+        return BaseResponse.ok(orderService.packageOrder(oid, package_status));
+    }
+
+    /**
+     * 后台管理
+     *
+     * @param oid
+     * @return
+     */
+    @RequestMapping(value = "/sendOrder", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize(value = "hasRole('ROLE_admin')")
+    public BaseResponse sendOrder(@RequestParam("oid") int oid,
+                                  @RequestParam("sending_status") int sending_status) {
+        return BaseResponse.ok(orderService.sendOrder(oid, sending_status));
     }
 
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse pay(@RequestParam(value = "sessionId") String sessionId,
-                            @RequestParam("oid") int oid,
-                            HttpServletRequest request) throws IllegalAccessException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException, IOException {
-        OrderReturnInfo result = orderService.pay(getUid(sessionId), oid, IpUtils.getIpAddr(request));
+    public BaseResponse pay(@RequestParam("oid") int oid, HttpServletRequest request) throws IllegalAccessException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException, IOException {
+        OrderReturnInfo result = orderService.pay(getUid(), oid, IpUtils.getIpAddr(request));
         return BaseResponse.ok(result);
     }
 

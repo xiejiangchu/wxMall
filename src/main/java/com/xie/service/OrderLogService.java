@@ -18,7 +18,7 @@ public interface OrderLogService {
 
     OrderLog getById(int id);
 
-    List<OrderLog> getByOid(int oid);
+    List<OrderLog> getByOid(int oid,List<Integer> types);
 
     int insert(OrderLog orderLog);
 

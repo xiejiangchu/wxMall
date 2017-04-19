@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/bonusType")
-public class BonusTypeController extends BaseController{
+public class BonusTypeController extends BaseController {
 
     @Autowired
     BonusTypeService bonusTypeService;

@@ -4,7 +4,9 @@ import com.xie.bean.OrderLog;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author xie
@@ -17,8 +19,11 @@ public class OrderLogDao extends BaseDao {
         return this.sqlSession.selectOne("OrderLogMapper.getById", id);
     }
 
-    public List<OrderLog> getByOid(int oid) {
-        return this.sqlSession.selectList("OrderLogMapper.getByOid", oid);
+    public List<OrderLog> getByOid(int oid,List<Integer> types) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("oid", oid);
+        map.put("types", types);
+        return this.sqlSession.selectList("OrderLogMapper.getByOid", map);
     }
 
     public int insert(OrderLog orderLog) {

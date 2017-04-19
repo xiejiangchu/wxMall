@@ -42,7 +42,7 @@ public class OrderLogAspect {
         orderLog.setOid(oid);
         orderLog.setType(ActionType.订单操作.value());
         orderLog.setAction("请求支付订单");
-        orderLog.setDetails(uid + "请求支付订单" + oid);
+        orderLog.setDetails("请求支付订单");
         orderLog.setOperator(uid + "");
         orderLogService.insert(orderLog);
     }
@@ -54,7 +54,7 @@ public class OrderLogAspect {
         orderLog.setOid(oid);
         orderLog.setType(ActionType.订单操作.value());
         orderLog.setAction("取消订单");
-        orderLog.setDetails(uid + "取消订单" + oid);
+        orderLog.setDetails("取消订单");
         orderLog.setOperator(uid + "");
         orderLogService.insert(orderLog);
     }
@@ -66,7 +66,7 @@ public class OrderLogAspect {
         orderLog.setOid(oid);
         orderLog.setType(ActionType.订单操作.value());
         orderLog.setAction("加入购物车");
-        orderLog.setDetails(uid + "再次加入购物车" + oid);
+        orderLog.setDetails("再次加入购物车");
         orderLog.setOperator(uid + "");
         orderLogService.insert(orderLog);
     }
@@ -78,7 +78,7 @@ public class OrderLogAspect {
         orderLog.setOid(oid);
         orderLog.setType(ActionType.订单操作.value());
         orderLog.setAction("提交了订单");
-        orderLog.setDetails(uid + "提交了订单" + oid);
+        orderLog.setDetails("提交了订单");
         orderLog.setOperator(uid + "");
         orderLogService.insert(orderLog);
     }

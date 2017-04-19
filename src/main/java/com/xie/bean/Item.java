@@ -25,6 +25,9 @@ public class Item implements Serializable {
     private List<Image> imageList;
     private List<ItemSpec> itemSpecList;
 
+    private String cid1_name;
+    private String cid2_name;
+
     public String getNo() {
         return no;
     }
@@ -171,6 +174,22 @@ public class Item implements Serializable {
 
     public void setNotice_color(String notice_color) {
         this.notice_color = notice_color;
+    }
+
+    public String getCid1_name() {
+        return cid1_name;
+    }
+
+    public void setCid1_name(String cid1_name) {
+        this.cid1_name = cid1_name;
+    }
+
+    public String getCid2_name() {
+        return cid2_name;
+    }
+
+    public void setCid2_name(String cid2_name) {
+        this.cid2_name = cid2_name;
     }
 }
 

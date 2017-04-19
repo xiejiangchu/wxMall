@@ -92,7 +92,7 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/getByCategoryWithoutPaginate", method = RequestMethod.GET)
     @ResponseBody
     BaseResponse getByCategoryWithoutPaginate(@RequestParam("cid1") Integer cid1,
-                               @RequestParam("cid2") Integer cid2) {
+                                              @RequestParam("cid2") Integer cid2) {
         return BaseResponse.ok(itemService.getByCategoryWithoutPaginate(cid1, cid2));
     }
 

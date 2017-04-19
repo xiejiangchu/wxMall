@@ -36,7 +36,14 @@
         created_at,
         updated_at
         FROM order_log
-        WHERE oid=#{oid} ORDER BY updated_at DESC
+        WHERE oid=#{oid}
+        <if test="types!=null">
+            AND type IN
+            <foreach collection="types" separator="," open="(" close=")" item="type">
+                #{type}
+            </foreach>
+        </if>
+        ORDER BY updated_at DESC
     </select>
 
     <select id="countByOid" resultType="Integer">

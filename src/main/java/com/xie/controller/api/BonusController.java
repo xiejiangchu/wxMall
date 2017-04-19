@@ -71,17 +71,17 @@ public class BonusController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse list(@RequestParam(value = "sessionId") String sessionId,
-                      @RequestParam(value = "type") int type,
-                      @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return BaseResponse.ok(bonusService.getListByType(getUid(sessionId), type, pageNum, pageSize));
+    BaseResponse list(
+            @RequestParam(value = "type") int type,
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return BaseResponse.ok(bonusService.getListByType(getUid(), type, pageNum, pageSize));
     }
 
     @RequestMapping(value = "/getEnabledByCart", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse getEnabledByCart(@RequestParam(value = "sessionId") String sessionId) {
-        int uid = getUid(sessionId);
+    BaseResponse getEnabledByCart() {
+        int uid = getUid();
         List<Cart> cartList = cartService.getByUidWithItem(uid);
         List<Cart> carts = new ArrayList<>();
         for (int i = 0; i < cartList.size(); i++) {
@@ -95,12 +95,12 @@ public class BonusController extends BaseController {
 
     @RequestMapping(value = "/fetchBonusByCode", method = RequestMethod.GET)
     @ResponseBody
-    BaseResponse fetchBonusByCode(@RequestParam(value = "sessionId") String sessionId,
-                                  @RequestParam(value = "code") String code) {
-        int uid = getUid(sessionId);
+    BaseResponse fetchBonusByCode(
+            @RequestParam(value = "code") String code) {
+        int uid = getUid();
         int result = bonusExchangeService.fetchBonusByCode(uid, code);
         if (result > 0) {
-            return BaseResponse.ok(bonusService.getListByType(getUid(sessionId), BonusQueryType.未使用.value(), 1, 10));
+            return BaseResponse.ok(bonusService.getListByType(getUid(), BonusQueryType.未使用.value(), 1, 10));
         } else {
             return BaseResponse.fail("兑换失败");
         }

@@ -26,5 +26,7 @@ public interface SystemConfigService {
 
     SysConfig about();
 
-    int saveQuestionAndAbout(String questions,String about);
+    SysConfig notice();
+
+    int saveQuestionAndAbout(String questions,String about,String notice);
 }

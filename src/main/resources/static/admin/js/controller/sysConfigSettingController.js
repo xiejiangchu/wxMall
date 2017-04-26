@@ -1,7 +1,7 @@
 mall.controller('sysConfigSettingController', function ($rootScope, $scope, $http, $state) {
 
     $scope.sysConfig = {};
-    $scope.options={
+    $scope.options = {
         spellChecker: false,
         autosave: {
             enabled: false,
@@ -19,13 +19,19 @@ mall.controller('sysConfigSettingController', function ($rootScope, $scope, $htt
     }, function (error) {
     });
 
-    $scope.submit=function(){
+    $http.get('/sysConfig/notice').then(function (response) {
+        $scope.sysConfig.notice = response.data.data;
+    }, function (error) {
+    });
+
+    $scope.submit = function () {
         $http.put('/sysConfig/saveQuestionAndAbout', {
-            about:$scope.sysConfig.about.value,
-            questions:$scope.sysConfig.questions.value,
+            about: $scope.sysConfig.about.value,
+            questions: $scope.sysConfig.questions.value,
+            notice: $scope.sysConfig.notice.value
         }).then(function (response) {
             if (response.data.code == 0) {
-               alert("修改成功");
+                alert("修改成功");
             }
         }, function (error) {
         });

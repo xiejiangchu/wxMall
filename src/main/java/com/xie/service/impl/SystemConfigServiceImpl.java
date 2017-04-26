@@ -60,9 +60,15 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
-    public int saveQuestionAndAbout(String questions, String about) {
+    public SysConfig notice() {
+        return sysConfigDao.getByName(MallConstants.SYS_NOTICE);
+    }
+
+    @Override
+    public int saveQuestionAndAbout(String questions, String about, String notice) {
         sysConfigDao.saveByName(MallConstants.SYS_QUESTIONS, questions);
         sysConfigDao.saveByName(MallConstants.SYS_ABOUT, about);
+        sysConfigDao.saveByName(MallConstants.SYS_NOTICE, notice);
         return MallConstants.YES;
     }
 }

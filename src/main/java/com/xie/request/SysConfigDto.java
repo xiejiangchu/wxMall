@@ -13,6 +13,7 @@ package com.xie.request;
 public class SysConfigDto {
     private String questions;
     private String about;
+    private String notice;
 
     public String getQuestions() {
         return questions;
@@ -28,5 +29,13 @@ public class SysConfigDto {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 }

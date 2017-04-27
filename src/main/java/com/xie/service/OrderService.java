@@ -55,6 +55,8 @@ public interface OrderService {
 
     int sendOrder(int oid,int sending_status);
 
+    int cancelOrder(int oid);
+
     OrderCountDto orderCount(int uid);
 
     OrderReturnInfo pay(int uid, int oid, String ip) throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, IOException, IllegalAccessException, UnrecoverableKeyException;

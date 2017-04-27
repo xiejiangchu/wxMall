@@ -19,6 +19,10 @@ public class ItemDao extends BaseDao {
         return this.sqlSession.selectOne("ItemMapper.getById", id);
     }
 
+    public Item getByIdAdmin(int id){
+        return this.sqlSession.selectOne("ItemMapper.getByIdAdmin", id);
+    }
+
 
     public List<Item> getAll() {
         return this.sqlSession.selectList("ItemMapper.getAll");

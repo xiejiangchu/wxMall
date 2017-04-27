@@ -37,7 +37,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item getDetailById(int id) {
-        Item item = itemDao.getById(id);
+        Item item = itemDao.getByIdAdmin(id);
         if (null != item) {
             item.setImageList(itemImageService.getByIid(id));
             item.setItemSpecList(itemSpecService.getOnlineByGid(item.getId()));

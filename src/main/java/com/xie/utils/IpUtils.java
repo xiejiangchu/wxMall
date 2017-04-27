@@ -1,7 +1,5 @@
 package com.xie.utils;
 
-import org.springframework.util.*;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**

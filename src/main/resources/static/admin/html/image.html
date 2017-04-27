@@ -12,9 +12,30 @@
         </ol>
     </section>
 
-    <div class="box">
-        <div datatableimage options="options" page-changed="pageChanged(page)" item-click="itemClick(id)">
+    <div class="row">
+        <div class="pull-right">
+            <p>
+                <a href="upload" type="button" class="btn bg-green btn-flat margin">
+                    <i class="fa fa-add">添加图片</i>
+                </a>
+            </p>
+        </div>
+    </div>
 
+    <div class="box">
+        <div datatableimage options="options" page-changed="pageChanged(page)" item-delete="itemDelete(id)">
+
+        </div>
+    </div>
+
+    <div class="modal modal-success" ng-class="{true: 'show', false: 'hidden'}[operateSuccess]">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center" style="font-size: 30px;">
+                    <i class="fa  fa-check"></i>
+                    <p>操作成功</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -95,6 +95,7 @@ mall.controller('itemSpecController', function ($rootScope, $scope, $http, $stat
 
     $scope.$watch('params.itemSpecId', function (value, oldValue, scope) {
         if (value > 0) {
+            $scope.mode = "modify";
             angular.forEach($scope.itemSpecs, function (item, key) {
                 if (item.id == $scope.params.itemSpecId) {
                     $scope.itemSpec = item;

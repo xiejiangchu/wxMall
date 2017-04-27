@@ -11,7 +11,6 @@
                     <th>配送状态</th>
                     <th>打包状态</th>
                     <th>订单金额</th>
-                    <th>支付方式</th>
                     <th>配送时间</th>
                     <!--<th>配送地址</th>-->
                     <th>留言信息</th>
@@ -21,9 +20,9 @@
                 </thead>
                 <tbody>
                 <tr ng-if="options.paginate.list.length==0">
-                <td colspan="12" class="text-center">
-                    无数据
-                </td>
+                    <td colspan="12" class="text-center">
+                        无数据
+                    </td>
                 </tr>
                 <tr ng-repeat-start="order in options.paginate.list" ng-if="false"></tr>
                 <tr>
@@ -34,27 +33,25 @@
                     <td>{{order.ship_status | shipstatus}}</td>
                     <td>{{order.package_status | packagestatus}}</td>
                     <td>{{order.order_amount| number:2}}</td>
-                    <td>{{order.payment }}</td>
                     <td>日期:{{order.send_date | date : 'MM-dd'}} {{order.time_start | date : 'hh:mm:ss'}}
                         - {{order.time_end | date : 'hh:mm:ss'}}
                     </td>
-                    <!--<td>{{ order.receiver }} {{ order.mobile }} {{ order.city }}{{ order.district }}{{ order.road }}{{-->
-                        <!--order.address }}-->
-                    <!--</td>-->
                     <td>{{order.message}}</td>
-                    <td ng-click="checkDetail($event)"><div class="table-expandable-arrow"></div></td>
+                    <td ng-click="checkDetail($event)">
+                        <div class="table-expandable-arrow"></div>
+                    </td>
                     <td>
-                        <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
+                        <a data-ng-click="itemConfirm({id:order.id})" href="javascript:void(0);">
                             确认
                         </a>
-                        <a data-ng-click="itemDelete({id:item.id})" href="javascript:void(0);">
-                           配送
+                        <a data-ng-click="itemSend({id:order.id})" href="javascript:void(0);">
+                            配送
                         </a>
-                        <a  data-ng-click="itemOnline({id:item.id})" href="javascript:void(0);">
-                           打包
+                        <a data-ng-click="itemPackage({id:order.id})" href="javascript:void(0);">
+                            打包
                         </a>
-                        <a  data-ng-click="itemOffline({id:item.id})" href="javascript:void(0);">
-                           取消
+                        <a data-ng-click="itemCancel({id:order.id})" href="javascript:void(0);">
+                            取消
                         </a>
                     </td>
                 </tr>
@@ -78,42 +75,43 @@
                                 </dd>
                                 <dt>订单信息</dt>
                                 <dd>
-                                   <div class="container-fluid">
-                                       <div class="row">
-                                           <div class="col-md-offset-2 col-md-8">
-                                               <table class="table table-hover">
-                                                   <thead>
-                                                   <tr>
-                                                       <th>名称</th>
-                                                       <th>规格</th>
-                                                       <th>价格</th>
-                                                       <th>产地</th>
-                                                       <th>数量</th>
-                                                       <th>总价</th>
-                                                   </tr>
-                                                   </thead>
-                                                   <tbody>
-                                                   <tr ng-repeat="orderItem in order.orderItems">
-                                                       <td>{{orderItem.name}}</td>
-                                                       <td>{{orderItem.unit}}</td>
-                                                       <td>
-                                                           {{orderItem.shop_price}}
-                                                       </td>
-                                                       <td>{{orderItem.place}}</td>
-                                                       <td>{{orderItem.amount}}</td>
-                                                       <td>{{orderItem.total}}</td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td colspan="6">
-                                                           <p class="text-right text-primary">红包抵扣:{{order.bonus}}</p>
-                                                           <p class="text-right text-success">商品总价:{{order.order_amount}},商品总重量:{{order.order_weight}}</p>
-                                                       </td>
-                                                   </tr>
-                                                   </tbody>
-                                               </table>
-                                           </div>
-                                       </div>
-                                   </div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-offset-2 col-md-8">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>名称</th>
+                                                        <th>规格</th>
+                                                        <th>价格</th>
+                                                        <th>产地</th>
+                                                        <th>数量</th>
+                                                        <th>总价</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="orderItem in order.orderItems">
+                                                        <td>{{orderItem.name}}</td>
+                                                        <td>{{orderItem.unit}}</td>
+                                                        <td>
+                                                            {{orderItem.shop_price}}
+                                                        </td>
+                                                        <td>{{orderItem.place}}</td>
+                                                        <td>{{orderItem.amount}}</td>
+                                                        <td>{{orderItem.total}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6">
+                                                            <p class="text-right text-primary">红包抵扣:{{order.bonus}}</p>
+                                                            <p class="text-right text-success">
+                                                                商品总价:{{order.order_amount}},商品总重量:{{order.order_weight}}</p>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </dd>
                                 </dl>
                                 </dd>

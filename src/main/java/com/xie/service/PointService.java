@@ -2,8 +2,6 @@ package com.xie.service;
 
 import com.xie.bean.Point;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  *

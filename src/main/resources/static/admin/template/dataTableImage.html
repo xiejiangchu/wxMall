@@ -36,9 +36,10 @@
                 <td>{{item.uri}}</td>
                 <td>{{item.updated_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
                 <td>
-                    <i class="fa fa-edit text-blue"></i>
-                    <i class="fa fa-remove text-red"></i>
-                    <i class="fa fa-hand-o-up text-success"></i>
+                    <a data-ng-click="itemDelete({id:item.id})" href="javascript:void(0);">
+                        <i class="fa fa-remove text-red"></i>
+                    </a>
+
                 </td>
             </tr>
         </table>

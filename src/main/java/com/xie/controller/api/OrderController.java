@@ -205,6 +205,22 @@ public class OrderController extends BaseController {
 
     /**
      * 后台管理
+     * @param oid
+     * @return
+     */
+    @RequestMapping(value = "/cancelOrder", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse cancelOrder(@RequestParam("oid") int oid) {
+        int result = orderService.cancelOrder(oid);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    /**
+     * 后台管理
      *
      * @param oid
      * @return
@@ -214,7 +230,12 @@ public class OrderController extends BaseController {
     @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse packageOrder(@RequestParam("oid") int oid,
                                      @RequestParam("package_status") int package_status) {
-        return BaseResponse.ok(orderService.packageOrder(oid, package_status));
+        int result = orderService.packageOrder(oid, package_status);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 
     /**
@@ -228,7 +249,12 @@ public class OrderController extends BaseController {
     @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse sendOrder(@RequestParam("oid") int oid,
                                   @RequestParam("sending_status") int sending_status) {
-        return BaseResponse.ok(orderService.sendOrder(oid, sending_status));
+        int result = orderService.sendOrder(oid, sending_status);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
     }
 
     @RequestMapping(value = "/pay", method = RequestMethod.POST)

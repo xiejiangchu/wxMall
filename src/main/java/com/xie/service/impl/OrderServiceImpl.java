@@ -580,6 +580,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int cancelOrder(int oid) {
+        Order order = orderDao.getById(oid);
+        if (order.getOrder_status() == OrderState.已取消.value() || order.getOrder_status() == OrderState.已完成.value() || order.getOrder_status() == OrderState.已删除.value() || order.getOrder_status() == OrderState.系统回收.value()) {
+            return MallConstants.NO;
+        } else if (order.getPackage_status() == PackageState.已打包.value()) {
+            return MallConstants.NO;
+        } else if (order.getShip_status() == ShipState.已配送.value() || order.getShip_status() == ShipState.配送中.value()) {
+            return MallConstants.NO;
+        }
+        order.setOrder_status(OrderState.已取消.value());
+        return orderDao.cancel(order);
+    }
+
+    @Override
     public OrderCountDto orderCount(int uid) {
         OrderCountDto orderCountDto = new OrderCountDto();
         orderCountDto.setOrder_pay(orderDao.countByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.未支付.value()), Arrays.asList(ShipState.待配送.value()), Arrays.asList(PackageState.未打包.value())));

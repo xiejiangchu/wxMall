@@ -1,10 +1,6 @@
 package com.xie.auth;
 
 import com.xie.bean.Permission;
-import com.xie.service.PermissionService;
-import com.xie.service.RoleService;
-import com.xie.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

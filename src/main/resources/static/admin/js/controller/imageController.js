@@ -1,4 +1,4 @@
-mall.controller('imageController', function ($rootScope, $scope, $http, $state) {
+mall.controller('imageController', function ($rootScope, $scope, $http, $state, $timeout) {
 
     $scope.options = {};
     $scope.options.paging = true;
@@ -23,4 +23,14 @@ mall.controller('imageController', function ($rootScope, $scope, $http, $state) 
     }, function (error) {
         console.log(response);
     });
+
+    $scope.itemDelete = function (id) {
+        $http.delete('/image/' + id).then(function (response) {
+            $scope.operateSuccess = true;
+            $timeout(function () {
+                $scope.operateSuccess = false;
+            }, 1000);
+        }, function (error) {
+        });
+    }
 });

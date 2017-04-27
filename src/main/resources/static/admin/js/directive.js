@@ -121,7 +121,11 @@ mall.directive('alert', function () {
         restrict: 'EA',
         scope: {
             options: "=",
-            pageChanged: "&"
+            pageChanged: "&",
+            itemConfirm: "&",
+            itemSend: "&",
+            itemPackage: "&",
+            itemCancel: "&"
         },
         templateUrl: '/admin/template/dataTableOrder.html',
         link: function (scope, element, attrs) {
@@ -194,7 +198,7 @@ mall.directive('alert', function () {
         scope: {
             options: "=",
             pageChanged: "&",
-            itemClick: "&"
+            itemDelete: "&"
         },
         templateUrl: '/admin/template/dataTableImage.html',
         link: function (scope, element, attrs) {

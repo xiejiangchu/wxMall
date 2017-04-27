@@ -1,4 +1,4 @@
-mall.controller('orderListController', function ($rootScope, $scope, $http, $state, $stateParams, $dictionary) {
+mall.controller('orderListController', function ($rootScope, $scope, $http, $state, $stateParams, $dictionary, $timeout) {
     $scope.options = {
         title: '订单管理',
         paginate: {},
@@ -16,7 +16,7 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
     $scope.dictionary = $dictionary;
 
     $http.get('/order/getAll', {
-        params:$scope.params
+        params: $scope.params
     }).then(function (response) {
         $scope.options.paginate = response.data.data;
     }, function (error) {
@@ -31,6 +31,84 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
             params: $scope.params
         }).then(function (response) {
             $scope.options.paginate = response.data.data;
+        }, function (error) {
+        });
+    }
+
+    $scope.itemConfirm = function (id) {
+
+    }
+
+    $scope.itemSend = function (id) {
+        $http.put('/order/sendOrder', {
+            oid: id,
+            sending_status: 20
+        }, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
+        }).then(function (response) {
+            if (response.data.code == 0) {
+                $scope.operateSuccess = true;
+                $timeout(function () {
+                    $scope.operateSuccess = false;
+                }, 1000);
+            } else {
+                alert(response.data.msg);
+            }
+        }, function (error) {
+        });
+    }
+
+    $scope.itemPackage = function (id) {
+        $http.put('/order/packageOrder', {
+            oid: id,
+            package_status: 10
+        }, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
+        }).then(function (response) {
+            if (response.data.code == 0) {
+                $scope.operateSuccess = true;
+                $timeout(function () {
+                    $scope.operateSuccess = false;
+                }, 1000);
+            } else {
+                alert(response.data.msg);
+            }
+        }, function (error) {
+        });
+    };
+
+    $scope.itemCancel = function (id) {
+        $http.put('/order/cancelOrder', {
+            oid: id
+        }, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function (obj) {
+                var str = [];
+                for (var o in obj)
+                    str.push(encodeURIComponent(o) + "=" + encodeURIComponent(obj[o]));
+                return str.join("&");
+            }
+        }).then(function (response) {
+            if (response.data.code == 0) {
+                $scope.operateSuccess = true;
+                $timeout(function () {
+                    $scope.operateSuccess = false;
+                }, 1000);
+            } else {
+                alert(response.data.msg);
+            }
         }, function (error) {
         });
     }

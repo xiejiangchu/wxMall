@@ -120,6 +120,8 @@ public class ImageFileServiceImpl implements ImageFileService {
 
     @Override
     public int delete(int id) {
+        Image image = imageDao.getById(id);
+        client.deleteFile(image.getDir(), image.getName());
         return imageDao.delete(id);
     }
 }

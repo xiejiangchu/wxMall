@@ -1,8 +1,5 @@
 package com.xie.bean;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.xie.utils.DoubleSerializer;
-
 /**
  * Created with IntelliJ IDEA.
  *

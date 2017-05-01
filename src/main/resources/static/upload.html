@@ -19,6 +19,7 @@
     <script src="js/dist/zh.js"></script>
     <script src="js/dist/theme.js"></script>
     <script type="text/javascript">
+        var protocol = window.location.protocol || 'http:';
         var result = [];
         var FileInput = function () {
             var oFile = new Object();
@@ -51,9 +52,9 @@
 
                 $("#upload_image").on("fileuploaded", function (event, data, previewId, index) {
                     console.log(data.response);
-                    $.post('/upload',data.response,function(){
+                    $.post('/upload', data.response, function () {
                         $('#result').text("成功");
-                    },"json")
+                    }, "json")
                 });
 
                 $('#upload_image').on('filepreupload', function (event, data, previewId, index) {
@@ -72,7 +73,7 @@
         $(function () {
             var oFileInput = new FileInput();
             var query = 'Authorization=' + document.getElementById('token').value + '&UserAgent=ALIMEDIASDK_WORKSTATION'
-            oFileInput.Init("upload_image", "http://upload.media.aliyun.com/api/proxy/upload?" + query);
+            oFileInput.Init("upload_image", protocol + "//upload.media.aliyun.com/api/proxy/upload?" + query);
         });
     </script>
 </head>

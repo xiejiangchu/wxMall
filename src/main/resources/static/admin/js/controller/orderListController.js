@@ -35,10 +35,6 @@ mall.controller('orderListController', function ($rootScope, $scope, $http, $sta
         });
     }
 
-    $scope.itemConfirm = function (id) {
-
-    }
-
     $scope.itemSend = function (id) {
         $http.put('/order/sendOrder', {
             oid: id,

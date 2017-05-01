@@ -122,7 +122,6 @@ mall.directive('alert', function () {
         scope: {
             options: "=",
             pageChanged: "&",
-            itemConfirm: "&",
             itemSend: "&",
             itemPackage: "&",
             itemCancel: "&"

@@ -619,7 +619,7 @@ public class OrderServiceImpl implements OrderService {
         if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
             myUserDetails = (MyUserDetails) authentication.getPrincipal();
         }
-        if (myUserDetails.isAdmin()) {
+        if (myUserDetails != null && myUserDetails.isAdmin()) {
             orderCountDto.setAdmins(MallConstants.YES);
         } else {
             orderCountDto.setAdmins(MallConstants.NO);

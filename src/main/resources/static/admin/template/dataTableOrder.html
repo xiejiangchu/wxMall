@@ -32,7 +32,7 @@
                     <td>{{order.pay_status | paystatus}}</td>
                     <td>{{order.ship_status | shipstatus}}</td>
                     <td>{{order.package_status | packagestatus}}</td>
-                    <td>{{order.order_amount| number:2}}</td>
+                    <td>{{order.order_money | number:2}}</td>
                     <td>日期:{{order.send_date | date : 'MM-dd'}} {{order.time_start | date : 'hh:mm:ss'}}
                         - {{order.time_end | date : 'hh:mm:ss'}}
                     </td>
@@ -41,9 +41,6 @@
                         <div class="table-expandable-arrow"></div>
                     </td>
                     <td>
-                        <a data-ng-click="itemConfirm({id:order.id})" href="javascript:void(0);">
-                            确认
-                        </a>
                         <a data-ng-click="itemSend({id:order.id})" href="javascript:void(0);">
                             配送
                         </a>

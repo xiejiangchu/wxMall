@@ -32,7 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyAuthenticationProvider myAuthenticationProvider;//自定义验证
     @Autowired
     private AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter;
-
     @Autowired
     private MyAccessDeniedHandler myAccessDeniedHandler;
 
@@ -52,6 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "index", "/banner/list", "/category/**", "/item/*").permitAll()
                 .antMatchers("/user/get3rdSession", "/user/login").permitAll()
                 .antMatchers("/sysConfig/**").permitAll()
+                .antMatchers("/wechat/server").permitAll()
+                .antMatchers("/error").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login.html").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/admin", true).failureUrl("/login.html?error=true").permitAll()
                 .and().logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/admin/index").invalidateHttpSession(true)

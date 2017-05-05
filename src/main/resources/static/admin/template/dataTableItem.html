@@ -23,8 +23,8 @@
             <tr ng-repeat="item in options.paginate.list">
                 <td>{{item.id}}</td>
                 <td>
-                    <a href="http://wxmall.image.alimmdn.com/{{item.thumb}}" target="_blank">
-                        <img src="http://wxmall.image.alimmdn.com/{{item.thumb}}" alt=""
+                    <a href="{{imgHost}}{{item.thumb}}" target="_blank">
+                        <img src="{{imgHost}}{{item.thumb}}" alt=""
                              style="height:25px;width: 25px;;">
                     </a>
                     {{item.name}}

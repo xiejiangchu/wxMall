@@ -286,6 +286,17 @@
                 </li>
                 <li class="treeview">
                     <a href="/">
+                        <i class="fa fa-picture-o"></i> <span>文章发布</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-down pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a ui-sref="post.list({page:1})"><i class="fa fa-photo"></i>文章管理</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/">
                         <i class="fa fa-hourglass-2"></i> <span>红包管理</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-down pull-right"></i>
@@ -429,5 +440,10 @@
 <script type="text/javascript" src="/admin/js/controller/bonusTypeListController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/bonusTypeDetailController.js"></script>
 <script type="text/javascript" src="/admin/js/controller/sysConfigSettingController.js"></script>
+
+<script type="text/javascript" src="/admin/js/controller/postController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/postAddController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/postListController.js"></script>
+<script type="text/javascript" src="/admin/js/controller/postDetailController.js"></script>
 </body>
 </html>

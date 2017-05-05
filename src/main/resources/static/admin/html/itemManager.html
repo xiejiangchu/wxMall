@@ -132,7 +132,7 @@
                             <div class="form-group">
                                 <label>当前图像</label>
                                 <div>
-                                    <img src="http://wxmall.image.alimmdn.com/{{editItem.thumb}}@100w_100h" alt="">
+                                    <img src="{{img_host}}{{editItem.thumb}}@100w_100h" alt="">
                                 </div>
                             </div>
 
@@ -140,7 +140,7 @@
                                 <label>详情图像</label>
                                 <div>
                                     <img ng-repeat="img in editItem.imageList"
-                                         src="http://wxmall.image.alimmdn.com/{{img.uri}}@100w_100h" alt="">
+                                         src="{{img_host}}{{img.uri}}@100w_100h" alt="">
                                 </div>
                             </div>
 

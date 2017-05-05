@@ -24,6 +24,23 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/bannerList/:page',
         templateUrl: '/admin/html/bannerList.html',
         controller: 'bannerListController'
+    }).state('post', {
+        abstract: true,
+        url: '/post',
+        templateUrl: '/admin/html/post.html',
+        controller: 'postController'
+    }).state('post.add', {
+        url: '/postAdd',
+        templateUrl: '/admin/html/postAdd.html',
+        controller: 'postAddController'
+    }).state('postDetail', {
+        url: '/postDetail/:id',
+        templateUrl: '/admin/html/postDetail.html',
+        controller: 'postDetailController'
+    }).state('post.list', {
+        url: '/postList/:page',
+        templateUrl: '/admin/html/postList.html',
+        controller: 'postListController'
     }).state('bonus', {
         abstract: true,
         url: '/bonus',

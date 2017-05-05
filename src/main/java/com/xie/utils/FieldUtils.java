@@ -27,7 +27,7 @@ public class FieldUtils {
 
     public static void mains(String[] args) {
         Connection conn = getConnection();
-        String sql = "select * from bonus_exchange limit 0,2";
+        String sql = "select * from posts limit 0,2";
         PreparedStatement stmt;
         try {
             stmt = conn.prepareStatement(sql);
@@ -78,20 +78,20 @@ public class FieldUtils {
 //                    System.out.println(tableName+"."+columnName+" as "+ tableName+"_"+columnName +",");
 //                    System.out.println(tableName+"."+columnName+" as "+columnName +",");
 
-                        String str1="<if test=\"#columnName#!=null\">\n" +
-                                ",#columnName#\n" +
-                                "</if>";
-                        System.out.println(str1.replace("#columnName#",columnName));
+//                        String str1="<if test=\"#columnName#!=null\">\n" +
+//                                ",#columnName#\n" +
+//                                "</if>";
+//                        System.out.println(str1.replace("#columnName#",columnName));
 
 //                        String str2="<if test=\"#columnName#!=null\">\n" +
 //                                ",#{#columnName#}\n" +
 //                                "</if>";
 //                        System.out.println(str2.replace("#columnName#",columnName));
 //
-//                        String str3="<if test=\"#columnName#!=null\">\n" +
-//                                ",#columnName#=#{#columnName#}\n" +
-//                                "</if>";
-//                        System.out.println(str3.replace("#columnName#",columnName));
+                        String str3="<if test=\"#columnName#!=null\">\n" +
+                                ",#columnName#=#{#columnName#}\n" +
+                                "</if>";
+                        System.out.println(str3.replace("#columnName#",columnName));
 //
 //                        System.out.println("        ===             ");
 //

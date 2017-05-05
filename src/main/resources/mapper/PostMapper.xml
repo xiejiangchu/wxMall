@@ -1,0 +1,144 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PostMapper">
+
+    <resultMap id="PostResult" type="Post" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="title" column="title" javaType="String" jdbcType="VARCHAR"/>
+        <result property="src" column="src" javaType="String" jdbcType="VARCHAR"/>
+
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="updated_at" column="updated_at" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result property="deleted_at" column="deleted_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getAllCanShow" resultMap="PostResult">
+        SELECT
+        id,
+        title,
+        src,
+        description,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM posts
+        WHERE deleted_at IS NULL
+    </select>
+
+    <select id="getById" resultMap="PostResult">
+        SELECT
+        id,
+        title,
+        src,
+        description,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM posts
+        WHERE id=#{id}
+    </select>
+
+    <select id="getAll" resultMap="PostResult">
+        SELECT
+        id,
+        title,
+        src,
+        description,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM posts
+    </select>
+
+    <select id="count" resultType="integer">
+        SELECT
+        count(1)
+        FROM posts
+        <if test="all==true">
+            WHERE deleted_at is NOT NULL
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="Payment">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO posts (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="id!=null">
+                ,id
+            </if>
+            <if test="title!=null">
+                ,title
+            </if>
+            <if test="src!=null">
+                ,src
+            </if>
+            <if test="description!=null">
+                ,description
+            </if>
+            ,created_at
+            ,updated_at
+        </trim>
+        ) VALUES (
+        <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
+            <if test="id!=null">
+                ,#{id}
+            </if>
+            <if test="title!=null">
+                ,#{title}
+            </if>
+            <if test="src!=null">
+                ,#{src}
+            </if>
+            <if test="description!=null">
+                ,#{description}
+            </if>
+            ,now()
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE posts set
+        <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
+            <if test="id!=null">
+                ,id=#{id}
+            </if>
+            <if test="title!=null">
+                ,title=#{title}
+            </if>
+            <if test="src!=null">
+                ,src=#{src}
+            </if>
+            <if test="description!=null">
+                ,description=#{description}
+            </if>
+        </trim>
+        ,updated_at=now()
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM posts WHERE id=#{id}
+    </delete>
+
+
+    <update id="softDelete">
+        UPDATE posts set deleted_at=now() WHERE id=#{id}
+    </update>
+
+    <update id="offline" parameterType="map">
+        UPDATE posts set
+        <if test="online>0">
+            deleted_at = NULL
+        </if>
+        <if test="online &lt;= 0">
+            deleted_at = now()
+        </if>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

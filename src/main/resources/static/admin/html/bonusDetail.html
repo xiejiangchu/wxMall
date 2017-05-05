@@ -73,14 +73,14 @@
                     <div class="form-group">
                         <label>当前图像</label>
                         <div>
-                            <img src="http://wxmall.image.alimmdn.com/{{bonus.url}}@100w_100h" alt="">
+                            <img src="{{img_host}}{{bonus.url}}@100w_100h" alt="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>图像</label>
                         <imageselector paginate="images1" single="true" page-changed="pageChanged1(page)"
-                                       image-selected="image"></imageselector>
+                                       image-selected="image" img_host="{{$parent.img_host}}"></imageselector>
                     </div>
                     <div class="form-group">
                         <button ng-click="delete()" type="button" class="btn btn-primary ">删除</button>

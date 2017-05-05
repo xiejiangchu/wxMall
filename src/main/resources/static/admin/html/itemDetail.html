@@ -89,7 +89,7 @@
                     <div class="form-group">
                         <label>当前图像</label>
                         <div>
-                            <img src="http://wxmall.image.alimmdn.com/{{item.thumb}}@100w_100h" alt="">
+                            <img src="{{img_host}}{{item.thumb}}@100w_100h" alt="">
                         </div>
                     </div>
 
@@ -97,20 +97,20 @@
                         <label>详情图像</label>
                         <div>
                             <img ng-repeat="img in item.imageList"
-                                 src="http://wxmall.image.alimmdn.com/{{img.uri}}@100w_100h" alt="">
+                                 src="{{img_host}}{{img.uri}}@100w_100h" alt="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>首页图像</label>
                         <imageselector paginate="images1" single="true" page-changed="pageChanged1(page)"
-                                       image-selected="masterImageSelected"></imageselector>
+                                       image-selected="masterImageSelected" img-host="{{img_host}}"></imageselector>
                     </div>
                     <!-- textarea -->
                     <div class="form-group">
                         <label>详情图像</label>
                         <imageselector paginate="images2" single="false" page-changed="pageChanged2(page)"
-                                       image-selected="slaveImageSelected"></imageselector>
+                                       image-selected="slaveImageSelected" img-host="{{img_host}}"></imageselector>
                     </div>
 
                     <div class="form-group">

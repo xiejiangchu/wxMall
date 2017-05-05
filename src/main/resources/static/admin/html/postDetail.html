@@ -3,12 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            广告位详情
+            文章详情
             <small>Version 2.0</small>
         </h1>
         <ol class="breadcrumb">
             <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">广告位详情</li>
+            <li class="active">文章详情</li>
         </ol>
     </section>
 
@@ -42,42 +42,19 @@
                 <form role="form">
 
                     <div class="form-group">
-                        <label>广告位是否显示</label>
-                        <div class="radio">
-                            <label>
-                                <input ng-model="banner.is_show" ng-checked="banner.is_show==0" type="radio"
-                                       name="online" value="0">
-                                不显示
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input ng-model="banner.is_show" ng-checked="banner.is_show==1" type="radio"
-                                       name="online" value="1">
-                                显示
-                            </label>
-                        </div>
+                        <label>标题</label>
+                        <textarea ng-model="post.title" name="title" class="form-control" rows="3"
+                                  placeholder="标题..."></textarea>
                     </div>
-
                     <div class="form-group">
-                        <label>文字描述</label>
-                        <input ng-model="banner.tip" type="text" class="form-control" placeholder="文字描述">
+                        <label>详细描述</label>
+                        <textarea mb-simplemde="options" ng-model="post.description"></textarea>
                     </div>
-
-
-                    <select2 options="cid1" title="一级分类"
-                             item-selected="itemSelected1(id)"></select2>
-
-                    <select2 options="cid2" title="二级分类"
-                             item-selected="itemSelected2(id)"></select2>
-
-                    <select2 options="gid" title="跳转目标" init-item="{{banner.target}}"
-                             item-selected="itemSelected3(id)"></select2>
 
                     <div class="form-group">
                         <label>当前图像</label>
                         <div>
-                            <img src="{{$parent.img_host}}{{banner.url}}@100w_100h" alt="">
+                            <img src="{{img_host}}{{post.src}}@100w_100h" alt="">
                         </div>
                     </div>
 

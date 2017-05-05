@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-1" ng-repeat="item in paginate.list">
         <div ng-click="itemSelected(item.id)" class="table-bordered {{check(item.id)? 'image-selected':''}}">
-            <img class="img-responsive" src="http://wxmall.image.alimmdn.com/{{item.uri}}@100w_100h" alt="Photo">
+            <img class="img-responsive" src="{{imgHost}}{{item.uri}}@100w_100h" alt="Photo">
         </div>
     </div>
 </div>

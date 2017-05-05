@@ -146,6 +146,7 @@ mall.directive('alert', function () {
         restrict: 'EA',
         scope: {
             options: "=",
+            imgHost: "@",
             pageChanged: "&",
             itemClick: "&",
             itemDelete: "&",
@@ -156,6 +157,9 @@ mall.directive('alert', function () {
         link: function (scope, element, attrs) {
             scope.$watch('options.paginate', handleModelUpdates, true);
             scope.$watch('options.title', titleChanged, true);
+            scope.$watch('imgHost', function (newData) {
+                scope.imgHost = newData || "";
+            }, true);
 
             function titleChanged(newData) {
                 scope.options.title = newData || "";
@@ -171,6 +175,7 @@ mall.directive('alert', function () {
         restrict: 'EA',
         scope: {
             options: "=",
+            imgHost: "@",
             pageChanged: "&",
             itemClick: "&",
             itemDelete: "&",
@@ -181,7 +186,37 @@ mall.directive('alert', function () {
         link: function (scope, element, attrs) {
             scope.$watch('options.paginate', handleModelUpdates, true);
             scope.$watch('options.title', titleChanged, true);
+            scope.$watch('imgHost', function (newData) {
+                scope.imgHost = newData || "";
+            }, true);
+            function titleChanged(newData) {
+                scope.options.title = newData || "";
+            }
 
+            function handleModelUpdates(newData) {
+                scope.options.paginate = newData || {};
+            }
+        }
+    };
+}).directive('datatablepost', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: "=",
+            imgHost: "@",
+            pageChanged: "&",
+            itemClick: "&",
+            itemDelete: "&",
+            itemOnline: "&",
+            itemOffline: "&"
+        },
+        templateUrl: '/admin/template/dataTablePost.html',
+        link: function (scope, element, attrs) {
+            scope.$watch('options.paginate', handleModelUpdates, true);
+            scope.$watch('options.title', titleChanged, true);
+            scope.$watch('imgHost', function (newData) {
+                scope.imgHost = newData || "";
+            }, true);
             function titleChanged(newData) {
                 scope.options.title = newData || "";
             }
@@ -196,6 +231,7 @@ mall.directive('alert', function () {
         restrict: 'EA',
         scope: {
             options: "=",
+            imgHost: "@",
             pageChanged: "&",
             itemDelete: "&"
         },
@@ -203,7 +239,9 @@ mall.directive('alert', function () {
         link: function (scope, element, attrs) {
             scope.$watch('options.paginate', handleModelUpdates, true);
             scope.$watch('options.title', titleChanged, true);
-
+            scope.$watch('imgHost', function (newData) {
+                scope.imgHost = newData || "";
+            }, true);
             function titleChanged(newData) {
                 scope.options.title = newData || "";
             }
@@ -242,6 +280,7 @@ mall.directive('alert', function () {
         restrict: 'EA',
         scope: {
             paginate: "=",
+            imgHost: "@",
             imageSelected: "=",
             pageChanged: "&",
             single: '='
@@ -256,6 +295,9 @@ mall.directive('alert', function () {
                 scope.imageSelected = newData || [];
             }, true);
 
+            scope.$watch('imgHost', function (newData) {
+                scope.imgHost = newData || "";
+            }, true);
             scope.itemSelected = function (id) {
 
                 if (scope.single) {
@@ -333,7 +375,7 @@ mall.directive('alert', function () {
                         if (scope.radio) {
                             $(self.target).siblings().removeClass("search_focus");
                             scope.attList = [];
-                            scope.attList. push(item.value);
+                            scope.attList.push(item.value);
                         } else {
                             scope.attList.push(item.value);
                         }

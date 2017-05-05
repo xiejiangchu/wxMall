@@ -16,23 +16,19 @@
         <table class="table table-hover table-sticky-header">
             <tr>
                 <th>ID</th>
-                <th>名称</th>
-                <th>跳转</th>
-                <th>是否上架</th>
+                <th>标题</th>
+                <th>图像</th>
                 <th>操作</th>
             </tr>
             <tr ng-repeat="item in options.paginate.list">
                 <td>{{item.id}}</td>
                 <td>
-                    <a href="{{imgHost}}{{item.url}}" target="_blank">
-                        <img src="{{imgHost}}{{item.url}}" alt=""
-                             style="height:25px;width: 25px;;">
-                    </a>
-                    {{item.tip}}
+                    {{item.title}}
                 </td>
-                <td>{{item.gid_name}}({{item.target}})</td>
-                <td class="{{item.is_show==1? 'text-success':'text-danger'}}">{{item.is_show==1? '是':'否'}}</td>
-
+                <td><a href="{{imgHost}}{{item.src}}" target="_blank">
+                    <img src="{{imgHost}}{{item.src}}" alt=""
+                         style="height:25px;width: 25px;;">
+                </a></td>
                 <td>
                     <a data-ng-click="itemClick({id:item.id})" href="javascript:void(0);">
                         <i class="fa fa-edit text-blue"></i>

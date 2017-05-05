@@ -57,6 +57,7 @@
         <typeAlias type="com.xie.bean.CategoryFood" alias="CategoryFood"/>
         <typeAlias type="com.xie.bean.CnArea" alias="CnArea"/>
         <typeAlias type="com.xie.bean.BonusExchange" alias="BonusExchange"/>
+        <typeAlias type="com.xie.bean.Post" alias="Post"/>
     </typeAliases>
 
     <plugins>

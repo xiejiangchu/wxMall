@@ -1,5 +1,6 @@
 package com.xie.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.xie.bean.Order;
 import com.xie.pay.model.OrderReturnInfo;
@@ -57,8 +58,11 @@ public interface OrderService {
 
     int cancelOrder(int oid);
 
+    int updatePrepayId(int oid,String prepay_id);
+
     OrderCountDto orderCount(int uid);
 
     OrderReturnInfo pay(int uid, int oid, String ip) throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, IOException, IllegalAccessException, UnrecoverableKeyException;
 
+    JSONObject sign(String repay_id);
 }

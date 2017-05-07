@@ -1,5 +1,6 @@
 package com.xie.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.xie.utils.DoubleSerializer;
 
@@ -49,6 +50,8 @@ public class Order implements Serializable {
     private String road;
     private String address;
     private String message;
+    @JsonIgnore
+    private String prepay_id;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
@@ -371,6 +374,14 @@ public class Order implements Serializable {
 
     public void setOrder_total(double order_total) {
         this.order_total = order_total;
+    }
+
+    public String getPrepay_id() {
+        return prepay_id;
+    }
+
+    public void setPrepay_id(String prepay_id) {
+        this.prepay_id = prepay_id;
     }
 }
 

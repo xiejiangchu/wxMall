@@ -13,11 +13,39 @@ public class OrderInfo {
     private String sign;// 签名
     private String body;// 商品描述
     private String out_trade_no;// 商户订单号
-    private int total_fee;// 标价金额 ,单位为分
+    private Integer total_fee;// 标价金额 ,单位为分
     private String spbill_create_ip;// 终端IP
     private String notify_url;// 通知地址
     private String trade_type;// 交易类型
     private String openid;//用户标识
+
+    private String device_info;
+    private String attach;
+    private String detail;
+
+    public String getAttach() {
+        return attach;
+    }
+
+    public void setAttach(String attach) {
+        this.attach = attach;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getDevice_info() {
+        return device_info;
+    }
+
+    public void setDevice_info(String device_info) {
+        this.device_info = device_info;
+    }
 
     public String getSign_type() {
         return sign_type;
@@ -83,11 +111,11 @@ public class OrderInfo {
         this.out_trade_no = out_trade_no;
     }
 
-    public int getTotal_fee() {
+    public Integer getTotal_fee() {
         return total_fee;
     }
 
-    public void setTotal_fee(int total_fee) {
+    public void setTotal_fee(Integer total_fee) {
         this.total_fee = total_fee;
     }
 

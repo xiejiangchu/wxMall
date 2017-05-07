@@ -1,11 +1,9 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Order;
-import com.xie.pay.model.OrderReturnInfo;
 import com.xie.response.BaseResponse;
 import com.xie.response.OrderCheckDto;
 import com.xie.service.OrderService;
-import com.xie.utils.IpUtils;
 import com.xie.utils.MallConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,12 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,6 +22,8 @@ import java.util.Date;
 @Controller
 @RequestMapping(value = "/order")
 public class OrderController extends BaseController {
+
+    protected final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
     @Autowired
     private OrderService orderService;
@@ -255,13 +249,6 @@ public class OrderController extends BaseController {
         } else {
             return BaseResponse.fail();
         }
-    }
-
-    @RequestMapping(value = "/pay", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResponse pay(@RequestParam("oid") int oid, HttpServletRequest request) throws IllegalAccessException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException, IOException {
-        OrderReturnInfo result = orderService.pay(getUid(), oid, IpUtils.getIpAddr(request));
-        return BaseResponse.ok(result);
     }
 
 }

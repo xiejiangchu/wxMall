@@ -1,17 +1,19 @@
 package com.xie.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.thoughtworks.xstream.XStream;
 import com.xie.auth.MyUserDetails;
 import com.xie.bean.*;
-import com.xie.config.WxPayConfig;
+import com.xie.config.MyWxPayConfig;
 import com.xie.dao.OrderDao;
 import com.xie.enums.*;
 import com.xie.pay.common.HttpRequest;
 import com.xie.pay.common.Signature;
 import com.xie.pay.model.OrderInfo;
 import com.xie.pay.model.OrderReturnInfo;
+import com.xie.pay.model.SignInfo;
 import com.xie.response.OrderCheckDto;
 import com.xie.response.OrderCountDto;
 import com.xie.service.*;
@@ -46,6 +48,8 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
+
+    protected final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
     @Autowired
     private OrderDao orderDao;
@@ -110,6 +114,8 @@ public class OrderServiceImpl implements OrderService {
                     }
                 }
             }
+            order.setOrderItems(orderItemService.getByOid(id));
+            order.setUser(userService.getById(order.getUid()));
         }
         return order;
     }
@@ -594,6 +600,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int updatePrepayId(int oid,String prepay_id) {
+        return orderDao.updatePrepayId(oid,prepay_id);
+    }
+
+    @Override
     public OrderCountDto orderCount(int uid) {
         OrderCountDto orderCountDto = new OrderCountDto();
         orderCountDto.setOrder_pay(orderDao.countByStatus(uid, Arrays.asList(OrderState.进行中.value()), Arrays.asList(PayState.未支付.value()), Arrays.asList(ShipState.待配送.value()), Arrays.asList(PackageState.未打包.value())));
@@ -634,27 +645,57 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.getById(oid);
 
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setAppid(WxPayConfig.getAppID());
-        orderInfo.setMch_id(WxPayConfig.getMch_id());
+        orderInfo.setAppid(MyWxPayConfig.getAppId());
+        orderInfo.setMch_id(MyWxPayConfig.getMch_id());
         orderInfo.setNonce_str(StringUtils.randomString(32));
-        orderInfo.setBody("dfdfdf");
+        orderInfo.setBody("腾讯充值中心-QQ会员充值");
         orderInfo.setOut_trade_no(order.getNO());
         orderInfo.setTotal_fee((int) (order.getOrder_money() * 100));
-        orderInfo.setSpbill_create_ip("123.57.218.54");
-        orderInfo.setNotify_url(WxPayConfig.getNotify_url());
+        orderInfo.setSpbill_create_ip(ip);
+        orderInfo.setNotify_url(MyWxPayConfig.getNotify_url());
         orderInfo.setTrade_type("JSAPI");
         orderInfo.setOpenid(user.getOpenId());
         orderInfo.setSign_type("MD5");
+
         //生成签名
         String sign = Signature.getSign(orderInfo);
         orderInfo.setSign(sign);
 
         String result = HttpRequest.sendPost("https://api.mch.weixin.qq.com/pay/unifiedorder", orderInfo);
-        System.out.println(result);
-        XStream xStream = new XStream();
-        xStream.alias("xml", OrderReturnInfo.class);
-
-        OrderReturnInfo returnInfo = (OrderReturnInfo) xStream.fromXML(result);
+        logger.info("请求支付结果{}",result);
+        OrderReturnInfo returnInfo = null;
+        if (null != result) {
+            XStream xStream = new XStream();
+            xStream.alias("xml", OrderReturnInfo.class);
+            returnInfo = (OrderReturnInfo) xStream.fromXML(result);
+            returnInfo.setTimeStamp(DateTime.now().toDate());
+        }
         return returnInfo;
+    }
+
+    @Override
+    public JSONObject sign(String repay_id) {
+        try {
+            long time = System.currentTimeMillis() / 1000;
+            SignInfo signInfo = new SignInfo();
+            signInfo.setAppId(MyWxPayConfig.getAppId());
+            signInfo.setTimeStamp(String.valueOf(time));
+            signInfo.setNonceStr(StringUtils.randomNumber(32));
+            signInfo.setRepay_id("prepay_id=" + repay_id);
+            signInfo.setSignType("MD5");
+            //生成签名
+            String sign = Signature.getSign(signInfo);
+
+            JSONObject json = new JSONObject();
+            json.put("timeStamp", signInfo.getTimeStamp());
+            json.put("nonceStr", signInfo.getNonceStr());
+            json.put("package", signInfo.getRepay_id());
+            json.put("signType", signInfo.getSignType());
+            json.put("paySign", sign);
+            return json;
+        } catch (Exception e) {
+            logger.info("签名失败");
+        }
+        return null;
     }
 }

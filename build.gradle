@@ -79,5 +79,6 @@ dependencies {
     compile('org.bouncycastle:bcprov-jdk15on:1.56')
 
     compile 'com.github.binarywang:weixin-java-mp:2.6.0'
+    compile 'com.github.binarywang:weixin-java-pay:2.6.0'
 
 }

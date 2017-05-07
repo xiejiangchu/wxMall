@@ -1,6 +1,9 @@
 package com.xie.pay.model;
 
+import java.util.Date;
+
 public class OrderReturnInfo {
+    private Date timeStamp;
     private String return_code;
     private String return_msg;
     private String result_code;
@@ -83,4 +86,11 @@ public class OrderReturnInfo {
         this.trade_type = trade_type;
     }
 
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 }

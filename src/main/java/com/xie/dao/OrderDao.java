@@ -73,6 +73,7 @@ public class OrderDao extends BaseDao {
         map.put("end", end);
         return this.sqlSession.selectOne("OrderMapper.count", map);
     }
+
     public List<Order> getAllByUid(int uid) {
         return this.sqlSession.selectList("OrderMapper.getAllByUid", uid);
     }
@@ -85,6 +86,7 @@ public class OrderDao extends BaseDao {
         this.sqlSession.insert("OrderMapper.insert", item);
         return item.getId();
     }
+
     public int update(Order item) {
         return this.sqlSession.update("OrderMapper.update", item);
     }
@@ -124,6 +126,13 @@ public class OrderDao extends BaseDao {
     public int softDelete(int id) {
         Assert.isTrue(id > 0);
         return this.sqlSession.update("OrderMapper.softDelete", id);
+    }
+
+    public int updatePrepayId(int id, String prepay_id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("prepay_id", prepay_id);
+        return this.sqlSession.update("OrderMapper.updatePrepayId", map);
     }
 
 }

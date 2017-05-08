@@ -11,6 +11,7 @@ import com.github.binarywang.wxpay.util.SignUtils;
 import com.xie.bean.Order;
 import com.xie.bean.User;
 import com.xie.config.MyWxPayConfig;
+import com.xie.enums.PayState;
 import com.xie.pay.common.Signature;
 import com.xie.service.OrderService;
 import com.xie.service.PayService;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,11 +109,11 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public Map<String,String> getPayInfo(String prepayId) {
+    public Map<String, String> getPayInfo(String prepayId) {
         if (org.apache.commons.lang3.StringUtils.isBlank(prepayId)) {
             logger.error("无法获取prepay id{}", prepayId);
         }
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("appId", MyWxPayConfig.getAppId());
         map.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000));
         map.put("nonceStr", StringUtils.randomNumber(32));
@@ -168,12 +170,28 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public WxPayOrderNotifyResult payResult(String xmlData) {
+    public WxPayOrderNotifyResult payResult(String xmlData) throws WxErrorException {
+        WxPayOrderNotifyResult result = wxService.getOrderNotifyResult(xmlData);
+        String orderNo = result.getOutTradeNo();
+        if (null != orderNo) {
+            Order order = orderService.getByNo(orderNo);
+            if (null == order) {
+                logger.info("订单找不到{}", xmlData);
+            } else {
+                order.setPay_status(PayState.已支付.value());
+                orderService.update(order);
+            }
+
+        }
+        return result;
+    }
+
+    @Override
+    public File downloadBill(String billDate, String billType, String tarType, String deviceInfo) {
         try {
-            WxPayOrderNotifyResult result = wxService.getOrderNotifyResult(xmlData);
-            return result;
+            return wxService.downloadBill(billDate, billType, tarType, deviceInfo);
         } catch (WxErrorException e) {
-            logger.error("订单通知失败{}", e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

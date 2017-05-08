@@ -20,6 +20,11 @@ public class OrderDao extends BaseDao {
         return this.sqlSession.selectOne("OrderMapper.getById", id);
     }
 
+    public Order getByNo(String no) {
+        Assert.isTrue(no != null, "订单编号不能为空");
+        return this.sqlSession.selectOne("OrderMapper.getByNo", no);
+    }
+
     public List<Order> getByStatus(Integer uid, List<Integer> order_status, List<Integer> pay_status, List<Integer> ship_status, List<Integer> package_status) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", uid);

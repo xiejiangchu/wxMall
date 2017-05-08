@@ -70,6 +70,48 @@
         where id=#{id}
     </select>
 
+    <select id="getByNo" resultMap="OrderResult">
+        SELECT
+        id,
+        `NO`,
+        uid,
+        confirmed,
+        order_status,
+        pay_status,
+        ship_status,
+        package_status,
+        order_total,
+        order_amount,
+        order_weight,
+        order_money,
+        order_amount_real,
+        order_money_real,
+        bid,
+        bonus,
+        point,
+        point_used,
+        pid,
+        payment,
+        send_date,
+        time_start,
+        time_end,
+        address_id,
+        mobile,
+        receiver,
+        province,
+        city,
+        district,
+        road,
+        address,
+        message,
+        prepay_id,
+        created_at,
+        updated_at,
+        deleted_at
+        FROM orders
+        where `NO`=#{no}
+    </select>
+
     <select id="count" resultType="Integer">
         SELECT count(1) FROM orders
         WHERE order_status NOT IN (200,500)

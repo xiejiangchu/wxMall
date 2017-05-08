@@ -121,6 +121,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getByNo(String no) {
+        return orderDao.getByNo(no);
+    }
+
+    @Override
     public PageInfo<Order> getAllByUid(int uid, int pageNum, int pageSize) {
         PageInfo<Order> page = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> orderDao.getAllByUid(uid));
         return page;

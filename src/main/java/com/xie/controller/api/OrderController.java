@@ -1,6 +1,7 @@
 package com.xie.controller.api;
 
 import com.xie.bean.Order;
+import com.xie.pay.common.StreamUtil;
 import com.xie.response.BaseResponse;
 import com.xie.response.OrderCheckDto;
 import com.xie.service.OrderService;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -249,6 +252,15 @@ public class OrderController extends BaseController {
         } else {
             return BaseResponse.fail();
         }
+    }
+
+    @RequestMapping(value = "/payResult", method = RequestMethod.GET)
+    @ResponseBody
+    public String payResult(HttpServletRequest request) throws IOException {
+        String reqParams = StreamUtil.read(request.getInputStream());
+        logger.info("-------支付结果:" + reqParams);
+        StringBuffer sb = new StringBuffer("<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>");
+        return sb.toString();
     }
 
 }

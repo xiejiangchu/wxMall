@@ -147,13 +147,13 @@
                             <div class="form-group">
                                 <label>首页图像</label>
                                 <imageselector paginate="images1" single="true" page-changed="pageChanged1(page)"
-                                               image-selected="masterImageSelected"></imageselector>
+                                               image-selected="masterImageSelected" img-host="{{img_host}}"></imageselector>
                             </div>
                             <!-- textarea -->
                             <div class="form-group">
                                 <label>详情图像</label>
                                 <imageselector paginate="images2" single="false" page-changed="pageChanged2(page)"
-                                               image-selected="slaveImageSelected"></imageselector>
+                                               image-selected="slaveImageSelected" img-host="{{img_host}}"></imageselector>
                             </div>
 
                             <div class="form-group">

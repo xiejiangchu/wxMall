@@ -1,8 +1,10 @@
 package com.xie.controller.api;
 
+import com.xie.bean.Error;
 import com.xie.bean.SysConfig;
 import com.xie.request.SysConfigDto;
 import com.xie.response.BaseResponse;
+import com.xie.service.ErrorService;
 import com.xie.service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.*;
 public class SysConfigController extends BaseController {
 
     @Autowired
-    SystemConfigService systemConfigService;
+    private ErrorService errorService;
+
+    @Autowired
+    private SystemConfigService systemConfigService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -29,6 +34,24 @@ public class SysConfigController extends BaseController {
     @ResponseBody
     BaseResponse list() {
         return BaseResponse.ok(systemConfigService.getAll());
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.POST)
+    @ResponseBody
+    BaseResponse error(@RequestBody Error error) {
+        int result = errorService.insert(error);
+        if (result > 0) {
+            return BaseResponse.ok();
+        } else {
+            return BaseResponse.fail();
+        }
+    }
+
+    @RequestMapping(value = "/errors", method = RequestMethod.GET)
+    @ResponseBody
+    BaseResponse errors(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                        @RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
+        return BaseResponse.ok(errorService.getAll(pageNum,pageSize));
     }
 
 
@@ -70,7 +93,7 @@ public class SysConfigController extends BaseController {
     @ResponseBody
     @PreAuthorize(value = "hasRole('ROLE_admin')")
     public BaseResponse saveQuestionAndAbout(@RequestBody SysConfigDto sysConfigDto) {
-        return BaseResponse.ok(systemConfigService.saveQuestionAndAbout(sysConfigDto.getQuestions(), sysConfigDto.getAbout(),sysConfigDto.getNotice()));
+        return BaseResponse.ok(systemConfigService.saveQuestionAndAbout(sysConfigDto.getQuestions(), sysConfigDto.getAbout(), sysConfigDto.getNotice()));
     }
 
     @RequestMapping(value = "/questions", method = RequestMethod.GET)

@@ -1,0 +1,32 @@
+<div class="box">
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover table-sticky-header">
+            <tr>
+                <th>ID</th>
+                <th>内容</th>
+                <th>修改时间</th>
+            </tr>
+            <tr ng-repeat="item in options.paginate.list">
+                <td>{{item.id}}</td>
+                <td>
+                    {{item.description}}
+                </td>
+                <td>{{item.created_at | date : 'yyyy-MM-dd hh:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a data-ng-click="pageChanged({page:options.paginate.firstPage})">&laquo;</a></li>
+                <li ng-repeat="pageNum in options.paginate.navigatepageNums"
+                    class="{{pageNum==options.paginate.pageNum? 'active':''}}">
+                    <a data-ng-click="pageChanged({page:pageNum})">{{pageNum}}</a>
+                </li>
+                <li><a data-ng-click="pageChanged({page:options.paginate.lastPage})">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>

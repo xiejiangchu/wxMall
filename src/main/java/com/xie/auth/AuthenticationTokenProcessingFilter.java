@@ -47,6 +47,11 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
 //        ========================================           测试              ==================================================================
+
+        if(httpServletRequest.getRequestURL().toString().endsWith("/user/login")){
+            chain.doFilter(request, response);
+            return;
+        }
         String refer = httpServletRequest.getHeader("Referer");
         if (refer != null && refer.contains("swagger")) {
             MyUserDetails myUserDetails = (MyUserDetails) myUserDetailsService.loadUserByUsername("admin");

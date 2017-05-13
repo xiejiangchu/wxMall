@@ -41,6 +41,10 @@ mall.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         url: '/postList/:page',
         templateUrl: '/admin/html/postList.html',
         controller: 'postListController'
+    }).state('app', {
+        url: '/appList/:page',
+        templateUrl: '/admin/html/appList.html',
+        controller: 'appListController'
     }).state('bonus', {
         abstract: true,
         url: '/bonus',

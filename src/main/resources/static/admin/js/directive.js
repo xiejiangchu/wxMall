@@ -66,6 +66,27 @@ mall.directive('alert', function () {
             }
         }
     };
+}).directive('datatableerror', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: "=",
+            pageChanged: "&"
+        },
+        templateUrl: '/admin/template/dataTableError.html',
+        link: function (scope, element, attrs) {
+            scope.$watch('options.paginate', handleModelUpdates, true);
+            scope.$watch('options.title', titleChanged, true);
+
+            function titleChanged(newData) {
+                scope.options.title = newData || "";
+            }
+
+            function handleModelUpdates(newData) {
+                scope.options.paginate = newData || {};
+            }
+        }
+    };
 }).directive('datatablebonustype', function () {
     return {
         restrict: 'EA',

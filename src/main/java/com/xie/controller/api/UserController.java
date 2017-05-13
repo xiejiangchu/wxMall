@@ -103,6 +103,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
     public BaseResponse login(@RequestParam("sessionId") String sessionId, HttpSession session) {
+        System.out.println("hit");
         User user = userService.getBySessionId(sessionId);
         if (null == user) {
             return BaseResponse.fail();

@@ -1,0 +1,60 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ErrorMapper">
+
+    <resultMap id="ErrorResult" type="Error" autoMapping="true">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="description" column="description" javaType="String" jdbcType="VARCHAR"/>
+        <result property="created_at" column="created_at" javaType="Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getById" resultMap="ErrorResult">
+        SELECT
+        id,
+        description,
+        created_at
+        FROM errors
+        WHERE id=#{id}
+    </select>
+
+    <select id="getAll" resultMap="ErrorResult">
+        SELECT
+        id,
+        description,
+        created_at
+        FROM errors
+    </select>
+
+    <select id="count" resultType="integer">
+        SELECT
+        count(1)
+        FROM errors
+    </select>
+
+    <insert id="insert" parameterType="Payment">
+        <selectKey resultType="Integer" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        INSERT INTO errors (
+        <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
+            <if test="description!=null">
+                ,description
+            </if>
+            ,created_at
+        </trim>
+        ) VALUES (
+        <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
+            <if test="description!=null">
+                ,#{description}
+            </if>
+            ,now()
+        </trim>
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM errors WHERE id=#{id}
+    </delete>
+
+</mapper>

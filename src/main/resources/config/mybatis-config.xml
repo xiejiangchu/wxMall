@@ -58,6 +58,7 @@
         <typeAlias type="com.xie.bean.CnArea" alias="CnArea"/>
         <typeAlias type="com.xie.bean.BonusExchange" alias="BonusExchange"/>
         <typeAlias type="com.xie.bean.Post" alias="Post"/>
+        <typeAlias type="com.xie.bean.Error" alias="Error"/>
     </typeAliases>
 
     <plugins>

@@ -66,9 +66,6 @@
         </selectKey>
         INSERT INTO posts (
         <trim prefix="" prefixOverrides="," suffixOverrides="," suffix="">
-            <if test="id!=null">
-                ,id
-            </if>
             <if test="title!=null">
                 ,title
             </if>
@@ -83,9 +80,6 @@
         </trim>
         ) VALUES (
         <trim suffix="" suffixOverrides="," prefix="" prefixOverrides=",">
-            <if test="id!=null">
-                ,#{id}
-            </if>
             <if test="title!=null">
                 ,#{title}
             </if>
@@ -104,9 +98,6 @@
     <update id="update">
         UPDATE posts set
         <trim prefixOverrides="," prefix="" suffix="" suffixOverrides=",">
-            <if test="id!=null">
-                ,id=#{id}
-            </if>
             <if test="title!=null">
                 ,title=#{title}
             </if>

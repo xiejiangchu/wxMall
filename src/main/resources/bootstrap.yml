@@ -2,5 +2,5 @@ spring:
    application:
     name: wxMall
    profiles:
-    active: development
+    active: test
 
